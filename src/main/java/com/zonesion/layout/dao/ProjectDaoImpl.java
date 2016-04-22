@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.page.QueryResult;
 
 /**    
  * @author andieguo andieguo@foxmail.com
@@ -15,29 +16,51 @@ import com.zonesion.layout.model.ProjectEntity;
  */
 public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public List<ProjectEntity> findAll() {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().query("select * from tb_project", 
-				new Object[] {}, new BeanPropertyRowMapper(ProjectEntity.class));
+				new Object[] {}, new BeanPropertyRowMapper<ProjectEntity>(ProjectEntity.class));
+	}
+	
+	@Override
+	public QueryResult<ProjectEntity> findAll(int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		QueryResult<ProjectEntity> queryResult = new QueryResult<ProjectEntity>();
+		List<ProjectEntity> projectList = getJdbcTemplate().query("select * from tb_project where id limit ?,?", 
+					new Object[] {firstindex,maxresult}, new BeanPropertyRowMapper<ProjectEntity>(ProjectEntity.class));
+		int count = getJdbcTemplate().queryForObject("select count(*) from tb_project", Integer.class);
+		queryResult.setResultlist(projectList);
+		queryResult.setTotalrecord(count);
+		return queryResult;
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public ProjectEntity findByProjectId(int pid) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().queryForObject("select * from tb_project where id=?",
-				new BeanPropertyRowMapper(ProjectEntity.class), new Object[]{pid});	}
+				new BeanPropertyRowMapper<ProjectEntity>(ProjectEntity.class), new Object[]{pid});
+	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public List<ProjectEntity> findByAdminId(int aid) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().query("select * from tb_project where aid=?", 
-				new Object[] {aid}, new BeanPropertyRowMapper(ProjectEntity.class));
+				new Object[] {aid}, new BeanPropertyRowMapper<ProjectEntity>(ProjectEntity.class));
 	}
 
+	@Override
+	public QueryResult<ProjectEntity> findByAdminId(int aid, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		QueryResult<ProjectEntity> queryResult = new QueryResult<ProjectEntity>();
+		List<ProjectEntity> projectList = getJdbcTemplate().query("select * from tb_project where aid=? and id limit ?,?", 
+					new Object[] {aid,firstindex,maxresult}, new BeanPropertyRowMapper<ProjectEntity>(ProjectEntity.class));
+		int count = getJdbcTemplate().queryForObject("select count(*) from tb_project where aid=?",new Object[] {aid}, Integer.class);
+		queryResult.setResultlist(projectList);
+		queryResult.setTotalrecord(count);
+		return queryResult;
+	}
+	
 	@Override
 	public int save(ProjectEntity projectEntity) {
 		// TODO Auto-generated method stub

@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
 import com.zonesion.layout.model.AdminEntity;
+import com.zonesion.layout.page.QueryResult;
 
 /**
  * @author andieguo andieguo@foxmail.com
@@ -22,6 +23,20 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().query("select * from tb_admin", 
 				new Object[] {}, new BeanPropertyRowMapper(AdminEntity.class));
+	}
+	
+	@Override
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult) {
+		// TODO Auto-generated method stub
+		QueryResult<AdminEntity> qr = new QueryResult<AdminEntity>();
+		List<AdminEntity> adminList = getJdbcTemplate().query("select * from tb_admin where id limit ?,?", 
+				new Object[] {firstindex,maxresult}, new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class));		
+		//查询记录
+		qr.setResultlist(adminList);
+		int count = getJdbcTemplate().queryForObject("select count(*) from tb_admin", Integer.class);
+		//查询总记录数
+		qr.setTotalrecord(count);
+		return qr;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

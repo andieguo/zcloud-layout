@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.zonesion.layout.dao.TemplateDao;
 import com.zonesion.layout.model.TemplateEntity;
+import com.zonesion.layout.page.QueryResult;
 
 import junit.framework.TestCase;
 
@@ -29,14 +30,24 @@ public class TemplateDaoTest extends TestCase {
 	}
 
 	public void testSave(){
-		int sum = templateDao.save(new TemplateEntity("template2", "JSON", "CONTENT", 1, 1, new Date(), new Date()));
-		System.out.println(sum);
+		for(int i=0;i<100;i++){
+			int sum = templateDao.save(new TemplateEntity("template"+i, "JSON", "CONTENT", i%2, i%2, new Date(), new Date()));
+			System.out.println(sum);
+		}
 	}
 	
 	public void testFindAll(){
 		for(TemplateEntity t : templateDao.findAll()){
 			System.out.println(t);
 		}
+	}
+	
+	public void testFindAllPage(){
+		QueryResult<TemplateEntity> q = templateDao.findAll(10,10);
+		for(TemplateEntity t : q.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q.getTotalrecord());
 	}
 	
 	public void testFindByTemplateId(){
@@ -49,10 +60,36 @@ public class TemplateDaoTest extends TestCase {
 		}
 	}
 	
+	public void testFindByAdminIdPage(){
+		QueryResult<TemplateEntity> q = templateDao.findByAdminId(1,10,10);
+		for(TemplateEntity t : q.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q.getTotalrecord());
+		QueryResult<TemplateEntity> q1 = templateDao.findByAdminId(1,20,10);
+		for(TemplateEntity t : q1.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q1.getTotalrecord());
+	}
+	
 	public void testFindByAdminAndType(){
 		for(TemplateEntity t : templateDao.findByAdminAndType(1, 0)){
 			System.out.println(t);
 		}
+	}
+	
+	public void testFindByAdminAndTypePage(){
+		QueryResult<TemplateEntity> q = templateDao.findByAdminAndType(1,0,0,10);
+		for(TemplateEntity t : q.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q.getTotalrecord());
+		QueryResult<TemplateEntity> q1 = templateDao.findByAdminAndType(1,0,0,10);
+		for(TemplateEntity t : q1.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q1.getTotalrecord());
 	}
 	
 	public void testUpdate(){

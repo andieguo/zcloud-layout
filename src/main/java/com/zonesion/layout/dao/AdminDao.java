@@ -3,6 +3,7 @@ package com.zonesion.layout.dao;
 import java.util.List;
 
 import com.zonesion.layout.model.AdminEntity;
+import com.zonesion.layout.page.QueryResult;
 
 
 /**    
@@ -14,6 +15,8 @@ import com.zonesion.layout.model.AdminEntity;
 public interface AdminDao {
 
 	public List<AdminEntity> findAll();
+	
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult);
 	
 	public AdminEntity findById(int id);
 	

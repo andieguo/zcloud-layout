@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.zonesion.layout.dao.AdminDao;
 import com.zonesion.layout.model.AdminEntity;
+import com.zonesion.layout.page.QueryResult;
 
 import junit.framework.TestCase;
 
@@ -29,8 +30,9 @@ public class AdminDaoTest extends TestCase{
 	}
 	
 	public void testRegister(){
-		int sum = adminDao.register(new AdminEntity("andy", "andy", "123456","123456@qq.com", 0, 0, new Date(), new Date()));
-		System.out.println("sum:"+sum);
+		for(int i=0;i<100;i++){
+			adminDao.register(new AdminEntity("andy"+i, "andy"+i, "123456","123456@qq.com", 0, 0, new Date(), new Date()));
+		}
 	}
 	
 	public void testFindById(){
@@ -49,6 +51,23 @@ public class AdminDaoTest extends TestCase{
 	
 	public void testFindAll(){
 		for(AdminEntity admin: adminDao.findAll()){
+			System.out.println(admin);
+		}
+	}
+	//第0页
+	public void testFindAllPage0(){
+		QueryResult<AdminEntity> queryResult = adminDao.findAll(0, 10);
+		System.out.println(queryResult.getTotalrecord());
+		for(AdminEntity admin:queryResult.getResultlist()){
+			System.out.println(admin);
+		}
+	}
+	
+	//第0页
+	public void testFindAllPage1(){
+		QueryResult<AdminEntity> queryResult = adminDao.findAll(0+10, 10);
+		System.out.println(queryResult.getTotalrecord());
+		for(AdminEntity admin:queryResult.getResultlist()){
 			System.out.println(admin);
 		}
 	}
