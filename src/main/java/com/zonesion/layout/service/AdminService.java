@@ -3,6 +3,7 @@ package com.zonesion.layout.service;
 import java.util.List;
 
 import com.zonesion.layout.model.AdminEntity;
+import com.zonesion.layout.page.QueryResult;
 
 /**    
  * @author andieguo andieguo@foxmail.com
@@ -13,6 +14,8 @@ import com.zonesion.layout.model.AdminEntity;
 public interface AdminService {
 	
 	public List<AdminEntity> findAll();
+	
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult);
 	
 	public AdminEntity findById(int id);
 	

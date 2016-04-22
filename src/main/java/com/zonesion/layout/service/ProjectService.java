@@ -3,6 +3,7 @@ package com.zonesion.layout.service;
 import java.util.List;
 
 import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.page.QueryResult;
 
 /**    
  * @author andieguo andieguo@foxmail.com
@@ -12,11 +13,16 @@ import com.zonesion.layout.model.ProjectEntity;
  */
 public interface ProjectService {
 
+
 	public List<ProjectEntity> findAll();
+	
+	public QueryResult<ProjectEntity> findAll(int firstindex,int maxresult);
 	
 	public ProjectEntity findByProjectId(int pid);
 	
 	public List<ProjectEntity> findByAdminId(int aid);
+	
+	public QueryResult<ProjectEntity> findByAdminId(int aid,int firstindex,int maxresult);
 	
 	public int save(ProjectEntity projectEntity);
 	

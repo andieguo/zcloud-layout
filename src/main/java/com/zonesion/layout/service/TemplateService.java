@@ -3,6 +3,7 @@ package com.zonesion.layout.service;
 import java.util.List;
 
 import com.zonesion.layout.model.TemplateEntity;
+import com.zonesion.layout.page.QueryResult;
 
 /**    
  * @author andieguo andieguo@foxmail.com
@@ -12,13 +13,22 @@ import com.zonesion.layout.model.TemplateEntity;
  */
 public interface TemplateService {
 
-	public List<TemplateEntity> findAll();
+public List<TemplateEntity> findAll();
+	
+	public QueryResult<TemplateEntity> findAll(int firstindex, int maxresult);
 	
 	public TemplateEntity findByTemplateId(int tid);
 	
 	public List<TemplateEntity> findByAdminId(int aid);
 	
+	public QueryResult<TemplateEntity> findByAdminId(int aid,int firstindex, int maxresult);
+	
+	/**
+	 * 根据管理员id和模板类型获取模板
+	 */
 	public List<TemplateEntity> findByAdminAndType(int aid,int type);
+	
+	public QueryResult<TemplateEntity> findByAdminAndType(int aid,int type,int firstindex, int maxresult);
 	
 	public int save(TemplateEntity templateEntity);
 	

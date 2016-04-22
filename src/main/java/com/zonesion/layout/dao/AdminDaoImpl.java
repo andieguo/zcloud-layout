@@ -17,12 +17,11 @@ import com.zonesion.layout.page.QueryResult;
  */
 public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public List<AdminEntity> findAll() {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().query("select * from tb_admin", 
-				new Object[] {}, new BeanPropertyRowMapper(AdminEntity.class));
+				new Object[] {}, new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class));
 	}
 	
 	@Override
@@ -39,21 +38,19 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 		return qr;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public AdminEntity findById(int id) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().queryForObject("select * from tb_admin where id=?",
-				new BeanPropertyRowMapper(AdminEntity.class), new Object[]{id});
+				new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{id});
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public boolean login(String nickname,String password) {
 		// TODO Auto-generated method stub
 		try{
 			getJdbcTemplate().queryForObject("select * from tb_admin where nickname=? and password=?", 
-					new BeanPropertyRowMapper(AdminEntity.class), new Object[]{nickname,password});
+					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{nickname,password});
 		}catch(Exception e){
 			if(e instanceof EmptyResultDataAccessException){
 				return false;
@@ -62,13 +59,12 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 		return true;
 	}
 
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public boolean existAdminName(String nickname) {
 		// TODO Auto-generated method stub
 		try{
 			getJdbcTemplate().queryForObject("select * from tb_admin where nickname=?", 
-					new BeanPropertyRowMapper(AdminEntity.class), new Object[]{nickname});
+					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{nickname});
 		}catch(Exception e){
 			if(e instanceof EmptyResultDataAccessException){
 				return false;

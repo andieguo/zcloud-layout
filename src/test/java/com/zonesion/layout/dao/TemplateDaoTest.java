@@ -1,4 +1,4 @@
-package com.zonesion.layout;
+package com.zonesion.layout.dao;
 
 import java.util.Date;
 
