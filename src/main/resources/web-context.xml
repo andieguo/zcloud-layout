@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans     
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc 
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 启动扫描所有的controller和validate --> 
+    <context:component-scan base-package="com.zonesion.layout.controller"/>
+	<context:component-scan base-package="com.zonesion.layout.validate"/>
+	
+	<!-- 自动注册DefaultAnnotationHandlerMapping与AnnotationMethodHandlerAdapter 两个bean -->
+	<!-- 是spring MVC为@Controllers分发请求所必须的。 -->
+	<!-- 并提供了：数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson）。 -->
+    <mvc:annotation-driven/>
+    
+    <!-- spring会用默认的Servlet来响应静态文件,DefaultServletHttpRequestHandler在容器启动是会使用主流web容器默认servlet的名称列表自动查找容器的默认servlet -->
+	 <mvc:default-servlet-handler/>
+	
+	<!-- mvc:resources建立了一个服务于静态资源的处理器，用于处理静态资源的请求 -->
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	
+    <!-- jsp页面解析器，当Controller返回XXX字符串时，先通过拦截器，然后该类就会在/WEB-INF/views/目录下，查找XXX.jsp文件-->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<!-- 如果jsp页面中使用了一些JSTL标签，需要通过设置viewclass属性来替换InternalResourceViewResolver -->
+    	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+ 		<property name="basenames">    
+	        <list>    
+	            <value>messages/messages</value>  
+	            <value>messages/validation</value>  
+	        </list>
+	    </property> 
+    </bean>
+    
+</beans>
