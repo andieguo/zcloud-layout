@@ -23,6 +23,7 @@
 				<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
 						<form:hidden path="page" />
 						<form:hidden path="id" />
+						<form:hidden path="visible"/>
 						<spring:bind path="nickname">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
 								<label for="nickname">账 号:</label>
@@ -44,13 +45,20 @@
 								<form:errors path="phoneNumber" />
 							</div>
 						</spring:bind>
+						<spring:bind path="role">
+							<div class="form-group">
+								<label for="role">角色:</label>
+		              			<form:select path="role" items="${roleList}" class="form-control" />
+								<form:errors path="role" />
+							</div>
+						</spring:bind>
 					   	<spring:bind path="sex">
 								<div class="form-group sex">
 									<label for="sex">性别：</label>
 									<div>男性：<input  class="form-control"  type="radio" name="sex" value="1" checked="checked"/> 女性：<input  class="form-control"  type="radio" name="sex" value="0"/>  </div>
 									<form:errors path="sex" />
 								</div>
-							</spring:bind>
+						</spring:bind>
 					<div>
 						<input value="修改"  type="submit"></input>
 				   	</div>

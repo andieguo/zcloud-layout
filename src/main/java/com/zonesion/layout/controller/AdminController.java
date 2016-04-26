@@ -78,7 +78,7 @@ public class AdminController {
 	 * @ModelAttribute("listForm") 必不可少:表单的属性通过GET请求传递给后台，填充到listForm对象中。
 	 * Model model 必不可少：数据处理后，通过model将数据返回给前端显示。
 	 */
-	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/list", method = {RequestMethod.POST, RequestMethod.GET})
 	public String list(@ModelAttribute("listForm") AdminForm listForm,Model model) {
 		logger.debug("listAdmins()");
 		int page = listForm.getPage();
@@ -132,6 +132,9 @@ public class AdminController {
 		} else {
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "更新用户信息成功");
+			redirectAttributes.addAttribute("page", editForm.getPage());
+			redirectAttributes.addAttribute("visible", editForm.getVisible());
+			redirectAttributes.addAttribute("role", editForm.getRole());
 			AdminEntity adminEntity = adminService.findById(editForm.getId());//只需要将到form表单需要更新的字段更新到数据库即可（安全）
 			adminEntity.setEmail(editForm.getEmail());
 			adminEntity.setNickname(editForm.getNickname());
@@ -139,14 +142,14 @@ public class AdminController {
 			adminEntity.setSex(editForm.getSex());
 			adminService.update(adminEntity);
 			//重定向传递GET参数有两种方式，方式一
-			return "redirect:/admin/list?page="+editForm.getPage();//跳转到/admin/list
+			return "redirect:/admin/list";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
 		}
 	}
 	
 	/**
 	 * 跳转到更新用户界面
 	 */
-	@RequestMapping(value = "/admin/editUI", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/editUI", method = {RequestMethod.POST, RequestMethod.GET})
 	public String editUI(AdminForm listForm, Model model) {
 		logger.debug("showUpdateAdminForm() : "+listForm.getId());
 		AdminEntity adminEntity = adminService.findById(listForm.getId());
@@ -157,6 +160,8 @@ public class AdminController {
 		admin.setSex(adminEntity.getSex());
 		admin.setId(listForm.getId());
 		admin.setPage(listForm.getPage());
+		admin.setVisible(listForm.getVisible());
+		admin.setRole(listForm.getRole());
 		model.addAttribute("editForm", admin);
 		return "manager/editAdmin";//跳转到manager/editAdmin.jsp页面
 	}
@@ -164,15 +169,18 @@ public class AdminController {
 	/**
 	 * 管理员删除用户
 	 */
-	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/delete", method = {RequestMethod.POST, RequestMethod.GET})
 	public String delete(AdminForm listForm,
 			final RedirectAttributes redirectAttributes) {
 		logger.debug("deleteAdmin() : "+listForm.getId());
 		adminService.enable(listForm.getId(),listForm.getDeleted());
+		//addFlashAttribute表示如果F5的时候，会发现参数丢失
 		redirectAttributes.addFlashAttribute("css", "success");
 		redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
-		//重定向传递GET参数有两种方式，方式二
+		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
 		redirectAttributes.addAttribute("page", listForm.getPage());//重定向传递参数，删除后跳转到page页
+		redirectAttributes.addAttribute("visible", listForm.getVisible());
+		redirectAttributes.addAttribute("role", listForm.getRole());
 		return "redirect:/admin/list";
 	}
 }

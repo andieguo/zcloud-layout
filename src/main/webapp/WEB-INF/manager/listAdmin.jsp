@@ -17,7 +17,7 @@
 	<body>
 		<div class="content_box">
 				<spring:url value="/admin/list" var="userActionUrl" />
-				<form:form class="form-horizontal" method="get" modelAttribute="listForm" action="${userActionUrl}">
+				<form:form class="form-horizontal" method="post" modelAttribute="listForm" action="${userActionUrl}">
 				<form:hidden path="page" />
 				<form:hidden path="id" />
 				<form:hidden path="deleted"/>
