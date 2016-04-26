@@ -15,8 +15,8 @@ import com.zonesion.layout.model.AdminForm;
  * @date 2016年4月22日 下午4:52:42  
  * @version V1.0    
  */
-@Component("adminFormValidator")
-public class AdminFormValidator  implements Validator{
+@Component("adminSaveValidator")
+public class AdminSaveValidator  implements Validator{
 	
 	@Autowired
 	@Qualifier("emailValidator")
@@ -31,6 +31,10 @@ public class AdminFormValidator  implements Validator{
 		// TODO Auto-generated method stub
 		return AdminForm.class.equals(clazz);
 	}
+	
+	public boolean isNotNULL(String content){
+		return content != null && !content.equals("");
+	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
@@ -43,28 +47,28 @@ public class AdminFormValidator  implements Validator{
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.adminForm.email");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sex", "NotEmpty.adminForm.sex");
 		
-		if(admin.getNickname()==null || admin.getNickname().length() > 20){
-			errors.rejectValue("name", "Size.adminForm.nickname");
+		if(isNotNULL(admin.getNickname()) && admin.getNickname().length() > 20){
+			errors.rejectValue("nickname", "Size.adminForm.nickname");
 		}
-		if(admin.getPassword()==null || admin.getPassword().length() > 20){
-			errors.rejectValue("name", "Size.adminForm.password");
+		if(isNotNULL(admin.getPassword()) && admin.getPassword().length() > 20){
+			errors.rejectValue("password", "Size.adminForm.password");
 		}
-		if(admin.getConfirmPassword()==null || admin.getConfirmPassword().length() > 20){
-			errors.rejectValue("name", "Size.adminForm.confirmPassword");
+		if(isNotNULL(admin.getConfirmPassword()) && admin.getConfirmPassword().length() > 20){
+			errors.rejectValue("confirmPassword", "Size.adminForm.confirmPassword");
 		}
-		if(admin.getPhoneNumber()==null || admin.getPhoneNumber().length() > 20){
-			errors.rejectValue("name", "Size.adminForm.phoneNumber");
+		if(isNotNULL(admin.getPhoneNumber()) && admin.getPhoneNumber().length() > 20){
+			errors.rejectValue("phoneNumber", "Size.adminForm.phoneNumber");
 		}
-		if(admin.getEmail()==null || admin.getEmail().length() > 20){
-			errors.rejectValue("name", "Size.adminForm.email");
+		if(isNotNULL(admin.getEmail()) && admin.getEmail().length() > 20){
+			errors.rejectValue("email", "Size.adminForm.email");
 		}
-		if(!emailValidator.valid(admin.getEmail())){
+		if(isNotNULL(admin.getEmail()) && !emailValidator.valid(admin.getEmail())){
 			errors.rejectValue("email", "Pattern.adminForm.email");
 		}
-		if(!phoneValidator.valid(admin.getPhoneNumber())){
+		if(isNotNULL(admin.getPhoneNumber())&& !phoneValidator.valid(admin.getPhoneNumber())){
 			errors.rejectValue("phoneNumber", "Pattern.adminForm.phoneNumber");
 		}
-		if (!admin.getPassword().equals(admin.getConfirmPassword())) {
+		if (isNotNULL(admin.getPassword()) && isNotNULL(admin.getConfirmPassword()) && !admin.getPassword().equals(admin.getConfirmPassword())) {
 			errors.rejectValue("confirmPassword", "Diff.userform.confirmPassword");
 		}
 	}

@@ -1,0 +1,12 @@
+body{
+margin:0px;
+padding:0px;
+font-size:12px;
+font-family: "Î¢ÈíÑÅºÚ";
+}
+.information ,.switch{height:240px;}
+.edit_list span , .add_list span {width:80px;}
+.add_user_cont .btn , .edit_user_cont .btn{margin-left: 130px;}
+.add_user_cont a.btn , .edit_user_cont a.btn{margin-left: 55px;}
+.errorMessage {font-weight: bold;display: inline-block;margin-left:5px;float£ºleft;}
+.errorMessage span{width:150px;text-align:left;color: red;}

@@ -9,7 +9,9 @@ package com.zonesion.layout.model;
 public class AdminForm extends AdminEntity {
 
 	private String confirmPassword;
-	private int page;
+	private int page = 1;
+	private String authCode;
+	private int deleted;
 
 	public String getConfirmPassword() {
 		return confirmPassword;
@@ -26,21 +28,48 @@ public class AdminForm extends AdminEntity {
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
 	}
+	
+	public String getAuthCode() {
+		return authCode;
+	}
+
+	public void setAuthCode(String authCode) {
+		this.authCode = authCode;
+	}
 
 	public AdminForm(String confirmPassword) {
 		super();
 		this.confirmPassword = confirmPassword;
 	}
+	
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
 
 	public AdminForm() {
 		super();
 	}
+	
+	public AdminForm(int page) {
+		super();
+		this.page = page;
+	}
+	
+	public AdminForm(AdminEntity adminEntity){
+		super(adminEntity.getId(), adminEntity.getNickname(), adminEntity.getPassword(), adminEntity.getPhoneNumber(),
+				adminEntity.getEmail(), adminEntity.getSex(), adminEntity.getRole(), adminEntity.getLandingTime(), 
+				adminEntity.getExitTime(), adminEntity.getVisible());
+	}
 
 	@Override
 	public String toString() {
-		return "AdminForm [confirmPassword=" + confirmPassword + ", getId()=" + getId() + ", getNickname()=" + getNickname() + ", getPassword()=" + getPassword() + ", getPhoneNumber()="
-				+ getPhoneNumber() + ", getEmail()=" + getEmail() + ", getSex()=" + getSex() + ", getRole()=" + getRole() + ", getLandingTime()=" + getLandingTime() + ", getExitTime()="
-				+ getExitTime() + ", getVisible()=" + getVisible() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
+		return "AdminForm [confirmPassword=" + confirmPassword + ", page=" + page + ", authCode=" + authCode + ", getId()=" + getId() + ", getNickname()=" + getNickname() + ", getPassword()="
+				+ getPassword() + ", getPhoneNumber()=" + getPhoneNumber() + ", getEmail()=" + getEmail() + ", getSex()=" + getSex() + ", getRole()=" + getRole() + ", getLandingTime()="
+				+ getLandingTime() + ", getExitTime()=" + getExitTime()+ "]";
 	}
 	
 }

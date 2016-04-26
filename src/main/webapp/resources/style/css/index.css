@@ -1,0 +1,24 @@
+.container{margin-top:20px;}
+.map_box{width:100%;height:500px;display:none;margin-left:15px;}
+.container .btn-group{height: 50px;}
+.gate .linkbox{display: block;
+	padding: 4px;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	max-width: 310px;
+	margin-bottom: 30px;
+	border-radius: 0px;
+	border: 1px solid #DDD;
+	cursor: pointer;
+	min-height: 230px;
+}
+.linkbox img{
+	margin-right: auto;
+	margin-left: auto;
+	display: block; 
+	vertical-align: middle;
+	background:url(../../pic/9.png);}
+}
+.entry_name {font-weight: 700;}
+article{text-indent:2em;height:70px;margin-top:5px;text-align:left;overflow: hidden;font-size:12px;word-break:break-all;}

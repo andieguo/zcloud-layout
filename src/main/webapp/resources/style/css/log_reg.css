@@ -1,0 +1,36 @@
+.form-group , .form-control{border-radius: 0px;}
+.login{width:480px;height:320px;margin:40px auto auto auto;border: 1px solid #E1E1E1;}
+.login .form-control{width:325px;height:34px;margin:10px auto;padding:0px;overflow: hidden;}
+.login  label{width:39px;height:34px;background:#EEEEEE;padding:10px;display: inline-block;margin-top: -1px;}
+.login  input{width: 279px;height: 32px;display: inline-block;position: absolute;padding: 6px 12px;border: 0px;}
+.login .btn-success{width: 320px;border-radius: 0px;}
+.login .btn-group{width:320px;margin:10px auto;padding:0px;overflow: hidden;display: block;}
+.login .btn-group img{float:right;}
+.login p{width:320px;min-height:34px;margin:10px auto;text-align:right;}
+.login .authCode{width:190px;float: left;margin-left: 40px;}
+.login .authCode input{width:140px;} 
+.login .code_box{width:120px;float:right;margin-right:40px;}
+.login .code_box img{height:34px;margin-right:-10px;}
+
+.reg{width:480px;height:auto;margin:40px auto;border: 1px solid #E1E1E1;}
+.reg .form-group , .reg .btn-group{width:400px;height:34px;}
+.reg .form-group label{width:60px;height:34px;}
+.reg .form-group input{width:320px;height:34px;display: inline-block;padding: 6px 12px;}
+.reg .form-group a{float:right;margin-top:5px;margin-right:13px;}
+.reg .errorMessage{width: 200px;display: inline-block;margin-top: 5px;}
+.reg p{text-align:right;margin-top:10px;}
+.reg .btn-group{width:320px;min-height:34px;margin:10px 50px;padding:0px;overflow: hidden;display: block;}
+.reg .btn-group .btn-success{width: 320px;border-radius: 0px;}
+.reg p{width:320px;min-height:34px;margin:10px auto;text-align:right;}
+.reg .authCode{width:230px;float: left;}
+.reg .authCode input{width:160px;} 
+.reg .sex{width:190px;float: left;margin-left: 40px;}
+.reg .sex input{width:20px;} 
+.reg .code_box{width:120px;float:right;margin-right:25px;min-height:0px;}
+.reg .code_box img{height:34px;margin-right:-10px;margin-top:-5px;}
+hr{border-color:#E1E1E1;}
+
+form ul li{list-style: none;width:100%;text-align:center;}
+.errorMessage li span{color: #F00;}
+.contril-label{min-width:70px;max-width:100px;height:100%;text-align:center;height: 34px;line-height: 34px;}
+.form-horizontal{width: 400px;margin:30px auto auto auto;}

@@ -1,0 +1,20 @@
+body{
+margin:0px;
+padding:0px;
+font-size:12px;
+font-family: "Î¢ÈíÑÅºÚ";
+}
+.edit_list .name{width:100px;}
+.sensor{height:180px;}
+.actuator{height:150px;}
+.camera{height:150px;}
+.add_user_cont input.btn , .edit_user_cont input.btn{margin-left: 150px;}
+.edit_user_cont a.btn , .add_user_cont a.btn{margin-left: 55px;}
+
+textarea{
+	max-width:180px;
+	max-height:100px;
+	min-width:180px;
+	min-height:100px;
+	resize:none;
+}

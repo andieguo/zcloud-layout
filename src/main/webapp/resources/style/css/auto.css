@@ -1,0 +1,6 @@
+body{padding:0px;margin:0px;font-size:12px;font-family: "Î¢ÈíÑÅºÚ";}
+td.text-left{width:80px;}
+.table th.text-left{text-align:left;}
+th.text-left input {margin-left: 11px;}
+
+.break_all {TABLE-LAYOUT:fixed;WORD-BREAK:break-all}

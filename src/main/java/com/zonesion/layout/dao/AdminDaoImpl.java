@@ -6,6 +6,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
+import com.google.common.collect.Lists;
 import com.zonesion.layout.model.AdminEntity;
 import com.zonesion.layout.page.QueryResult;
 
@@ -33,6 +34,38 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 		//查询记录
 		qr.setResultlist(adminList);
 		int count = getJdbcTemplate().queryForObject("select count(*) from tb_admin", Integer.class);
+		//查询总记录数
+		qr.setTotalrecord(count);
+		return qr;
+	}
+	
+	@Override
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role) {
+		// TODO Auto-generated method stub
+		QueryResult<AdminEntity> qr = new QueryResult<AdminEntity>();
+		StringBuffer sql  = new StringBuffer("select * from tb_admin where 1=1");
+		StringBuffer countSql = new StringBuffer("select count(*) from tb_admin where 1=1");
+		List<Integer> parmas = Lists.newArrayList();
+		List<Integer> countParmas = Lists.newArrayList();
+		if(visible != -1){
+			sql.append(" and visible=?");
+			parmas.add(visible);
+			countSql.append(" and visible=?");
+			countParmas.add(visible);
+		}
+		if(role != -1){
+			sql.append(" and role=?");
+			parmas.add(role);
+			countSql.append(" and role=?");
+			countParmas.add(role);
+		}
+		sql.append(" and id limit ?,?");
+		parmas.add(firstindex);
+		parmas.add(maxresult);
+		List<AdminEntity> adminList = getJdbcTemplate().query(sql.toString(), parmas.toArray(), new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class));	
+		//查询记录
+		qr.setResultlist(adminList);
+		int count = getJdbcTemplate().queryForObject(countSql.toString(), countParmas.toArray(), Integer.class);
 		//查询总记录数
 		qr.setTotalrecord(count);
 		return qr;
@@ -85,6 +118,12 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	public int delete(int id) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update("update tb_admin set visible=0 where id=?",new Object[] {id});	
+	}
+	
+	@Override
+	public int enable(int id,int visible) {
+		// TODO Auto-generated method stub
+		return getJdbcTemplate().update("update tb_admin set visible=? where id=?",new Object[] {visible,id});	
 	}
 
 	@Override

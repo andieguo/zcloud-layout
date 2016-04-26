@@ -1,0 +1,75 @@
+*{margin:0px;padding:0px;}
+body{font-size:12px;font-family: "Î¢ÈíÑÅºÚ";}
+.container{width:1024px;margin-top:20px;}
+a ,li,a:link ,a:hover ,a:active {text-decoration: none;list-style: none outside none;outline:none;}
+tt{font-weight:700;margin-left: 5px;}
+.submit{display: none;}
+td.text-left input{margin-left:11px;}
+th.text-left input{margin-left:0px;}
+th.text-left {width: 80px;}
+.post_list{}
+
+/*ÁÐ±í*/
+.content_box{width:900px;background:#FFF;margin:0 auto;}
+.new_btn{width:100%;height:30px;line-height:30px;color:#333333;}
+.seach_box label{float:left;margin:0px;text-align:right;}
+.seach_box select{width:120px;height:24px;line-height:21px;float:left;padding:0px;padding-left:5px;margin:2px 5px;border-radius: 0px;}
+.seach_box input{width:60px;float:left;margin-left:10px;height:30px;border-radius: 0px;}
+.table{border:#CCCCCC solid 1px; border-collapse:collapse;text-align:center;}
+.table th{text-align:center;}
+.table input{top:2px;position: relative;}
+.new_btn a{float:right;padding-left:10px;font-weight: 400;color:#333;}
+.content_box .glyphicon-edit{color: #45A435;}
+.content_box .glyphicon-expand{color: #4484B0;}
+.content_box .glyphicon-unchecked{color: #DE9733;}
+.content_box .glyphicon-remove{color:red;}
+.content_box .glyphicon-th-list{color:rgb(125, 108, 150);}
+.page_btn{height:35px;}
+div.btn{float:right;margin-top: -15px;}
+.btn-info{width:60px;height:25px;border-radius: 0px;padding: 0px;line-height:23px;}
+.jumppage{width:40px;}
+a.delete , .delete{color:red;}
+
+
+/*±à¼­*/
+.edit_user{width:600px;margin:0 auto;}
+.edit_title{height:32px;line-height:32px;margin-bottom:0px;margin-left:50px;color:#046BDB;font-size:14px;}
+.edit_user_cont{width:500px;height:310px;border:#EBEBEB solid 1px;position:relative;}
+.edit_user_cont .jt_new{width:12px;height:8px;overflow:hidden;position:absolute;left:68px;top:-8px;background:url(../../pic/jiao_new.png) no-repeat #FFF;}
+.edit_list{width:450px;margin-left:50px;margin-top:20px;height:auto;}
+.sel{width:180px;height:25px;float:left;outline:none;}
+.edit_list input{float:left;width:180px;height:25px;outline:none;line-height:12px;}
+.edit_list li , .edit_list_trigger li{height:25px;line-height:25px;color:#333333;margin-bottom:15px;}
+.edit_list span{width:60px;float:left;}
+
+.table td input[type="checkbox"]{margin-top:0px;}
+
+
+/*Ìí¼Ó*/
+.add_user{width:600px;margin:0 auto;}
+.add_title{height:32px;line-height:32px;margin-bottom:0px;margin-left:50px;color:#046BDB;font-size:14px;}
+.add_user_cont{width:500px;height:160px;border:#EBEBEB solid 1px;position:relative;}
+.add_list{width:450px;margin-left:50px;margin-top:35px;height:auto;}
+.add_user_cont .jt_new{width:12px;height:8px;overflow:hidden;position:absolute;left:68px;top:-8px;background:url(../../pic/jiao_new.png) no-repeat #FFF;}
+.add_list li{height:25px;line-height:25px;color:#333333;margin-bottom:15px;}
+.add_list span{width:60px;float:left;}
+.add_list input{float:left;width:180px;height:25px;outline:none;line-height:12px;}
+
+.edit_list input, .edit_list select , .add_list input ,.add_list select{padding-left:5px;float£ºleft;}
+.edit_list textarea , .add_list textarea{width:180px;height:100px;line-height: 14px;float£ºleft;}
+.page_btn .page_show{height:30px;line-height:30px;}
+.page_btn{height:40px;width:100%;margin:15px auto;}
+.btn-group{float:right;}
+.page_btn .btn{height:30px;border-radius: 0px;font-size:12px;}
+.page_btn .btn-group span.btn{width:120px;height: 30px;}
+.jump{width: 30px;margin-left: 10px;margin-right: 10px;padding: 0px 10px;height: 20px;margin-top: -2px;}
+.edit_list input.file, .edit_list select.file , .add_list input.file ,.add_list select.file{padding-left:0px;}
+
+.add_user .btn-group ,.edit_user .btn-group{float:left;margin-left:50px;}
+.add_user .btn-group .btn-default ,.edit_user .btn-group .btn-default{floar:left;width:50px;height:30px;line-height: 28px;padding:0px;border-radius: 0px;font-size:12px;}
+.form-control{font-size:12px;}
+
+#myDiv{width: auto;color:red;font-weight: bold;padding-left: 5px;}
+.errorMessage{width:120px;height:25px;float: left;margin-left: 5px;}
+.errorMessage li{height:25px;}
+.errorMessage span{width:auto;height:25px;color:red;}

@@ -1,0 +1,70 @@
+.gate_description{width:350px;margin-top:24px;margin-left:20px;height:auto;display: inline-block;}
+.gate_name{margin-top:10px;display: inline-block;}
+.gate_content{display: inline-block;font-size:12px;font-weight: 500;margin-top:5px;}
+footer p{margin: 20px 0px 0px 0px;}
+
+.content{width:1024px;margin:30px auto;overflow: hidden;}
+.row_box{width:4500px;}
+.change{margin-left:24px;}
+.change .btn{min-width:80px;margin-top:15px;font-weight: 700;border-radius: 0px;}
+#collection ,#execute , #viedo , #picture{width:1000px;margin-left:24px;margin-top:20px;float:left;position: relative;}
+.z_status{float: right;margin-right: 41%;margin-top: 8px;}
+
+.sensorbox{width:100%;height:280px;border: 1px solid #DDD;background:#fff;margin-bottom: 30px;overflow: hidden;}
+.sensorbox figure{width:20%;float:left;}
+.sensorbox figure p{text-align:center;margin-top:15px;margin-bottom: 10px;height:20px;font-size: 14px;font-weight: 700;}
+.sensorbox figure .bwWrapper{position:relative;display:block;margin-left:20px;width:160px;height:160px;margin-bottom: 10px;border: 1px solid #ccc;}
+.sensorbox figure img{text-align:center;width:156px;height:156px;}
+var , time{width:100%;margin-top:5px;text-align:center;display: block;}
+.value , time{color: #F00;}
+ time{font-size:12px;}
+.sensorbox .chart{width:780px;height:280px;float:right;margin-top:10px;}
+.sensorbox .chart .btn-group{width:100%;}
+.sensorbox .chart object{width:777px;height:230px;border: 1px solid #ccc;display: block;overflow: hidden;}
+.sensorbox .chart .btn-group .btn{width:16.7%;border-radius: 0px;}
+.sensorbox button.btn{font-size:14px;}
+.chart object img ,.chart object img canvas{width:100px;height:100px;margin-top: 50px;margin-left:340px;}
+object center{font-size: 32px;margin-top: 90px;}
+object .highcharts-container , object .highcharts-container svg{width:775px;height:228px;}
+
+.controlbox{width:470px;height:220px;float:left;margin-left:20px;border: 1px solid #DDD;background:#fff;margin-bottom: 30px;font-size:1em;overflow: hidden;}
+.controlbox figure{width:160px;height:200px;float:left;text-align:center;margin-top:10px;}
+.controlbox figure p{margin:0px 0px 5px;font-size: 14px;font-weight: 700;}
+.controlbox figure .bwWrapper{position:relative;display:block;margin:0px 5px;border: 1px solid #ccc;width:150px;height:150px;}
+.controlbox figure img{width:146px;height:146px;}
+.controlbox .switch_box{float:left;width:80px;height: 150px;margin-top:35px;margin-left:5px;overflow:hidden;}
+.controlbox .switch{margin-top:0px;}
+.controlbox .switch .btn{pointer-events: none;line-height: 15px;outline: none;border-radius:0px;width:90%;height:30px;font-size:12px;margin-bottom: 10px;height: 30px;}
+.controlbox .control_message{font-size: 12px;width:200px;height:150px;display: inline-block;float: left;margin-top:35px;margin-left:10px;}
+.controlbox .control_message .title{padding: 3px 5px;top: -10px;left:6px;position: relative;background: #fff;}
+.controlbox  .clear{height:25px;padding: 0px;font-size: 12px;line-height:25px;float: right;margin-right: 12px;cursor: pointer;}
+.controlbox  .copy{height:25px;padding: 0px;font-size: 12px;line-height:25px;float: left;margin-left: 12px;cursor: pointer;}
+.controlbox .control_message .rt{margin-top: -17px;padding-left: 10px;width:200px;height:150px;overflow: auto;border: 1px solid #DDD;padding-top: 5px;}
+.controlbox .control_message .rt li{color: #333;}
+.switch_down{position: absolute; margin-top: -25px;margin-left:28px;cursor: pointer;}
+.switch_up{position: absolute;margin-top: 155px;margin-left:28px;cursor: pointer;}
+
+
+.camerabox{width:470px;height:280px;float:left;margin-left:20px;border: 1px solid #DDD;background:#fff;margin-bottom: 20px;overflow: hidden;}
+.camerabox figure{width:30%;float:left;margin-top:20px;margin-bottom: 10px;}
+.camerabox figure p{text-align:center;height:1.5em;font-size: 14px;font-weight: 700;}
+.camerabox figure img{text-align:center;margin-left:5%;width:90%;margin-bottom: 3%;border: 1px solid #ccc;}
+.camerabox object{width:310px;height:250px;float:right;border: 1px solid #DDD;overflow: hidden;margin-top:20px;margin-right:10px;}
+.camerabox object img{width:100%;}
+.camerabox .btn{outline: medium none;font-size:12px;display:inline-block;text-align:center;padding:2px 4px;height:30px;width:40px;line-height: 20px;border-radius:0px;outline:none;position: absolute;outline:none;pointer-events: none;}
+.camerabox button.switch_open{margin-top: 20px;margin-left: 50px;}
+.camerabox button.ct_up{margin-top: 60px;margin-left: 50px;}
+.camerabox button.ct_down{margin-top: 130px;margin-left: 50px;}
+.camerabox button.ct_left{margin-top: 95px;margin-left: 5px;}
+.camerabox button.ct_right{margin-top: 95px;margin-left: 95px;}
+.camerabox button.ct_h{margin-top: 170px;margin-left: 5px;}
+.camerabox button.ct_v{margin-top: 170px;margin-left: 50px;}
+.camerabox button.ct_c{margin-top: 170px;margin-left: 95px;}
+.gray{
+	-webkit-filter: grayscale(100%);
+    -moz-filter: grayscale(100%);
+    -ms-filter: grayscale(100%);
+    -o-filter: grayscale(100%);
+    filter: grayscale(100%);
+    filter: gray;
+} 

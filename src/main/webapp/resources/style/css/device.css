@@ -1,0 +1,40 @@
+body{
+margin:0px;
+padding:0px;
+font-size:12px;
+font-family: "Î¢ÈíÑÅºÚ";
+}
+span.name{width:80px;}
+textarea{
+	max-width:210px;
+	max-height:100px;
+	min-width:210px;
+	min-height:100px;
+	resize:none;
+	line-height: 14px;
+}
+.errorMessage span{width:120px;}
+.gate{height:200px;}
+.gate .edit_list{height:120px;}
+.camera{height: 320px;}
+.camera ul.edit_list{height:230px;}
+.actuator{height: 350px;}
+.actuator ul.edit_list{height:280px;}
+.actuator .edit_list input ,.actuator .edit_list select ,.actuator .edit_list textarea{width:210px;float:left;}
+.sensor{height:260px;}
+.sensor .edit_list{height:190px;}
+.sensor .edit_list input ,.sensor .edit_list select {width:210px;}
+.errorMessage {
+    font-weight: bold;
+    display: inline-block;
+    margin-left:5px;
+    float£ºleft;
+}
+.errorMessage span{
+    width:150px;
+    text-align:left;
+    color: red;
+}
+.add_user_cont input.btn , .edit_user_cont input.btn{margin-left: 130px;}
+.edit_user_cont a.btn , .add_user_cont a.btn{margin-left: 83px;}
+.textarea{padding-top:5px;padding-left:5px;}

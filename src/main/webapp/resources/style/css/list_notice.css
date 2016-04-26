@@ -1,0 +1,38 @@
+body{width:100%;min-width:1024px;margin:0px;padding:0px;font-family: "微软雅黑";font-size: 14px;background:#fff;color: #393939;}
+a , li , a:link , a:hover , a:active , a:visited{text-decoration: none;list-style: none outside none;outline:none;color: #222;}
+p{margin-bottom:5px;padding:0px;}
+header{width:100%;height:55px;position: relative;font-size: 16px;font-weight:700; border-bottom: 5px solid #222;background:#333;}
+.nav-left{float:left;}
+.nav-right{float:right;}
+header ul{height:50px;padding:0px;}
+header ul li{width:100px;height:50px;line-height: 50px;float:left;text-align:center;list-style: none outside none;}
+header ul li a , header ul li a:link , header ul li a:active , header ul li a:visited{width:100%;height:100%;display:inline-block;text-decoration: none;list-style: none outside none;outline:none;color: #fff;}
+header ul li a:hover{background:#000;}
+footer{width:100%;height:100px;padding-top:10px;font-size:12px;background:#EFF0F0;text-align:center;border-top: 1px solid #E5E5E5;}
+
+.body{width:100%;min-height:550px;margin-top:20px;}
+
+/**************公告*******************/
+.notice{width:82%;min-width:800px;min-height:490px;float:right;margin-right:15px;padding-top: 20px;border:0px;font-size:12px;background:#fff;border: 1px solid #E1E1E1;}
+.notice table{width:95%;margin:auto;border-top:1px solid #E1E1E1;}
+.notice tr{height:28px;text-align: center;border-bottom:1px solid #E1E1E1;}
+caption{text-align:left;margin-left:15px;border:0px;font-size:14px;font-weight:700;padding: 10px 0px;}
+a.notice_con{color:#333;}
+
+
+iframe , .show_nav ul{display:none;}
+.show_nav{width:15%;min-width:150px;min-height:490px;float:left;margin-left:10px;background:#fff;border: 1px solid #E1E1E1;font-size: 14px;font-weight:700;}
+iframe{width:82%;min-width:800px;float:right;min-height:490px;margin-right:15px;padding-top: 20px;border:0px;background:#fff;border: 1px solid #E1E1E1;}
+iframe a, .show_nav ul a{color: #666;}
+iframe a, .show_nav ul , .show_nav ul li ,.show_nav h4{width:100%;text-align:center;}
+.show_nav ul a:hover , .show_nav ul a:active, .show_nav ul a:visited{background:#fff;}
+h4{font-size: 16px;font-weight:700;}
+
+
+/**************公共*******************/
+.page_btn .page_show{height:30px;margin-left:15px;line-height:30px;}
+.page_btn{height:40px;width:95%;margin:15px auto;}
+.btn-group{float:right;}
+.page_btn .btn{height:30px;border-radius: 0px;font-size:12px;}
+.page_btn .btn-group span.btn{width:120px;height: 30px;}
+.jump{width: 30px;margin-left: 10px;margin-right: 10px;padding: 0px 10px;height: 20px;margin-top: -2px;}

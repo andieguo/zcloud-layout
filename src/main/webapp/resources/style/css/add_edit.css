@@ -1,0 +1,18 @@
+.add_user_cont{width: 500px;height:320px;}
+.add_user_cont ul label{float:left;width:75px;}
+.add_user_cont ul span{width: auto;margin-left:5px;}
+.add_user_cont ul input , .add_user_cont ul select{height: 25px;width:180px;padding-left:5px;}
+.edit_list_trigger li input , .edit_list_trigger li select{height: 25px;width:180px;padding-left:5px;}
+.edit_list_trigger , .edit_list_clocking{ height: auto;margin-left: 50px;margin-top: 10px;width: 450px;}
+.edit_list_actuator li input , .edit_list_actuator li select{height: 25px;width:180px;padding-left:5px;}
+.edit_list_actuator li{margin-bottom: 15px;}
+.edit_list_actuator , .edit_list_actuator{ height: auto;margin-left: 50px;margin-top: 10px;width: 450px;}
+ul.edit_list_clocking select{width:60px;}
+.add_user_cont textarea{float:left;max-width:180px;max-height:100px;min-width:180px;min-height:50px;resize:none;line-height: 14px;}
+li .btn-default {margin-left:5px;top:-1px;width:50px;height:25px;line-height:10px;border-radius: 0px;}
+table.edit_list_trigger, table.edit_list_control {margin:-5px 0px 10px 0px;width:320px;}
+table.edit_list_trigger td , table.edit_list_control td ,table.edit_list_trigger th , table.edit_list_control th {text-align:center;border: 1px solid #e1e1e1;}
+.yichu{cursor:pointer;}
+.textarea{padding-top:5px;padding-left:5px;}
+.errorMessage{width:120px;color:red;display: inline-block;}
+.errorMessage li{color:red;margin:0px;padding:0px;}

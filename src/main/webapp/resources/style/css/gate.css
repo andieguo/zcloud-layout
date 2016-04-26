@@ -1,0 +1,21 @@
+body{margin:0px;padding:0px;font-family: "Î¢ÈíÑÅºÚ";font-size: 12px;background:#fff;color: #393939;}
+.btn-group .btn-default{width:50px;height:30px;line-height: 28px;padding:0px;border-radius: 0px;font-size:12px;}
+.gate{width:80%;min-width:780px;margin-left:auto;margin-right:auto;}
+.title{text-align:center;}
+.gate_list{width:700px;margin-left:auto;margin-right:auto;margin-top: 20px;}
+.gate_list input[type="text"]{height:25px;width:240px;padding-left:5px;}
+.gate_list span{height:25px;line-height:25px;width:70px;display: inline-block;}
+.gate_list input[type="file"]{height:25px;line-height:25px;width:240px;cursor: pointer;display: inline-block;}
+.gate_list li{height:25px;margin-bottom: 10px;}
+.gate_location input[type="text"]{width:120px;}
+#latitude , #longitude{width:80px;}
+.gate_location .btn-group .btn-default{float: right;margin-left:15px;height:25px;line-height:25px;}
+li#map_box{width:700px;height:400px;border:3px solid #E1E1E1;}
+li.gate_info{width:700px;height: 180px;}
+.gate_info .textarea{float: right;width:630px;height:160px;display: inline-block;}
+.gate_info .textarea textarea{width:630px;}
+.nicEdit-main {height:140px;}
+.page{float:left;margin-bottom: 20px;}
+ul.errorMessage , ul.errorMessage li ,ul.errorMessage li span{color:red;display: inline-block;width:120px;padding:0px;margin:0px;height:25px;line-height:25px;}
+.gate_list li span.name ,.gate_list li input ,.gate_list li .errorMessage{float:left;} 
+ul.errorMessage {margin-left:5px;}

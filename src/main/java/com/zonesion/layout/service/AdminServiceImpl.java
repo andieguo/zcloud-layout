@@ -51,6 +51,12 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return adminDao.delete(id);
 	}
+	
+	@Override
+	public int enable(int id,int visible) {
+		// TODO Auto-generated method stub
+		return adminDao.enable(id,visible);
+	}
 
 	@Override
 	public int update(AdminEntity admin) {
@@ -68,6 +74,12 @@ public class AdminServiceImpl implements AdminService {
 	public QueryResult<AdminEntity> findAll(int firstindex, int maxresult) {
 		// TODO Auto-generated method stub
 		return adminDao.findAll(firstindex, maxresult);
+	}
+
+	@Override
+	public QueryResult<AdminEntity> findAll(int firstindex, int maxresult, int visible, int role) {
+		// TODO Auto-generated method stub
+		return adminDao.findAll(firstindex, maxresult, visible, role);
 	}
 
 }

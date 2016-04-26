@@ -1,0 +1,27 @@
+body{
+margin:0px;
+padding:0px;
+font-size:12px;
+font-family: "Î¢ÈíÑÅºÚ";
+}
+/*Ìí¼Ó½ÇÉ«*/
+.add_user{width:788px;margin:0 auto;}
+.add_content{color:#333333;height:27px;line-height:25px;margin-bottom:6px;}
+.add_content input{width:154px;height:24px;margin-left:5px;line-height: 24px;}
+.add_content span ,.add_content input ,.add_content ul{float:left}
+.errorMessage {text-align: center;}
+.add_content input{padding-left:10px;}
+.checkBox{width:786px;height:142px;border:#777 solid 1px;margin:0 auto;}
+.checkBox p{height:23px;line-height:23px;text-align:center;color:#FFFFFF;background:#777;}
+.user_check{margin-top:15px;margin-left:45px;}
+.user_check li{float:left;text-align:center;color:#666666;margin-right:50px;}
+.user_check .mgr{margin-right:0;}
+.user_check i{display:block;margin:0 auto;margin-bottom:15px;font-size:50px;}
+.user_check input{float:left;height:13px;margin-top:2px;}
+.user_check span{float:left;margin-top:3px;height:13px;line-height:13px;margin-left:5px; cursor:pointer;}
+.btn_btm{float:left;margin-left:80px;}
+.add_user .btn-group ,.edit_user .btn-group{margin-top:15px;float:left;margin-left:0px;}
+
+
+
+

@@ -1,5 +1,8 @@
 package com.zonesion.layout.controller;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,10 +12,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zonesion.layout.model.AdminEntity;
@@ -20,7 +21,8 @@ import com.zonesion.layout.model.AdminForm;
 import com.zonesion.layout.page.PageView;
 import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.service.AdminService;
-import com.zonesion.layout.validate.AdminFormValidator;
+import com.zonesion.layout.validate.AdminEditValidator;
+import com.zonesion.layout.validate.AdminSaveValidator;
 
 /**    
  * @author andieguo andieguo@foxmail.com
@@ -37,41 +39,80 @@ public class AdminController {
 	private AdminService adminService;
 	
 	@Autowired
-	private AdminFormValidator adminFormValidator;
+	private AdminSaveValidator adminSaveValidator;
 	
-	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(adminFormValidator);
+	@Autowired
+	private AdminEditValidator adminEditValidator;
+	
+	//绑定用户注册表单验证
+	@InitBinder("adminForm")
+	protected void initBinder1(WebDataBinder binder) {
+		binder.setValidator(adminSaveValidator);
+	}
+	//绑定用户修改信息表单验证
+	@InitBinder("editForm")
+	protected void initBinder2(WebDataBinder binder) {
+		binder.setValidator(adminEditValidator);
+	}
+	
+	@ModelAttribute("roleList")
+	public Map<Integer,String> roleList(){
+		Map<Integer, String> roleList = new LinkedHashMap<Integer, String>();
+		roleList.put(-1, "全部");
+		roleList.put(0, "管理员");
+		roleList.put(1, "普通用户");
+		return roleList;
+	}
+	
+	@ModelAttribute("enableList")
+	public Map<Integer,String> enableList(){
+		Map<Integer, String> enableList = new LinkedHashMap<Integer, String>();
+		enableList.put(-1,"全部");
+		enableList.put(0, "停用");
+		enableList.put(1, "启用");
+		return enableList;
 	}
 	
 	/**
-	 * 分页显示Admin
+	 * 分页显示Admin（无需校验）
+	 * @ModelAttribute("listForm") 必不可少:表单的属性通过GET请求传递给后台，填充到listForm对象中。
+	 * Model model 必不可少：数据处理后，通过model将数据返回给前端显示。
 	 */
-	@RequestMapping(value = "/admin/list/", method = RequestMethod.GET)
-	public String showAllUsers(Model model,@RequestParam(value="page",required=false) int page) {
+	@RequestMapping(value = "/admin/list", method = RequestMethod.GET)
+	public String list(@ModelAttribute("listForm") AdminForm listForm,Model model) {
 		logger.debug("listAdmins()");
+		int page = listForm.getPage();
 		PageView<AdminEntity> pageView = new PageView<>(10,page);
 		int firstindex = (pageView.getCurrentpage()-1)*pageView.getMaxresult();
-		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10);
+		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,listForm.getVisible(),listForm.getRole());
 		pageView.setQueryResult(queryResult);
 		model.addAttribute("pageView",pageView);
 		return "manager/listAdmin";//跳转到manager/listAdmin.jsp页面
 	}
 	
 	/**
-	 * 用户注册
+	 * 跳转到更新用户界面
+	 */
+	@RequestMapping(value = "/admin/registerUI", method = RequestMethod.GET)
+	public String registerUI(Model model) {
+		logger.debug("registerUI() ");
+		model.addAttribute("adminForm", new AdminForm());
+		return "manager/register";//跳转到manager/updateAdmin.jsp页面
+	}
+	
+	/**
+	 * 用户注册（校验）
 	 */
 	@RequestMapping(value = "/admin/register", method = RequestMethod.POST)
-	public String register(@ModelAttribute("adminForm") @Validated AdminForm adminForm,
-			BindingResult result, Model model, 
+	public String register(@ModelAttribute("adminForm") @Validated AdminForm adminForm,BindingResult result, Model model, 
 			final RedirectAttributes redirectAttributes) {
 		logger.debug("register() : "+adminForm);
 		if (result.hasErrors()) {
-			return "/register";//跳转到/register.jsp页面
+			return "manager/register";//跳转到/register.jsp页面
 		} else {
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "注册用户成功!");
-			redirectAttributes.addAttribute("page", 0);//重定向传递参数,注册后跳转到第0页
+			redirectAttributes.addAttribute("page", 1);//重定向传递参数,注册后跳转到第1页
 			adminForm.setRole(1);//普通用户
 			adminService.register(adminForm);
 			return "redirect:/admin/list";//跳转到/admin/list
@@ -79,46 +120,59 @@ public class AdminController {
 	}
 	
 	/**
-	 * 用户更新
+	 * 用户更新(校验)
 	 */
-	@RequestMapping(value = "/admin/update", method = RequestMethod.POST)
-	public String updateAdmin(@ModelAttribute("adminForm") @Validated AdminForm adminForm,
+	@RequestMapping(value = "/admin/edit", method = RequestMethod.POST)
+	public String edit(@ModelAttribute("editForm") @Validated AdminForm editForm,
 			BindingResult result, Model model, 
 			final RedirectAttributes redirectAttributes) {
-		logger.debug("updateAdmin() : "+adminForm);
+		logger.debug("updateAdmin() : "+editForm);
 		if (result.hasErrors()) {
-			return "manager/updateAdmin";//跳转到manager/updateAdmin.jsp页面
+			return "manager/editAdmin";//跳转到manager/updateAdmin.jsp页面
 		} else {
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "更新用户信息成功");
-			redirectAttributes.addAttribute("page", adminForm.getPage());//重定向传递参数，更新后跳转到page页
-			adminService.update(adminForm);
-			return "redirect:/admin/list";//跳转到/admin/list
+			AdminEntity adminEntity = adminService.findById(editForm.getId());//只需要将到form表单需要更新的字段更新到数据库即可（安全）
+			adminEntity.setEmail(editForm.getEmail());
+			adminEntity.setNickname(editForm.getNickname());
+			adminEntity.setPhoneNumber(editForm.getPhoneNumber());
+			adminEntity.setSex(editForm.getSex());
+			adminService.update(adminEntity);
+			//重定向传递GET参数有两种方式，方式一
+			return "redirect:/admin/list?page="+editForm.getPage();//跳转到/admin/list
 		}
 	}
 	
 	/**
 	 * 跳转到更新用户界面
 	 */
-	@RequestMapping(value = "/admin/{id}/updateUI", method = RequestMethod.GET)
-	public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
-		logger.debug("showUpdateAdminForm() : "+id);
-		AdminEntity admin = adminService.findById(id);
-		model.addAttribute("adminForm", admin);
-		return "manager/updateAdmin";//跳转到manager/updateAdmin.jsp页面
+	@RequestMapping(value = "/admin/editUI", method = RequestMethod.GET)
+	public String editUI(AdminForm listForm, Model model) {
+		logger.debug("showUpdateAdminForm() : "+listForm.getId());
+		AdminEntity adminEntity = adminService.findById(listForm.getId());
+		AdminForm admin = new AdminForm();//只需要将表单中有的字段添加到form表单即可（安全）
+		admin.setEmail(adminEntity.getEmail());
+		admin.setNickname(adminEntity.getNickname());
+		admin.setPhoneNumber(adminEntity.getPhoneNumber());
+		admin.setSex(adminEntity.getSex());
+		admin.setId(listForm.getId());
+		admin.setPage(listForm.getPage());
+		model.addAttribute("editForm", admin);
+		return "manager/editAdmin";//跳转到manager/editAdmin.jsp页面
 	}
 	
 	/**
 	 * 管理员删除用户
 	 */
-	@RequestMapping(value = "/admin/{id}/delete", method = RequestMethod.GET)
-	public String deleteUser(@PathVariable("id") int id,@RequestParam(value="page",required=false) int page, 
+	@RequestMapping(value = "/admin/delete", method = RequestMethod.GET)
+	public String delete(AdminForm listForm,
 			final RedirectAttributes redirectAttributes) {
-		logger.debug("deleteAdmin() : "+id);
-		adminService.delete(id);
+		logger.debug("deleteAdmin() : "+listForm.getId());
+		adminService.enable(listForm.getId(),listForm.getDeleted());
 		redirectAttributes.addFlashAttribute("css", "success");
 		redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
-		redirectAttributes.addAttribute("page", page);//重定向传递参数，删除后跳转到page页
+		//重定向传递GET参数有两种方式，方式二
+		redirectAttributes.addAttribute("page", listForm.getPage());//重定向传递参数，删除后跳转到page页
 		return "redirect:/admin/list";
 	}
 }

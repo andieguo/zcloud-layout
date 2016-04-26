@@ -17,6 +17,8 @@ public interface AdminService {
 	
 	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult);
 	
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role);
+	
 	public AdminEntity findById(int id);
 	
 	public boolean login(String nickname,String password);
@@ -28,4 +30,6 @@ public interface AdminService {
 	public int update(AdminEntity admin);
 	
 	public boolean existAdminName(String nickname);
+
+	public int enable(int id, int visible);
 }

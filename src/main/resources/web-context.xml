@@ -28,10 +28,18 @@
 	
     <!-- jsp页面解析器，当Controller返回XXX字符串时，先通过拦截器，然后该类就会在/WEB-INF/views/目录下，查找XXX.jsp文件-->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    	<!-- 如果jsp页面中使用了一些JSTL标签，需要通过设置viewclass属性来替换InternalResourceViewResolver -->
+		<!--如果jsp页面中使用了一些JSTL标签，需要通过设置viewclass属性来替换InternalResourceViewResolver -->
     	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/"/>
         <property name="suffix" value=".jsp"/>
+        <property name="order" value="1" />
+    </bean>
+    
+   <bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+        <property name="basename">
+            <value>spring-views</value>
+        </property>
+        <property name="order" value="0" />
     </bean>
     
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
