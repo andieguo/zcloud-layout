@@ -10,7 +10,7 @@ public class AdminForm extends AdminEntity {
 
 	private String confirmPassword;
 	private int page = 1;
-	private String authCode;
+	private String authcode;
 	private int deleted;
 
 	public String getConfirmPassword() {
@@ -29,12 +29,12 @@ public class AdminForm extends AdminEntity {
 		this.confirmPassword = confirmPassword;
 	}
 	
-	public String getAuthCode() {
-		return authCode;
+	public String getAuthcode() {
+		return authcode;
 	}
 
-	public void setAuthCode(String authCode) {
-		this.authCode = authCode;
+	public void setAuthcode(String authcode) {
+		this.authcode = authcode;
 	}
 
 	public AdminForm(String confirmPassword) {
@@ -67,7 +67,7 @@ public class AdminForm extends AdminEntity {
 
 	@Override
 	public String toString() {
-		return "AdminForm [confirmPassword=" + confirmPassword + ", page=" + page + ", authCode=" + authCode + ", getId()=" + getId() + ", getNickname()=" + getNickname() + ", getPassword()="
+		return "AdminForm [confirmPassword=" + confirmPassword + ", page=" + page + ", authcode=" + authcode + ", getId()=" + getId() + ", getNickname()=" + getNickname() + ", getPassword()="
 				+ getPassword() + ", getPhoneNumber()=" + getPhoneNumber() + ", getEmail()=" + getEmail() + ", getSex()=" + getSex() + ", getRole()=" + getRole() + ", getLandingTime()="
 				+ getLandingTime() + ", getExitTime()=" + getExitTime()+ "]";
 	}

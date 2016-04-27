@@ -22,6 +22,7 @@ import com.zonesion.layout.page.PageView;
 import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.service.AdminService;
 import com.zonesion.layout.validate.AdminEditValidator;
+import com.zonesion.layout.validate.AdminLoginValidator;
 import com.zonesion.layout.validate.AdminSaveValidator;
 
 /**    
@@ -44,6 +45,9 @@ public class AdminController {
 	@Autowired
 	private AdminEditValidator adminEditValidator;
 	
+	@Autowired
+	private AdminLoginValidator adminLoginValidator;
+	
 	//绑定用户注册表单验证
 	@InitBinder("adminForm")
 	protected void initBinder1(WebDataBinder binder) {
@@ -53,6 +57,12 @@ public class AdminController {
 	@InitBinder("editForm")
 	protected void initBinder2(WebDataBinder binder) {
 		binder.setValidator(adminEditValidator);
+	}
+	
+	//绑定用户修改信息表单验证
+	@InitBinder("loginForm")
+	protected void initBinder3(WebDataBinder binder) {
+		binder.setValidator(adminLoginValidator);
 	}
 	
 	@ModelAttribute("roleList")
@@ -71,6 +81,31 @@ public class AdminController {
 		enableList.put(0, "停用");
 		enableList.put(1, "启用");
 		return enableList;
+	}
+	
+	/**
+	 * 登录
+	 */
+	@RequestMapping(value="/admin/login",method=RequestMethod.POST)
+	public String login(@ModelAttribute("loginForm") @Validated AdminForm loginForm, BindingResult result, Model model, 
+			final RedirectAttributes redirectAttributes){
+		if (result.hasErrors()) {
+			return "manager/login";//跳转到/login.jsp页面
+		}else{
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", "登录成功!");
+			return "redirect:/admin/list";
+		}
+	}
+	
+	/**
+	 * 跳转到登录界面
+	 */
+	@RequestMapping(value = "/admin/loginUI", method = RequestMethod.GET)
+	public String loginUI(Model model) {
+		logger.debug("registerUI() ");
+		model.addAttribute("loginForm", new AdminForm());
+		return "manager/login";//跳转到manager/login.jsp页面
 	}
 	
 	/**

@@ -60,8 +60,8 @@
 						</spring:bind>
 					<div class="form-group authCode">
 						<label for="validatecode">验证码:</label>
-						<input type="text" class="form-control " name="authCode" placeholder="请输入验证码" />
-						<form:errors path="authCode" />
+						<input type="text" class="form-control " name="authcode" placeholder="请输入验证码" />
+						<form:errors path="authcode" />
 					</div>
 					<div class="form-group code_box">
 						<a href="javascript:changeimg();" >

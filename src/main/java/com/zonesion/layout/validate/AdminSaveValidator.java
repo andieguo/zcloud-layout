@@ -1,5 +1,7 @@
 package com.zonesion.layout.validate;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -25,6 +27,9 @@ public class AdminSaveValidator  implements Validator{
 	@Autowired
 	@Qualifier("phoneValidator")
 	PhonelValidator phoneValidator;
+	
+	@Autowired
+	private  HttpSession httpSession;
 
 	@Override
 	public boolean supports(Class<?> clazz) {
@@ -46,6 +51,7 @@ public class AdminSaveValidator  implements Validator{
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phoneNumber", "NotEmpty.adminForm.phoneNumber");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "NotEmpty.adminForm.email");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "sex", "NotEmpty.adminForm.sex");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "authcode", "NotEmpty.adminForm.authcode");
 		
 		if(isNotNULL(admin.getNickname()) && admin.getNickname().length() > 20){
 			errors.rejectValue("nickname", "Size.adminForm.nickname");
@@ -70,6 +76,10 @@ public class AdminSaveValidator  implements Validator{
 		}
 		if (isNotNULL(admin.getPassword()) && isNotNULL(admin.getConfirmPassword()) && !admin.getPassword().equals(admin.getConfirmPassword())) {
 			errors.rejectValue("confirmPassword", "Diff.userform.confirmPassword");
+		}
+		String authcode = (String) httpSession.getAttribute("authcode");
+		if(isNotNULL(admin.getAuthcode()) && !admin.getAuthcode().equalsIgnoreCase(authcode)){
+			errors.rejectValue("authcode","Fail.adminForm.authcode");
 		}
 	}
 
