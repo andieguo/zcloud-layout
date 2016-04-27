@@ -89,6 +89,15 @@ public class AdminController {
 	}
 	
 	/**
+	 * 退出登录（服务器在一个浏览器客户端只允许一个用户登录）
+	 */
+	@RequestMapping(value="/admin/outlogin",method=RequestMethod.GET)
+	public String outlogin(){
+		httpSession.removeAttribute("admin");
+		return "redirect:/admin/loginUI";
+	}
+	
+	/**
 	 * 登录
 	 */
 	@RequestMapping(value="/admin/login",method=RequestMethod.POST)
@@ -105,13 +114,20 @@ public class AdminController {
 	}
 	
 	/**
-	 * 跳转到登录界面
+	 * 跳转到登录界面（判断是否已经登录，如果已经登录自动跳转到后台首页）
 	 */
 	@RequestMapping(value = "/admin/loginUI", method = RequestMethod.GET)
-	public String loginUI(Model model) {
-		logger.debug("registerUI() ");
-		model.addAttribute("loginForm", new AdminForm());
-		return "manager/login";//跳转到manager/login.jsp页面
+	public String loginUI(Model model,final RedirectAttributes redirectAttributes) {
+		logger.debug("loginUI() ");
+		AdminForm admin = (AdminForm)httpSession.getAttribute("admin");
+		if(admin != null){
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", "用户已经登录!");
+			return "redirect:/admin/list";
+		}else{
+			model.addAttribute("loginForm", new AdminForm());
+			return "manager/login";//跳转到manager/login.jsp页面
+		}
 	}
 	
 	/**
@@ -132,7 +148,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * 跳转到更新用户界面
+	 * 跳转到用户注册界面
 	 */
 	@RequestMapping(value = "/admin/registerUI", method = RequestMethod.GET)
 	public String registerUI(Model model) {
@@ -142,7 +158,7 @@ public class AdminController {
 	}
 	
 	/**
-	 * 用户注册（校验）
+	 * 用户注册（校验）：注册成功后跳转到登录界面
 	 */
 	@RequestMapping(value = "/admin/register", method = RequestMethod.POST)
 	public String register(@ModelAttribute("adminForm") @Validated AdminForm adminForm,BindingResult result, Model model, 
@@ -156,7 +172,7 @@ public class AdminController {
 			redirectAttributes.addAttribute("page", 1);//重定向传递参数,注册后跳转到第1页
 			adminForm.setRole(1);//普通用户
 			adminService.register(adminForm);
-			return "redirect:/admin/list";//跳转到/admin/list
+			return "redirect:/admin/loginUI";//跳转到/admin/list
 		}
 	}
 	

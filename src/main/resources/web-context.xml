@@ -34,6 +34,7 @@
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/admin/loginUI" />
 			<mvc:exclude-mapping path="/admin/login" />
+			<mvc:exclude-mapping path="/admin/outlogin" />
 			<mvc:exclude-mapping path="/admin/registerUI" />
 			<mvc:exclude-mapping path="/admin/register" />
 			<bean class="com.zonesion.layout.controller.LoginInterceptor"></bean>
