@@ -26,8 +26,9 @@
 						<spring:bind path="nickname">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
 								<label for="nickname">账 号:</label>
-								<input id="nickname" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
+								<input id="nickname" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" onchange="textChange()">
 								<form:errors path="nickname" cssClass="error" />
+								<div id="isExistedDiv"></div>
 							</div>
 						</spring:bind>
 						<spring:bind path="email">
@@ -87,62 +88,38 @@
 		<%@ include file="/resources/share/foot.jsp"%>
 		<!--****************************脚本引用****************************-->
 		<%@ include file="/resources/share/script.jsp"%>
-		<script language="JavaScript" type="text/javascript">
+		<script type="text/javascript">
 			function changeimg(){
 				var myimg = document.getElementById("code"); 
 				now = new Date(); 
 				myimg.src="${basePath }/authimg.jsp?code="+now.getTime();
 			}
-			$(function(){
-				setModule();			
-			})
-			
-			 var xmlHttp;
-		     function createXMLHttpRequest()
-		     {
-		         if (window.ActiveXObject)
-		         {
-					xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-		         }
-		         else if(window.XMLHttpRequest)
-		         {
-		            xmlHttp = new XMLHttpRequest();
-		         }
-		     }
 			function textChange()
 			{
-				createXMLHttpRequest();
-				var name = document.getElementById("reg_admin_name").value;
-				var url="${basePath}"+"/control/admin/isExist.action";
-				xmlHttp.open("POST",url,true);
-				xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded","charset=UTF-8");
-				xmlHttp.onreadystatechange = showDIV;
-				xmlHttp.send("name="+encodeURI(encodeURI(name)));
-			}
-			function showDIV()
-			{
-				if (xmlHttp.readyState == 4)
-				{
-					if (xmlHttp.status == 200)
-					{
-						var result = xmlHttp.responseText;
-						if(result != ""){
-							document.getElementById("myDiv").innerHTML = result;
-							document.getElementById("reg_admin_name").value = "";
-						}else{
-							document.getElementById("myDiv").innerHTML = "恭喜您，可使用该用户名注册";
+				var name = $("#nickname").val();
+				name = encodeURI(name);//解决中文乱码问题
+				var url="${basePath}"+"/admin/isExist";
+				console.log("url:"+url);
+				 $.ajax( {
+						url : url,
+						type : 'get',
+						data : {nickname:name},
+						dataType : 'json',
+						contentType:'application/json',
+						success : function(data) {//返回的data本身即是一个JSON对象
+							console.log("data.status:"+data.status);
+							console.log("data.message:"+data.message);
+							if(data.status == 1){//存在该用户
+								$('#nickname').val("");
+								$('#isExistedDiv').html("该用户名已存在，请重新输入");
+							}else if(data.status==0){//不存在该用户
+								$('#isExistedDiv').html("恭喜您，可使用该用户名注册");
+							}
+						},
+						error : function() {
+							alert("您请求的页面有异常 ");
 						}
-						xmlHttp.close();
-					}
-					else
-					{ //页面不正常
-						alert("您请求的页面有异常 ");
-					}
-				}
-				else
-				{
-					//  信息还没有返回，等待
-				}
+				});
 			}
 		</script>
 	</body>

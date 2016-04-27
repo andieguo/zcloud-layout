@@ -1,11 +1,16 @@
 package com.zonesion.layout.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -86,6 +91,28 @@ public class AdminController {
 		enableList.put(0, "停用");
 		enableList.put(1, "启用");
 		return enableList;
+	}
+	
+	@RequestMapping(value="/admin/isExist",method=RequestMethod.GET)
+	public void isExist(String nickname,HttpServletResponse response) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		if(nickname!=null && !nickname.equals("")){
+			nickname = URLDecoder.decode(nickname, "UTF-8");//解决中文乱码问题
+			boolean existed = adminService.existAdminName(nickname);
+			if(existed){
+				result.accumulate("status", 1);
+				result.accumulate("message", "success");
+			}else{
+				result.accumulate("status", 0);
+				result.accumulate("message", "fail");
+			}
+		}
+		response.setContentType("application/x-json");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
 	}
 	
 	/**
