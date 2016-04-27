@@ -3,6 +3,8 @@ package com.zonesion.layout.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,9 @@ import com.zonesion.layout.validate.AdminSaveValidator;
 public class AdminController {
 
 	private final Logger logger = Logger.getLogger(AdminController.class);
+	
+	@Autowired
+	private HttpSession httpSession;
 	
 	@Autowired
 	private AdminService adminService;
@@ -94,6 +99,7 @@ public class AdminController {
 		}else{
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
+			httpSession.setAttribute("admin", loginForm);
 			return "redirect:/admin/list";
 		}
 	}
