@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.zonesion.layout.dao.TemplateDao;
 import com.zonesion.layout.model.TemplateEntity;
+import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.QueryResult;
 
 /**    
@@ -80,6 +81,12 @@ public class TemplateServiceImpl implements TemplateService {
 	public QueryResult<TemplateEntity> findByAdminAndType(int aid, int type, int firstindex, int maxresult) {
 		// TODO Auto-generated method stub
 		return templateDao.findByAdminAndType(aid, type, firstindex, maxresult);
+	}
+
+	@Override
+	public QueryResult<TemplateVO> findByAdminAndType(int aid, int type, int visible, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		return templateDao.findByAdminAndType(aid, type, visible, firstindex, maxresult);
 	}
 
 }

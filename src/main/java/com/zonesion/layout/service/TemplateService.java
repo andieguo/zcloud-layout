@@ -3,6 +3,7 @@ package com.zonesion.layout.service;
 import java.util.List;
 
 import com.zonesion.layout.model.TemplateEntity;
+import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.QueryResult;
 
 /**    
@@ -35,4 +36,6 @@ public List<TemplateEntity> findAll();
 	public int delete(int id);
 	
 	public int update(TemplateEntity templateEntity);
+	
+	public QueryResult<TemplateVO> findByAdminAndType(int aid, int type, int visible,int firstindex, int maxresult);
 }

@@ -16,6 +16,8 @@ public interface AdminDao {
 
 	public List<AdminEntity> findAll();
 	
+	public List<AdminEntity> findAll(int visible);
+	
 	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult);
 	
 	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role);

@@ -27,6 +27,12 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		return adminDao.findAll();
 	}
+	
+	@Override
+	public List<AdminEntity> findAll(int visible) {
+		// TODO Auto-generated method stub
+		return adminDao.findAll(visible);
+	}
 
 	@Override
 	public AdminEntity findById(int id) {

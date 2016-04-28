@@ -26,6 +26,13 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	}
 	
 	@Override
+	public List<AdminEntity> findAll(int visible){
+		// TODO Auto-generated method stub
+		return getJdbcTemplate().query("select * from tb_admin where visible=?", 
+				new Object[] {visible}, new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class));
+	}
+	
+	@Override
 	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult) {
 		// TODO Auto-generated method stub
 		QueryResult<AdminEntity> qr = new QueryResult<AdminEntity>();

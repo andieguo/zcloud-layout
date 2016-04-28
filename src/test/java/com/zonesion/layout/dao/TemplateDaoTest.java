@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.zonesion.layout.dao.TemplateDao;
 import com.zonesion.layout.model.TemplateEntity;
+import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.QueryResult;
 
 import junit.framework.TestCase;
@@ -43,7 +44,7 @@ public class TemplateDaoTest extends TestCase {
 	}
 	
 	public void testFindAllPage(){
-		QueryResult<TemplateEntity> q = templateDao.findAll(10,10);
+		QueryResult<TemplateEntity> q = templateDao.findAll(0,10);
 		for(TemplateEntity t : q.getResultlist()){
 			System.out.println(t);
 		}
@@ -87,6 +88,36 @@ public class TemplateDaoTest extends TestCase {
 		System.out.println(q.getTotalrecord());
 		QueryResult<TemplateEntity> q1 = templateDao.findByAdminAndType(1,0,0,10);
 		for(TemplateEntity t : q1.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q1.getTotalrecord());
+	}
+	
+	public void testFindByAdminAndTypePage2(){
+		//所有管理员、所有类型、删除+未删除
+		QueryResult<TemplateVO> q = templateDao.findByAdminAndType(-1,-1,-1,0,10);
+		for(TemplateVO t : q.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q.getTotalrecord());
+		//所有管理员、所有类型、已删除
+		QueryResult<TemplateVO> q1 = templateDao.findByAdminAndType(-1,-1,1,0,10);
+		for(TemplateVO t : q1.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q1.getTotalrecord());
+	}
+	
+	public void testFindByAdminAndTypePage3(){
+		//所有管理员、所有类型、删除+未删除
+		QueryResult<TemplateVO> q = templateDao.findByAdminAndType(-1,0,-1,0,10);
+		for(TemplateVO t : q.getResultlist()){
+			System.out.println(t);
+		}
+		System.out.println(q.getTotalrecord());
+		//所有管理员、所有类型、已删除
+		QueryResult<TemplateVO> q1 = templateDao.findByAdminAndType(-1,1,1,0,10);
+		for(TemplateVO t : q1.getResultlist()){
 			System.out.println(t);
 		}
 		System.out.println(q1.getTotalrecord());
