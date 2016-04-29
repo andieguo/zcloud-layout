@@ -47,32 +47,21 @@
   <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/fusioncharts.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/fusioncharts-index.js"></script>
- <!--导入控件js文件--> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ui_test.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_temperature.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_dial.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_dial.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_cup.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_curve.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/layout_subsys.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ctr_switch.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/sec_alarm.js"></script> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/cam_video.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/page_header.js"></script> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/page_footer.js"></script> 
 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/js/map.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/js/scripts.js"></script>
 <script>
 <!--自定义UI模板配置全局变量--> 
+var basePath = "${basePath}";
+var layoutitPath = basePath + "/resources/layoutit/";
+
 var uiTemplateObj = {};
 var templateId = "${templateEntity.id}";//用户可能会同时编辑多个模板
 uiTemplateObj[templateId]={};
 
   function initTemplateUI(){
-	 var layoutJSON = '${templateEntity.layoutJSON}';
-    uiTemplateObj[templateId] = JSON.Parse(layoutJSON);
-    $(".demo").html('${templateEntity.layoutContent}');
+	var layoutJSON = '${templateEntity.layoutJSON}';
+    uiTemplateObj[templateId] = JSON.parse(layoutJSON);
+    var content = '${templateEntity.layoutContent}';
+    $(".demo").html(content);
   }
 
  function compress(template){
@@ -85,6 +74,7 @@ uiTemplateObj[templateId]={};
 		var name = 'hello';
 		var layoutJSON =  JSON.stringify(uiTemplateObj[templateId]);
 		var layoutContent = $(".demo").html();//layoutContent.replace(/'/g, '"')
+		layoutContent = layoutContent.replace(/\'/g,'&#39;');
 		layoutContent = compress(layoutContent);
 		 $.ajax({
 				url : url,
@@ -106,7 +96,7 @@ uiTemplateObj[templateId]={};
 		});
 	}
   $(function(){
-   // initTemplateUI();
+   initTemplateUI();
   })
 </script>
 
@@ -981,4 +971,20 @@ uiTemplateObj[templateId]={};
   <div class="modal-footer"> <a class="btn" data-dismiss="modal">Close</a> </div>
 </div>
 </body>
+ <!--导入控件js文件--> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ui_test.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_temperature.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_dial.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_dial.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_cup.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_curve.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/layout_subsys.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ctr_switch.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/sec_alarm.js"></script> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/cam_video.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/page_header.js"></script> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/page_footer.js"></script> 
+  
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/map.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/scripts.js"></script>
 </html>

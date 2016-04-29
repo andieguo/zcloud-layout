@@ -80,6 +80,7 @@
 			function modifyAction(id){
 				var form = document.forms[0];
 				form.action="${basePath}/template/editUI";
+				form.method = "get";
 				document.getElementById("id").value = id;
 				form.submit();
 			}

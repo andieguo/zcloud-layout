@@ -465,7 +465,7 @@ $(document).ready(function() {
 		drag: function(e, t) {
 			t.helper.width(400)
 		},
-		stop: function(e, t) {
+		stop: function(e, t) {			
 			handleJsIds();
 			var uid = t.helper.children(".view").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 

@@ -5,7 +5,7 @@ var page_header = {
               '<div class="preview">项目头</div>'+
               '<div class="view">'+
                   '<header class="clearfix" id="page_header">'+
-                    '<img src="img/prog_logo1.jpg" alt="logo">'+
+                    '<img src="'+layoutitPath+'img/prog_logo1.jpg" alt="logo">'+
                     '<hgroup>'+
                       '<h1 contenteditable="true">项目名称</h1>'+
                       '<h2 contenteditable="true">此处为对项目的简单描述</h2>'+
@@ -40,6 +40,8 @@ var page_header = {
                 ' </div>',
 
     create: function() {
+    	//alert(layoutitPath);
+    	alert("拖放结束");
         var e = $(".demo #page_header");
         var t = randomNumber();
         var n = "page_header_" + t;
@@ -50,7 +52,7 @@ var page_header = {
             tid: n,
             prog_name:"项目名称",
             prog_des: "此处为对项目的简单描述",
-            prog_logo: "img/prog_logo1.jpg",
+            prog_logo: layoutitPath+"img/prog_logo1.jpg",
             theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
         };
 
@@ -82,7 +84,7 @@ var page_header = {
             tid: divid,
             prog_name: prog_name,
             prog_des: prog_des,
-            prog_logo: prog_logo,
+            prog_logo: layoutitPath+prog_logo,
             theme_type: theme_type,
         };
         return {properties:properties};
