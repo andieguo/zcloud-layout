@@ -62,6 +62,12 @@ public class TemplateDaoImpl extends JdbcDaoSupport implements TemplateDao {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update("update tb_template set visible=0 where id=?",new Object[]{id});
 	}
+	
+	@Override
+	public int enable(int id,int visible) {
+		// TODO Auto-generated method stub
+		return getJdbcTemplate().update("update tb_template set visible=? where id=?",new Object[]{visible,id});
+	}
 
 	@Override
 	public int update(TemplateEntity templateEntity) {

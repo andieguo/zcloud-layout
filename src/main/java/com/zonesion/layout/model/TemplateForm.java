@@ -9,6 +9,7 @@ package com.zonesion.layout.model;
 public class TemplateForm extends TemplateEntity{
 	
 	private int page = 1;
+	private int deleted;
 	
 	public TemplateForm() {
 		super();
@@ -30,6 +31,12 @@ public class TemplateForm extends TemplateEntity{
 		this.page = page;
 	}
 
-	
+	public int getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(int deleted) {
+		this.deleted = deleted;
+	}
 	
 }

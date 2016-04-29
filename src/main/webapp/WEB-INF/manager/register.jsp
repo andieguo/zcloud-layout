@@ -102,10 +102,9 @@
 				console.log("url:"+url);
 				 $.ajax( {
 						url : url,
-						type : 'get',
+						type : 'post',
 						data : {nickname:name},
 						dataType : 'json',
-						contentType:'application/json',
 						success : function(data) {//返回的data本身即是一个JSON对象
 							console.log("data.status:"+data.status);
 							console.log("data.message:"+data.message);

@@ -6,6 +6,7 @@ import java.net.URLDecoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -93,8 +94,8 @@ public class AdminController {
 		return enableList;
 	}
 	
-	@RequestMapping(value="/admin/isExist",method=RequestMethod.GET)
-	public void isExist(String nickname,HttpServletResponse response) throws IOException{
+	@RequestMapping(value="/admin/isExist",method=RequestMethod.POST)
+	public void isExist(String nickname,HttpServletResponse response,HttpServletRequest request) throws IOException{
 		JSONObject result = new JSONObject();// 构建一个JSONObject
 		if(nickname!=null && !nickname.equals("")){
 			nickname = URLDecoder.decode(nickname, "UTF-8");//解决中文乱码问题
@@ -257,10 +258,16 @@ public class AdminController {
 	public String delete(AdminForm listForm,
 			final RedirectAttributes redirectAttributes) {
 		logger.debug("deleteAdmin() : "+listForm.getId());
-		adminService.enable(listForm.getId(),listForm.getDeleted());
-		//addFlashAttribute表示如果F5的时候，会发现参数丢失
-		redirectAttributes.addFlashAttribute("css", "success");
-		redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
+		int result = adminService.enable(listForm.getId(),listForm.getDeleted());
+		if(result > 0){
+			//addFlashAttribute表示如果F5的时候，会发现参数丢失
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
+		}else{
+			//addFlashAttribute表示如果F5的时候，会发现参数丢失
+			redirectAttributes.addFlashAttribute("css", "failed");
+			redirectAttributes.addFlashAttribute("msg", "删除用户失败!");
+		}
 		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
 		redirectAttributes.addAttribute("page", listForm.getPage());//重定向传递参数，删除后跳转到page页
 		redirectAttributes.addAttribute("visible", listForm.getVisible());

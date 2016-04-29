@@ -58,5 +58,7 @@ public interface TemplateDao {
 	
 	public int delete(int id);
 	
+	public int enable(int id,int visible);
+	
 	public int update(TemplateEntity templateEntity);
 }

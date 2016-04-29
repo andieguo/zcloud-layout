@@ -1,18 +1,26 @@
 package com.zonesion.layout.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zonesion.layout.model.AdminEntity;
+import com.zonesion.layout.model.TemplateEntity;
 import com.zonesion.layout.model.TemplateForm;
 import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.PageView;
@@ -91,18 +99,65 @@ public class TemplateController {
 		return "";
 	}
 	
+	@RequestMapping(value = "/template/edit", method = {RequestMethod.POST, RequestMethod.GET})
+	public void edit(TemplateForm templateForm,HttpServletResponse response) throws IOException{
+		TemplateEntity templateEntity = templateService.findByTemplateId(templateForm.getId());
+		if(templateEntity != null){
+			templateEntity.setLayoutContent(templateForm.getLayoutContent());
+			templateEntity.setLayoutJSON(templateForm.getLayoutJSON());
+			templateEntity.setName(templateForm.getName());
+			templateEntity.setModifyTime(new Date());
+			int status = templateService.update(templateEntity);
+			JSONObject result = new JSONObject();// 构建一个JSONObject
+			response.setContentType("application/x-json");// 需要设置ContentType
+			PrintWriter out = response.getWriter();
+			if(status > 0){//更新成功
+				result.accumulate("status", 1);
+				result.accumulate("message", "success");
+			}else{
+				result.accumulate("status", 0);
+				result.accumulate("message", "failed");
+			}
+			// 为"application/x-json"
+			out.println(result.toString());// 向客户端输出JSONObject字符串
+			out.flush();
+			out.close();
+		}
+	}
+	
 	/**
-	 * 跳转到用户编辑模板页面
+	 * 跳转到用户编辑模板页面(返回JSON格式数据)
 	 */
-	public String editUI(){
-		return "";
+	@RequestMapping(value = "/template/editUI", method = {RequestMethod.POST, RequestMethod.GET})
+	public String editUI(TemplateForm templateForm,Model model){
+		logger.debug("editUI()");
+		TemplateEntity templateEntity = templateService.findByTemplateId(templateForm.getId());
+		model.addAttribute("templateEntity",templateEntity);
+		return "manager/templateUI";
 	}
 	
 	/**
 	 * 删除模板
 	 */
-	public String delete(){
-		return "";
+	@RequestMapping(value = "/template/delete", method = {RequestMethod.POST, RequestMethod.GET})
+	public String delete(TemplateForm templateForm,final RedirectAttributes redirectAttributes){
+		logger.debug("deleteTemplate()");
+		int result = templateService.enable(templateForm.getId(),templateForm.getDeleted());
+		if(result > 0){
+			//addFlashAttribute表示如果F5的时候，会发现参数丢失
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
+		}else{
+			//addFlashAttribute表示如果F5的时候，会发现参数丢失
+			redirectAttributes.addFlashAttribute("css", "failed");
+			redirectAttributes.addFlashAttribute("msg", "删除用户失败!");
+		}
+		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
+		redirectAttributes.addAttribute("page", templateForm.getPage());//重定向传递参数，删除后跳转到page页
+		redirectAttributes.addAttribute("visible", templateForm.getVisible());
+		redirectAttributes.addAttribute("aid", templateForm.getAid());
+		redirectAttributes.addAttribute("type", templateForm.getType());
+		return "redirect:/template/list";
 	}
 	
 	/**

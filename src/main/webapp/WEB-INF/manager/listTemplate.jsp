@@ -20,6 +20,7 @@
 				<form:form class="form-horizontal" method="post" modelAttribute="templateForm" action="${userActionUrl}">
 				<form:hidden path="page" />
 				<form:hidden path="id" />
+				<form:hidden path="deleted"/>
 			  	<div class="new_btn">
 					<!---------------------------查询------------------------------>
 					<div class="seach_box">

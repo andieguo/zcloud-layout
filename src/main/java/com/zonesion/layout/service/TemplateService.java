@@ -35,6 +35,8 @@ public List<TemplateEntity> findAll();
 	
 	public int delete(int id);
 	
+	public int enable(int id,int visible);
+	
 	public int update(TemplateEntity templateEntity);
 	
 	public QueryResult<TemplateVO> findByAdminAndType(int aid, int type, int visible,int firstindex, int maxresult);

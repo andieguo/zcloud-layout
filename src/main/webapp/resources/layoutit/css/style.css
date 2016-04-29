@@ -1,0 +1,87 @@
+/* header 项目页头 */
+header {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1024px;
+}
+header img {
+	float: left;
+	width: 80px;
+	height: 80px;
+}
+header hgroup {
+	float: left;
+	margin-left: 20px;
+	/*width: 70%;*/
+	width: calc(100% - 100px);
+}
+header hgroup h1 {
+	margin: 0;
+	font-family: "微软雅黑";
+	font-size: 24px;
+	line-height: 2em;
+}
+header hgroup h2 {
+	margin: 0;
+	font-size: 14px;
+	line-height: 1.4em;
+}
+/* footer 项目页尾 */
+footer {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	color: #fff;
+	text-align: center;
+	background-color: #000;
+}
+/* alarm 报警器 */
+.alarm .button {text-align: right;}
+.alarm img {display: block;margin: 0 auto;width: 40%;}
+.alarm .value {text-align: center;}
+/* attr 属性编辑窗口 */
+.attr {
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	box-sizing: border-box;
+	width: 100%;
+	padding-left: 200px;
+	background-color: #F5F5F5;
+	border-top: 1px solid #ddd;
+}
+.attr-header {
+	border-bottom: 1px solid #ddd;
+	padding: 4px 15px;
+	color: #666666;
+}
+.attr-body {
+	padding: 14px 25px 5px 25px;
+	background-color: #fafafa;
+}
+.attr .input-prepend .add-on,
+.attr .input-prepend input {
+	font-size: 9px;
+}
+.attr .btn {
+	margin-top: -10px;
+	font-size: 9px;
+}
+/* attr base */
+/*.clearfix {*zoom:1;}
+.clearfix:after {content:"\200B";display:block;height:0;clear:both;}*/
+.mr10p {
+	margin-right: 10px;
+}
+.w50p {
+	width: 50px;
+}
+.w100p {
+	width: 100px;
+}
+.w150p {
+	width: 150px;
+}
+.w200p {
+	width: 200px;
+}
