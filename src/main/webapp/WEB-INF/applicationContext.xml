@@ -39,13 +39,13 @@
 			<value>com.mysql.jdbc.Driver</value>
 		</property>
 		<property name="url">
-			<value>jdbc:mysql://localhost:3306/db_zcloudlayout?useUnicode=true&amp;characterEncoding=utf-8</value>
+			<value>jdbc:mysql://115.29.110.73:32778/db_zcloudlayout?useUnicode=true&amp;characterEncoding=utf-8</value>
 		</property>
 		<property name="username">
-			<value>root</value>
+			<value>admin</value>
 		</property>
 		<property name="password">
-			<value>root</value>
+			<value>Bc1FhKBKJyiw</value>
 		</property>
 	</bean>
 </beans>
