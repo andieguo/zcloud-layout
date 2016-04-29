@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.zonesion.layout.dao.ProjectDao;
 import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.model.ProjectVO;
 import com.zonesion.layout.page.QueryResult;
 
 /**    
@@ -68,6 +69,12 @@ public class ProjectServiceImpl implements ProjectService {
 	public QueryResult<ProjectEntity> findByAdminId(int aid, int firstindex, int maxresult) {
 		// TODO Auto-generated method stub
 		return projectDao.findByAdminId(aid, firstindex, maxresult);
+	}
+
+	@Override
+	public QueryResult<ProjectVO> findByAdminIdAndTemplate(int aid, int tid, int visible, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		return projectDao.findByAdminIdAndTemplate(aid, tid, visible, firstindex, maxresult);
 	}
 
 }

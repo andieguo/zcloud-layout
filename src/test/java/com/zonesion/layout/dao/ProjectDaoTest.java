@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.zonesion.layout.dao.ProjectDao;
 import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.model.ProjectVO;
 import com.zonesion.layout.page.QueryResult;
 
 import junit.framework.TestCase;
@@ -64,6 +65,14 @@ public class ProjectDaoTest extends TestCase {
 		QueryResult<ProjectEntity> queryResult = projectDao.findByAdminId(0,10, 10);
 		System.out.println(queryResult.getTotalrecord());
 		for(ProjectEntity p : queryResult.getResultlist()){
+			System.out.println(p);
+		}
+	}
+	
+	public void testFindByAdminIdPage1(){
+		QueryResult<ProjectVO> queryResult = projectDao.findByAdminIdAndTemplate(-1, -1, -1, 0, 10);
+		System.out.println(queryResult.getTotalrecord());
+		for(ProjectVO p : queryResult.getResultlist()){
 			System.out.println(p);
 		}
 	}

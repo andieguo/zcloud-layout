@@ -1,11 +1,16 @@
 package com.zonesion.layout.dao;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 
+import com.google.common.collect.Lists;
 import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.model.ProjectVO;
 import com.zonesion.layout.page.QueryResult;
 
 /**    
@@ -85,6 +90,72 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 				new Object[] {projectEntity.getName(),projectEntity.getImageUrl(),projectEntity.getTid(),projectEntity.getAid()
 						,projectEntity.getZcloudID(),projectEntity.getZcloudKEY(),projectEntity.getServerAddr(),projectEntity.getMacList()
 						,projectEntity.getCreateTime(),projectEntity.getModifyTime(),projectEntity.getId()});
+	}
+
+	@Override
+	public QueryResult<ProjectVO> findByAdminIdAndTemplate(int aid, int tid, int visible, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		QueryResult<ProjectVO> queryResult = new QueryResult<ProjectVO>();
+		StringBuffer sql  = new StringBuffer("select t1.*,t2.name as templatename,nickname from tb_project t1 inner join tb_template t2 on t1.tid=t2.id inner join tb_admin t3 on t1.aid=t3.id where 1=1");
+		StringBuffer countSql = new StringBuffer("select count(*) from tb_project t1 inner join tb_template t2 on t1.tid=t2.id inner join tb_admin t3 on t1.aid=t3.id where 1=1");
+		List<Integer> parmas = Lists.newArrayList();
+		List<Integer> countParmas = Lists.newArrayList();
+		if(aid != -1){//aid=-1表示所有存在的管理员
+			sql.append(" and t1.aid=?");
+			parmas.add(aid);
+			countSql.append(" and t1.aid=?");
+			countParmas.add(aid);
+		}else{
+			sql.append(" and t3.visible=1");
+			countSql.append(" and t3.visible=1");
+		}
+		if(tid != -1){//type=-1表示存在模板的ID
+			sql.append(" and t1.tid=?");
+			parmas.add(tid);
+			countSql.append(" and t1.tid=?");
+			countParmas.add(tid);
+		}else{
+			sql.append(" and t2.visible=1");
+			countSql.append(" and t2.visible=1");
+		}
+		if(visible != -1){//visibel=-1包括删除、未删除模板
+			sql.append(" and t1.visible=?");
+			parmas.add(visible);
+			countSql.append(" and t1.visible=?");
+			countParmas.add(visible);
+		}
+		sql.append(" and t1.id limit ?,?");
+		parmas.add(firstindex);
+		parmas.add(maxresult);
+		List<ProjectVO> projectList = getJdbcTemplate().query(sql.toString(), parmas.toArray(),
+				new RowMapper<ProjectVO>(){
+					@Override
+					public ProjectVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						ProjectVO projectVO = new ProjectVO();
+						projectVO.setId(rs.getInt("id"));
+						projectVO.setName(rs.getString("name"));
+						projectVO.setImageUrl(rs.getString("imageUrl"));
+						projectVO.setAid(rs.getInt("aid"));
+						projectVO.setTid(rs.getInt("tid"));
+						projectVO.setTemplatename(rs.getString("templatename"));
+						projectVO.setNickname(rs.getString("nickname"));
+						projectVO.setZcloudID(rs.getString("zcloudID"));
+						projectVO.setZcloudKEY(rs.getString("zcloudKEY"));
+						projectVO.setServerAddr(rs.getString("serverAddr"));
+						projectVO.setMacList(rs.getString("macList"));
+						projectVO.setCreateTime(rs.getDate("createTime"));
+						projectVO.setModifyTime(rs.getDate("modifyTime"));
+						projectVO.setVisible(rs.getInt("visible"));
+						return projectVO;
+					}
+		});	
+		//查询记录
+		queryResult.setResultlist(projectList);
+		int count = getJdbcTemplate().queryForObject(countSql.toString(), countParmas.toArray(), Integer.class);
+		//查询总记录数
+		queryResult.setTotalrecord(count);
+		return queryResult;
 	}
 
 }

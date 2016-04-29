@@ -37,7 +37,7 @@ import com.zonesion.layout.service.TemplateService;
 @Controller
 public class TemplateController {
 
-	private final Logger logger = Logger.getLogger(AdminController.class);
+	private final Logger logger = Logger.getLogger(TemplateController.class);
 	
 	@Autowired
 	private TemplateService templateService;

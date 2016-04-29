@@ -3,6 +3,7 @@ package com.zonesion.layout.service;
 import java.util.List;
 
 import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.model.ProjectVO;
 import com.zonesion.layout.page.QueryResult;
 
 /**    
@@ -23,6 +24,8 @@ public interface ProjectService {
 	public List<ProjectEntity> findByAdminId(int aid);
 	
 	public QueryResult<ProjectEntity> findByAdminId(int aid,int firstindex,int maxresult);
+	
+	public QueryResult<ProjectVO> findByAdminIdAndTemplate(int aid,int tid,int visible,int firstindex,int maxresult);
 	
 	public int save(ProjectEntity projectEntity);
 	
