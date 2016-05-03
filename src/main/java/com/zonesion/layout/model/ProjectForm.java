@@ -10,6 +10,13 @@ public class ProjectForm extends ProjectEntity{
 
 	private int page = 1;
 	private int deleted;
+	
+	public ProjectForm() {
+		super();
+		setAid(-1);
+		setTid(-1);
+		setVisible(-1);
+	}
 	public int getPage() {
 		return page;
 	}

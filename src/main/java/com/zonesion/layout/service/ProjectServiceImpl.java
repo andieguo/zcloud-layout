@@ -77,4 +77,10 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.findByAdminIdAndTemplate(aid, tid, visible, firstindex, maxresult);
 	}
 
+	@Override
+	public int enable(int id, int visible) {
+		// TODO Auto-generated method stub
+		return projectDao.enable(id, visible);
+	}
+
 }

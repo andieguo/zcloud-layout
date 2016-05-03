@@ -158,4 +158,10 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 		return queryResult;
 	}
 
+	@Override
+	public int enable(int id, int visible) {
+		// TODO Auto-generated method stub
+		return getJdbcTemplate().update("update tb_project set visible=? where id=?",new Object[] {visible,id});	
+	}
+
 }
