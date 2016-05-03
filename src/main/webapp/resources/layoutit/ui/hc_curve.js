@@ -53,6 +53,8 @@ var hc_curve = {
         //将create()输入的属性参数绘制控件UI
     	if(arguments.length >0){
     		$.extend(properties,arguments[0]);
+    		//此条语句至关重要，否则控件UI会加载失败
+    		$("#"+properties.tid).removeAttr("data-highcharts-chart");
     	}
     	else{
             var e = $(".demo #hc_curve");

@@ -44,14 +44,8 @@ var sec_alarm = {
                 ' </div>',
 
   create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
-    var e = $(".demo #sec_alarm");
-    var t = randomNumber();
-    var n = "sec_alarm_" + t;
-    var r;
-    e.attr("id", n);
-
     var properties = {
-        tid: n,
+        tid: "sec_alarm",
         title:"安防设备名称",
         width: 300,
         height: 300,
@@ -61,6 +55,13 @@ var sec_alarm = {
     //将create()输入的属性参数绘制控件UI
 	if(arguments.length >0){
 		$.extend(properties,arguments[0]);
+	}
+	else{
+	    var e = $(".demo #sec_alarm");
+	    var t = randomNumber();
+	    var n = "sec_alarm_" + t;
+	    e.attr("id", n);
+	    $.extend(properties,{"tid":n});
 	}
     
     var ui = new SecAlarmUI(properties);

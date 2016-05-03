@@ -74,14 +74,8 @@ var hc_dial = {
                 ' </div>',
 
     create: function() {
-        var e = $(".demo #hc_dial");
-        var t = randomNumber();
-        var n = "hc_dial_" + t;
-        var r;
-        e.attr("id", n);
-
         var properties = {
-            tid: n,
+            tid: "hc_dial",
             title:"温度",
             width: 300,
             height: 300,
@@ -96,6 +90,15 @@ var hc_dial = {
         //将create()输入的属性参数绘制控件UI
     	if(arguments.length >0){
     		$.extend(properties,arguments[0]);
+    		//此条语句至关重要，否则控件UI会加载失败
+    		$("#"+properties.tid).removeAttr("data-highcharts-chart");
+    	}
+    	else{
+            var e = $(".demo #hc_dial");
+            var t = randomNumber();
+            var n = "hc_dial_" + t;
+            e.attr("id", n);
+            $.extend(properties,{"tid":n});
     	}
     	
         var ui = new HCDialUI(properties);

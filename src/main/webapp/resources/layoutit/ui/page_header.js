@@ -40,14 +40,8 @@ var page_header = {
                 ' </div>',
 
     create: function() {//默认情况下无参数，可接收控件属性参数对象create(properties)
-        var e = $(".demo #page_header");
-        var t = randomNumber();
-        var n = "page_header_" + t;
-        var r;
-        e.attr("id", n);
-
         var properties = {
-            tid: n,
+            tid: "page_header",
             prog_name:"项目名称",
             prog_des: "此处为对项目的简单描述",
             prog_logo: layoutitPath+"img/prog_logo1.jpg",
@@ -57,6 +51,13 @@ var page_header = {
         //将create()输入的属性参数绘制控件UI
     	if(arguments.length >0){
     		$.extend(properties,arguments[0]);
+    	}
+    	else{
+            var e = $(".demo #page_header");
+            var t = randomNumber();
+            var n = "page_header_" + t;
+            e.attr("id", n);
+            $.extend(properties,{"tid":n});
     	}
     	
     	var ui = new PageHeaderUI(properties);

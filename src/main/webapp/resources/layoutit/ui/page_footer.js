@@ -34,14 +34,8 @@ var page_footer = {
                 ' </div>',
 
     create: function() {//默认情况下无参数，可接收控件属性参数对象create(properties)
-        var e = $(".demo #page_footer");
-        var t = randomNumber();
-        var n = "page_footer_" + t;
-        var r;
-        e.attr("id", n);
-
         var properties = {
-            tid: n,
+            tid: "page_footer",
             footer_info:"项目尾信息",
             width: 300,
             height: 300,
@@ -51,6 +45,13 @@ var page_footer = {
         //将create()输入的属性参数绘制控件UI
     	if(arguments.length >0){
     		$.extend(properties,arguments[0]);
+    	}
+    	else{
+            var e = $(".demo #page_footer");
+            var t = randomNumber();
+            var n = "page_footer_" + t;
+            e.attr("id", n);
+            $.extend(properties,{"tid":n});
     	}
         
         var ui = new PageFooterUI(properties);

@@ -37,26 +37,26 @@ var layout_subsys = {
                 ' </div>',
 
     create: function() {
-        var e = $(".demo #layout_subsys");
-        var t = randomNumber();
-        var n = "layout_subsys_" + t;
-        var r;
-        e.attr("id", n);
-
         var properties = {
-            tid: n,
+            tid: "layout_subsys",
             title:"子系统标题",
             width: 300,
             height: 300,
             theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
         };
-
-        return {properties:properties};
-    },
-
-    getUI: function(properties){
-          var ui = new HCCurveUI(properties);
-          return ui;
+        //将create()输入的属性参数绘制控件UI
+    	if(arguments.length >0){
+    		$.extend(properties,arguments[0]);
+    	}
+    	else{
+	        var e = $(".demo #layout_subsys");
+	        var t = randomNumber();
+	        var n = "layout_subsys_" + t;
+	        e.attr("id", n);
+	        $.extend(properties,{"tid":n});
+    	}
+        var ui = new LayoutSubsysUI(properties);
+        return ui;
     },
 
     showAttr: function(properties){
@@ -65,13 +65,13 @@ var layout_subsys = {
         $("#widget_height").val(properties.height);
         $("#theme_type").val(properties.theme_type);  
     },
+    
     updateAttr: function(divid){
         var title = $("#widget_title").val();
         var width = parseInt($("#widget_width").val());
         var height = parseInt($("#widget_height").val());
         var theme_type = $("#theme_type").val();
 
-        $("#"+divid).children("h3").text(title);
         var properties = {
             tid: divid,
             title: title,
@@ -79,6 +79,17 @@ var layout_subsys = {
             height: height,
             theme_type: theme_type,
         };
-        return {properties:properties};
+        
+        $("#"+divid).children("h3").text(title);
+        //var ui = new LayoutSubsysUI(properties);
+        return {"properties":properties};
     },
+}
+
+function LayoutSubsysUI(prop)
+{
+	this.properties = prop;
+	var html = '<h3 class="title">'+prop.title+'</h3>'+
+    		   '<div class="body column"></div>';
+	$("#"+prop.tid).html(html);
 }

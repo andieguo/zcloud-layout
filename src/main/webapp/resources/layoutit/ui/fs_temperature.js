@@ -46,12 +46,8 @@ var fs_temperature = {
                 ' </div>',
 
   create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
-  	var e = $(".demo #fs_temperature");
-		var t = randomNumber();
-		var n = "fs_temperature_" + t;
-		e.attr("id", n);
     var properties = {
-        tid: n,
+        tid: "fs_temperature",
         title: "温度",
         width: 240,
         height: 200,
@@ -65,6 +61,13 @@ var fs_temperature = {
     //将create()输入的属性参数绘制控件UI
 	if(arguments.length >0){
 		$.extend(properties,arguments[0]);
+	}
+	else{
+	  	var e = $(".demo #fs_temperature");
+		var t = randomNumber();
+		var n = "fs_temperature_" + t;
+		e.attr("id", n);
+		$.extend(properties,{"tid":n});
 	}
 	
     var ui = new TemperatureUI(properties);

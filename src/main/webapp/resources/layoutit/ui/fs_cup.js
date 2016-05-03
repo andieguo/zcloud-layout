@@ -46,13 +46,8 @@ var fs_cup = {
                 ' </div>',
 
   create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
-	var e = $(".demo #fs_cup");
-    var t = randomNumber();
-    var n = "fs_cup_" + t;
-    e.attr("id", n);
-
     var properties = {
-        tid: n,
+        tid: "fs_cup",
         title: "湿度",
         width: 140,
         height: 200,
@@ -67,9 +62,15 @@ var fs_cup = {
 	if(arguments.length >0){
 		$.extend(properties,arguments[0]);
 	}
+	else{
+		var e = $(".demo #fs_cup");
+	    var t = randomNumber();
+	    var n = "fs_cup_" + t;
+	    e.attr("id", n);
+	    $.extend(properties,{"tid":n});
+	}
 	
     var ui = new FSCupUI(properties);
-    console.log("ui:"+ui);
     ui.render();
     return ui;
   },

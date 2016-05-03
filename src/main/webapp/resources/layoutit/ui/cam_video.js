@@ -81,14 +81,8 @@ var cam_video = {
                 ' </div>',
 
   create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
-    var e = $(".demo #cam_video");
-    var t = randomNumber();
-    var n = "cam_video_" + t;
-    var r;
-    e.attr("id", n);
-
     var properties = {
-        tid: n,
+        tid: "cam_video",
         title:"摄像头名称",
         width: 300,
         height: 300,
@@ -98,6 +92,13 @@ var cam_video = {
     //将create()输入的属性参数绘制控件UI
 	if(arguments.length >0){
 		$.extend(properties,arguments[0]);
+	}
+	else{
+	    var e = $(".demo #cam_video");
+	    var t = randomNumber();
+	    var n = "cam_video_" + t;
+	    e.attr("id", n);
+	    $.extend(properties,{"tid":n});
 	}
 	
     var ui = new CamVideoUI(properties);

@@ -39,14 +39,8 @@ var ctr_switch = {
                 ' </div>',
 
   create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
-    var e = $(".demo #ctr_switch");
-    var t = randomNumber();
-    var n = "ctr_switch_" + t;
-    var r;
-    e.attr("id", n);
-
     var properties = {
-        tid: n,
+        tid: "ctr_switch",
         title:"开关名称",
         width: 300,
         height: 300,
@@ -56,6 +50,13 @@ var ctr_switch = {
     //将create()输入的属性参数绘制控件UI
 	if(arguments.length >0){
 		$.extend(properties,arguments[0]);
+	}
+	else{
+	    var e = $(".demo #ctr_switch");
+	    var t = randomNumber();
+	    var n = "ctr_switch_" + t;
+	    e.attr("id", n);
+	    $.extend(properties,{"tid":n});
 	}
 	
     var ui = new CtrSwitchUI(properties);
