@@ -33,7 +33,7 @@ var page_footer = {
                       '</div>' +      
                 ' </div>',
 
-    create: function() {
+    create: function() {//默认情况下无参数，可接收控件属性参数对象create(properties)
         var e = $(".demo #page_footer");
         var t = randomNumber();
         var n = "page_footer_" + t;
@@ -48,12 +48,13 @@ var page_footer = {
             theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
         };
 
-        return {properties:properties};
-    },
-
-    getUI: function(properties){
-          var ui = new HCCurveUI(properties);
-          return ui;
+        //将create()输入的属性参数绘制控件UI
+    	if(arguments.length >0){
+    		$.extend(properties,arguments[0]);
+    	}
+        
+        var ui = new PageFooterUI(properties);
+        return ui;
     },
 
     showAttr: function(properties){
@@ -68,7 +69,6 @@ var page_footer = {
         var height = parseInt($("#widget_height").val());
         var theme_type = $("#theme_type").val();
 
-        $("#"+divid).text(footer_info);
         var properties = {
             tid: divid,
             footer_info: footer_info,
@@ -76,6 +76,15 @@ var page_footer = {
             height: height,
             theme_type: theme_type,
         };
-        return {properties:properties};
+        
+        var ui = new PageFooterUI(properties);
+        return ui;
     },
+}
+
+function PageFooterUI(prop)
+{
+	this.properties = prop;
+	var html = prop.footer_info;
+	$("#"+prop.tid).html(html);
 }

@@ -39,15 +39,9 @@ var hc_curve = {
                       '</div>' +        
                 ' </div>',
 
-    create: function() {
-        var e = $(".demo #hc_curve");
-        var t = randomNumber();
-        var n = "hc_curve_" + t;
-        var r;
-        e.attr("id", n);
-
+    create: function() {//默认情况下无参数，可接收控件属性参数对象create(properties)
         var properties = {
-            tid: n,
+            tid: "hc_curve",
             title:"温度历史数据",
             width: 600,
             height: 200,
@@ -55,15 +49,21 @@ var hc_curve = {
             unit: "℃",
             data: [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]]
         };
-        var ui = new HCCurveUI(properties);
-        console.log("ui:"+ui);
-        //ui.render();
-        return ui;
-    },
+        
+        //将create()输入的属性参数绘制控件UI
+    	if(arguments.length >0){
+    		$.extend(properties,arguments[0]);
+    	}
+    	else{
+            var e = $(".demo #hc_curve");
+            var t = randomNumber();
+            var n = "hc_curve_" + t;
+            e.attr("id", n);
+            $.extend(properties,{"tid":n});
+    	}
 
-    getUI: function(properties){
-      var ui = new HCCurveUI(properties);
-      return ui;
+        var ui = new HCCurveUI(properties);
+        return ui;
     },
 
     showAttr: function(properties){

@@ -11,7 +11,7 @@ var sec_alarm = {
                             '<button class="btn btn-success" type="button">布防<tton>' +
                             '<button class="btn btn-danger" type="button">撤防<tton>' +
                           '</div>' +
-                          '<img src="img/alarm-on.png" alt="">' +
+                          '<img src="'+layoutitPath+'img/alarm-on.png" alt="">' +
                           '<div class="value" id="alarm_text">正在检测中...</div>' +
                         '</div>'+
                     '</div>'+
@@ -43,7 +43,7 @@ var sec_alarm = {
                       '</div>' +      
                 ' </div>',
 
-  create: function(){
+  create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
     var e = $(".demo #sec_alarm");
     var t = randomNumber();
     var n = "sec_alarm_" + t;
@@ -58,12 +58,13 @@ var sec_alarm = {
         theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
     };
 
-    return {properties:properties};
-  },
-
-  getUI: function(properties){
-      var ui = new FSCupUI(properties);
-      return ui;
+    //将create()输入的属性参数绘制控件UI
+	if(arguments.length >0){
+		$.extend(properties,arguments[0]);
+	}
+    
+    var ui = new SecAlarmUI(properties);
+    return ui;
   },
 
   showAttr: function(properties){
@@ -79,7 +80,6 @@ var sec_alarm = {
       var height = parseInt($("#widget_height").val());
       var theme_type = $("#theme_type").val();
 
-      $("#"+divid).children("h3").text(title);
       var properties = {
           tid: divid,
           title: title,
@@ -87,22 +87,24 @@ var sec_alarm = {
           height: height,
           theme_type: theme_type,
       };
-      return {properties:properties};
+      
+      var ui = new SecAlarmUI(properties);
+      return ui;
   },
 
   setValue:function(divid,val){
     if(val == -1){//撤防
-      $("#"+divid).find("img").attr("src","img/alarm-off.png");
+      $("#"+divid).find("img").attr("src",layoutitPath+"img/alarm-off.png");
       $("#"+divid).find("#alarm_text").text("已撤防");
       $("#"+divid).find("#alarm_text").css("color","black");
     }
     if(val == 0){//正常状态
-      $("#"+divid).find("img").attr("src","img/alarm-off.png");
+      $("#"+divid).find("img").attr("src",layoutitPath+"img/alarm-off.png");
       $("#"+divid).find("#alarm_text").text("正在检测...");
       $("#"+divid).find("#alarm_text").css("color","black");
     }
     if(val == 1){//报警状态
-      $("#"+divid).find("img").attr("src","img/alarm-activ.gif");
+      $("#"+divid).find("img").attr("src",layoutitPath+"img/alarm-activ.gif");
       $("#"+divid).find("#alarm_text").text("检测到危险气体！");
       $("#"+divid).find("#alarm_text").css("color","red");
     }
@@ -120,4 +122,19 @@ var sec_alarm = {
       ctr_switch.switchStat(divid,0);
     }*/
   }
+}
+
+function SecAlarmUI(prop)
+{
+	this.properties = prop;
+	var html = '<h3 class="title">'+prop.title+'</h3>'+
+		    '<div class="body">'+
+			    '<div class="button">' +
+			      '<button class="btn btn-success" type="button">布防<tton>' +
+			      '<button class="btn btn-danger" type="button">撤防<tton>' +
+			    '</div>' +
+			    '<img src="'+layoutitPath+'img/alarm-on.png" alt="">' +
+			    '<div class="value" id="alarm_text">正在检测中...</div>' +
+		    '</div>';
+	$("#"+prop.tid).html(html);
 }

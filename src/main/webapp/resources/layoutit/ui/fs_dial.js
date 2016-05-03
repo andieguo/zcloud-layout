@@ -73,12 +73,12 @@ var fs_dial = {
                       '</div>' +                  
                 ' </div>',           
 
-    create: function(){
+    create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
     	var e = $(".demo #fs_dial");
   		var t = randomNumber();
-  		var n = "fs_dial_" + t;
+  		n = "fs_dial_" + t;
   		e.attr("id", n);
-
+  
         var properties = {
             tid: n,
             title:"温度",
@@ -91,15 +91,15 @@ var fs_dial = {
             layer2: {"minvalue": "50","maxvalue": "85","code": "F6F164","alpha": "80"},
             layer3: {"minvalue": "85","maxvalue": "120","code": "F70118","alpha": "80"}
         };
+        
+        //将create()输入的属性参数绘制控件UI
+    	if(arguments.length >0){
+    		$.extend(properties,arguments[0]);
+    	}
+    	
         var ui = new FSDialUI(properties);
-        console.log("ui:"+ui);
         ui.render();
         return ui;
-    },
-
-    getUI: function(properties){
-      var ui = new FSDialUI(properties);
-      return ui;
     },
 
     showAttr: function(properties){
@@ -279,25 +279,4 @@ function FSDialUI(prop) {
   this.render = function(){
       csatGauge.render();
   };
-
-  this.setUpperLimit = function(value){
-      charData.chart.upperlimit = value;
-      csatGauge.setChartData(charData);
-  };
-
-  this.setProperty = function(name,value){
-      charData.chart[name] = value;
-      csatGauge.setChartData(charData);
-  };
-
-  this.getProperty = function(name,value){
-      console.log(charData.chart[name]);
-      return charData.chart[name];
-  };
-
-  this.setValue = function(value){
-      console.log("charData:"+charData);
-      charData.value = value;
-      csatGauge.setChartData(charData);
-  }
 }

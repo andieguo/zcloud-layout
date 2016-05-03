@@ -10,7 +10,7 @@ var cam_video = {
                                     '<div class="row">'+
                                         '<div class="col-md-12">'+
                                             '<div class="camera">'+
-                                                '<img class="camera-img" src="img/camera-bg.jpg" alt="" width="100%" />'+
+                                                '<img class="camera-img" src="'+layoutitPath+'img/camera-bg.jpg" alt="" width="100%" />'+
                                                 '<div class="camera-bg">'+
                                                 '</div>'+
                                             '</div>'+
@@ -80,7 +80,7 @@ var cam_video = {
                       '</div>' +      
                 ' </div>',
 
-  create: function(){
+  create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
     var e = $(".demo #cam_video");
     var t = randomNumber();
     var n = "cam_video_" + t;
@@ -89,18 +89,19 @@ var cam_video = {
 
     var properties = {
         tid: n,
-        title:"开关名称",
+        title:"摄像头名称",
         width: 300,
         height: 300,
         theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
     };
-
-    return {properties:properties};
-  },
-
-  getUI: function(properties){
-      var ui = new FSCupUI(properties);
-      return ui;
+    
+    //将create()输入的属性参数绘制控件UI
+	if(arguments.length >0){
+		$.extend(properties,arguments[0]);
+	}
+	
+    var ui = new CamVideoUI(properties);
+    return ui;
   },
 
   showAttr: function(properties){
@@ -148,4 +149,55 @@ var cam_video = {
       ctr_switch.switchStat(divid,0);
     }*/
   }
+}
+
+function CamVideoUI(prop) {
+    this.properties = prop;
+    var  html = '<h3 class="title">'+prop.title+'</h3>'+
+    '<div class="body">'+
+    '<div class="row">'+
+        '<div class="col-md-12">'+
+            '<div class="camera">'+
+                '<img class="camera-img" src="'+layoutitPath+'img/camera-bg.jpg" alt="" width="100%" />'+
+                '<div class="camera-bg">'+
+                '</div>'+
+            '</div>'+
+        '</div>'+
+        '<div class="col-md-12">'+
+            '<div class="row">'+
+                '<div class="col-lg-6 col-ms-12 pb15">'+
+                    '<div class="row">'+
+                        '<div class="col-lg-3 col-xs-3">'+
+                            '<button class="btn_left btn btn-large btn-success btn-block lh2" type="button">←</button>'+
+                        '</div>'+
+                        '<div class="col-lg-5 col-xs-6">'+
+                            '<button class="btn_up btn btn-large btn-success btn-block mb10" type="button">↑</button>'+
+                            '<button class="btn_down btn btn-large btn-success btn-block" type="button">↓</button>'+
+                        '</div>'+
+                        '<div class="col-lg-3 col-xs-3">'+
+                            '<button class="btn_right btn btn-large btn-success btn-block lh2" type="button">→</button>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+               '<div class="col-lg-6 col-xs-12 pb15">'+
+                    '<div class="row">'+
+                        '<div class="col-lg-6 col-md-12 col-xs-12 mb10">'+
+                            '<button class="btn_switch btn btn-large btn-danger btn-block" type="button">开关</button>'+
+                        '</div>'+
+                        '<div class="col-lg-6 col-md-4 col-xs-4 mb10">'+
+                            '<button class="btn_trbl btn btn-large btn-success btn-block" type="button">全局巡航</button>'+
+                        '</div>'+
+                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
+                            '<button class="btn_lr btn btn-large btn-success btn-block" type="button">左右巡航</button>'+
+                        '</div>'+
+                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
+                            '<button class="btn_tb btn btn-large btn-success btn-block" type="button">上下巡航</button>'+
+                        '</div>'+
+                    '</div>'+
+                '</div>'+
+            '</div>'+
+        '</div>'+
+    '</div>'+
+'</div>';
+    $("#"+prop.tid).html(html);
 }

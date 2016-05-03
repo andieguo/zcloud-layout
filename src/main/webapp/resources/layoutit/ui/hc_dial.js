@@ -92,15 +92,14 @@ var hc_dial = {
             layer2:{from:0,to:30,color:yellow},
             layer3:{from:50,to:100,color:red}
         };
+        
+        //将create()输入的属性参数绘制控件UI
+    	if(arguments.length >0){
+    		$.extend(properties,arguments[0]);
+    	}
+    	
         var ui = new HCDialUI(properties);
-        console.log("ui:"+ui);
-        //ui.render();
         return ui;
-    },
-
-    getUI: function(properties){
-      var ui = new HCDialUI(properties);
-      return ui;
     },
 
     showAttr: function(properties){

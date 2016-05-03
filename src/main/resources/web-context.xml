@@ -63,7 +63,7 @@
  		<property name="basenames">    
 	        <list>    
 	            <value>messages/messages</value>  
-	            <value>messages/validation</value>  
+	            <value>messages/validation</value>
 	        </list>
 	    </property> 
     </bean>

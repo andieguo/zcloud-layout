@@ -29,6 +29,7 @@ function handleSaveTemplateAttr() {
 
 function saveTemplateAttr(){
 	if (supportstorage()) {
+		//localStorage.removeItem("uiTemplateObj");
 		localStorage.setItem("uiTemplateObj",JSON.stringify(uiTemplateObj));
 	}
 	/*$.ajax({  
@@ -308,18 +309,6 @@ $(window).resize(function() {
 	$(".demo").css("min-height", $(window).height() - 160)
 });
 
-/**将编辑页面内容中的image部分清空**/
-function removeImage(){
-	$("#tmpID").html($(".demo").html());//将编辑页面内容添加到临时编辑区域
-	var data = localStorage.getItem("uiTemplateObj");
-	data = JSON.parse(data);
-	for(var i=0;i<data.arr.length;i++){
-		var uid = data.arr[i].key;
-		$("#tmpID #"+uid).html("");//将image清空
-	}
-	return $("#tmpID").html();
-}
-
 /**读取配置文件重新渲染静态页面*/
 function renderUI(){
 	var data = localStorage.getItem("uiTemplateObj");
@@ -379,7 +368,6 @@ function initContainer(){
 }
 <!--定义全局变量 key:object--> 
 var gUiObject = {
-	"ui_test" : ui_test,
 	"fs_temperature": fs_temperature,
 	"hc_dial": hc_dial,
 	"fs_dial": fs_dial,
@@ -412,7 +400,7 @@ $(document).ready(function() {
 	restoreData();
 	var contenthandle = CKEDITOR.replace( 'contenteditor' ,{
 		language: 'zh-cn',
-		contentsCss: ['css/bootstrap-combined.min.css'],
+		contentsCss: [layoutitPath+'css/bootstrap-combined.min.css'],
 		allowedContent: true
 	});
 	$("body").css("min-height", $(window).height() - 90);
@@ -469,7 +457,7 @@ $(document).ready(function() {
 			handleJsIds();
 			var uid = t.helper.children(".view").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
-				if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0 
+				if(uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0 
 					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
 					|| uid.indexOf("page") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象

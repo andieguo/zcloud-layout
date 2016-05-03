@@ -42,6 +42,7 @@
 <!--highcharts-->
   <script type="text/javascript" src="${basePath }/resources/layoutit/highcharts/highcharts.js" ></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/highcharts/highcharts-more.js" ></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_curve.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/highcharts/drawcharts.js" ></script>
 <!--fusioncharts-->
   <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/fusioncharts.js"></script>
@@ -57,46 +58,80 @@ var uiTemplateObj = {};
 var templateId = "${templateEntity.id}";//用户可能会同时编辑多个模板
 uiTemplateObj[templateId]={};
 
-  function initTemplateUI(){
-	var layoutJSON = '${templateEntity.layoutJSON}';
-    uiTemplateObj[templateId] = JSON.parse(layoutJSON);
-    var content = '${templateEntity.layoutContent}';
-    $(".demo").html(content);
-  }
+function initTemplateAttrObj(){
+	uiTemplateObj = {};
+	uiTemplateObj[templateId]={};
+}
 
+function initTemplateUI(){
+   //保存控件UI属性配置数据
+   var layoutJSON = '${templateEntity.layoutJSON}';
+   uiTemplateObj[templateId] = JSON.parse(layoutJSON);
+   
+   //渲染控件布局的div
+   var content = '${templateEntity.layoutContent}';
+   $(".demo").html(content);
+   
+   //渲染控件的UI
+   resumeWidgetUI();
+ }
+/**将编辑页面内容中的控件UI部分清空**/
+function removeWidgetUI(){
+	var data = localStorage.getItem("uiTemplateObj");
+	data = JSON.parse(data);
+	for(var i in data[templateId]){
+		$("#"+i).html("");		
+	}
+}
+/*恢复控件的UI内容*/
+function resumeWidgetUI(){
+	var data = localStorage.getItem("uiTemplateObj");
+	data = JSON.parse(data);
+	for(var i in data[templateId]){
+		var widgetJSFileName = i.substring(0,placeOfChar(i,2,'_'));	
+		gUiObject[widgetJSFileName].create(data[templateId][i]);
+	}	
+}
+/*压缩html*/
  function compress(template){
     return template.replace(/\s+|\n/g, " ").replace(/>\s</g,"><");
   };
 
-	function pushTemplate(){
-		var tid = "${templateEntity.id}";
-		var url = "${basePath}"+"/template/edit";
-		var name = 'hello';
-		var layoutJSON =  JSON.stringify(uiTemplateObj[templateId]);
-		var layoutContent = $(".demo").html();//layoutContent.replace(/'/g, '"')
-		layoutContent = layoutContent.replace(/\'/g,'&#39;');
-		layoutContent = compress(layoutContent);
-		 $.ajax({
-				url : url,
-				type : 'post',
-				data : {'id':tid,'name':name,'layoutJSON':layoutJSON,'layoutContent':layoutContent},
-				dataType : 'json',
-				success : function(data) {//返回的data本身即是一个JSON对象
-					console.log("data.status:"+data.status);
-					console.log("data.message:"+data.message);
-					if(data.status == 1){//push成功
-						console.log("success");
-					}else if(data.status==0){//push失败
-						console.log("failed");
-					}
-				},
-				error : function() {
-					alert("您请求的页面有异常 ");
+/*将控件的配置、UI保存到后台*/  
+function pushTemplate(){
+	var tid = "${templateEntity.id}";
+	var url = "${basePath}"+"/template/edit";
+	var name = 'hello';
+	
+	var layoutJSON =  JSON.stringify(uiTemplateObj[templateId]);
+	
+	removeWidgetUI()//先清除控件的UI部分
+	var layoutContent = $(".demo").html();//layoutContent.replace(/'/g, '"')
+	layoutContent = layoutContent.replace(/\'/g,'&#39;');
+	layoutContent = compress(layoutContent);
+	 $.ajax({
+			url : url,
+			type : 'post',
+			data : {'id':tid,'name':name,'layoutJSON':layoutJSON,'layoutContent':layoutContent},
+			dataType : 'json',
+			success : function(data) {//返回的data本身即是一个JSON对象
+				console.log("data.status:"+data.status);
+				console.log("data.message:"+data.message);
+				if(data.status == 1){//push成功
+					console.log("success");
+					window.location.href = "${basePath}"+"/template/list";//页面跳转
+				}else if(data.status==0){//push失败，恢复UI部分
+					console.log("failed");
+					resumeWidgetUI()
 				}
-		});
-	}
+			},
+			error : function() {
+				alert("您请求的页面有异常 ");
+			}
+	});
+}
   $(function(){
-   initTemplateUI();
+   	initTemplateUI();
   })
 </script>
 
@@ -122,7 +157,7 @@ uiTemplateObj[templateId]={};
             </div>
             <div class="btn-group">
               <button type="button" class="btn btn-primary" data-target="#downloadModal" rel="/build/downloadModal" role="button" data-toggle="modal"><i class="icon-chevron-down icon-white"></i>下载</button>
-              <button class="btn btn-primary" href="/share/index" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
+              <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
               <button class="btn btn-primary" href="#clear" id="clear"><i class="icon-trash icon-white"></i>清空</button>
             </div>
             <div class="btn-group">
@@ -972,12 +1007,11 @@ uiTemplateObj[templateId]={};
 </div>
 </body>
  <!--导入控件js文件--> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ui_test.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_temperature.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_dial.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_dial.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_cup.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_curve.js"></script>
+
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/layout_subsys.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ctr_switch.js"></script>
   <script type="text/javascript" src="${basePath }/resources/layoutit/ui/sec_alarm.js"></script> 

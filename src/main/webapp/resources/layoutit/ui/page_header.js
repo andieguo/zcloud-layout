@@ -39,9 +39,7 @@ var page_header = {
                       '</div>' +      
                 ' </div>',
 
-    create: function() {
-    	//alert(layoutitPath);
-    	alert("拖放结束");
+    create: function() {//默认情况下无参数，可接收控件属性参数对象create(properties)
         var e = $(".demo #page_header");
         var t = randomNumber();
         var n = "page_header_" + t;
@@ -56,12 +54,13 @@ var page_header = {
             theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
         };
 
-        return {properties:properties};
-    },
-
-    getUI: function(properties){
-          var ui = new HCCurveUI(properties);
-          return ui;
+        //将create()输入的属性参数绘制控件UI
+    	if(arguments.length >0){
+    		$.extend(properties,arguments[0]);
+    	}
+    	
+    	var ui = new PageHeaderUI(properties);
+        return ui;
     },
 
     showAttr: function(properties){
@@ -87,6 +86,19 @@ var page_header = {
             prog_logo: layoutitPath+prog_logo,
             theme_type: theme_type,
         };
-        return {properties:properties};
+        
+        var ui = new PageHeaderUI(properties);
+        return ui;
     },
+}
+
+function PageHeaderUI(prop)
+{
+	this.properties = prop;
+	var html = '<img src="'+prop.prog_logo+'" alt="logo">'+
+			   '<hgroup>'+
+			   '<h1 contenteditable="true">'+prop.prog_name+'</h1>'+
+			   '<h2 contenteditable="true">'+prop.prog_des+'</h2>'+
+			   '</hgroup>';
+	$("#"+prop.tid).html(html);
 }

@@ -45,11 +45,12 @@ var fs_cup = {
                   '</div>' +
                 ' </div>',
 
-  create: function(){
-    var e = $(".demo #fs_cup");
+  create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
+	var e = $(".demo #fs_cup");
     var t = randomNumber();
     var n = "fs_cup_" + t;
     e.attr("id", n);
+
     var properties = {
         tid: n,
         title: "湿度",
@@ -61,15 +62,16 @@ var fs_cup = {
         bgcolor: "#f2f5f7",
         gaugeFillColor: "#5aff00"
     };
+    
+    //将create()输入的属性参数绘制控件UI
+	if(arguments.length >0){
+		$.extend(properties,arguments[0]);
+	}
+	
     var ui = new FSCupUI(properties);
     console.log("ui:"+ui);
     ui.render();
     return ui;
-  },
-
-  getUI: function(properties){
-      var ui = new FSCupUI(properties);
-      return ui;
   },
 
   showAttr: function(properties){
@@ -152,25 +154,4 @@ function FSCupUI(prop) {
   this.render = function(){
       csatGauge.render();
   };
-
-  this.setUpperLimit = function(value){
-      charData.chart.upperlimit = value;
-      csatGauge.setChartData(charData);
-  };
-
-  this.setProperty = function(name,value){
-      charData.chart[name] = value;
-      csatGauge.setChartData(charData);
-  };
-
-  this.getProperty = function(name,value){
-      console.log(charData.chart[name]);
-      return charData.chart[name];
-  };
-
-  this.setValue = function(value){
-      console.log("charData:"+charData);
-      charData.value = value;
-      csatGauge.setChartData(charData);
-  }
 };

@@ -45,7 +45,7 @@ var fs_temperature = {
                   '</div>' +
                 ' </div>',
 
-  create: function(){
+  create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
   	var e = $(".demo #fs_temperature");
 		var t = randomNumber();
 		var n = "fs_temperature_" + t;
@@ -61,15 +61,15 @@ var fs_temperature = {
         bgcolor: "#f3f5f7",
         gaugeFillColor: "#ffc420"
     };
+    
+    //将create()输入的属性参数绘制控件UI
+	if(arguments.length >0){
+		$.extend(properties,arguments[0]);
+	}
+	
     var ui = new TemperatureUI(properties);
-    console.log("ui:"+ui);
     ui.render();
     return ui;
-  },
-
-  getUI: function(properties){
-      var ui = new TemperatureUI(properties);
-      return ui;
   },
 
   showAttr: function(properties){
@@ -148,30 +148,7 @@ function TemperatureUI(prop) {
         "value": "28"
     }
   });
-  
-  var charData = csatGauge.getChartData("json");
   this.render = function(){
       csatGauge.render();
   };
-
-  this.setUpperLimit = function(value){
-      charData.chart.upperlimit = value;
-      csatGauge.setChartData(charData);
-  };
-
-  this.setProperty = function(name,value){
-      charData.chart[name] = value;
-      csatGauge.setChartData(charData);
-  };
-
-  this.getProperty = function(name,value){
-      console.log(charData.chart[name]);
-      return charData.chart[name];
-  };
-
-  this.setValue = function(value){
-      console.log("charData:"+charData);
-      charData.value = value;
-      csatGauge.setChartData(charData);
-  }
 };

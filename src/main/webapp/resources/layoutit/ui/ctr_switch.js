@@ -7,7 +7,7 @@ var ctr_switch = {
                     '<div class="panel-sensor" id="ctr_switch">'+
                         '<h3 class="title">开关名称</h3>'+
                         '<div class="body">'+
-                            '<img class="switch_button" src="img/off.png"/>'+
+                            '<img class="switch_button" src="'+layoutitPath+'img/off.png"/>'+
                         '</div>'+
                     '</div>'+
                  '</div>'+
@@ -38,7 +38,7 @@ var ctr_switch = {
                       '</div>' +      
                 ' </div>',
 
-  create: function(){
+  create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
     var e = $(".demo #ctr_switch");
     var t = randomNumber();
     var n = "ctr_switch_" + t;
@@ -52,13 +52,14 @@ var ctr_switch = {
         height: 300,
         theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
     };
-
-    return {properties:properties};
-  },
-
-  getUI: function(properties){
-      var ui = new FSCupUI(properties);
-      return ui;
+    
+    //将create()输入的属性参数绘制控件UI
+	if(arguments.length >0){
+		$.extend(properties,arguments[0]);
+	}
+	
+    var ui = new CtrSwitchUI(properties);
+    return ui;
   },
 
   showAttr: function(properties){
@@ -74,7 +75,6 @@ var ctr_switch = {
       var height = parseInt($("#widget_height").val());
       var theme_type = $("#theme_type").val();
 
-      $("#"+divid).children("h3").text(title);
       var properties = {
           tid: divid,
           title: title,
@@ -82,15 +82,17 @@ var ctr_switch = {
           height: height,
           theme_type: theme_type,
       };
-      return {properties:properties};
+      
+      var ui = new CtrSwitchUI(properties);
+      return ui;
   },
 
   switchStat:function(divid,val){
     if(val){
-        $("#"+divid).attr("src","../img/on.png");
+        $("#"+divid).attr("src",layoutitPath+"img/on.png");
     }
     else{
-      $("#"+divid).attr("src","../img/off.png");
+      $("#"+divid).attr("src",layoutitPath+"img/off.png");
     }
   },
 
@@ -106,4 +108,14 @@ var ctr_switch = {
       ctr_switch.switchStat(divid,0);
     }*/
   }
+}
+
+function CtrSwitchUI(prop)
+{
+	this.properties = prop;
+	var html = '<h3 class="title">'+prop.title+'</h3>'+
+    	'<div class="body">'+
+    		'<img class="switch_button" src="'+layoutitPath+'img/off.png"/>'+
+    	'</div>';
+	$("#"+prop.tid).html(html);
 }
