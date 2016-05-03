@@ -24,8 +24,10 @@
 			  	<div class="new_btn">
 					<!---------------------------查询------------------------------>
 					<div class="seach_box">
-						<label>角色：</label> 
-		              	<form:select path="role" items="${roleList}" class="form-control" />
+						<c:if test="${entry.role==0}">
+							<label>角色：</label> 
+		              		<form:select path="role" items="${roleList}" class="form-control" />
+		              	</c:if>
 						<label>启/停用：</label>
 						<form:select path="visible" items="${enableList}"  class="form-control" />
 						<a href="javascript:queryAction()" style="float:left;"><i class="glyphicon glyphicon-search"></i>查询</a>
@@ -38,7 +40,7 @@
 							<th>姓名</th>
 							<th>手机</th>
 							<th>角色</th>
-							<th>最近修改时间</th>
+							<th>创建时间</th>
 							<th>操作</th>
 						</tr>
 					</thead>
@@ -52,7 +54,7 @@
 									<c:if test="${entry.role==0}">管理员</c:if>
 									<c:if test="${entry.role==1}">用户</c:if>
 								</td>
-								<td>${entry.landingTime }</td> 
+								<td>${entry.createTime }</td> 
 								<td>
 									<a href="javascript:modifyAction(${entry.id})"><i class="glyphicon glyphicon-edit">[修改]</i></a>
 									<a href="javascript:deleteAction(${entry.id},${entry.visible==0?1:0})">

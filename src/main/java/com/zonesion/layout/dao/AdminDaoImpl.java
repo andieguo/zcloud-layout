@@ -86,17 +86,18 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	}
 
 	@Override
-	public boolean login(String nickname,String password) {
+	public AdminEntity login(String nickname,String password,int role) {
 		// TODO Auto-generated method stub
+		AdminEntity admin = null;
 		try{
-			getJdbcTemplate().queryForObject("select * from tb_admin where nickname=? and password=?", 
-					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{nickname,password});
+			admin = getJdbcTemplate().queryForObject("select * from tb_admin where nickname=? and password=? and role=?", 
+					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{nickname,password,role});
 		}catch(Exception e){
 			if(e instanceof EmptyResultDataAccessException){
-				return false;
+				return null;
 			}
 		}
-		return true;
+		return admin;
 	}
 
 	@Override
@@ -117,8 +118,8 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	public int register(AdminEntity admin) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update(
-				"insert into tb_admin(nickname,password,phoneNumber,email,sex,role,landingTime,exitTime) values (?,?,?,?,?,?,?,?)",
-				new Object[] {admin.getNickname(),admin.getPassword(),admin.getPhoneNumber(),admin.getEmail(),admin.getSex(),admin.getRole(),admin.getLandingTime(),admin.getExitTime()});
+				"insert into tb_admin(nickname,password,phoneNumber,email,sex,role,createTime,modifyTime) values (?,?,?,?,?,?,?,?)",
+				new Object[] {admin.getNickname(),admin.getPassword(),admin.getPhoneNumber(),admin.getEmail(),admin.getSex(),admin.getRole(),admin.getCreateTime(),admin.getModifyTime()});
 	}
 
 	@Override
@@ -137,8 +138,21 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	public int update(AdminEntity admin) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update(
-				"update tb_admin set nickname=?,password=?,phoneNumber=?,email=?,sex=?,role=?,landingTime=?,exitTime=? where id=?",
-				new Object[] {admin.getNickname(),admin.getPassword(),admin.getPhoneNumber(),admin.getEmail(),admin.getSex(),admin.getRole(),admin.getLandingTime(),admin.getExitTime(),admin.getId()});	
+				"update tb_admin set nickname=?,password=?,phoneNumber=?,email=?,sex=?,role=?,createTime=?,modifyTime=? where id=?",
+				new Object[] {admin.getNickname(),admin.getPassword(),admin.getPhoneNumber(),admin.getEmail(),admin.getSex(),admin.getRole(),admin.getCreateTime(),admin.getModifyTime(),admin.getId()});	
 	}
 
+	@Override
+	public boolean confirmPasswd(String password, int id) {
+		// TODO Auto-generated method stub
+		try{
+			getJdbcTemplate().queryForObject("select * from tb_admin where password=? and id=?", 
+					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{password,id});
+		}catch(Exception e){
+			if(e instanceof EmptyResultDataAccessException){
+				return false;
+			}
+		}
+		return true;
+	}
 }

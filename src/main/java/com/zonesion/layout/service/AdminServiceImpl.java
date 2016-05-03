@@ -41,9 +41,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public boolean login(String nickname, String password) {
+	public AdminEntity login(String nickname, String password,int role) {
 		// TODO Auto-generated method stub
-		return adminDao.login(nickname, password);
+		return adminDao.login(nickname, password,role);
 	}
 
 	@Override
@@ -86,6 +86,12 @@ public class AdminServiceImpl implements AdminService {
 	public QueryResult<AdminEntity> findAll(int firstindex, int maxresult, int visible, int role) {
 		// TODO Auto-generated method stub
 		return adminDao.findAll(firstindex, maxresult, visible, role);
+	}
+
+	@Override
+	public boolean confirmPasswd(String password, int id) {
+		// TODO Auto-generated method stub
+		return adminDao.confirmPasswd(password, id);
 	}
 
 }

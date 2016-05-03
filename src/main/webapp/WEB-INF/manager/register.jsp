@@ -4,91 +4,100 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>物联网管理系统</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="keywords" content="智云物联,物联网云计算公共应用开放平台"/>
-		<meta name="description" content="公共物联网应用接入,实现远程数据的采集与分析,实现设备的实时控制与自动控制."/>
-		<!--****************************样式引用****************************-->
-		<%@ include file="/resources/share/style_front.jsp"%>
-		<link type="text/css" rel="stylesheet" href="${basePath }/resources/style/css/log_reg.css"/>
-	</head>
-	<body>
-		<!--****************************头部引用****************************-->
-		<%@ include file="/resources/share/top.jsp"%>
-		<div id="body" class="container" style="width:1024px;">
-			<div class="reg">
-				<spring:url value="/admin/register" var="userActionUrl" />
-				<form:form class="form-horizontal" method="post" modelAttribute="adminForm" action="${userActionUrl}">
-						<spring:bind path="nickname">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="nickname">账 号:</label>
-								<input id="nickname" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" onchange="textChange()">
-								<form:errors path="nickname" cssClass="error" />
-								<div id="isExistedDiv"></div>
-							</div>
-						</spring:bind>
-						<spring:bind path="email">
-							<div class="form-group">
-								<label for="email">邮箱地址:</label>
-								<input type="text" class="form-control " name="email" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="email" />
-							</div>
-						</spring:bind>
-						<spring:bind path="phoneNumber">
-							<div class="form-group">
-								<label for="phoneNumber">手机号:</label>
-								<input  type="text" class="form-control " name="phoneNumber" value="${status.value}" placeholder="请输入手机号" />
-								<form:errors path="phoneNumber" />
-							</div>
-						</spring:bind>
-						<spring:bind path="password">
-							<div class="form-group">
-								<label for="password">密 码:</label>
-								<input type="text" class="form-control " name="password" value="${status.value}"  placeholder="请输入密码" />
-								<form:errors path="password" />
-							</div>
-						</spring:bind>
-						<spring:bind path="confirmPassword">
-							<div class="form-group">
-								<label for="confirmPassword">密 码:</label>
-								<input type="text" class="form-control " name="confirmPassword"  value="${status.value}"  placeholder="确认密码..." />
-								<form:errors path="confirmPassword" />
-							</div>
-						</spring:bind>
-					<div class="form-group authCode">
-						<label for="validatecode">验证码:</label>
-						<input type="text" class="form-control " name="authcode" placeholder="请输入验证码" />
-						<form:errors path="authcode" />
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智云组态仿真软件项目</title>
+    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
+</head>
+<body>
+    <header class="content">
+        <a href="index.html"><img src="${basePath }/resources/images/logo.png"></a>
+    	<h1>智云组态仿真软件项目</h1>
+    	<div class="header-sign">
+            <a href="sign_in.html">登陆</a>
+            <a href="sign_up.html">注册</a>
+    	</div>
+    </header>
+    <section class="banner sign-main">
+        <div class="content">
+            <div class="sign-up-panel">
+                <div class="sign-up-header">
+                    <h1 class="sign-up-title">注册账号</h1>
+                    <a href="sign_in.html" class="sign-up-more">使用账号登陆</a>
+                </div>
+                <div class="sign-up-body form-inline">
+                    <spring:url value="/admin/register" var="userActionUrl" />
+					<form:form class="form-horizontal" method="post" modelAttribute="adminForm" action="${userActionUrl}">
+                    <div class="form-group">
+						<label for="nickname">填写账号:</label>
+						<input id="nickname" name="nickname" type="text" placeholder="请输入账号" onchange="textChange()">
+						<span class="point">*</span>
+						<form:errors path="nickname" cssClass="error" />
+						<div id="isExistedDiv"></div>
 					</div>
-					<div class="form-group code_box">
-						<a href="javascript:changeimg();" >
-							<img id="code" src="${basePath }/authimg.jsp" title="换一张"/>
-						</a>
-				   	</div>
-				   	<spring:bind path="sex">
-							<div class="form-group sex">
-								<label for="sex">性别：</label>
-								<div>男性：<input  class="form-control"  type="radio" name="sex" value="1" checked="checked"/> 女性：<input  class="form-control"  type="radio" name="sex" value="0"/>  </div>
-								<form:errors path="sex" />
+                    <div class="form-group">
+                        <label>填写性别：</label>
+                        <div class="form-checkbox">
+                            <input id="man" type="radio" name="sex" value="1">
+                            <label class="checkbox-img" for="man"></label>
+                            <label class="checkbox-text" for="man">男</label>
+                        </div>
+                        <div class="form-checkbox">
+                            <input id="woman" type="radio" name="sex" value="0">
+                            <label class="checkbox-img" for="woman"></label>
+                            <label class="checkbox-text" for="woman">女</label>
+                        </div>
+                        <span class="point">*</span>
+                    </div>
+                    <div class="form-group">
+                        <label>填写邮箱地址：</label>
+						<input id="email" name="email"  type="text" placeholder="请输入邮箱地址" />
+                        <span class="point">*</span>
+						<form:errors path="email" />
+                    </div>
+                    <div class="form-group">
+                        <label>您的手机号：</label>
+                        <input id="phoneNumber" name="phoneNumber"  type="text" placeholder="请输入手机号" />
+                        <span class="point">*</span>
+						<form:errors path="phoneNumber" />
+                    </div>
+                    <div class="form-group">
+                        <label>设置密码：</label>
+                         <input id="password" name="password"  type="text" placeholder="请输入密码" />
+                        <span class="point">*</span>
+						<form:errors path="password" />
+                    </div>
+                    <div class="form-group">
+                        <label>确认密码：</label>
+                         <input id="confirmPassword" name="confirmPassword"  type="text" placeholder="请输入确认密码" />
+                        <span class="point">*</span>
+						<form:errors path="confirmPassword" />
+                    </div>
+                    <div class="form-group">
+							<label for="logonId" class="form-label">验证码：</label>
+							<input type="text" data-verify="input" name="authcode" placeholder="请输入验证码"></input>    
+							<div>
+								<a href="javascript:changeimg();" >
+									<img id="code" data-verify="img" src="<%=basePath %>/authimg.jsp" title="换一张"/>
+								</a>
 							</div>
-						</spring:bind>
-					<div>
-						<button value="注 册" cssClass="btn btn-success"  type="submit"></button>
-				   	</div>
-				   	<hr/>
-				   	<p ><a target="_self" href="${basePath }/login.jsp">用户登录</a></p>
-				</form:form>
-			</div>
-		</div>
-		<!--****************************尾部引用****************************-->
-		<%@ include file="/resources/share/foot.jsp"%>
-		<!--****************************脚本引用****************************-->
-		<%@ include file="/resources/share/script.jsp"%>
-		<script type="text/javascript">
+							<form:errors path="authcode" cssClass="error" />
+					</div>
+                    <div class="form-button">
+                        <button type="submit">确认提交</button>
+                    </div>
+                    </form:form>
+                </div>
+            </div>
+        </div>
+    	<img class="banner-img" src="${basePath }/resources/images/banner.jpg" alt="">
+    </section>
+    <footer>中智讯（武汉）科技有限公司版权所有 鄂ICP备13015866号-2</footer>
+    <!--****************************脚本引用****************************-->
+	<%@ include file="/resources/share/script.jsp"%>
+    <script type="text/javascript">
 			function changeimg(){
 				var myimg = document.getElementById("code"); 
 				now = new Date(); 
@@ -121,5 +130,5 @@
 				});
 			}
 		</script>
-	</body>
+</body>
 </html>

@@ -7,7 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.zonesion.layout.model.AdminForm;
+import com.zonesion.layout.model.AdminEntity;
 
 /**  
  * 在业务处理器处理请求之前preHandle被调用  
@@ -57,10 +57,10 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         logger.info("contextPath:"+contextPath);    
         logger.info("url:"+url);    
           
-        AdminForm admin =  (AdminForm)request.getSession().getAttribute("admin");   
+        AdminEntity admin =  (AdminEntity)request.getSession().getAttribute("admin");   
         if(admin == null ){
         	logger.info("Interceptor：跳转到login页面！");
-            request.getRequestDispatcher("/admin/loginUI").forward(request, response);  
+        	response.sendRedirect(contextPath+"/admin/loginUI");
             return false;  
         }else  
             return true;   

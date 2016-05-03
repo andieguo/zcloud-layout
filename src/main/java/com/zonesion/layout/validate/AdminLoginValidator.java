@@ -8,6 +8,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
+import com.zonesion.layout.model.AdminEntity;
 import com.zonesion.layout.model.AdminForm;
 import com.zonesion.layout.service.AdminService;
 
@@ -39,16 +40,17 @@ public class AdminLoginValidator  implements Validator{
 	@Override
 	public void validate(Object target, Errors errors) {
 		// TODO Auto-generated method stub
-		AdminForm admin = (AdminForm)target;
+		AdminForm adminForm = (AdminForm)target;
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "nickname", "NotEmpty.adminForm.nickname");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty.adminForm.password");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "authcode", "NotEmpty.adminForm.authcode");
 
-		boolean status = adminService.login(admin.getNickname(), admin.getPassword());
+		AdminEntity adminEntity = adminService.login(adminForm.getNickname(), adminForm.getPassword(),adminForm.getRole());
+		httpSession.setAttribute("admin", adminEntity);
 		String authcode = (String) httpSession.getAttribute("authcode");
-		if(isNotNULL(admin.getAuthcode()) && !admin.getAuthcode().equalsIgnoreCase(authcode)){
+		if(isNotNULL(adminForm.getAuthcode()) && !adminForm.getAuthcode().equalsIgnoreCase(authcode)){
 			errors.rejectValue("authcode","Fail.adminForm.authcode");
-		}else if(isNotNULL(admin.getNickname()) && isNotNULL(admin.getPassword()) && !status){
+		}else if(isNotNULL(adminForm.getNickname()) && isNotNULL(adminForm.getPassword()) && adminEntity==null){
 			errors.rejectValue("nickname","LoginFail.adminForm.nickname");
 		}
 		

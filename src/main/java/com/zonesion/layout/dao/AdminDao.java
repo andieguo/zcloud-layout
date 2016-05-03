@@ -24,7 +24,9 @@ public interface AdminDao {
 	
 	public AdminEntity findById(int id);
 	
-	public boolean login(String nickname,String password);
+	public AdminEntity login(String nickname,String password,int role);
+	
+	public boolean confirmPasswd(String password,int id);
 	
 	public int register(AdminEntity admin);
 	

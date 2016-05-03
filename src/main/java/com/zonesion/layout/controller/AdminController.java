@@ -3,6 +3,7 @@ package com.zonesion.layout.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zonesion.layout.model.AdminEntity;
@@ -31,6 +33,7 @@ import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.service.AdminService;
 import com.zonesion.layout.validate.AdminEditValidator;
 import com.zonesion.layout.validate.AdminLoginValidator;
+import com.zonesion.layout.validate.AdminPasswdValidator;
 import com.zonesion.layout.validate.AdminSaveValidator;
 
 /**    
@@ -59,6 +62,9 @@ public class AdminController {
 	@Autowired
 	private AdminLoginValidator adminLoginValidator;
 	
+	@Autowired
+	private AdminPasswdValidator adminPasswdValidator;
+	
 	//绑定用户注册表单验证
 	@InitBinder("adminForm")
 	protected void initBinder1(WebDataBinder binder) {
@@ -74,6 +80,12 @@ public class AdminController {
 	@InitBinder("loginForm")
 	protected void initBinder3(WebDataBinder binder) {
 		binder.setValidator(adminLoginValidator);
+	}
+	
+	//绑定用户密码修改信息表单验证
+	@InitBinder("passwdForm")
+	protected void initBinder4(WebDataBinder binder) {
+		binder.setValidator(adminPasswdValidator);
 	}
 	
 	@ModelAttribute("roleList")
@@ -94,6 +106,9 @@ public class AdminController {
 		return enableList;
 	}
 	
+	/**
+	 * 校验用户是否存在
+	 */
 	@RequestMapping(value="/admin/isExist",method=RequestMethod.POST)
 	public void isExist(String nickname,HttpServletResponse response,HttpServletRequest request) throws IOException{
 		JSONObject result = new JSONObject();// 构建一个JSONObject
@@ -107,6 +122,34 @@ public class AdminController {
 				result.accumulate("status", 0);
 				result.accumulate("message", "fail");
 			}
+		}
+		response.setContentType("application/x-json");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
+	}
+	
+	/**
+	 * 校验当前密码输入是否正确
+	 */
+	@RequestMapping(value="/admin/conformPasswd",method=RequestMethod.GET)
+	public void conformPasswd(String password,Integer id,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		if(password!=null && !password.equals("") && id != null ){
+			password = URLDecoder.decode(password, "UTF-8");//解决中文乱码问题
+			boolean existed = adminService.confirmPasswd(password, id);
+			if(existed){
+				result.accumulate("status", 1);
+				result.accumulate("message", "success");
+			}else{
+				result.accumulate("status", 0);
+				result.accumulate("message", "fail");
+			}
+		}else{
+			result.accumulate("status", 0);
+			result.accumulate("message", "fail");
 		}
 		response.setContentType("application/x-json");// 需要设置ContentType
 		// 为"application/x-json"
@@ -136,8 +179,14 @@ public class AdminController {
 		}else{
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
-			httpSession.setAttribute("admin", loginForm);
-			return "redirect:/admin/list";
+			if(loginForm.getRole() == 0){//管理员
+				return "redirect:/admin/list";
+			}else if(loginForm.getRole() == 1){//普通用户
+				AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+				redirectAttributes.addAttribute("id", admin.getId());
+				return "redirect:/admin/detail";
+			}
+			return "";//错误
 		}
 	}
 	
@@ -167,9 +216,11 @@ public class AdminController {
 	public String list(@ModelAttribute("listForm") AdminForm listForm,Model model) {
 		logger.debug("listAdmins()");
 		int page = listForm.getPage();
+		int visible = listForm.getVisible();
+		int role = listForm.getRole();
 		PageView<AdminEntity> pageView = new PageView<>(10,page);
 		int firstindex = (pageView.getCurrentpage()-1)*pageView.getMaxresult();
-		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,listForm.getVisible(),listForm.getRole());
+		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,visible,role);
 		pageView.setQueryResult(queryResult);
 		model.addAttribute("pageView",pageView);
 		return "manager/listAdmin";//跳转到manager/listAdmin.jsp页面
@@ -199,6 +250,7 @@ public class AdminController {
 			redirectAttributes.addFlashAttribute("msg", "注册用户成功!");
 			redirectAttributes.addAttribute("page", 1);//重定向传递参数,注册后跳转到第1页
 			adminForm.setRole(1);//普通用户
+			adminForm.setCreateTime(new Date());
 			adminService.register(adminForm);
 			return "redirect:/admin/loginUI";//跳转到/admin/list
 		}
@@ -215,40 +267,76 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return "manager/editAdmin";//跳转到manager/updateAdmin.jsp页面
 		} else {
-			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "更新用户信息成功");
-			redirectAttributes.addAttribute("page", editForm.getPage());
-			redirectAttributes.addAttribute("visible", editForm.getVisible());
-			redirectAttributes.addAttribute("role", editForm.getRole());
 			AdminEntity adminEntity = adminService.findById(editForm.getId());//只需要将到form表单需要更新的字段更新到数据库即可（安全）
 			adminEntity.setEmail(editForm.getEmail());
 			adminEntity.setNickname(editForm.getNickname());
 			adminEntity.setPhoneNumber(editForm.getPhoneNumber());
 			adminEntity.setSex(editForm.getSex());
+			adminEntity.setModifyTime(new Date());
 			adminService.update(adminEntity);
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", "更新用户信息成功");
+			redirectAttributes.addAttribute("id", adminEntity.getId());
 			//重定向传递GET参数有两种方式，方式一
-			return "redirect:/admin/list";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
+			return "redirect:/admin/detail";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
 		}
 	}
 	
 	/**
-	 * 跳转到更新用户界面
+	 * 跳转到用户详情界面
+	 */
+	@RequestMapping(value = "/admin/detail", method = {RequestMethod.POST, RequestMethod.GET})
+	public String detail(@RequestParam(value="id") int id, Model model) {
+		logger.debug("detailAdmin() : "+id);
+		AdminEntity admin = adminService.findById(id);//只需要将到form表单需要更新的字段更新到数据库即可（安全）
+		model.addAttribute("admin", admin);
+		return "manager/detailAdmin";//跳转到manager/detailAdmin.jsp页面
+	}
+	
+	/**
+	 * 跳转到更新用户界面(需将AdminEntity的数据填充到AdminForm当中)
 	 */
 	@RequestMapping(value = "/admin/editUI", method = {RequestMethod.POST, RequestMethod.GET})
-	public String editUI(AdminForm listForm, Model model) {
-		logger.debug("showUpdateAdminForm() : "+listForm.getId());
-		AdminEntity adminEntity = adminService.findById(listForm.getId());
-		AdminForm admin = new AdminForm();//只需要将表单中有的字段添加到form表单即可（安全）
-		admin.setEmail(adminEntity.getEmail());
-		admin.setNickname(adminEntity.getNickname());
-		admin.setPhoneNumber(adminEntity.getPhoneNumber());
-		admin.setSex(adminEntity.getSex());
-		admin.setId(listForm.getId());
-		admin.setPage(listForm.getPage());
-		admin.setVisible(listForm.getVisible());
-		admin.setRole(listForm.getRole());
-		model.addAttribute("editForm", admin);
+	public String editUI(@RequestParam(value="id") int id, Model model) {
+		logger.debug("editUI() : "+id);
+		AdminEntity adminEntity = adminService.findById(id);
+		AdminForm adminForm = new AdminForm(adminEntity);
+		model.addAttribute("editForm", adminForm);
 		return "manager/editAdmin";//跳转到manager/editAdmin.jsp页面
+	}
+	
+	/**
+	 * 跳转到更新密码界面(需将AdminEntity的数据填充到passwdForm当中)
+	 */
+	@RequestMapping(value = "/admin/editPasswdUI", method = {RequestMethod.POST, RequestMethod.GET})
+	public String editPasswdUI(@RequestParam(value="id") int id, Model model) {
+		logger.debug("editPasswdUI() : "+id);
+		AdminForm passwdForm = new AdminForm();
+		passwdForm.setId(id);
+		model.addAttribute("passwdForm", passwdForm);
+		return "manager/editPasswd";//跳转到manager/editPasswd.jsp页面
+	}
+	
+	/**
+	 * 更新密码(校验)
+	 */
+	@RequestMapping(value = "/admin/editPasswd", method = RequestMethod.POST)
+	public String editPasswd(@ModelAttribute("passwdForm") @Validated AdminForm passwdForm,
+			BindingResult result, Model model, 
+			final RedirectAttributes redirectAttributes) {
+		logger.debug("editPasswd() : "+passwdForm);
+		if (result.hasErrors()) {
+			return "manager/editPasswd";//跳转到manager/updateAdmin.jsp页面
+		} else {
+			AdminEntity adminEntity = adminService.findById(passwdForm.getId());//只需要将到form表单需要更新的字段更新到数据库即可（安全）
+			adminEntity.setPassword(passwdForm.getNewPassword());
+			adminService.update(adminEntity);
+			redirectAttributes.addFlashAttribute("css", "success");
+			redirectAttributes.addFlashAttribute("msg", "更新密码成功");
+			redirectAttributes.addAttribute("id", adminEntity.getId());
+			//重定向传递GET参数有两种方式，方式一
+			return "redirect:/admin/detail";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
+		}
 	}
 	
 	/**

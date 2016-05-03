@@ -22,7 +22,7 @@
 		    		<spring:url value="/project/edit" var="userActionUrl" />
 				<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
 <%-- 						<form:hidden path="page" /> --%>
-<%-- 						<form:hidden path="id" /> --%>
+						<form:hidden path="id" />
 <%-- 						<form:hidden path="visible"/> --%>
 						<spring:bind path="name">
 							<div class="form-group ${status.error ? 'has-error' : ''}">

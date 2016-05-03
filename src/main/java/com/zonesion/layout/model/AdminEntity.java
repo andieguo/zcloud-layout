@@ -16,15 +16,15 @@ public class AdminEntity {
 	private String email;
 	private int sex;//0表示女，1表示男
 	private int role;//0表示管理员，1表示普通用户
-	private Date landingTime;
-	private Date exitTime;
+	private Date createTime;
+	private Date modifyTime;
 	private int visible;//0表示已删除
 	
 	public AdminEntity() {
 		super();
 	}
 	
-	public AdminEntity(String nickname, String password, String phoneNumber, String email, int sex, int role, Date landingTime, Date exitTime) {
+	public AdminEntity(String nickname, String password, String phoneNumber, String email, int sex, int role, Date createTime, Date modifyTime) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
@@ -32,11 +32,11 @@ public class AdminEntity {
 		this.email = email;
 		this.sex = sex;
 		this.role = role;
-		this.landingTime = landingTime;
-		this.exitTime = exitTime;
+		this.createTime = createTime;
+		this.modifyTime = modifyTime;
 	}
 
-	public AdminEntity(Integer id, String nickname, String password, String phoneNumber, String email, int sex, int role, Date landingTime, Date exitTime, int visible) {
+	public AdminEntity(Integer id, String nickname, String password, String phoneNumber, String email, int sex, int role, Date createTime, Date modifyTime, int visible) {
 		super();
 		this.id = id;
 		this.nickname = nickname;
@@ -45,11 +45,11 @@ public class AdminEntity {
 		this.email = email;
 		this.sex = sex;
 		this.role = role;
-		this.landingTime = landingTime;
-		this.exitTime = exitTime;
+		this.createTime = createTime;
+		this.modifyTime = modifyTime;
 		this.visible = visible;
 	}
-	public AdminEntity(String nickname, String password, String phoneNumber, String email, int sex, int role, Date landingTime, Date exitTime, int visible) {
+	public AdminEntity(String nickname, String password, String phoneNumber, String email, int sex, int role, Date createTime, Date modifyTime, int visible) {
 		super();
 		this.nickname = nickname;
 		this.password = password;
@@ -57,8 +57,8 @@ public class AdminEntity {
 		this.email = email;
 		this.sex = sex;
 		this.role = role;
-		this.landingTime = landingTime;
-		this.exitTime = exitTime;
+		this.createTime = createTime;
+		this.modifyTime = modifyTime;
 		this.visible = visible;
 	}
 	/**
@@ -146,28 +146,28 @@ public class AdminEntity {
 		this.role = role;
 	}
 	/**
-	 * @return the landingTime
+	 * @return the createTime
 	 */
-	public Date getLandingTime() {
-		return landingTime;
+	public Date getCreateTime() {
+		return createTime;
 	}
 	/**
-	 * @param landingTime the landingTime to set
+	 * @param createTime the createTime to set
 	 */
-	public void setLandingTime(Date landingTime) {
-		this.landingTime = landingTime;
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
 	}
 	/**
-	 * @return the exitTime
+	 * @return the modifyTime
 	 */
-	public Date getExitTime() {
-		return exitTime;
+	public Date getModifyTime() {
+		return modifyTime;
 	}
 	/**
-	 * @param exitTime the exitTime to set
+	 * @param modifyTime the modifyTime to set
 	 */
-	public void setExitTime(Date exitTime) {
-		this.exitTime = exitTime;
+	public void setModifyTime(Date modifyTime) {
+		this.modifyTime = modifyTime;
 	}
 	/**
 	 * @return the visible
@@ -185,7 +185,7 @@ public class AdminEntity {
 	@Override
 	public String toString() {
 		return "AdminEntity [id=" + id + ", nickname=" + nickname + ", password=" + password + ", phoneNumber=" + phoneNumber + ", email=" + email + ", sex=" + sex + ", role=" + role
-				+ ", landingTime=" + landingTime + ", exitTime=" + exitTime + ", visible=" + visible + "]";
+				+ ", createTime=" + createTime + ", modifyTime=" + modifyTime + ", visible=" + visible + "]";
 	}
 	
 }

@@ -3,31 +3,32 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
 <%@ include file="/WEB-INF/share/taglib.jsp" %>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>物联网管理系统</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<meta name="keywords" content="智云物联,物联网云计算公共应用开放平台"/>
-		<meta name="description" content="公共物联网应用接入,实现远程数据的采集与分析,实现设备的实时控制与自动控制."/>
-		<!--************************样式引用************************-->
-		<%@ include file="/resources/share/style_front.jsp"%>
-		<link type="text/css" rel="stylesheet" href="${basePath }/resources/style/css/login.css"/>
-	</head>
-	<body>
-		<!--************************头部引用************************-->
-		<%@ include file="/resources/share/top.jsp"%>
-		<div id="body" class="banner">
-			<div class="login-aside">
-		 		<div id="o-box-up"></div>
-		  		<div id="o-box-down"  style="">
-		   			<div class="error-box"></div>
-		   			<spring:url value="/admin/login" var="userActionUrl" />
- 					<form:form class="form-horizontal" method="post" modelAttribute="loginForm" action="${userActionUrl}">
-						<div class="form-group ">
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智云组态仿真软件项目</title>
+    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
+</head>
+<body>
+    <header class="content">
+        <a href="index.html"><img src="${basePath }/resources/images/logo.png"></a>
+    	<h1>智云组态仿真软件项目</h1>
+    	<div class="header-sign">
+            <a href="sign_in.html">登陆</a>
+    		<a href="sign_up.html">注册</a>
+    	</div>
+    </header>
+    <section class="banner sign-main">
+        <div class="content">
+            <h1 class="banner-title">Zonesion ( Wuhan )<br>Technology<br>Co.,Ltd</h1>
+            <div class="sign-in-panel">
+                <div class="sign-in-header">账号登陆</div>
+                <div class="sign-in-body">
+                	<spring:url value="/admin/login" var="loginUrl" />
+ 					<form:form class="form-horizontal" method="post" modelAttribute="loginForm" action="${loginUrl}">
+                  		<div class="form-group ">
 							<label for="nickname">账 号:</label>
 							<input id="nickname" name="nickname"  type="text"  class="form-control" placeholder="请输入账号" >
 							<form:errors path="nickname" cssClass="error" />
@@ -37,47 +38,49 @@
 							<input id="password" name="password"  type="password"  class="form-control" placeholder="请输入密码" >
 							<form:errors path="password" cssClass="error" />
 						</div>
-						<div class="fm-item pos-r">
+						<div class="form-group ">
+							<label for="password">角 色:</label>
+							<select id="role" name="role" class="form-control" >
+								<option value="0" select="selected">管理员</option>
+								<option value="1" >普通用户</option>
+							</select>
+						</div>
+						<div class="form-group">
 							<label for="logonId" class="form-label">验证码：</label>
-							<input type="text" name="authcode" placeholder="请输入验证码" maxlength="100" id="yzm" ></input>    
-							<div class="ui-form-explain">
+							<input type="text" data-verify="input" name="authcode" placeholder="请输入验证码"></input>    
+							<div>
 								<a href="javascript:changeimg();" >
-									<img id="code" class="yzm-img" src="<%=basePath %>/authimg.jsp" title="换一张"/>
+									<img id="code" data-verify="img" src="<%=basePath %>/authimg.jsp" title="换一张"/>
 								</a>
 							</div>
 							<form:errors path="authcode" cssClass="error" />
 						</div>
-					    <div class="fm-item">
-							<label for="logonId" class="form-label"></label>
-						   	<input type="submit" value="" tabindex="4" id="send-btn" class="btn-login"> 
-					       	<div class="ui-form-explain"></div>
-					  	</div>
-					  	<div class="fm-item">
-						   	<p class="reg"><a target="_self" href="<%=basePath %>/reg.jsp">用户注册</a></p>
-					  	</div>
-					</form:form>
-				</div>
-			</div>
-			<div class="bd">
-				<ul>
-					<li style="background:url(<%=basePath %>/resources/pic/theme-pic1.jpg) #CCE1F3 center 0 no-repeat;"></li>
-				</ul>
-			</div>
-		</div>
-		<!--************************尾部引用************************-->
-		<%@ include file="/resources/share/foot.jsp"%>
-		<!--************************脚本引用************************-->
-		<%@ include file="/resources/share/script.jsp"%>
-		<script language="JavaScript"> 	
-			$(function(){
-				setModule();			
-			})
-			function changeimg(){
-				var myimg = document.getElementById("code"); 
-				now = new Date(); 
-				myimg.src="<%=basePath %>/authimg.jsp?code="+now.getTime();
-			}
-			if(window!=top) {top.location.href=window.location.href;}
-		</script>
-	</body>
+	                    <div class="form-checkbox">
+	                        <input id="rememberPassword" type="checkbox">
+	                        <label class="checkbox-img" for="rememberPassword"></label>
+	                        <label class="checkbox-text" for="rememberPassword">记住密码</label>
+	                        <!-- <a class="forget">忘记密码</a> -->
+	                    </div>
+	                    <div class="form-button">
+	                        <button type="submit">登陆</button>
+	                        <button type="button">注册</button>
+	                    </div>
+                    </form:form>
+                    <!-- <a class="third" href="#">使用第三方登陆平台</a> -->
+                </div>
+            </div>
+        </div>
+    	<img class="banner-img" src="${basePath }/resources/images/banner.jpg" alt="">
+    </section>
+    <footer>中智讯（武汉）科技有限公司版权所有 鄂ICP备13015866号-2</footer>
+    <!--************************脚本引用************************-->
+	<script language="JavaScript"> 	
+		function changeimg(){
+			var myimg = document.getElementById("code"); 
+			now = new Date(); 
+			myimg.src="<%=basePath %>/authimg.jsp?code="+now.getTime();
+		}
+		if(window!=top) {top.location.href=window.location.href;}
+	</script>
+</body>
 </html>

@@ -7,7 +7,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>信息修改</title>
+		<title>管理员信息详情</title>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<!---------------------------样式引用------------------------------>
@@ -16,57 +16,32 @@
 	<body>
 		<div class="top_Height"></div>
 		<div class="edit_user" >
-			<p class="edit_title" id="newH"><i class="glyphicon glyphicon-edit"></i> 信息修改</p>
+			<p class="edit_title" id="newH"><i class="glyphicon glyphicon-edit"></i> 管理员信息详情</p>
 		    <div class="edit_user_cont" style="height:230px;">
 		    	<span class="jt_new"></span>
-		    		<spring:url value="/admin/edit" var="userActionUrl" />
-				<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
-						<form:hidden path="id" />
-						<spring:bind path="nickname">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="nickname">账 号:</label>
-								<input id="nickname" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
-								<form:errors path="nickname" cssClass="error" />
-							</div>
-						</spring:bind>
-						<spring:bind path="email">
 							<div class="form-group">
-								<label for="email">邮箱地址:</label>
-								<input type="text" class="form-control " name="email" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="email" />
+								<label for="nickname">账 号:</label>${admin.nickname}
 							</div>
-						</spring:bind>
-						<spring:bind path="phoneNumber">
 							<div class="form-group">
-								<label for="phoneNumber">手机号:</label>
-								<input  type="text" class="form-control " name="phoneNumber" value="${status.value}" placeholder="请输入手机号" />
-								<form:errors path="phoneNumber" />
+								<label for="email">邮箱地址:</label>${admin.email}
 							</div>
-						</spring:bind>
-						<c:if test="${entry.role==0}">
-							<spring:bind path="role">
-								<div class="form-group">
-									<label for="role">角色:</label>
-			              			<form:select path="role" items="${roleList}" class="form-control" />
-									<form:errors path="role" />
-								</div>
-							</spring:bind>
-						</c:if>
-					   	<spring:bind path="sex">
-								<div class="form-group sex">
-									<label for="sex">性别：</label>
-									<div>男性：<input  class="form-control"  type="radio" name="sex" value="1" checked="checked"/> 女性：<input  class="form-control"  type="radio" name="sex" value="0"/>  </div>
-									<form:errors path="sex" />
-								</div>
-						</spring:bind>
+							<div class="form-group">
+								<label for="phoneNumber">手机号:</label>${admin.phoneNumber}
+							</div>
+							<div class="form-group">
+								<label for="role">角色:</label>
+								<c:if test="${admin.role==0}">管理员</c:if>
+								<c:if test="${admin.role==1}">用户</c:if>
+							</div>
+							<div class="form-group">
+								<label for="sex">性别：</label>
+								<c:if test="${admin.sex==0}">女</c:if>
+								<c:if test="${admin.sex==1}">男</c:if>
+							</div>
 					<div>
-						<input value="修改"  type="submit"></input>
 				   	</div>
 				   	<hr/>
-				   	<form:errors path="*" />
-				   	<p ><a target="_self" href="${basePath }/login.jsp">用户登录</a></p>
-				</form:form>
-				
+				   	<p ><a target="_self" href="${basePath }/admin/editUI?id=${admin.id}">编辑信息</a></p>
 		    </div>
 		</div>
 		<!---------------------------脚本引用------------------------------>
