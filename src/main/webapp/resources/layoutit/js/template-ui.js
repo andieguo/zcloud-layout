@@ -1,46 +1,9 @@
-function placeOfChar(str, n, char) {
-    var index = str.indexOf(char);
-    var i = 0;
-    while (index != -1) {
-        i++;
-        if (i == n)
-            break;
-        index = str.indexOf(char, index + 1);
-    }
-    return index;
-}
-
-function supportstorage() {
-	if (typeof window.localStorage=='object') 
-		return true;
-	else
-		return false;		
-}
-
-function handleSaveTemplateAttr() {
-	var e = $(".demo").html();
-	if (!stopsave && e != window.demoHtml) {
-		stopsave++;
-		window.demoHtml = e;
-		saveTemplateAttr();
-		stopsave--;
-	}
-}
-
-function saveTemplateAttr(){
-	if (supportstorage()) {
-		//localStorage.removeItem("uiTemplateObj");
-		localStorage.setItem("uiTemplateObj",JSON.stringify(uiTemplateObj));
-	}
-	/*$.ajax({  
-		type: "POST",  
-		url: "/build/saveLayout",  
-		data: { layout: $('.demo').html() },  
-		success: function(data) {
-			//updateButtonsVisibility();
-		}
-	});*/
-}
+<!--定义全局变量 key:object--> 
+var currentDocument = null;
+var stopsave = 0;
+var startdrag = 0;
+var demoHtml = $(".demo").html();
+var currenteditor = null;
 
 function downloadLayout(){
 	$.ajax({  
@@ -58,55 +21,6 @@ function downloadHtmlLayout(){
 		data: { layout: $('#download-layout').html() },  
 		success: function(data) { window.location.href = '/build/downloadHtml'; }
 	});
-}
-
-function undoLayout() {
-	var data = layouthistory;
-	//console.log(data);
-	if (data) {
-		if (data.count<2) return false;
-		window.demoHtml = data.list[data.count-2];
-		data.count--;
-		$('.demo').html(window.demoHtml);
-		if (supportstorage()) {
-			//localStorage.setItem("layoutdata",JSON.stringify(data));
-		}
-		return true;
-	}
-	return false;
-	/*$.ajax({  
-		type: "POST",  
-		url: "/build/getPreviousLayout",  
-		data: { },  
-		success: function(data) {
-			undoOperation(data);
-		}
-	});*/
-}
-
-function redoLayout() {
-	var data = layouthistory;
-	if (data) {
-		if (data.list[data.count]) {
-			window.demoHtml = data.list[data.count];
-			data.count++;
-			$('.demo').html(window.demoHtml);
-			if (supportstorage()) {
-				//localStorage.setItem("layoutdata",JSON.stringify(data));
-			}
-			return true;
-		}
-	}
-	return false;
-	/*
-	$.ajax({  
-		type: "POST",  
-		url: "/build/getPreviousLayout",  
-		data: { },  
-		success: function(data) {
-			redoOperation(data);
-		}
-	});*/
 }
 
 function handleJsIds() {
@@ -165,15 +79,7 @@ function handleTabsIds() {
 		$(t).parent().parent().find("a[href=#" + n + "]").attr("href", "#" + r)
 	})
 }
-function randomNumber() {
-	return randomFromInterval(1, 1e6)
-}
-function randomFromInterval(e, t) {
-	return Math.floor(Math.random() * (t - e + 1) + e)
-}
-function randomNumber1(){
-	return (new Date()).getTime()+parseInt(Math.random()*100000);
-}
+
 function gridSystemGenerator() {
 	$(".lyrow .preview input").bind("keyup", function() {
 		var e = 0;
@@ -220,7 +126,7 @@ function removeElm() {
 			if(uid.indexOf("ui") >= 0 || uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0
 					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
 					|| uid.indexOf("page") >= 0 || uid.indexOf("layout") >= 0){//控件中的<div id>属性是否存在 
-				delete uiTemplateObj[templateId][uid];
+				delete uiTemplateObj[uid];
 			}
 		}
 		e.preventDefault();
@@ -232,10 +138,7 @@ function removeElm() {
 }
 function clearDemo() {
 	$(".demo").empty();
-	if (supportstorage()){
-		localStorage.removeItem("uiTemplateObj");
-	}
-		
+	initTemplateObj();		
 }
 function removeMenuClasses() {
 	$("#menu-layoutit li button").removeClass("active")
@@ -298,57 +201,10 @@ function downloadLayoutSrc() {
 	$("#downloadModal textarea").val(formatSrc)
 }
 
-var currentDocument = null;
-var timerSave = 1000;
-var stopsave = 0;
-var startdrag = 0;
-var demoHtml = $(".demo").html();
-var currenteditor = null;
 $(window).resize(function() {
 	$("body").css("min-height", $(window).height() - 90);
 	$(".demo").css("min-height", $(window).height() - 160)
 });
-
-/**读取配置文件重新渲染静态页面*/
-function renderUI(){
-	var data = localStorage.getItem("uiTemplateObj");
-	data = JSON.parse(data);
-	for(var i=0;i<data.arr.length;i++){
-		var uid = data.arr[i].key;
-		var property = data.arr[i].value;
-		uid = uid.substring(0,uid.lastIndexOf("_"));
-		var ui = gUiObject[uid].getUI(property);
-		ui.render();
-	}
-}
-
-function restoreData(){//此处从服务器拉取
-	if (supportstorage()) {//data可能的值为：null,{"arr":[]}
-/*		var data = localStorage.getItem("uiTemplateObj");
-		//console.log("localStorage.uiTemplateObj:"+data);
-		if(data){
-			try{//data可能为"[object,object]"
-				data = JSON.parse(data);
-				if(data.arr.length > 0){
-					// console.log("localStorage.uiTemplateObj不为空");
-					uiTemplateObj = parseJSONtoMap(data);
-				}else{
-					// console.log("localStorage.uiTemplateObj为空");
-					uiTemplateObj = new Map();
-				}
-			}catch(e){
-				uiTemplateObj = new Map();
-			}
-		}else{
-			// console.log("localStorage.uiTemplateObj为空");
-			uiTemplateObj = new Map();
-		}		
-		layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
-		if (!layouthistory) return false;
-		window.demoHtml = layouthistory.list[layouthistory.count-1];
-		if (window.demoHtml) $(".demo").html(window.demoHtml);*/
-	}
-}
 
 function initContainer(){
 	$(".demo, .demo .column").sortable({
@@ -366,20 +222,6 @@ function initContainer(){
 	});
 	configurationElm();
 }
-<!--定义全局变量 key:object--> 
-var gUiObject = {
-	"fs_temperature": fs_temperature,
-	"hc_dial": hc_dial,
-	"fs_dial": fs_dial,
-	"fs_cup": fs_cup,
-	"hc_curve": hc_curve,
-	"layout_subsys": layout_subsys,
-	"ctr_switch": ctr_switch,
-	"sec_alarm": sec_alarm,
-	"cam_video": cam_video,
-	"page_header": page_header,
-	"page_footer": page_footer
-};
 
 $(document).ready(function() {
 	var tabContent = "";
@@ -397,7 +239,7 @@ $(document).ready(function() {
 
 
 	CKEDITOR.disableAutoInline = true;
-	restoreData();
+
 	var contenthandle = CKEDITOR.replace( 'contenteditor' ,{
 		language: 'zh-cn',
 		contentsCss: [layoutitPath+'css/bootstrap-combined.min.css'],
@@ -405,7 +247,8 @@ $(document).ready(function() {
 	});
 	$("body").css("min-height", $(window).height() - 90);
 	$(".demo").css("min-height", $(window).height() - 130);
-	$(".sidebar-nav .lyrow").draggable({
+	
+	$(".sidebar-nav .lyrow").draggable({//布局拖拽处理
 		connectToSortable: ".demo",
 		helper: "clone",
 		handle: ".drag",
@@ -422,7 +265,7 @@ $(document).ready(function() {
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
 				if(uid.indexOf("layout") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
-					uiTemplateObj[templateId][ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存
+					uiTemplateObj[ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存
 				}
 			}
 
@@ -442,7 +285,8 @@ $(document).ready(function() {
 			startdrag = 0;
 		}
 	});
-	$(".sidebar-nav .box").draggable({
+	
+	$(".sidebar-nav .box").draggable({//组件拖拽处理
 		connectToSortable: ".column",
 		helper: "clone",
 		handle: ".drag",
@@ -461,7 +305,7 @@ $(document).ready(function() {
 					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
 					|| uid.indexOf("page") >= 0){//自定义ui控件
 					var ui = gUiObject[uid].create();//根据拖动的控件创建对象
-					uiTemplateObj[templateId][ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存
+					uiTemplateObj[ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存
 				}
 			}
 			if(stopsave>0) stopsave--;
@@ -496,8 +340,9 @@ $(document).ready(function() {
 		console.log(uid);
 
 		//从缓存中取出控件的属性列表
-		var data = JSON.parse(localStorage.getItem("uiTemplateObj"));
-		var property = data[templateId][uid];
+		//var data = JSON.parse(localStorage.getItem("uiTemplateStorage"));
+		//var property = data[templateId][uid];
+		var property = uiTemplateObj[uid];
 
 		if(property){
 			var widgetIndex = uid.substring(0,uid.lastIndexOf("_"));
@@ -519,11 +364,11 @@ $(document).ready(function() {
 			/*先更新id，再从缓存中删除原id、属性*/
 	        new_uid = uid.substring(0,placeOfChar(uid,2,'_')+1) + randomNumber();
 	        $("#"+uid).attr("id",new_uid);  
-	        delete uiTemplateObj[templateId][uid];//删除原控件属性记录
+	        delete uiTemplateObj[uid];//删除原控件属性记录
 	        uid = new_uid;
 
 			var ui = gUiObject[widgetIndex].updateAttr(uid);//动态更新控件显示
-			uiTemplateObj[templateId][ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存			
+			uiTemplateObj[ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存			
 		});
 
 	});
@@ -547,7 +392,6 @@ $(document).ready(function() {
 	$("[data-target=#shareModal]").click(function(e) {
 		e.preventDefault();
 		pushTemplate();
-		//handleSaveTemplateAttr();
 	});
 	$("#download").click(function() {
 		downloadLayout();
@@ -612,7 +456,4 @@ $(document).ready(function() {
 	})
 	removeElm();
 	gridSystemGenerator();
-	setInterval(function() {
-		handleSaveTemplateAttr();
-	}, timerSave)
 })

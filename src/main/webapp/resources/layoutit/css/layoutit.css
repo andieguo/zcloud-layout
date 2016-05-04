@@ -210,7 +210,7 @@ a.language-selected { font-style: italic; font-weight: bold; }
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
     border: 1px solid #b1d1a7;
-    background: #E7F3E1 url("../img/ui-bg_glass_80_d7ebf9_1x400 - fb.png") 50% 50% repeat-x;
+    background: #E7F3E1 url("../images/ui-bg_glass_80_d7ebf9_1x400 - fb.png") 50% 50% repeat-x;
     font-weight: bold;
     color: #2b7d17;
 }
@@ -225,7 +225,7 @@ a.language-selected { font-style: italic; font-weight: bold; }
     border-bottom-left-radius: 6px;
     border: 1px solid #dddddd;
     border-top: 0;
-    background: #f2f5f7 url("../img/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x;
+    background: #f2f5f7 url("../images/ui-bg_highlight-hard_100_f2f5f7_1x100.png") 50% top repeat-x;
     color: #362b36;
     margin: 0;
     outline: 0;

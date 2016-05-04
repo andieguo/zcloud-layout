@@ -25,94 +25,68 @@
 		<script src="js/html5shiv.js"></script>
 	<![endif]-->
 
-	<!-- Fav and touch icons -->
-	<link rel="shortcut icon" href="${basePath }/resources/layoutit/img/favicon.png">
-	
-	<script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery-2.0.0.min.js"></script>
-	<!--[if lt IE 9]>
-	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-	<![endif]-->
-	<script type="text/javascript" src="${basePath }/resources/layoutit/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery-ui.js"></script>
-	<script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery.ui.touch-punch.min.js"></script>
+<!-- Fav and touch icons -->
+<link rel="shortcut icon" href="${basePath }/resources/layoutit/images/favicon.png">
+
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery-2.0.0.min.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<![endif]-->
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery-ui.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery.ui.touch-punch.min.js"></script>
 <script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery.htmlClean.js"></script>
-<script type="text/javascript" src="${basePath }/resources/layoutit/ckeditor/ckeditor.js"></script>
-<script type="text/javascript" src="${basePath }/resources/layoutit/ckeditor/config.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/ckeditor/config.js"></script>
 
 <!--highcharts-->
-  <script type="text/javascript" src="${basePath }/resources/layoutit/highcharts/highcharts.js" ></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/highcharts/highcharts-more.js" ></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_curve.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/highcharts/drawcharts.js" ></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/highcharts/highcharts.js" ></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/highcharts/highcharts-more.js" ></script>
 <!--fusioncharts-->
-  <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/fusioncharts.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/fusioncharts/fusioncharts-index.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/fusioncharts/fusioncharts.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/fusioncharts/themes/fusioncharts.theme.fint.js"></script>
+<script type="text/javascript" src="${basePath }/resources/layoutit/js/fusioncharts/fusioncharts-index.js"></script>
 
 <script>
 <!--自定义UI模板配置全局变量--> 
 var basePath = "${basePath}";
 var layoutitPath = basePath + "/resources/layoutit/";
 
-var uiTemplateObj = {};
-var templateId = "${templateEntity.id}";//用户可能会同时编辑多个模板
-uiTemplateObj[templateId]={};
+var uiTemplateObj;
+var templateId = "${templateEntity.id}";
+var temlateName = "${templateEntity.name}";
+var layoutJSON = '${templateEntity.layoutJSON}'; 
+var content = '${templateEntity.layoutContent}';
 
-function initTemplateAttrObj(){
+//初始化模板UI属性缓存对象
+function initTemplateObj(){
 	uiTemplateObj = {};
-	uiTemplateObj[templateId]={};
 }
 
-function initTemplateUI(){
-   //保存控件UI属性配置数据
-   var layoutJSON = '${templateEntity.layoutJSON}';
-   uiTemplateObj[templateId] = JSON.parse(layoutJSON);
-   
-   //渲染控件布局的div
-   var content = '${templateEntity.layoutContent}';
-   $(".demo").html(content);
-   
-   //渲染控件的UI
-   resumeWidgetUI();
- }
+
 /**将编辑页面内容中的控件UI部分清空**/
 function removeWidgetUI(){
-	var data = localStorage.getItem("uiTemplateObj");
-	data = JSON.parse(data);
-	for(var i in data[templateId]){
-		$("#"+i).html("");		
+	for(var i in uiTemplateObj){
+		if(i.indexOf("layout") < 0 ){//若是布局控件则忽略此次操作
+			$("#"+i).html("");	
+		}		
 	}
 }
-/*恢复控件的UI内容*/
-function resumeWidgetUI(){
-	var data = localStorage.getItem("uiTemplateObj");
-	data = JSON.parse(data);
-	for(var i in data[templateId]){
-		var widgetJSFileName = i.substring(0,placeOfChar(i,2,'_'));	
-		gUiObject[widgetJSFileName].create(data[templateId][i]);
-	}	
-}
-/*压缩html*/
- function compress(template){
-    return template.replace(/\s+|\n/g, " ").replace(/>\s</g,"><");
-  };
 
 /*将控件的配置、UI保存到后台*/  
 function pushTemplate(){
-	var tid = "${templateEntity.id}";
-	var url = "${basePath}"+"/template/edit";
-	var name = 'hello';
-	
-	var layoutJSON =  JSON.stringify(uiTemplateObj[templateId]);
+	var url = "${basePath}"+"/template/edit"	
+	var layoutJSON =  JSON.stringify(uiTemplateObj);
 	
 	removeWidgetUI()//先清除控件的UI部分
 	var layoutContent = $(".demo").html();//layoutContent.replace(/'/g, '"')
 	layoutContent = layoutContent.replace(/\'/g,'&#39;');
-	layoutContent = compress(layoutContent);
-	 $.ajax({
+	layoutContent = htmlCompress(layoutContent);
+	
+	 $.ajax({//提交给后台
 			url : url,
 			type : 'post',
-			data : {'id':tid,'name':name,'layoutJSON':layoutJSON,'layoutContent':layoutContent},
+			data : {'id':templateId,'name':temlateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent},
 			dataType : 'json',
 			success : function(data) {//返回的data本身即是一个JSON对象
 				console.log("data.status:"+data.status);
@@ -122,7 +96,7 @@ function pushTemplate(){
 					window.location.href = "${basePath}"+"/template/list";//页面跳转
 				}else if(data.status==0){//push失败，恢复UI部分
 					console.log("failed");
-					resumeWidgetUI()
+					resumeWidgetUI(uiTemplateObj);
 				}
 			},
 			error : function() {
@@ -131,7 +105,8 @@ function pushTemplate(){
 	});
 }
   $(function(){
-   	initTemplateUI();
+	initTemplateObj();
+   	initTemplateUI(layoutJSON,content);
   })
 </script>
 
@@ -142,7 +117,7 @@ function pushTemplate(){
   <div class="navbar-inner">
     <div class="container-fluid">
       <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="brand" href="http://justjavac.com/tools/layoutit/"><img src="${basePath }/resources/layoutit/img/favicon.png"> 可视化布局<span class="label">BETA</span></a>
+      <a class="brand" href="http://justjavac.com/tools/layoutit/"><img src="${basePath }/resources/layoutit/images/favicon.png"> 可视化布局<span class="label">BETA</span></a>
       <div class="nav-collapse collapse">
       	<ul class="nav" id="menu-layoutit">
           <li class="divider-vertical"></li>
@@ -511,7 +486,7 @@ function pushTemplate(){
               </ul>
               </span> </span>
               <div class="preview">图片</div>
-              <div class="view"> <img alt="140x140" src="${basePath }/resources/layoutit/img/a.jpg"> </div>
+              <div class="view"> <img alt="140x140" src="${basePath }/resources/layoutit/images/a.jpg"> </div>
             </div>
           </li>
         </ul>
@@ -704,7 +679,7 @@ function pushTemplate(){
               <div class="view">
                 <ul class="thumbnails">
                   <li class="span4">
-                    <div class="thumbnail"> <img alt="300x200" src="${basePath }/resources/layoutit/img/people.jpg">
+                    <div class="thumbnail"> <img alt="300x200" src="${basePath }/resources/layoutit/images/people.jpg">
                       <div class="caption" contenteditable="true">
                         <h3>冯诺尔曼结构</h3>
                         <p>也称普林斯顿结构，是一种将程序指令存储器和数据存储器合并在一起的存储器结构。程序指令存储地址和数据存储地址指向同一个存储器的不同物理位置。</p>
@@ -713,7 +688,7 @@ function pushTemplate(){
                     </div>
                   </li>
                   <li class="span4">
-                    <div class="thumbnail"> <img alt="300x200" src="${basePath }/resources/layoutit/img/city.jpg">
+                    <div class="thumbnail"> <img alt="300x200" src="${basePath }/resources/layoutit/images/city.jpg">
                       <div class="caption" contenteditable="true">
                         <h3>哈佛结构</h3>
                         <p>哈佛结构是一种将程序指令存储和数据存储分开的存储器结构，它的主要特点是将程序和数据存储在不同的存储空间中，进行独立编址。</p>
@@ -722,7 +697,7 @@ function pushTemplate(){
                     </div>
                   </li>
                   <li class="span4">
-                    <div class="thumbnail"> <img alt="300x200" src="${basePath }/resources/layoutit/img/sports.jpg">
+                    <div class="thumbnail"> <img alt="300x200" src="${basePath }/resources/layoutit/images/sports.jpg">
                       <div class="caption" contenteditable="true">
                         <h3>改进型哈佛结构</h3>
                         <p>改进型的哈佛结构具有一条独立的地址总线和一条独立的数据总线，两条总线由程序存储器和数据存储器分时复用，使结构更紧凑。</p>
@@ -752,7 +727,7 @@ function pushTemplate(){
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"><button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal">编辑</button> <a class="btn btn-mini" href="#" rel="well">嵌入</a> </span>
               <div class="preview">嵌入媒体</div>
               <div class="view">
-                <div class="media"> <a href="#" class="pull-left"> <img src="${basePath }/resources/layoutit/img/a_002.jpg" class="media-object"> </a>
+                <div class="media"> <a href="#" class="pull-left"> <img src="${basePath }/resources/layoutit/images/a_002.jpg" class="media-object"> </a>
                   <div class="media-body" contenteditable="true">
                     <h4 class="media-heading">嵌入媒体标题</h4>
                    请尽量使用HTML5兼容的视频格式和视频代码实现视频播放, 以达到更好的体验效果. </div>
@@ -913,19 +888,19 @@ function pushTemplate(){
                     <li data-slide-to="2" data-target="#myCarousel" class=""></li>
                   </ol>
                   <div class="carousel-inner">
-                    <div class="item active"> <img alt="" src="${basePath }/resources/layoutit/img/1.jpg">
+                    <div class="item active"> <img alt="" src="${basePath }/resources/layoutit/images/1.jpg">
                       <div class="carousel-caption" contenteditable="true">
                         <h4>棒球</h4>
                         <p>棒球运动是一种以棒打球为主要特点，集体性、对抗性很强的球类运动项目，在美国、日本尤为盛行。</p>
                       </div>
                     </div>
-                    <div class="item"> <img alt="" src="${basePath }/resources/layoutit/img/2.jpg">
+                    <div class="item"> <img alt="" src="${basePath }/resources/layoutit/images/2.jpg">
                       <div class="carousel-caption" contenteditable="true">
                         <h4>冲浪</h4>
                         <p>冲浪是以海浪为动力，利用自身的高超技巧和平衡能力，搏击海浪的一项运动。运动员站立在冲浪板上，或利用腹板、跪板、充气的橡皮垫、划艇、皮艇等驾驭海浪的一项水上运动。</p>
                       </div>
                     </div>
-                    <div class="item"> <img alt="" src="${basePath }/resources/layoutit/img/3.jpg">
+                    <div class="item"> <img alt="" src="${basePath }/resources/layoutit/images/3.jpg">
                       <div class="carousel-caption" contenteditable="true">
                         <h4>自行车</h4>
                         <p>以自行车为工具比赛骑行速度的体育运动。1896年第一届奥林匹克运动会上被列为正式比赛项目。环法赛为最著名的世界自行车锦标赛。</p>
@@ -1007,18 +982,19 @@ function pushTemplate(){
 </div>
 </body>
  <!--导入控件js文件--> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_temperature.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/hc_dial.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_dial.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/fs_cup.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/fs_temperature.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/hc_dial.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/hc_curve.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/fs_dial.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/fs_cup.js"></script>
 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/layout_subsys.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/ctr_switch.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/sec_alarm.js"></script> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/cam_video.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/page_header.js"></script> 
-  <script type="text/javascript" src="${basePath }/resources/layoutit/ui/page_footer.js"></script> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/layout_subsys.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/ctr_switch.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/sec_alarm.js"></script> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/cam_video.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/page_header.js"></script> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/page_footer.js"></script> 
   
-  <script type="text/javascript" src="${basePath }/resources/layoutit/js/map.js"></script>
-  <script type="text/javascript" src="${basePath }/resources/layoutit/js/scripts.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/layout-common.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/template-ui.js"></script>
 </html>

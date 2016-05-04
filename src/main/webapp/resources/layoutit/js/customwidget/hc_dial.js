@@ -82,9 +82,9 @@ var hc_dial = {
             max: 100,
             min: 0,
             unit: "℃",
-            layer1:{from:30,to:50,color:green},
-            layer2:{from:0,to:30,color:yellow},
-            layer3:{from:50,to:100,color:red}
+            layer1:{from:30,to:50,color:'green'},
+            layer2:{from:0,to:30,color:'yellow'},
+            layer3:{from:50,to:100,color:'red'}
         };
         
         //将create()输入的属性参数绘制控件UI

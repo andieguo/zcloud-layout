@@ -10,7 +10,7 @@ var cam_video = {
                                     '<div class="row">'+
                                         '<div class="col-md-12">'+
                                             '<div class="camera">'+
-                                                '<img class="camera-img" src="'+layoutitPath+'img/camera-bg.jpg" alt="" width="100%" />'+
+                                                '<img class="camera-img" src="'+layoutitPath+'images/camera-bg.jpg" alt="" width="100%" />'+
                                                 '<div class="camera-bg">'+
                                                 '</div>'+
                                             '</div>'+
@@ -131,10 +131,10 @@ var cam_video = {
 
   switchStat:function(divid,val){
     if(val){
-        $("#"+divid).attr("src","../img/on.png");
+        $("#"+divid).attr("src","../images/on.png");
     }
     else{
-      $("#"+divid).attr("src","../img/off.png");
+      $("#"+divid).attr("src","../images/off.png");
     }
   },
 
@@ -159,7 +159,7 @@ function CamVideoUI(prop) {
     '<div class="row">'+
         '<div class="col-md-12">'+
             '<div class="camera">'+
-                '<img class="camera-img" src="'+layoutitPath+'img/camera-bg.jpg" alt="" width="100%" />'+
+                '<img class="camera-img" src="'+layoutitPath+'images/camera-bg.jpg" alt="" width="100%" />'+
                 '<div class="camera-bg">'+
                 '</div>'+
             '</div>'+

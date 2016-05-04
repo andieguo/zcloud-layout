@@ -102,6 +102,9 @@ public class ProjectController {
 		return "manager/listProject";//跳转到manager/listProject.jsp页面
 	}
 	
+	/**
+	 * 项目发布页面
+	 */
 	@RequestMapping(value = "/project/publish", method = {RequestMethod.POST, RequestMethod.GET})
 	public String publish(ProjectForm projectForm,Model model){
 		ProjectEntity projectEntity = projectService.findByProjectId(projectForm.getId());

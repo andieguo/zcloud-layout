@@ -7,7 +7,7 @@ var ctr_switch = {
                     '<div class="panel-sensor" id="ctr_switch">'+
                         '<h3 class="title">开关名称</h3>'+
                         '<div class="body">'+
-                            '<img class="switch_button" src="'+layoutitPath+'img/off.png"/>'+
+                            '<img class="switch_button" src="'+layoutitPath+'images/off.png"/>'+
                         '</div>'+
                     '</div>'+
                  '</div>'+
@@ -90,10 +90,10 @@ var ctr_switch = {
 
   switchStat:function(divid,val){
     if(val){
-        $("#"+divid).attr("src",layoutitPath+"img/on.png");
+        $("#"+divid).attr("src",layoutitPath+"images/on.png");
     }
     else{
-      $("#"+divid).attr("src",layoutitPath+"img/off.png");
+      $("#"+divid).attr("src",layoutitPath+"images/off.png");
     }
   },
 
@@ -116,7 +116,7 @@ function CtrSwitchUI(prop)
 	this.properties = prop;
 	var html = '<h3 class="title">'+prop.title+'</h3>'+
     	'<div class="body">'+
-    		'<img class="switch_button" src="'+layoutitPath+'img/off.png"/>'+
+    		'<img class="switch_button" src="'+layoutitPath+'images/off.png"/>'+
     	'</div>';
 	$("#"+prop.tid).html(html);
 }

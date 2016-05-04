@@ -11,7 +11,7 @@ var sec_alarm = {
                             '<button class="btn btn-success" type="button">布防<tton>' +
                             '<button class="btn btn-danger" type="button">撤防<tton>' +
                           '</div>' +
-                          '<img src="'+layoutitPath+'img/alarm-on.png" alt="">' +
+                          '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
                           '<div class="value" id="alarm_text">正在检测中...</div>' +
                         '</div>'+
                     '</div>'+
@@ -95,17 +95,17 @@ var sec_alarm = {
 
   setValue:function(divid,val){
     if(val == -1){//撤防
-      $("#"+divid).find("img").attr("src",layoutitPath+"img/alarm-off.png");
+      $("#"+divid).find("img").attr("src",layoutitPath+"images/alarm-off.png");
       $("#"+divid).find("#alarm_text").text("已撤防");
       $("#"+divid).find("#alarm_text").css("color","black");
     }
     if(val == 0){//正常状态
-      $("#"+divid).find("img").attr("src",layoutitPath+"img/alarm-off.png");
+      $("#"+divid).find("img").attr("src",layoutitPath+"images/alarm-off.png");
       $("#"+divid).find("#alarm_text").text("正在检测...");
       $("#"+divid).find("#alarm_text").css("color","black");
     }
     if(val == 1){//报警状态
-      $("#"+divid).find("img").attr("src",layoutitPath+"img/alarm-activ.gif");
+      $("#"+divid).find("img").attr("src",layoutitPath+"images/alarm-activ.gif");
       $("#"+divid).find("#alarm_text").text("检测到危险气体！");
       $("#"+divid).find("#alarm_text").css("color","red");
     }
@@ -134,7 +134,7 @@ function SecAlarmUI(prop)
 			      '<button class="btn btn-success" type="button">布防<tton>' +
 			      '<button class="btn btn-danger" type="button">撤防<tton>' +
 			    '</div>' +
-			    '<img src="'+layoutitPath+'img/alarm-on.png" alt="">' +
+			    '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
 			    '<div class="value" id="alarm_text">正在检测中...</div>' +
 		    '</div>';
 	$("#"+prop.tid).html(html);
