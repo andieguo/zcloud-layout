@@ -87,27 +87,31 @@ var ctr_switch = {
       var ui = new CtrSwitchUI(properties);
       return ui;
   },
-
-  switchStat:function(divid,val){
+  //设置开关状态
+  setValue:function(divid,val){
     if(val){
-        $("#"+divid).attr("src",layoutitPath+"images/on.png");
+    	console.log("开关ID:"+divid);
+        $("#"+divid).find(".switch_button").attr("src",layoutitPath+"images/on.png");
     }
     else{
-      $("#"+divid).attr("src",layoutitPath+"images/off.png");
+        $("#"+divid).find(".switch_button").attr("src",layoutitPath+"images/off.png");
     }
   },
 
-  sendCtrCmd:function(divid,object){
-    var src = $("#"+divid).find(".switch_button");
-    console.log(src);
-/*    if(src.indexOf("off") >=0 ){
-      //发送控制指令
-      ctr_switch.switchStat(divid,1);
+  sendCmd:function(divid,rtcObj,dataObj){
+    var src = $("#"+divid).find(".switch_button").attr("src");
+    //console.log(src);
+
+    if(src.indexOf("off") >=0 ){
+      //发送开指令
+      console.log(dataObj.mac+" -> "+dataObj.command.open);
+      rtcObj.sendMessage(dataObj.mac, dataObj.command.open);
     }
     else{
-      //发送控制指令
-      ctr_switch.switchStat(divid,0);
-    }*/
+      //发送关指令
+      console.log(dataObj.mac+" -> "+dataObj.command.close);
+      rtcObj.sendMessage(dataObj.mac, dataObj.command.close);
+    }
   }
 }
 
