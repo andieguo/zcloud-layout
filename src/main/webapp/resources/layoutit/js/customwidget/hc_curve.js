@@ -96,13 +96,14 @@ var hc_curve = {
     },
     
     //曲线控件赋值
-    setData: function(divid,data){
+    setData: function(divid,data){//data数据格式为json格式数据
         var chart = $("#"+divid).highcharts();
-        chart.series[0].setData(data);
+        var dat = eval(DataAnalysis(data));//格式转换
+        chart.series[0].setData(dat);
     },
     
     //动态增加数据点
-    addPoint:function(divid,val){
+    setValue:function(divid,val){
         var chart = $("#"+divid).highcharts();
         var series = chart.series[0];
         var point = {   //获取新的点，并返回给动态图表
@@ -209,3 +210,38 @@ function HCCurveUI(prop) {
   });
 
 };
+
+//将JSON格式的数据转换成[x1,y1],[x2,y2],[x3,y3]...格式的数组
+function DataAnalysis(data,timezone)
+{
+    var str='';
+    var temp;
+    var len=data.datapoints.length;
+    if(timezone == null)
+    {
+        timezone = "+8";
+    }
+    var zoneOp = timezone.substring(0,1);
+    var zoneVal = timezone.substring(1);
+    //var tzSecond = zoneVal*3600000; 修改于2015年2月1日 连接自己的数据服务器没用到时区参数
+    var tzSecond = 0;
+    $.each(data.datapoints,function(i,ele){
+        if(zoneOp =='+')
+        {
+            temp = Date.parse(ele.at)+tzSecond;
+        }
+        if(zoneOp =='-')
+        {
+            temp = Date.parse(ele.at)-tzSecond;
+        }
+        if(ele.value.indexOf("http") != -1)
+        {
+            str=str+'['+temp+',"'+ele.value+'"]';
+        }else{
+            str=str+'['+temp+','+ele.value+']';
+        }
+        if(i!=len-1)
+            str=str+',';
+    });
+    return "["+ str+"]";
+}

@@ -49,11 +49,133 @@ var basePath = "${basePath}";
 var layoutitPath = basePath + "/resources/layoutit/";
 var uiTemplateObj;
 
-var layoutJSON = '{"hc_curve_238786":{"tid":"hc_curve_238786","title":"温度历史数据","width":200,"height":200,"ctype":"spline","unit":"℃","data":[[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]]},"cam_video_567453":{"tid":"cam_video_567453","title":"办公室摄像头","width":300,"height":300,"theme_type":"green"},"sec_alarm_294365":{"tid":"sec_alarm_294365","title":"人体红外","width":300,"height":300,"theme_type":"green"},"ctr_switch_883841":{"tid":"ctr_switch_883841","title":"灯光1","width":300,"height":300,"theme_type":"green"},"fs_cup_407519":{"tid":"fs_cup_407519","title":"湿度实时数据","width":140,"height":200,"max":100,"min":0,"unit":"%","bgcolor":"#f2f5f7","gaugeFillColor":"#5aff00"},"fs_dial_434625":{"tid":"fs_dial_434625","title":"光强值","width":280,"height":280,"max":3000,"min":0,"unit":"Lx","layer1":{"minvalue":"0","maxvalue":"1000","code":"C1E1C1","alpha":"80"},"layer2":{"minvalue":"1000","maxvalue":"2000","code":"F6F164","alpha":"80"},"layer3":{"minvalue":"2000","maxvalue":"3000","code":"F70118","alpha":"80"}},"hc_dial_884444":{"tid":"hc_dial_884444","title":"PM2.5值","width":250,"height":250,"max":500,"min":0,"unit":"ppm","layer1":{"from":0,"to":90,"color":"green"},"layer2":{"from":90,"to":150,"color":"yellow"},"layer3":{"from":150,"to":500,"color":"red"}},"fs_temperature_273730":{"tid":"fs_temperature_273730","title":"土壤温度","width":240,"height":200,"max":100,"min":0,"unit":"℃","bgcolor":"#f3f5f7","gaugeFillColor":"#ffc420"}}';  
-var content = '<div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><div class="preview"><input value="6 6" type="text"></div><div class="view"><div class="row-fluid clearfix"><div class="span6 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">视频监控类</div><div class="view"><div class="panel-sensor" id="cam_video_567453"></div></div></div></div><div class="span6 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">安防类</div><div class="view"><div class="panel-sensor alarm" id="sec_alarm_294365"></div></div></div></div></div></div></div><div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><div class="preview"><input value="4 4 4" type="text"></div><div class="view"><div class="row-fluid clearfix"><div class="span4 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">开关类</div><div class="view"><div class="panel-sensor" id="ctr_switch_883841"></div></div></div></div><div class="span4 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">曲线-hc</div><div class="view"><div id="hc_curve_238786" data-highcharts-chart="2"></div></div></div></div><div class="span4 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">量杯</div><div class="view"><div id="fs_cup_407519"></div></div></div></div></div></div></div><div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><div class="preview"><input value="4 4 4" type="text"></div><div class="view"><div class="row-fluid clearfix"><div class="span4 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">表盘-fs</div><div class="view"><div id="fs_dial_434625"></div></div></div></div><div class="span4 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">表盘-hc</div><div class="view"><div id="hc_dial_884444" data-highcharts-chart="17"></div></div></div></div><div class="span4 column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">温度计</div><div class="view"><div id="fs_temperature_273730"></div></div></div></div></div></div></div>';
+var layoutJSON = '{"layout_subsys_127661":{"tid":"layout_subsys_127661","title":"实时温度","width":300,"height":300,"theme_type":"green"},"layout_subsys_181325":{"tid":"layout_subsys_181325","title":"实时湿度","width":300,"height":300,"theme_type":"green"},"hc_dial_9210":{"tid":"hc_dial_9210","title":"实时温度","width":300,"height":300,"max":100,"min":0,"unit":"℃","layer1":{"from":30,"to":50,"color":"green"},"layer2":{"from":0,"to":30,"color":"yellow"},"layer3":{"from":50,"to":100,"color":"red"}},"fs_cup_57708":{"tid":"fs_cup_57708","title":"实时湿度","width":140,"height":200,"max":100,"min":0,"unit":"%","bgcolor":"#f2f5f7","gaugeFillColor":"#5aff00"},"hc_curve_456731":{"tid":"hc_curve_456731","title":"历史温度数据","width":600,"height":200,"ctype":"spline","unit":"℃","data":[[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]]}}';  
+var content = ' <div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><div class="preview"><input value="12" type="text"></div><div class="view"><div class="row-fluid clearfix"><div class="span12 column ui-sortable"><div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><div class="preview"><input value="6 6" type="text"></div><div class="view"><div class="row-fluid clearfix"><div class="span6 column ui-sortable"><div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">子系统标题布局</div><div class="view"><div class="panel-subsys" id="layout_subsys_127661"><h3 class="title">实时温度</h3><div class="body column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">表盘-hc</div><div class="view"><div id="hc_dial_9210" data-highcharts-chart="2"></div></div></div></div></div></div></div></div><div class="span6 column ui-sortable"><div class="lyrow ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">子系统标题布局</div><div class="view"><div class="panel-subsys" id="layout_subsys_181325"><h3 class="title">实时湿度</h3><div class="body column ui-sortable"><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">量杯</div><div class="view"><div id="fs_cup_57708"></div></div></div></div></div></div></div></div></div></div></div><div class="box box-element ui-draggable" style="display: block;"><a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a><span class="drag label"><i class="icon-move"></i>拖动</span><span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span><div class="preview">曲线-hc</div><div class="view"><div id="hc_curve_456731" data-highcharts-chart="3"></div></div></div></div></div></div></div>';
 
+var hardwareInfo={
+		"zcloudID":"23710173",
+		"zcloudKEY":"kvpOdBCLSf2TKQLzm7g8TGxn2YWtTqAaaIA3X7NDL4QYGHko",
+		"serverAddr":"1234",
+	    "data": [
+	        {
+	           "tid": "hc_dial_9210",
+			   "title": "实时温度",
+			   "mac": "00:12:4B:00:01:49:2C:42",
+			   "channel":"A0",
+			   "command":null
+	        }, {
+	           "tid": "fs_cup_57708",
+			   "title": "实时湿度",
+			   "mac": "00:12:4B:00:01:49:2C:42",
+			   "channel":"A1",
+			   "command":null
+	        }, {
+	           "tid": "hc_curve_456731",
+			   "title": "历史温度数据",
+			   "mac": "00:12:4B:00:01:49:2C:42",
+			   "channel":"A0",
+			   "command":null
+	        }    
+	    ]
+	};
+
+var realTimeSensorArry=[];
+var hisDataSensorArry=[];
+var controlSensorArry=[];
+var videoSensorArry=[];
+
+//控件分类	
+function widgetClassify(data){
+	for(var i in data){
+		var tid = data[i].tid;
+		//实时采集类
+		if(tid.indexOf('fs_cup')>=0 || tid.indexOf('fs_dial')>=0 || tid.indexOf('fs_temperature')>=0
+			|| tid.indexOf('ctr')>=0 || tid.indexOf('hc_dial')>=0)
+		{
+			realTimeSensorArry.push(data[i]);
+		}
+		//实时控制类
+		if(tid.indexOf('ctr_switch')>=0){
+			realTimeSensorArry.push(data[i]);
+			controlSensorArry.push(data[i]);
+		}
+		//历史数据类
+		if(tid.indexOf('hc_curve')>=0){
+			realTimeSensorArry.push(data[i]);//支持动态增加数据点
+			hisDataSensorArry.push(data[i]);
+		}
+		//视频监控类
+		if(tid.indexOf('cam_video')>=0){
+			videoSensorArry.push(data[i]);
+		}		
+	}
+}
+
+//处理传感器上报来的数据
+function handleSensorIncomingData(mac,chan,val){
+	for(var i in realTimeSensorArry){
+		if(realTimeSensorArry[i].mac == mac && realTimeSensorArry[i].channel ==chan){
+			console.log(mac+" -> " +chan +"="+val);
+			var divid = realTimeSensorArry[i].tid;
+			var widgetIndex = divid.substring(0,placeOfChar(divid,2,'_'));
+			gUiObject[widgetIndex].setValue(divid,val);
+		}
+	}
+}
+
+//处理传感器历史数据
+function handleSensorHisData(hisDataObj){
+	for(var i in hisDataSensorArry){
+		var divid = hisDataSensorArry[i].tid;
+		var widgetIndex = divid.substring(0,placeOfChar(divid,2,'_'));
+		var chan = hisDataSensorArry[i].mac + '_' +hisDataSensorArry[i].channel;
+		hisDataObj.queryLast1H(chan,function(data){
+			gUiObject[widgetIndex].setData(divid,data);
+		});		
+	}
+}
+
+//文档就绪
 $(function(){
 	initTemplateUI(layoutJSON,content);
+	widgetClassify(hardwareInfo.data);
+
+	//实时数据
+	var rtc = new WSNRTConnect(hardwareInfo.zcloudID,hardwareInfo.zcloudKEY);
+	rtc.connect();
+	rtc.onConnect = function () {
+		console.log("连接成功！");
+	};
+	rtc.onConnectLost = function () {
+		console.log("掉线！")
+	};
+	rtc.onmessageArrive = function (mac, dat) {
+		var data = dat;
+		var chan,val;
+		while(1){
+		  if(data.indexOf(',') == -1)
+		  {
+		    chan = data.substring(data.indexOf('{')+1,data.indexOf('='));
+		    val = data.substring(data.indexOf('=')+1,data.indexOf('}'));
+		    handleSensorIncomingData(mac,chan,val);
+		    break;
+		  }
+		  else{
+		    chan = data.substring(data.indexOf('{')+1,data.indexOf('='));
+		    val = data.substring(data.indexOf('=')+1,data.indexOf(','));
+		    handleSensorIncomingData(mac,chan,val);
+		    data = "{"+data.substring(data.indexOf(',')+1);
+		  }
+		}
+	};
+	//rtc.sendMessage("mac", "{D0=?}");
+	
+	//历史数据查询
+	var hisData = new WSNHistory(hardwareInfo.zcloudID,hardwareInfo.zcloudKEY);
+	//hisData.queryLast("datachannel", function (data) {};
+	handleSensorHisData(hisData);
+
+
 });
 </script>
 
@@ -85,5 +207,7 @@ $(function(){
   <script type="text/javascript" src="${basePath }/resources/layoutit/js/customwidget/page_footer.js"></script> 
   
   <script type="text/javascript" src="${basePath }/resources/layoutit/js/layout-common.js"></script>
-  
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/wsn/camera-1.1.js"></script> 
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/wsn/WSNRTConnect.js"></script>
+  <script type="text/javascript" src="${basePath }/resources/layoutit/js/wsn/WSNHistory.js"></script>    
 </html>

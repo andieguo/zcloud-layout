@@ -161,7 +161,7 @@ var hc_dial = {
     setValue: function(divid,val){
         var chart = $("#"+divid).highcharts();
         var point = chart.series[0].points[0];
-        point.update(val);
+        point.update(parseFloat(val));
     } 
 }
 
