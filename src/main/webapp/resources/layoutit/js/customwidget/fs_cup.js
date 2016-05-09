@@ -55,7 +55,8 @@ var fs_cup = {
         min: 0,
         unit: "%",
         bgcolor: "#f2f5f7",
-        gaugeFillColor: "#5aff00"
+        gaugeFillColor: "#5aff00",
+        dataType:'realTime'
     };
     
     //将create()输入的属性参数绘制控件UI
@@ -106,15 +107,19 @@ var fs_cup = {
           min: min,
           unit: unit,
           bgcolor: bgcolor,
-          gaugeFillColor: gaugeFillColor
+          gaugeFillColor: gaugeFillColor,
+          dataType:'realTime'
       };
       var ui = new FSCupUI(properties);
       ui.render();
       return ui;
   },
   //控件赋值
-  setValue: function(divid,val){
-    FusionCharts.items["id_"+divid].feedData( "value="+ val );
+  setValue: function(divid,chan,val){
+    var reg = /^.*A[0-7].*$/;
+    if(reg.test(chan)){
+      FusionCharts.items["id_"+divid].feedData( "value="+ val );
+    }
   } 
 }
 

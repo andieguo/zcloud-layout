@@ -45,6 +45,7 @@ var ctr_switch = {
         width: 300,
         height: 300,
         theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
+        dataType:'realTime'
     };
     
     //将create()输入的属性参数绘制控件UI
@@ -82,24 +83,28 @@ var ctr_switch = {
           width: width,
           height: height,
           theme_type: theme_type,
+          dataType:'realTime'
       };
       
       var ui = new CtrSwitchUI(properties);
       return ui;
   },
   //设置开关状态
-  setValue:function(divid,val){
-    if(val){
-    	console.log("开关ID:"+divid);
-        $("#"+divid).find(".switch_button").attr("src",layoutitPath+"images/on.png");
-    }
-    else{
-        $("#"+divid).find(".switch_button").attr("src",layoutitPath+"images/off.png");
+  setValue:function(divid,chan,val){
+    var reg = /^.*D[1-3].*$/;
+    if(reg.test(chan)){
+      if(val){
+        console.log("开关ID:"+divid);
+          $("#"+divid).find(".switch_button").attr("src",layoutitPath+"images/on.png");
+      }
+      else{
+          $("#"+divid).find(".switch_button").attr("src",layoutitPath+"images/off.png");
+      }
     }
   },
 
-  sendCmd:function(divid,rtcObj,dataObj){
-    var src = $("#"+divid).find(".switch_button").attr("src");
+  sendCmd:function(clickObj,rtcObj,dataObj){
+    var src = clickObj.attr("src");
     //console.log(src);
 
     if(src.indexOf("off") >=0 ){

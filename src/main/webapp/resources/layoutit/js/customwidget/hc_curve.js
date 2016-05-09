@@ -47,7 +47,8 @@ var hc_curve = {
             height: 200,
             ctype: 'spline',//'line', 'column', 'spline', 'area', 'areaspline'
             unit: "℃",
-            data: [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]]
+            data: [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]],
+            dataType:'realTime|history'
         };
         
         //将create()输入的属性参数绘制控件UI
@@ -89,7 +90,8 @@ var hc_curve = {
             height: height,
             ctype: ctype,
             unit: unit,
-            data: data
+            data: data,
+            dataType:'realTime|history'
         };
         var ui = new HCCurveUI(properties);
         return ui;
@@ -103,14 +105,17 @@ var hc_curve = {
     },
     
     //动态增加数据点
-    setValue:function(divid,val){
-        var chart = $("#"+divid).highcharts();
-        var series = chart.series[0];
-        var point = {   //获取新的点，并返回给动态图表
-            x: (new Date()).getTime() + 28800000,
-            y: parseFloat(val)
-        };
-        series.addPoint([point.x, point.y], true, true);
+    setValue:function(divid,chan,val){
+        var reg = /^.*A[0-7].*$/;
+        if(reg.test(chan)){
+            var chart = $("#"+divid).highcharts();
+            var series = chart.series[0];
+            var point = {   //获取新的点，并返回给动态图表
+                x: (new Date()).getTime() + 28800000,
+                y: parseFloat(val)
+            };
+            series.addPoint([point.x, point.y], true, true);
+        }
     } 
 }
 

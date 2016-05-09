@@ -84,7 +84,8 @@ var fs_dial = {
             unit: "℃",
             layer1: {"minvalue": "0","maxvalue": "50","code": "C1E1C1","alpha": "80"},
             layer2: {"minvalue": "50","maxvalue": "85","code": "F6F164","alpha": "80"},
-            layer3: {"minvalue": "85","maxvalue": "120","code": "F70118","alpha": "80"}
+            layer3: {"minvalue": "85","maxvalue": "120","code": "F70118","alpha": "80"},
+            dataType:'realTime'
         };
         
         //将create()输入的属性参数绘制控件UI
@@ -155,7 +156,8 @@ var fs_dial = {
             unit: unit,
             layer1:{"minvalue":layer1_from,"maxvalue":layer1_to,"code":layer1_color,"alpha": "80"},
             layer2:{"minvalue":layer2_from,"maxvalue":layer2_to,"code":layer2_color,"alpha": "80"},
-            layer3:{"minvalue":layer3_from,"maxvalue":layer3_to,"code":layer3_color,"alpha": "80"}
+            layer3:{"minvalue":layer3_from,"maxvalue":layer3_to,"code":layer3_color,"alpha": "80"},
+            dataType:'realTime'
         };
 
         var ui = new FSDialUI(properties);
@@ -164,8 +166,11 @@ var fs_dial = {
     },
 
     //控件赋值
-    setValue: function(divid,val){
+    setValue: function(divid,chan,val){
+    var reg = /^.*A[0-7].*$/;
+    if(reg.test(chan)){
       FusionCharts.items["id_"+divid].feedData( "value="+ val );
+    }
     }    
 
 }

@@ -84,7 +84,8 @@ var hc_dial = {
             unit: "℃",
             layer1:{from:30,to:50,color:'green'},
             layer2:{from:0,to:30,color:'yellow'},
-            layer3:{from:50,to:100,color:'red'}
+            layer3:{from:50,to:100,color:'red'},
+            dataType:'realTime'
         };
         
         //将create()输入的属性参数绘制控件UI
@@ -151,17 +152,22 @@ var hc_dial = {
             unit: unit,
             layer1:{from:layer1_from,to:layer1_to,color:layer1_color},
             layer2:{from:layer2_from,to:layer2_to,color:layer2_color},
-            layer3:{from:layer3_from,to:layer3_to,color:layer3_color}
+            layer3:{from:layer3_from,to:layer3_to,color:layer3_color},
+            dataType:'realTime'
         };
         var ui = new HCDialUI(properties);
         return ui;
     },
     
     //控件赋值
-    setValue: function(divid,val){
-        var chart = $("#"+divid).highcharts();
-        var point = chart.series[0].points[0];
-        point.update(parseFloat(val));
+    setValue: function(divid,chan,val){
+        var reg = /^.*A[0-7].*$/;
+        if(reg.test(chan)){
+            var chart = $("#"+divid).highcharts();
+            var point = chart.series[0].points[0];
+            point.update(parseFloat(val));            
+        }
+
     } 
 }
 
