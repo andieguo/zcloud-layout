@@ -14,6 +14,7 @@ var sec_alarm = {
                           '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
                           '<div class="value" id="alarm_text">正在检测中...</div>' +
                         '</div>'+
+                        '<audio src="#" autoplay="autoplay" loop="loop"></audio>'+
                     '</div>'+
                  '</div>'+
          '</div>',
@@ -102,11 +103,13 @@ var sec_alarm = {
     if(reg1.test(chan)){
         if(val == 0){//正常状态
           $("#"+divid).find("img").attr("src",layoutitPath+"images/alarm-on.png");
+          $("#"+divid).find("audio").attr("src","#");
           $("#"+divid).find("#alarm_text").text("已布防，正在检测...");
           $("#"+divid).find("#alarm_text").css("color","blue");
         }
         if(val == 1){//报警状态
           $("#"+divid).find("img").attr("src",layoutitPath+"images/alarm-activ.gif");
+          $("#"+divid).find("audio").attr("src",layoutitPath+"audio/alarm.mp3");
           $("#"+divid).find("#alarm_text").text("检测到异常！");
           $("#"+divid).find("#alarm_text").css("color","red");
         }
@@ -121,6 +124,7 @@ var sec_alarm = {
           $("#"+divid).find("#alarm_text").css("color","black");
         }
         if(val == 1){//布防
+          $("#"+divid).find("img").attr("src",layoutitPath+"images/alarm-on.png");
           $("#"+divid).find("#alarm_text").text("已布防，正在检测...");
           $("#"+divid).find("#alarm_text").css("color","blue");
         }        
@@ -155,6 +159,7 @@ function SecAlarmUI(prop)
 			    '</div>' +
 			    '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
 			    '<div class="value" id="alarm_text">正在检测中...</div>' +
-		    '</div>';
+		    '</div>'+
+		    '<audio src="#" autoplay="autoplay" loop="loop"></audio>';
 	$("#"+prop.tid).html(html);
 }
