@@ -68,8 +68,6 @@ footer {
 	font-size: 9px;
 }
 /* attr base */
-/*.clearfix {*zoom:1;}
-.clearfix:after {content:"\200B";display:block;height:0;clear:both;}*/
 .mr10p {
 	margin-right: 10px;
 }
@@ -84,4 +82,27 @@ footer {
 }
 .w200p {
 	width: 200px;
+}
+/*btn*/
+.btn-primary {
+
+}
+.btn-primary{
+	color:#ffffff;
+	text-shadow:0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color:#24bab3;
+	background-image:-moz-linear-gradient(top, #24bab3, #24bab3);
+	background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#24bab3), to(#24bab3));
+	background-image:-webkit-linear-gradient(top, #24bab3, #24bab3);
+	background-image:-o-linear-gradient(top, #24bab3, #24bab3);
+	background-image:linear-gradient(to bottom, #24bab3, #24bab3);
+	background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff#24bab3', endColorstr='#ff#24bab3', GradientType=0);
+	border-color:#0044cc #0044cc #002a80;
+	border-color:rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	*background-color:#24bab3;filter:progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+.btn-primary:hover,.btn-primary:focus,.btn-primary:active,.btn-primary.active,.btn-primary.disabled,.btn-primary[disabled]{
+	color:#ffffff;
+	background-color:#24ACA6;
+	*background-color:#24ACA6;
 }

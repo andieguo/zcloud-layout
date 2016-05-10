@@ -117,14 +117,11 @@ function pushTemplate(){
   <div class="navbar-inner">
     <div class="container-fluid">
       <button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-      <a class="brand" href="http://justjavac.com/tools/layoutit/"><img src="${basePath }/resources/layoutit/images/favicon.png"> 可视化布局<span class="label">BETA</span></a>
+      <a class="brand"><img src="${basePath }/resources/layoutit/images/favicon.png"> 可视化布局</a>
       <div class="nav-collapse collapse">
       	<ul class="nav" id="menu-layoutit">
           <li class="divider-vertical"></li>
           <li>
-            <div class="btn-group">
-              <a class="btn btn-primary" href="http://justjavac.com" target="_blank"><i class="icon-home icon-white"></i>首页</a>
-            </div>
             <div class="btn-group" data-toggle="buttons-radio">
               <button type="button" id="edit" class="btn btn-primary active"><i class="icon-edit icon-white"></i>编辑</button>
               <button type="button" class="btn btn-primary" id="devpreview"><i class="icon-eye-close icon-white"></i>布局编辑</button>
@@ -135,10 +132,6 @@ function pushTemplate(){
               <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
               <button class="btn btn-primary" href="#clear" id="clear"><i class="icon-trash icon-white"></i>清空</button>
             </div>
-            <div class="btn-group">
-								<button class="btn btn-primary" href="#undo" id="undo" ><i class="icon-arrow-left icon-white"></i>撤销</button>
-								<button class="btn btn-primary" href="#redo" id="redo" ><i class="icon-arrow-right icon-white"></i>重做</button>
-			</div>
           </li>
         </ul>
         <ul class="nav pull-right">
@@ -165,7 +158,7 @@ function pushTemplate(){
               </div>
             </div>
             <i class="icon-plus icon-white"></i> 布局设置 </li>
-          <li style="display: list-item;" class="rows" id="estRows">
+          <li style="display: list-item;" class="rows nav-body" id="estRows">
             <div class="lyrow ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>
               <div class="preview">
                 <input value="12" type="text">
@@ -234,7 +227,7 @@ function pushTemplate(){
               </div>
             </div>
           </li>
-          <li style="display: none;" class="boxes" id="elmBase">
+          <li class="boxes nav-body" id="elmBase">
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> 
             	 <span class="configuration"><button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal">编辑</button> <span class="btn-group"> <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">对齐 <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -500,7 +493,7 @@ function pushTemplate(){
               </div>
             </div>
           </li>
-          <li style="display: none;" class="boxes" id="elmComponents">
+          <li class="boxes nav-body" id="elmComponents">
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"> <span class="btn-group"> <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">方向<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="active"><a href="#" rel="">横向</a></li>
@@ -746,7 +739,7 @@ function pushTemplate(){
               </div>
             </div>
           </li>
-          <li style="display: none;" class="boxes mute" id="elmJS">
+          <li class="boxes mute nav-body" id="elmJS">
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>
               <div class="preview">遮罩窗体</div>
               <div class="view"> 
@@ -914,7 +907,7 @@ function pushTemplate(){
         </ul>
         <ul class="nav nav-list accordion-group">
           <li class="nav-header"><i class="icon-plus icon-white"></i> 应用扩展 </li>
-          <li style="display: none;" class="boxes mute" id="elmComm">
+          <li class="boxes mute nav-body" id="elmComm">
             <div class="preview">建设中...</div>
           </li>
         </ul>
