@@ -11,6 +11,9 @@ body {
 .font-red {
 	color: lighten($color03,10%);
 }
+.h100 {
+	height: 100%;
+}
 .icon {
 	display: inline-block;
     background: url(../css/img/sprite.png) no-repeat;

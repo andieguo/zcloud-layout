@@ -8,6 +8,9 @@ body {
 .font-red {
   color: #e60016; }
 
+.h100 {
+  height: 100%; }
+
 .icon {
   display: inline-block;
   background: url(../css/img/sprite.png) no-repeat; }
