@@ -4,120 +4,84 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>信息修改</title>
-		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!---------------------------样式引用------------------------------>
-		<%@ include file="/resources/share/style_backstage.jsp"%>
-	</head>
-	<body>
-		<div class="top_Height"></div>
-		<div class="edit_user" >
-			<p class="edit_title" id="newH"><i class="glyphicon glyphicon-edit"></i> 信息修改</p>
-		    <div class="edit_user_cont" style="height:230px;">
-		    	<span class="jt_new"></span>
-		    		<spring:url value="/admin/edit" var="userActionUrl" />
-				<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
-						<form:hidden path="id" />
-						<spring:bind path="nickname">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
-								<label for="nickname">账 号:</label>
-								<input id="nickname" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
-								<form:errors path="nickname" cssClass="error" />
-							</div>
-						</spring:bind>
-						<spring:bind path="email">
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智云组态仿真软件</title>
+    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
+    <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
+    <script src="${basePath }/resources/js/script.js"></script>
+</head>
+<body><section class="main">
+    <aside class="text">
+    <h1>中智讯（武汉）科技有限公司</h1>
+    <p>版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯</p>
+    <p>（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有</p>
+    </aside>
+    <div class="content sw">
+        <div class="panel">
+           <!-- 修改用户资料 -->
+           	<spring:url value="/admin/edit" var="userActionUrl" />
+			<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
+			<form:hidden path="id" />
+					<spring:bind path="nickname">
+						<div class="form-group">
+							<label>账&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
+							<input id="nickname" name="nickname"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
+							<form:errors path="nickname" cssClass="error" />
+						</div>
+					</spring:bind>
+					<spring:bind path="email">
+						<div class="form-group">
+							<label for="email">邮箱地址:</label>
+							<input type="text" class="form-control " name="email" value="${status.value}"  placeholder="请输入邮箱地址" />
+							<form:errors path="email" />
+						</div>
+					</spring:bind>
+					<spring:bind path="phoneNumber">
+						<div class="form-group">
+							<label for="phoneNumber">手机号:</label>
+							<input  type="text" class="form-control " name="phoneNumber" value="${status.value}" placeholder="请输入手机号" />
+							<form:errors path="phoneNumber" />
+						</div>
+					</spring:bind>
+					<c:if test="${entry.role==0}">
+						<spring:bind path="role">
 							<div class="form-group">
-								<label for="email">邮箱地址:</label>
-								<input type="text" class="form-control " name="email" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="email" />
+								<label for="role">角色:</label>
+		              			<form:select path="role" items="${roleList}" class="form-control" />
+								<form:errors path="role" />
 							</div>
 						</spring:bind>
-						<spring:bind path="phoneNumber">
-							<div class="form-group">
-								<label for="phoneNumber">手机号:</label>
-								<input  type="text" class="form-control " name="phoneNumber" value="${status.value}" placeholder="请输入手机号" />
-								<form:errors path="phoneNumber" />
-							</div>
-						</spring:bind>
-						<c:if test="${entry.role==0}">
-							<spring:bind path="role">
-								<div class="form-group">
-									<label for="role">角色:</label>
-			              			<form:select path="role" items="${roleList}" class="form-control" />
-									<form:errors path="role" />
-								</div>
-							</spring:bind>
-						</c:if>
-					   	<spring:bind path="sex">
-								<div class="form-group sex">
-									<label for="sex">性别：</label>
-									<div>男性：<input  class="form-control"  type="radio" name="sex" value="1" checked="checked"/> 女性：<input  class="form-control"  type="radio" name="sex" value="0"/>  </div>
-									<form:errors path="sex" />
-								</div>
-						</spring:bind>
-					<div>
-						<input value="修改"  type="submit"></input>
-				   	</div>
-				   	<hr/>
-				   	<form:errors path="*" />
-				   	<p ><a target="_self" href="${basePath }/login.jsp">用户登录</a></p>
-				</form:form>
-				
-		    </div>
-		</div>
-		<!---------------------------脚本引用------------------------------>
-		<%@ include file="/resources/share/script.jsp"%>
-		<script>
-		 var xmlHttp;
-	     function createXMLHttpRequest()
-	     {
-	         if (window.ActiveXObject)
-	         {
-				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	         }
-	         else if(window.XMLHttpRequest)
-	         {
-	            xmlHttp = new XMLHttpRequest();
-	         }
-	     }
-		function textChange(){
-			createXMLHttpRequest();
-			var name = document.getElementById("admin_name").value;
-			var url="${basePath}"+"/control/admin/isExist.action";
-			xmlHttp.open("POST",url,true);
-			xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded","charset=UTF-8");
-			xmlHttp.onreadystatechange = showDIV;
-			xmlHttp.send("name="+encodeURI(encodeURI(name)));
-		}
-		function showDIV()
-		{
-			if (xmlHttp.readyState == 4)
-			{
-				if (xmlHttp.status == 200)
-				{
-					var result = xmlHttp.responseText;
-					if(result != ""){
-						document.getElementById("myDiv").innerHTML = result;
-						document.getElementById("admin_name").value = "";
-					}else{
-						document.getElementById("myDiv").innerHTML = "恭喜您，可使用该用户名";
-					}
-					xmlHttp.close();
-				}
-				else
-				{ //页面不正常
-					alert("您请求的页面有异常 ");
-				}
-			}
-			else
-			{
-				//  信息还没有返回，等待
-			}
-		}
-		</script>
-	</body>
+					</c:if>
+					<spring:bind path="sex">
+						<div class="form-group">
+		                    <label>性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
+		                    <div class="form-checkbox">
+		                        <input id="man" type="radio"  value="1" name="sex" checked="checked">
+		                        <label class="checkbox-img" for="man"></label>
+		                        <label class="checkbox-text" for="man">男</label>
+		                    </div>
+		                    <div class="form-checkbox">
+		                        <input id="woman" type="radio"  value="0" name="sex">
+		                        <label class="checkbox-img" for="woman"></label>
+		                        <label class="checkbox-text" for="woman">女</label>
+		                    </div>
+		                    <form:errors path="sex" />
+		                </div>
+					</spring:bind>
+	                <div class="form-button">
+	                    &nbsp;<button class="btn" type="submit">保存</button>
+	                </div>
+            </form:form>
+            <!-- /修改用户资料 -->
+        </div>
+    </div>
+</section>
+<!-- 修改用户资料按钮 -->
+<script type="text/javascript">
+</script>
+<!-- /修改用户资料按钮 -->
+</body>
 </html>

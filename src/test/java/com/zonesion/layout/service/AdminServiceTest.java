@@ -44,8 +44,8 @@ public class AdminServiceTest extends TestCase{
 	}
 	
 	public void testLogin(){
-		System.out.println(adminService.login("adny", "andy"));
-		System.out.println(adminService.login("andy","andy"));
+		System.out.println(adminService.login("adny", "andy",1));
+		System.out.println(adminService.login("andy","andy",1));
 	}
 	
 	public void testFindAll(){

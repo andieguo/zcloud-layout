@@ -4,95 +4,64 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>管理员信息详情</title>
-		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!---------------------------样式引用------------------------------>
-		<%@ include file="/resources/share/style_backstage.jsp"%>
-	</head>
-	<body>
-		<div class="top_Height"></div>
-		<div class="edit_user" >
-			<p class="edit_title" id="newH"><i class="glyphicon glyphicon-edit"></i> 管理员信息详情</p>
-		    <div class="edit_user_cont" style="height:230px;">
-		    	<span class="jt_new"></span>
-							<div class="form-group">
-								<label for="nickname">账 号:</label>${admin.nickname}
-							</div>
-							<div class="form-group">
-								<label for="email">邮箱地址:</label>${admin.email}
-							</div>
-							<div class="form-group">
-								<label for="phoneNumber">手机号:</label>${admin.phoneNumber}
-							</div>
-							<div class="form-group">
-								<label for="role">角色:</label>
-								<c:if test="${admin.role==0}">管理员</c:if>
-								<c:if test="${admin.role==1}">用户</c:if>
-							</div>
-							<div class="form-group">
-								<label for="sex">性别：</label>
-								<c:if test="${admin.sex==0}">女</c:if>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智云组态仿真软件</title>
+    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
+    <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
+    <script src="${basePath }/resources/js/script.js"></script>
+</head>
+<body><section class="main">
+    <aside class="text">
+    <h1>中智讯（武汉）科技有限公司</h1>
+    <p>版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯</p>
+    <p>（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有</p>
+    </aside>
+    <div class="content sw">
+        <div class="panel">
+            <!-- 用户资料 -->
+            <div class="wc600">
+                <div class="change-btn">
+                    <i class="icon icon-change"></i>
+                    <a class="text" href="${basePath }/admin/editUI?id=${admin.id}">修改资料</a>
+                </div>
+                <div class="form-group">
+                    <span class="label">账&nbsp;&nbsp;&nbsp;&nbsp;号：</span>
+                    <span class="input">${admin.nickname}</span>
+                </div>
+                  <div class="form-group">
+                    <span class="label">角&nbsp;&nbsp;&nbsp;&nbsp;色：</span>
+                    <span class="input">
+                   			<c:if test="${admin.role==0}">管理员</c:if>
+							<c:if test="${admin.role==1}">用户</c:if>
+					</span>
+                </div>
+                				
+                <div class="form-group">
+                    <span class="label">性&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                    <span class="input">
+                    			<c:if test="${admin.sex==0}">女</c:if>
 								<c:if test="${admin.sex==1}">男</c:if>
-							</div>
-					<div>
-				   	</div>
-				   	<hr/>
-				   	<p ><a target="_self" href="${basePath }/admin/editUI?id=${admin.id}">编辑信息</a></p>
-		    </div>
-		</div>
-		<!---------------------------脚本引用------------------------------>
-		<%@ include file="/resources/share/script.jsp"%>
-		<script>
-		 var xmlHttp;
-	     function createXMLHttpRequest()
-	     {
-	         if (window.ActiveXObject)
-	         {
-				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	         }
-	         else if(window.XMLHttpRequest)
-	         {
-	            xmlHttp = new XMLHttpRequest();
-	         }
-	     }
-		function textChange(){
-			createXMLHttpRequest();
-			var name = document.getElementById("admin_name").value;
-			var url="${basePath}"+"/control/admin/isExist.action";
-			xmlHttp.open("POST",url,true);
-			xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded","charset=UTF-8");
-			xmlHttp.onreadystatechange = showDIV;
-			xmlHttp.send("name="+encodeURI(encodeURI(name)));
-		}
-		function showDIV()
-		{
-			if (xmlHttp.readyState == 4)
-			{
-				if (xmlHttp.status == 200)
-				{
-					var result = xmlHttp.responseText;
-					if(result != ""){
-						document.getElementById("myDiv").innerHTML = result;
-						document.getElementById("admin_name").value = "";
-					}else{
-						document.getElementById("myDiv").innerHTML = "恭喜您，可使用该用户名";
-					}
-					xmlHttp.close();
-				}
-				else
-				{ //页面不正常
-					alert("您请求的页面有异常 ");
-				}
-			}
-			else
-			{
-				//  信息还没有返回，等待
-			}
-		}
-		</script>
-	</body>
+					</span>
+                </div>
+                <div class="form-group">
+                    <span class="label">E-mail：</span>
+                    <span class="input">${admin.email}</span>
+                </div>
+                <div class="form-group">
+                    <span class="label">手机号：</span>
+                    <span class="input">${admin.phoneNumber}</span>
+                </div>
+            </div>
+            <!-- /用户资料 -->
+        </div>
+    </div>
+</section>
+<!-- 修改用户资料按钮 -->
+<script type="text/javascript">
+</script>
+<!-- /修改用户资料按钮 -->
+</body>
 </html>

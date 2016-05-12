@@ -45,8 +45,8 @@ public class AdminDaoTest extends TestCase{
 	}
 	
 	public void testLogin(){
-		System.out.println(adminDao.login("adny", "andy"));
-		System.out.println(adminDao.login("andy","andy"));
+		System.out.println(adminDao.login("adny", "andy",1));
+		System.out.println(adminDao.login("andy","andy",1));
 	}
 	
 	public void testFindAll(){

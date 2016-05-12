@@ -169,6 +169,14 @@ public class AdminController {
 	}
 	
 	/**
+	 * 跳转到notice页面
+	 */
+	@RequestMapping(value="/admin/notice",method=RequestMethod.GET)
+	public String notice(){
+		return "manager/notice";
+	}
+	
+	/**
 	 * 登录
 	 */
 	@RequestMapping(value="/admin/login",method=RequestMethod.POST)
@@ -179,14 +187,7 @@ public class AdminController {
 		}else{
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
-			if(loginForm.getRole() == 0){//管理员
-				return "redirect:/admin/list";
-			}else if(loginForm.getRole() == 1){//普通用户
-				AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-				redirectAttributes.addAttribute("id", admin.getId());
-				return "redirect:/admin/detail";
-			}
-			return "";//错误
+			return "manager/index";//跳转到后台首页
 		}
 	}
 	
