@@ -15,6 +15,10 @@
     <script src="${basePath }/resources/js/script.js"></script>
 </head>
 <body>
+    <%
+    	HttpSession sessions = request.getSession();
+    	AdminEntity admin = (AdminEntity)sessions.getAttribute("admin");
+    %>
     <!-- 页头 -->
     <header class="header">
         <div class="logo">
@@ -22,8 +26,8 @@
             <h1 class="name">智云组态仿真软件</h1>
         </div>
         <div class="user">
-            <span class="name">Jakc joio</span>
-            <a class="out" href="#">退出</a>
+            <span class="name">${admin.nickname }</span>
+            <a class="out" href="${basePath }/admin/outlogin">退出</a>
         </div>
     </header>
     <!-- /页头 -->
@@ -38,10 +42,6 @@
         <div class="color-box2"></div>
     </div>
     <!-- /banner -->
-    <%
-    	HttpSession sessions = request.getSession();
-    	AdminEntity admin = (AdminEntity)sessions.getAttribute("admin");
-    %>
     <!-- 导航栏 -->
     <ul class="topNav">
         <li>
@@ -53,7 +53,7 @@
             	</c:if>
                 <li><a href="${basePath }/admin/detail?id=${admin.id}" target="iframe">用户资料</a></li>
                 <!-- <li><a class="active" href="#">用户资料</a></li> -->
-                <li><a href="2-2.html" target="iframe">密码修改</a></li>
+                <li><a href="${basePath }/admin/editPasswdUI?id=${admin.id}" target="iframe">密码修改</a></li>
             </ul>
         </li>
         <li>

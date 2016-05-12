@@ -20,7 +20,7 @@
 	    	AdminEntity admin = (AdminEntity)sessions.getAttribute("admin");
     	%>
 		<spring:url value="/admin/list" var="userActionUrl" />
-		<form:form class="form-horizontal" method="post" modelAttribute="listForm" action="${userActionUrl}">
+		<form:form class="h100" method="post" modelAttribute="listForm" action="${userActionUrl}">
 			<form:hidden path="page" />
 			<form:hidden path="id" />
 			<form:hidden path="deleted" />
