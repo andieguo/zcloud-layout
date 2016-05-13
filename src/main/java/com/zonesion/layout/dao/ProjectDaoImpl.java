@@ -164,4 +164,77 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 		return getJdbcTemplate().update("update tb_project set visible=? where id=?",new Object[] {visible,id});	
 	}
 
+	@Override
+	public QueryResult<ProjectVO> findByAdminIdAndTemplate(String nickname, String templatename, String name,int visible, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub
+		QueryResult<ProjectVO> queryResult = new QueryResult<ProjectVO>();
+		StringBuffer sql  = new StringBuffer("select t1.*,t2.name as templatename,nickname from tb_project t1 inner join tb_template t2 on t1.tid=t2.id inner join tb_admin t3 on t1.aid=t3.id where 1=1");
+		StringBuffer countSql = new StringBuffer("select count(*) from tb_project t1 inner join tb_template t2 on t1.tid=t2.id inner join tb_admin t3 on t1.aid=t3.id where 1=1");
+		List<Object> parmas = Lists.newArrayList();
+		List<Object> countParmas = Lists.newArrayList();
+		if(nickname != null && !nickname.equals("")){//nickname==null表示所有存在的管理员
+			sql.append(" and t3.nickname=?");
+			parmas.add(nickname);
+			countSql.append(" and t3.nickname=?");
+			countParmas.add(nickname);
+		}else{
+			sql.append(" and t3.visible=1");
+			countSql.append(" and t3.visible=1");
+		}
+		if(templatename != null && !templatename.equals("")){//templatename==null表示所有存在模板的ID
+			sql.append(" and t2.name=?");
+			parmas.add(templatename);
+			countSql.append(" and t2.name=?");
+			countParmas.add(templatename);
+		}else{
+			sql.append(" and t2.visible=1");
+			countSql.append(" and t2.visible=1");
+		}
+		if(name != null && !name.equals("")){//templatename==null表示所有存在模板的ID
+			sql.append(" and t1.name=?");
+			parmas.add(name);
+			countSql.append(" and t1.name=?");
+			countParmas.add(name);
+		}
+		if(visible != -1){//visibel=-1包括删除、未删除模板
+			sql.append(" and t1.visible=?");
+			parmas.add(visible);
+			countSql.append(" and t1.visible=?");
+			countParmas.add(visible);
+		}
+		sql.append(" and t1.id limit ?,?");
+		parmas.add(firstindex);
+		parmas.add(maxresult);
+		List<ProjectVO> projectList = getJdbcTemplate().query(sql.toString(), parmas.toArray(),
+				new RowMapper<ProjectVO>(){
+					@Override
+					public ProjectVO mapRow(ResultSet rs, int rowNum) throws SQLException {
+						// TODO Auto-generated method stub
+						ProjectVO projectVO = new ProjectVO();
+						projectVO.setId(rs.getInt("id"));
+						projectVO.setName(rs.getString("name"));
+						projectVO.setImageUrl(rs.getString("imageUrl"));
+						projectVO.setAid(rs.getInt("aid"));
+						projectVO.setTid(rs.getInt("tid"));
+						projectVO.setTemplatename(rs.getString("templatename"));
+						projectVO.setNickname(rs.getString("nickname"));
+						projectVO.setZcloudID(rs.getString("zcloudID"));
+						projectVO.setZcloudKEY(rs.getString("zcloudKEY"));
+						projectVO.setServerAddr(rs.getString("serverAddr"));
+						projectVO.setMacList(rs.getString("macList"));
+						projectVO.setCreateTime(rs.getDate("createTime"));
+						projectVO.setModifyTime(rs.getDate("modifyTime"));
+						projectVO.setVisible(rs.getInt("visible"));
+						return projectVO;
+					}
+		});	
+		//查询记录
+		queryResult.setResultlist(projectList);
+		int count = getJdbcTemplate().queryForObject(countSql.toString(), countParmas.toArray(), Integer.class);
+		//查询总记录数
+		queryResult.setTotalrecord(count);
+		return queryResult;
+	}
+
 }

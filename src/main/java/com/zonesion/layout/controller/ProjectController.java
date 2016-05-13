@@ -53,7 +53,7 @@ public class ProjectController {
 	@Autowired
 	private HttpSession httpSession;
 	
-	@ModelAttribute("adminList")
+//	@ModelAttribute("adminList")
 	public Map<Integer,String> userList(){
 		Map<Integer, String> adminMap = new LinkedHashMap<Integer, String>();
 		List<AdminEntity> adminList = adminService.findAll(1);//所有存在的用户
@@ -64,7 +64,7 @@ public class ProjectController {
 		return adminMap;
 	}
 	
-	@ModelAttribute("templateList")
+//	@ModelAttribute("templateList")
 	public Map<Integer,String> typeList(){
 		Map<Integer, String> templateMap = new LinkedHashMap<Integer, String>();
 		List<TemplateEntity> templateList = templateService.findAll();
@@ -93,10 +93,11 @@ public class ProjectController {
 		int page = projectForm.getPage();
 		PageView<ProjectVO> pageView = new PageView<ProjectVO>(10, page);
 		int firstindex = (pageView.getCurrentpage()-1)*pageView.getMaxresult();
-		int aid = projectForm.getAid();
-		int tid = projectForm.getTid();
+		String nickname = projectForm.getNickname();
+		String templatename = projectForm.getTemplatename();
+		String name = projectForm.getName();
 		int visible = projectForm.getVisible();
-		QueryResult<ProjectVO> queryResult = projectService.findByAdminIdAndTemplate(aid, tid, visible, firstindex, 10);
+		QueryResult<ProjectVO> queryResult = projectService.findByAdminIdAndTemplate(nickname, templatename, name,visible, firstindex, 10);
 		pageView.setQueryResult(queryResult);
 		model.addAttribute("pageView",pageView);
 		return "manager/listProject";//跳转到manager/listProject.jsp页面
@@ -213,8 +214,9 @@ public class ProjectController {
 		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
 		redirectAttributes.addAttribute("page", projectForm.getPage());//重定向传递参数，删除后跳转到page页
 		redirectAttributes.addAttribute("visible", projectForm.getVisible());
-		redirectAttributes.addAttribute("aid", projectForm.getAid());
-		redirectAttributes.addAttribute("tid", projectForm.getTid());
+		redirectAttributes.addAttribute("nickname", projectForm.getNickname());
+		redirectAttributes.addAttribute("templatename", projectForm.getTemplatename());
+		redirectAttributes.addAttribute("name",projectForm.getName());
 		return "redirect:/project/list";
 	}
 }

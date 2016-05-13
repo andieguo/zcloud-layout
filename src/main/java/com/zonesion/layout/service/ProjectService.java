@@ -27,6 +27,8 @@ public interface ProjectService {
 	
 	public QueryResult<ProjectVO> findByAdminIdAndTemplate(int aid,int tid,int visible,int firstindex,int maxresult);
 	
+	public QueryResult<ProjectVO> findByAdminIdAndTemplate(String nickname, String templatename,String name, int visible, int firstindex, int maxresult);
+	
 	public int save(ProjectEntity projectEntity);
 	
 	public int delete(int id);

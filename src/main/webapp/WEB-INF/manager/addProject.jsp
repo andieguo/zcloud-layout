@@ -25,9 +25,9 @@
 <%-- 						<form:hidden path="id" /> --%>
 <%-- 						<form:hidden path="visible"/> --%>
 						<spring:bind path="name">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
+							<div class="form-group">
 								<label for="name">项目名:</label>
-								<input id="name" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
+								<input id="name" name="name"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
 								<form:errors path="name" cssClass="error" />
 							</div>
 						</spring:bind>

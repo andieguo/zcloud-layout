@@ -10,11 +10,13 @@ public class ProjectForm extends ProjectEntity{
 
 	private int page = 1;
 	private int deleted;
+	private String nickname;
+	private String templatename;
 	
 	public ProjectForm() {
 		super();
-		setAid(-1);
-		setTid(-1);
+//		setAid(-1);
+//		setTid(-1);
 		setVisible(-1);
 	}
 	public int getPage() {
@@ -28,6 +30,18 @@ public class ProjectForm extends ProjectEntity{
 	}
 	public void setDeleted(int deleted) {
 		this.deleted = deleted;
+	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	public String getTemplatename() {
+		return templatename;
+	}
+	public void setTemplatename(String templatename) {
+		this.templatename = templatename;
 	}
 	
 }

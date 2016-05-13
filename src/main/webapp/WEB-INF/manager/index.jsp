@@ -70,8 +70,8 @@
             <a>项目管理</a>
             <i class="icon icon-off"></i>
             <ul class="hide">
-                <li><a href="3-1.html" target="iframe">添加项目</a></li>
-                <li><a href="3-2.html" target="iframe">项目列表</a></li>
+                <li><a href="${basePath }/project/list" target="iframe">项目列表</a></li>
+                <li><a href="${basePath }/project/addUI" target="iframe">添加项目</a></li>
             </ul>
         </li>
     </ul>

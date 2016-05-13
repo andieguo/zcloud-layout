@@ -174,8 +174,8 @@ public class TemplateController {
 		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
 		redirectAttributes.addAttribute("page", templateForm.getPage());//重定向传递参数，删除后跳转到page页
 		redirectAttributes.addAttribute("visible", templateForm.getVisible());
-		redirectAttributes.addAttribute("aid", templateForm.getAid());
-		redirectAttributes.addAttribute("type", templateForm.getType());
+		redirectAttributes.addAttribute("nickname", templateForm.getNickname());
+		redirectAttributes.addAttribute("name", templateForm.getName());
 		return "redirect:/template/list";
 	}
 	

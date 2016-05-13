@@ -83,4 +83,10 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectDao.enable(id, visible);
 	}
 
+	@Override
+	public QueryResult<ProjectVO> findByAdminIdAndTemplate(String nickname, String templatename, String name,int visible, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		return projectDao.findByAdminIdAndTemplate(nickname, templatename,name, visible, firstindex, maxresult);
+	}
+
 }
