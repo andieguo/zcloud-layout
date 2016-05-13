@@ -40,4 +40,7 @@ public List<TemplateEntity> findAll();
 	public int update(TemplateEntity templateEntity);
 	
 	public QueryResult<TemplateVO> findByAdminAndType(int aid, int type, int visible,int firstindex, int maxresult);
+	
+	public QueryResult<TemplateVO> findByAdminAndType(String nickname,String templatename, int type, int visible,int firstindex, int maxresult);
+
 }

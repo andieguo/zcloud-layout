@@ -95,4 +95,10 @@ public class TemplateServiceImpl implements TemplateService {
 		return templateDao.findByAdminAndType(aid, type, visible, firstindex, maxresult);
 	}
 
+	@Override
+	public QueryResult<TemplateVO> findByAdminAndType(String nickname, String templatename, int type, int visible, int firstindex, int maxresult) {
+		// TODO Auto-generated method stub
+		return templateDao.findByAdminAndType(nickname, templatename, type, visible, firstindex, maxresult);
+	}
+
 }

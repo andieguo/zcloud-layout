@@ -54,6 +54,8 @@ public interface TemplateDao {
 	 */
 	public QueryResult<TemplateVO> findByAdminAndType(int aid, int type, int visible,int firstindex, int maxresult);
 	
+	public QueryResult<TemplateVO> findByAdminAndType(String nickname,String templatename, int type, int visible,int firstindex, int maxresult);
+	
 	public int save(TemplateEntity templateEntity);
 	
 	public int delete(int id);

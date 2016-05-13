@@ -187,6 +187,12 @@ public class AdminController {
 		}else{
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
+			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+			if(admin.getRole() == 1){
+				model.addAttribute("to", "adminDetail");
+			}else if(admin.getRole() == 0){
+				model.addAttribute("to", "adminList");
+			}
 			return "manager/index";//跳转到后台首页
 		}
 	}
@@ -197,7 +203,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/loginUI", method = RequestMethod.GET)
 	public String loginUI(Model model,final RedirectAttributes redirectAttributes) {
 		logger.debug("loginUI() ");
-		AdminForm admin = (AdminForm)httpSession.getAttribute("admin");
+		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
 		if(admin != null){
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "用户已经登录!");

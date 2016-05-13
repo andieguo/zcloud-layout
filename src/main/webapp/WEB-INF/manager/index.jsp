@@ -57,6 +57,16 @@
             </ul>
         </li>
         <li>
+            <a>模板管理</a>
+            <i class="icon icon-off"></i>
+            <ul class="hide">
+            	<c:if test="${admin.role == 0}">
+               		<li><a href="${basePath }/template/list?type=0" target="iframe">系统模板</a></li>
+                </c:if>
+                <li><a href="${basePath }/template/list?type=1" target="iframe">用户模板</a></li>
+            </ul>
+        </li>
+        <li>
             <a>项目管理</a>
             <i class="icon icon-off"></i>
             <ul class="hide">
@@ -64,18 +74,30 @@
                 <li><a href="3-2.html" target="iframe">项目列表</a></li>
             </ul>
         </li>
-        <li>
-            <a>模板管理</a>
-            <i class="icon icon-off"></i>
-            <ul class="hide">
-                <li><a href="4-1.html" target="iframe">系统模板</a></li>
-                <li><a href="4-2.html" target="iframe">用户模板</a></li>
-            </ul>
-        </li>
     </ul>
     <!-- /导航栏 -->
     <!-- 内容 -->
-    <iframe id="iframe" src="${basePath }/admin/notice" name="iframe"></iframe>
+    <%
+    	String to = (String)request.getAttribute("to");
+    	if(to!=null && to.equals("templateList")){
+    		Integer type = (Integer)request.getAttribute("type");
+    %>
+    		<iframe id="iframe" src="${basePath }/template/list?type=${type}" name="iframe"></iframe>
+    <%
+    	}else if(to!=null && to.equals("adminList")){
+    %>
+   			<iframe id="iframe" src="${basePath }/admin/list" name="iframe"></iframe>
+    <%
+    	}else if(to!=null && to.equals("adminDetail")){
+    %>
+    		<iframe id="iframe" src="${basePath }/admin/detail?id=${admin.id}" name="iframe"></iframe>
+    <%
+    	}else{
+    %>
+    		<iframe id="iframe" src="${basePath }/admin/notice" name="iframe"></iframe>
+	<%
+    	}
+	%>    	
     <!-- /内容 -->
     <!-- 页尾 -->
     <footer class="footer">中智讯（武汉）科技有限公司版权所有&nbsp;&nbsp;&nbsp;&nbsp;鄂ICP备13015866号-2</footer>
