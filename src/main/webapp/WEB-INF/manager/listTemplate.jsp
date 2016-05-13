@@ -29,7 +29,7 @@
 			<form:hidden path="type" />
 			<header class="table-header clearfix">
 				<div class="header-right">
-           			 <a class="font-green" href="#">新建</a>
+           			 <a class="font-green" href="${basePath }/template/addUI?type=${templateForm.type}" target="_blank">新建</a>
      			</div>
 				<div class="header-left">
 					<label>用户：</label> 

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
@@ -44,6 +45,9 @@ public class TemplateController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private HttpSession httpSession;
 	
 //	@ModelAttribute("adminList")
 	public Map<Integer,String> userList(){
@@ -107,8 +111,10 @@ public class TemplateController {
 	 * 跳转到用户添加模板页面
 	 */
 	@RequestMapping(value = "/template/addUI", method = {RequestMethod.POST, RequestMethod.GET})
-	public String addUI(TemplateForm templateForm,Model model){
-		return "manager/addTemplate";
+	public String addUI(int type,Model model){
+		model.addAttribute("method","save");
+		model.addAttribute("type",type);
+		return "manager/editTemplate";
 	}
 	
 	@RequestMapping(value = "/template/edit", method = {RequestMethod.POST, RequestMethod.GET})
@@ -145,6 +151,7 @@ public class TemplateController {
 		logger.debug("editUI()");
 		TemplateEntity templateEntity = templateService.findByTemplateId(templateForm.getId());
 		model.addAttribute("templateEntity",templateEntity);
+		model.addAttribute("method","edit");
 		return "manager/editTemplate";
 	}
 	
@@ -183,6 +190,9 @@ public class TemplateController {
 		templateEntity.setName(templateForm.getName());
 		templateEntity.setModifyTime(new Date());
 		templateEntity.setCreateTime(new Date());
+		templateEntity.setType(templateForm.getType());
+		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+		templateEntity.setAid(admin.getId());
 		int status = templateService.save(templateEntity);
 		JSONObject result = new JSONObject();// 构建一个JSONObject
 		response.setContentType("application/x-json");// 需要设置ContentType

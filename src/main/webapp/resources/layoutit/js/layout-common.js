@@ -1,4 +1,4 @@
-<!--定义全局变量 key:object--> 
+/*定义全局变量 key:object*/
 var gUiObject = {
 	"fs_temperature": fs_temperature,
 	"hc_dial": hc_dial,
@@ -28,19 +28,17 @@ function htmlCompress(html){
 };
   
 function initTemplateUI(layoutJSON,content){
-	   //保存控件UI属性配置数据
-	   if(layoutJSON != 'JSON'){//判断数据是否为空
-		   uiTemplateObj = JSON.parse(layoutJSON);
-	   }
-	     
+   //保存控件UI属性配置数据
+   if(layoutJSON != ''){//判断数据是否为空
+	   uiTemplateObj = JSON.parse(layoutJSON);
 	   //渲染控件布局的div
-	   if(content !='CONTENT'){
+	   if(content != ''){
 		   $(".demo").html(content);
+		   //渲染控件的UI
+		   resumeWidgetUI(uiTemplateObj);
 	   }
-	     
-	   //渲染控件的UI
-	   resumeWidgetUI(uiTemplateObj);
-	}
+   }
+}
 
 function placeOfChar(str, n, char) {
     var index = str.indexOf(char);
@@ -62,10 +60,10 @@ function supportstorage() {
 }
 
 function randomNumber() {
-	return randomFromInterval(1, 1e6)
+	return randomFromInterval(1, 1e6);
 }
 function randomFromInterval(e, t) {
-	return Math.floor(Math.random() * (t - e + 1) + e)
+	return Math.floor(Math.random() * (t - e + 1) + e);
 }
 function randomNumber1(){
 	return (new Date()).getTime()+parseInt(Math.random()*100000);
