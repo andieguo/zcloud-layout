@@ -31,13 +31,15 @@
 		<mvc:interceptor>
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
 			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/load.jsp" />
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/admin/loginUI" />
 			<mvc:exclude-mapping path="/admin/login" />
 			<mvc:exclude-mapping path="/admin/outlogin" />
 			<mvc:exclude-mapping path="/admin/registerUI" />
 			<mvc:exclude-mapping path="/admin/register" />
-			<mvc:exclude-mapping path="/admin/isExist" />
+			<mvc:exclude-mapping path="/admin/register" />
+			<mvc:exclude-mapping path="/uploadImage" />
 			<bean class="com.zonesion.layout.controller.LoginInterceptor"></bean>
 		</mvc:interceptor>
 		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->

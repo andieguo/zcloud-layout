@@ -16,17 +16,17 @@ window.onload=function(){
 	xiuxiu.onInit = function ()
 	{
 		xiuxiu.loadPhoto("http://open.web.meitu.com/sources/images/1.jpg");
-	}	
+	};
 	xiuxiu.onUploadResponse = function (data)
 	{
-		alert("上传响应" + data);  可以开启调试
+		alert("上传响应" + data);
 		console.log(data);
-	}
+	};
 }
 </script>
 <style type="text/css">
-	html, body { height:100%; overflow:hidden; }
-	body { margin:0; }
+	#altContent { height:100%; overflow:hidden; }
+	#altContent { margin:0; }
 </style>
 </head>
 <body>

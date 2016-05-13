@@ -101,4 +101,10 @@ public class TemplateServiceImpl implements TemplateService {
 		return templateDao.findByAdminAndType(nickname, templatename, type, visible, firstindex, maxresult);
 	}
 
+	@Override
+	public List<TemplateEntity> findByType(int type) {
+		// TODO Auto-generated method stub
+		return templateDao.findByType(type);
+	}
+
 }

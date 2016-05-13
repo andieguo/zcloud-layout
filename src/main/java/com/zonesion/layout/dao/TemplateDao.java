@@ -45,6 +45,11 @@ public interface TemplateDao {
 	public List<TemplateEntity> findByAdminAndType(int aid,int type);
 	
 	/**
+	 * 根据模板类型获取模板TemplateEntity集合
+	 */
+	public List<TemplateEntity> findByType(int type);
+	
+	/**
 	 * 分页根据管理员id和模板类型获取模板TemplateEntity集合
 	 */
 	public QueryResult<TemplateEntity> findByAdminAndType(int aid,int type,int firstindex, int maxresult);

@@ -1,13 +1,20 @@
 package com.zonesion.layout.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -82,6 +89,44 @@ public class ProjectController {
 		enableList.put(0, "停用");
 		enableList.put(1, "启用");
 		return enableList;
+	}
+	
+	/**
+	 * 根据模板类型获取模板列表
+	 */
+	@RequestMapping(value="/project/templateList",method=RequestMethod.POST)
+	public void templateList(Integer type,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		if(type!=null){
+			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+			List<TemplateEntity> templateList = new ArrayList<TemplateEntity>();
+			if(type.equals(0)){//系统模板
+				templateList = templateService.findByType(0);
+			}else if(type.equals(1)){//用户模板
+				templateList = templateService.findByAdminAndType(admin.getId(),1);
+			}
+			if(templateList.size() > 0){
+				result.accumulate("status", 1);
+				result.accumulate("message", "success");
+				JSONArray array = new JSONArray();
+				for(TemplateEntity t : templateList){
+					JSONObject obj = new JSONObject();
+					obj.put("tid", t.getId());
+					obj.put("name", t.getName());
+					array.put(obj);
+				}
+				result.accumulate("data", array);
+			}else{
+				result.accumulate("status", 0);
+				result.accumulate("message", "fail");
+			}
+		}
+		response.setContentType("application/x-json");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
 	}
 	
 	/**

@@ -29,6 +29,8 @@ public List<TemplateEntity> findAll();
 	 */
 	public List<TemplateEntity> findByAdminAndType(int aid,int type);
 	
+	public List<TemplateEntity> findByType(int type);
+	
 	public QueryResult<TemplateEntity> findByAdminAndType(int aid,int type,int firstindex, int maxresult);
 	
 	public int save(TemplateEntity templateEntity);
