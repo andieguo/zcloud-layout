@@ -26,6 +26,8 @@
 			<form:hidden path="deleted" />
 			<header class="table-header clearfix">
 				<div class="header-left">
+					<label>用户名：</label>
+					<input type="text">
 					<c:if test="${admin.role==0}">
 						<label>角色：</label>
 						<form:select path="role" items="${roleList}" class="form-control" />

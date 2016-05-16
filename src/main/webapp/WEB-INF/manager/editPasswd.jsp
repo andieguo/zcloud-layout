@@ -26,7 +26,7 @@
 			<form:form class="wc600" method="post" modelAttribute="passwdForm" action="${userActionUrl}">
 				<form:hidden path="id"/>
 				<div class="form-group">
-					<label for="password">当前密码:</label>
+					<label for="password">当前密码：</label>
 					<input id="password" name="password"  type="password" placeholder="请输入当前密码" onchange="textChange()">
 					<form:errors path="password" cssClass="error" />
 					<div id="conformFailDiv"></div>
@@ -34,13 +34,13 @@
 				<div class="form-group">
                        <label>新密码：</label>
                        <input id="newPassword" name="newPassword"  type="password" placeholder="请输入密码" />
-                       <span class="point">*</span>
-					<form:errors path="newPassword" cssClass="error"/>
+                       <span class="error">*</span>
+                       <form:errors path="newPassword" cssClass="error"/>
                    </div>
                    <div class="form-group">
                        <label>确认密码：</label>
                         <input id="confirmPassword" name="confirmPassword"  type="password" placeholder="请输入确认密码" />
-                       <span class="point">*</span>
+                       <span class="error">*</span>
 					<form:errors path="confirmPassword" cssClass="error"/>
                    </div>
 				<div class="form-button">

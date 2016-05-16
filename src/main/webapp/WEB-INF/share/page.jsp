@@ -15,20 +15,26 @@
 		form.submit();
 	}
 </script>
-<div class="page_btn clearFix">
-	<span class="page_show">
-		 当前页:第<font color="red">${pageView.currentpage}</font>页 |
-			总记录数:<font color="red">${pageView.totalrecord}</font>条 | 每页显示:<font color="red">${pageView.maxresult}</font>条 |
-			总页数:<font color="red">${pageView.totalpage}</font>页
-	</span>
-	<div class="btn-group">
-		<a href="javascript:topage('${1}')" class="btn btn-default">首页</a> 
-		<c:if test="${pageView.currentpage != 1}">
-			<a href="javascript:topage('${pageView.currentpage-1}')" class="btn btn-default">上一页</a>
-		</c:if>
-		<c:if test="${pageView.currentpage != pageView.totalpage}"><a href="javascript:topage('${pageView.currentpage+1}')" class="btn btn-default">下一页</a></c:if>
-		<a href="javascript:topage('${pageView.totalpage}')" class="btn btn-default">尾页</a>
-		<span  class="btn btn-default">跳转到<input class="jump" name="jumppage"/>页</span>
-		<a href="javascript:jumppage()" class="btn btn-default">跳转</a>
-	</div>
-</div>
+<tfoot>
+	<tr>
+		<td colspan="6">
+			<div class="left">
+				当前页：第<span class="font-red">${pageView.currentpage}</span>页&nbsp;&nbsp;|&nbsp;&nbsp;
+				总记录数：<span class="font-red">${pageView.totalrecord}</span>条&nbsp;&nbsp;|&nbsp;&nbsp;
+				每页显示：<span class="font-red">${pageView.maxresult}</span>条&nbsp;&nbsp;|&nbsp;&nbsp;
+				总页数：<span class="font-red">${pageView.totalpage}</span>页
+        	</div>
+	        <div class="right">
+	        	<a href="javascript:topage('${1}')">首页</a>
+				<c:if test="${pageView.currentpage != 1}">
+				<a href="javascript:topage('${pageView.currentpage-1}')">上一页</a>
+				</c:if>
+				<c:if test="${pageView.currentpage != pageView.totalpage}">
+				<a href="javascript:topage('${pageView.currentpage+1}')">下一页</a>
+				</c:if>
+	            <a href="javascript:topage('${pageView.totalpage}')">尾页</a>
+				 跳转到<input name="jumppage"/>页<a href="javascript:jumppage()">跳转</a>
+	        </div>
+    	</td>
+	</tr>
+</tfoot>

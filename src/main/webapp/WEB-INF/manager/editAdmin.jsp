@@ -23,41 +23,48 @@
         <div class="panel">
            <!-- 修改用户资料 -->
            	<spring:url value="/admin/edit" var="userActionUrl" />
-			<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
+			<form:form class="wc600" method="post" modelAttribute="editForm" action="${userActionUrl}">
 			<form:hidden path="id" />
 					<spring:bind path="nickname">
 						<div class="form-group">
-							<label>账&nbsp;&nbsp;&nbsp;&nbsp;号：</label>
-							<input id="nickname" name="nickname"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
+							<label>账号：</label>
+							<input id="nickname" name="nickname"  value="${status.value}" type="text" placeholder="请输入账号" >
 							<form:errors path="nickname" cssClass="error" />
 						</div>
 					</spring:bind>
+	                <div class="form-group">
+	                    <span class="label">角色：</span>
+	                    <span class="input">
+		           			<c:if test="${admin.role==0}">管理员</c:if>
+							<c:if test="${admin.role==1}">用户</c:if>
+						</span>
+	                </div>
 					<spring:bind path="email">
 						<div class="form-group">
-							<label for="email">邮箱地址:</label>
-							<input type="text" class="form-control " name="email" value="${status.value}"  placeholder="请输入邮箱地址" />
-							<form:errors path="email" />
+							<label for="email">E-mail：</label>
+							<input type="text" name="email" value="${status.value}"  placeholder="请输入邮箱地址" />
+							<form:errors path="email" cssClass="error" />
 						</div>
 					</spring:bind>
 					<spring:bind path="phoneNumber">
 						<div class="form-group">
-							<label for="phoneNumber">手机号:</label>
-							<input  type="text" class="form-control " name="phoneNumber" value="${status.value}" placeholder="请输入手机号" />
-							<form:errors path="phoneNumber" />
+							<label for="phoneNumber">手机号：</label>
+							<input  type="text" name="phoneNumber" value="${status.value}" placeholder="请输入手机号" />
+							<form:errors path="phoneNumber" cssClass="error" />
 						</div>
 					</spring:bind>
 					<c:if test="${entry.role==0}">
 						<spring:bind path="role">
 							<div class="form-group">
-								<label for="role">角色:</label>
-		              			<form:select path="role" items="${roleList}" class="form-control" />
-								<form:errors path="role" />
+								<label for="role">角色：</label>
+		              			<form:select path="role" items="${roleList}" />
+								<form:errors path="role" cssClass="error" />
 							</div>
 						</spring:bind>
 					</c:if>
 					<spring:bind path="sex">
 						<div class="form-group">
-		                    <label>性&nbsp;&nbsp;&nbsp;&nbsp;别：</label>
+		                    <label>性别：</label>
 		                    <div class="form-checkbox">
 		                        <input id="man" type="radio"  value="1" name="sex" checked="checked">
 		                        <label class="checkbox-img" for="man"></label>
@@ -68,7 +75,7 @@
 		                        <label class="checkbox-img" for="woman"></label>
 		                        <label class="checkbox-text" for="woman">女</label>
 		                    </div>
-		                    <form:errors path="sex" />
+		                    <form:errors path="sex" cssClass="error" />
 		                </div>
 					</spring:bind>
 	                <div class="form-button">

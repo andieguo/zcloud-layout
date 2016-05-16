@@ -28,22 +28,14 @@
                     <a class="text" href="${basePath }/admin/editUI?id=${admin.id}">修改资料</a>
                 </div>
                 <div class="form-group">
-                    <span class="label">账&nbsp;&nbsp;&nbsp;&nbsp;号：</span>
+                    <span class="label">账号：</span>
                     <span class="input">${admin.nickname}</span>
                 </div>
-                  <div class="form-group">
-                    <span class="label">角&nbsp;&nbsp;&nbsp;&nbsp;色：</span>
-                    <span class="input">
-                   			<c:if test="${admin.role==0}">管理员</c:if>
-							<c:if test="${admin.role==1}">用户</c:if>
-					</span>
-                </div>
-                				
                 <div class="form-group">
-                    <span class="label">性&nbsp;&nbsp;&nbsp;&nbsp;别：</span>
+                    <span class="label">角色：</span>
                     <span class="input">
-                    			<c:if test="${admin.sex==0}">女</c:if>
-								<c:if test="${admin.sex==1}">男</c:if>
+	           			<c:if test="${admin.role==0}">管理员</c:if>
+						<c:if test="${admin.role==1}">用户</c:if>
 					</span>
                 </div>
                 <div class="form-group">
@@ -53,6 +45,13 @@
                 <div class="form-group">
                     <span class="label">手机号：</span>
                     <span class="input">${admin.phoneNumber}</span>
+                </div>	
+                <div class="form-group">
+                    <span class="label">性别：</span>
+                    <span class="input">
+	                    <c:if test="${admin.sex==0}">女</c:if>
+						<c:if test="${admin.sex==1}">男</c:if>
+					</span>
                 </div>
             </div>
             <!-- /用户资料 -->

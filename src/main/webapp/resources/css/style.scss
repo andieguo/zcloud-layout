@@ -214,6 +214,7 @@ iframe {
 		}
 		.text {
 			font-weight: bold;
+			color: #eb4f38;
 			line-height: 17px;
 			vertical-align:middle;
 		}
@@ -233,6 +234,14 @@ iframe {
 		select {
 			margin-right: 20px;
 			padding: 5px;
+			font-size: 12px;
+			vertical-align:middle;
+			border: 1px solid $color02;
+			border-radius: 5px;
+		}
+		input {
+			margin-right: 20px;
+			padding: 6px 5px;
 			font-size: 12px;
 			vertical-align:middle;
 			border: 1px solid $color02;
@@ -350,12 +359,13 @@ iframe {
 	input,.input {
 		box-sizing: border-box;
 		display: inline-block;
-		width: 60%;
+		width: 40%;
+		min-width: 200px;
 		height: 40px;
 		padding-left: 10px;
 		padding-right: 10px;
 		font-size: 14px;
-		line-height: 36px;
+		line-height: 40px;
 		vertical-align:middle;
 		border:2px solid #c9c9c9;
 		border-radius: 5px;
@@ -393,9 +403,9 @@ iframe {
 	.btn {
 		vertical-align:middle;
 	}
-	.point {
-    	display: inline-block;
-		margin-left:1em;
+	.error {
+		width: 30%;
+		min-width: 150px;
 		color: red;
 		line-height: 40px;
 	}
