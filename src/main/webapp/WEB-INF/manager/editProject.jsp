@@ -84,53 +84,9 @@
 		</div>
 		<!---------------------------脚本引用------------------------------>
 		<%@ include file="/resources/share/script.jsp"%>
+
 		<script>
-		 var xmlHttp;
-	     function createXMLHttpRequest()
-	     {
-	         if (window.ActiveXObject)
-	         {
-				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-	         }
-	         else if(window.XMLHttpRequest)
-	         {
-	            xmlHttp = new XMLHttpRequest();
-	         }
-	     }
-		function textChange(){
-			createXMLHttpRequest();
-			var name = document.getElementById("admin_name").value;
-			var url="${basePath}"+"/control/admin/isExist.action";
-			xmlHttp.open("POST",url,true);
-			xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded","charset=UTF-8");
-			xmlHttp.onreadystatechange = showDIV;
-			xmlHttp.send("name="+encodeURI(encodeURI(name)));
-		}
-		function showDIV()
-		{
-			if (xmlHttp.readyState == 4)
-			{
-				if (xmlHttp.status == 200)
-				{
-					var result = xmlHttp.responseText;
-					if(result != ""){
-						document.getElementById("myDiv").innerHTML = result;
-						document.getElementById("admin_name").value = "";
-					}else{
-						document.getElementById("myDiv").innerHTML = "恭喜您，可使用该用户名";
-					}
-					xmlHttp.close();
-				}
-				else
-				{ //页面不正常
-					alert("您请求的页面有异常 ");
-				}
-			}
-			else
-			{
-				//  信息还没有返回，等待
-			}
-		}
+			
 		</script>
 	</body>
 </html>

@@ -23,7 +23,10 @@
     <div class="content sw">
         <div class="panel">
             <spring:url value="/project/add" var="userActionUrl" />
-			<form:form class="wc600" method="post" modelAttribute="projectForm" action="${userActionUrl}">
+			<form:form class="wc600" method="post" modelAttribute="editForm" action="${userActionUrl}">
+					<form:hidden path="macList"/>
+					<form:hidden path="imageUrl"/>
+					<form:hidden path="tid"/>
 					<spring:bind path="name">
 						<div class="form-group">
 							<label for="name">项目名:</label>
@@ -31,13 +34,11 @@
 							<form:errors path="name" cssClass="error" />
 						</div>
 					</spring:bind>
-					<spring:bind path="imageUrl">
-						<div class="form-group">
-							<label for="imageUrl">项目图片</label>
-							<img alt="" id="imageUrl" name="imageUrl" src="${basePath }/photo/MT_1463132423427.jpg" >
-							<a href="javascript:loadImg()" target="_blank">请选择图片</a>
-						</div>
-					</spring:bind>
+					<div class="form-group">
+						<label for="imageSrc">项目图片</label>
+						<img alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
+						<a href="javascript:loadImg()" target="_blank">请选择图片</a>
+					</div>
 					<div class="form-group">
 						<label>模板类型:</label>
 						<select id="templateType" onchange="templateTypeChange()">
@@ -46,42 +47,37 @@
 	                      <option value="0">系统模板</option>
 	                    </select>
 					</div>
-					<spring:bind path="tid">
-						<div class="form-group">
-							<label for="tid">模板列表:</label>
-		              	 	<select id="templateList"></select>
-						</div>
-					</spring:bind>
+					<div class="form-group">
+						<label for="templateList">模板列表:</label>
+	              	 	<select id="templateList" onchange="templateIdChange()"></select>
+	              	 	 <form:errors path="tid" cssClass="error" />
+					</div>
 					<spring:bind path="zcloudID">
 						<div class="form-group">
 							<label for="zcloudID">智云ID:</label>
-	              			<input type="text" class="form-control " name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
-							<form:errors path="zcloudID" />
+	              			<input type="text" class="form-control " id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
+							<form:errors path="zcloudID" cssClass="error" />
 						</div>
 					</spring:bind>
 				   	<spring:bind path="zcloudKEY">
 						<div class="form-group">
 							<label for="zcloudKEY">智云KEY:</label>
-	              			<input type="text" class="form-control " name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
-							<form:errors path="zcloudKEY" />
+	              			<input type="text" class="form-control " id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
+							<form:errors path="zcloudKEY" cssClass="error" />
 						</div>
 					</spring:bind>
 					<spring:bind path="serverAddr">
 						<div class="form-group">
 							<label for="serverAddr">智云Server:</label>
-	              			<input type="text" class="form-control " name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
-							<form:errors path="serverAddr" />
+	              			<input type="text" class="form-control " id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
+							<form:errors path="serverAddr" cssClass="error" />
 						</div>
 					</spring:bind>
-					<spring:bind path="macList">
-						<div class="form-group">
-							<label for="macList">智云Mac:</label>
-	              			<input type="text" class="form-control " name="macList" value="${status.value}"  placeholder="请输入邮箱地址" />
-							<form:errors path="macList" />
-						</div>
-					</spring:bind>
+					<div id="macDiv">
+                    
+					</div>
 					 <div class="form-button">
-	                    &nbsp;<button class="btn" type="submit">保存</button>
+	                    &nbsp;<a class="btn" href="javascript:saveAction()">保存</a>
 	                </div>
 			</form:form>
             <!-- /修改用户资料 -->
@@ -94,6 +90,135 @@
 <script src="${basePath}/resources/js/xiuxiu.js" type="text/javascript"></script>
 <script type="text/javascript">
 
+var dataJson;
+
+function saveValidate(){
+	var namepass=true,idpass=true,keypass=true,addrpass=true,typepass=true,tidpass=true;
+	var name = $("#name").val();
+	var zcloudID = $("#zcloudID").val();
+	var zcloudKEY = $("#zcloudKEY").val();
+	var serverAddr = $("#serverAddr").val();
+	var templateType = $("#templateType").val();
+	var tid = $("#templateList").val();
+	if(name == ""){
+		namepass = false;
+		console.log("项目名不能为空");
+	}
+	if(zcloudID == ""){
+		idpass = false;
+		console.log("智云ID不能为空");
+	}
+	if(zcloudKEY == ""){
+		keypass = false;
+		console.log("智云KEY不能为空");
+	}
+	if(serverAddr == ""){
+		addrpass = false;
+		console.log("智云服务器地址不能为空");
+	}
+	if(templateType == -1){
+		typepass = false;
+		console.log("请选择模板类型");
+	}
+	if(tid == null || tid == -1){
+		tidpass = false;
+		console.log("模板ID不能为空");
+	}
+	return namepass && idpass && keypass && addrpass && typepass && tidpass;
+}
+
+function saveAction() {
+	//客户端校验通过才能执行提交
+	//if(saveValidate()){
+		var imageUrl = $("#imageSrc").attr('src');
+		imageUrl = imageUrl.substring(imageUrl.lastIndexOf("/")+1,imageUrl.length);
+		$("#imageUrl").val(imageUrl);
+		$("#tid").val($("#templateList").val());
+		var macList = macListBuild(dataJson);
+		$("#macList").val(JSON.stringify(macList));
+		var form = document.forms[0];
+		form.submit();
+	//}
+}
+
+function templateIdChange(){
+	var tid = $("#templateList").val();
+	var url = "${basePath}/project/template/id";
+	if(tid != -1){
+		$.ajax({//提交给后台
+				url : url,
+				type : 'post',
+				data : {'id':tid},
+				dataType : 'json',
+				success : function(data) {//返回的data本身即是一个JSON对象
+					if(data.status == 1){
+						console.log("data:"+data.data);
+						dataJson = JSON.parse(data.data);
+						contentBuild(dataJson);
+					}else if(data.status==0){
+						console.log("failed");
+					}
+				},
+				error : function() {
+					alert("您请求的页面有异常 ");
+				}
+		});
+	}
+}
+
+function macListBuild(dataJson){
+	//提交，生成JSON数据保存
+	var sensorAarry = new Array();
+	$(".sensor").each(function(){
+		var sensorObj = new Object();
+		var tid = $(this).attr("id");
+		sensorObj.tid = tid;
+		sensorObj.title =  dataJson[tid].title;
+		sensorObj.channel = $(this).find(".channel").val();
+		sensorObj.command = $(this).find(".command").val();
+		sensorObj.address = $(this).find(".address").val();
+		sensorObj.dataType = dataJson[tid].dataType;
+		sensorAarry.push(sensorObj);
+	});
+	$(".video").each(function(){
+		var tid = $(this).attr("id");
+		var sensorObj = new Object();
+		sensorObj.tid = tid;
+		sensorObj.title =  dataJson[tid].title;
+		sensorObj.user = $(this).find(".user").val();
+		sensorObj.pwd = $(this).find(".pwd").val();
+		sensorObj.camtype = $(this).find(".camtype").val();
+		sensorObj.address = $(this).find(".address").val();
+		sensorObj.dataType = dataJson[tid].dataType;
+		sensorAarry.push(sensorObj);
+	});
+	console.log(sensorAarry);
+	return sensorAarry;
+}
+
+function contentBuild(dataJson){
+	var content = "";
+	$.each(dataJson,function(name,value) {
+		if(value.dataType == 'video'){
+			content = content + "<div class='video' id="+value.tid+">"
+			 + "<label>"+value.title+":</label>"
+			 + "<div class='form-group'><label>摄像头地址：</label><input type='text' value='Camera:192.168.1.91:81' class='address'></div>"
+			 + "<div class='form-group'><label>用户名：</label><input type='text' value='admin' class='user'></div>"
+			 + "<div class='form-group'><label>密码：</label><input type='text' value='admin' class='pwd'></div>"
+			 + "<div class='form-group'><label>摄像头类型：</label><input type='text' value='H3-Series' class='camtype'></div>"
+			 + "</div>";
+		}else{
+			content = content + "<div class='sensor' id="+value.tid+">"
+			 + "<label>"+value.title+":</label>"
+			 + "<div class='form-group'><label>通道：</label><input type='text' value='9999' class='channel'></div>"
+			 + "<div class='form-group'><label>地址：</label><input type='text' value='8888' class='address'></div>"
+			 + "<div class='form-group'><label>命令：</label><input type='text' value='7777' class='command'></div>"
+			 + "</div>";		
+		}
+	});
+	$("#macDiv").html(content);
+}
+
 function templateTypeChange(){
 	var type = $("#templateType").val();
 	var url = "${basePath}/project/templateList";
@@ -105,13 +230,13 @@ function templateTypeChange(){
 				dataType : 'json',
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){//push成功
-						console.log("success");
 						var array = data.data[0];
 						$('#templateList').empty();
+						$('#templateList').append("<option value='-1'>请选择</option>");
 						for(var i=0;i<array.length;i++){
 							var tid = array[i].tid;
 							var name = array[i].name;
-							console.log("tid:"+tid);
+// 							console.log("tid:"+tid);
 							$('#templateList').append("<option value='"+tid+"'>"+name+"</option>");
 						}
 					}else if(data.status==0){//push失败，恢复UI部分
@@ -130,17 +255,17 @@ function templateTypeChange(){
 function loadImg(){
 	/*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
 	xiuxiu.embedSWF("altContent",5,"100%","500");
-       //修改为您自己的图片上传接口
+    //修改为您自己的图片上传接口
 	xiuxiu.setUploadURL("${basePath}/uploadImage");
-        xiuxiu.setUploadType(2);
-        xiuxiu.setUploadDataFieldName("upload_file");
+    xiuxiu.setUploadType(2);
+    xiuxiu.setUploadDataFieldName("upload_file");
 	xiuxiu.onInit = function ()
 	{
 		xiuxiu.loadPhoto("${basePath}/resources/images/meituxiuxiu.jpg");
 	};
 	xiuxiu.onUploadResponse = function (data)
 	{
-		console.log("data:"+JSON);
+// 		console.log("data:"+JSON);
 		if(data != ''){
 			var dat = JSON.parse(data);
 			console.log("status:"+dat.status);
@@ -148,9 +273,9 @@ function loadImg(){
 			console.log("boolean:"+(dat.status == 1));
 			if(dat.status == 1){//push成功
 				var path = "${basePath}/photo/"+dat.data;
-				$("#imageUrl").attr('src',path); 
+				$("#imageSrc").attr('src',path); 
 			}else{
-				console.log("--");
+				console.log("提交图片失败!");
 			}
 		}
 	};

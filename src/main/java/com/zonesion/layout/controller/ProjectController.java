@@ -20,13 +20,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zonesion.layout.model.AdminEntity;
-import com.zonesion.layout.model.AdminForm;
 import com.zonesion.layout.model.ProjectEntity;
 import com.zonesion.layout.model.ProjectForm;
 import com.zonesion.layout.model.ProjectVO;
@@ -36,6 +37,7 @@ import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.service.AdminService;
 import com.zonesion.layout.service.ProjectService;
 import com.zonesion.layout.service.TemplateService;
+import com.zonesion.layout.validate.ProjectValidator;
 
 /**    
  * @author andieguo andieguo@foxmail.com
@@ -59,6 +61,15 @@ public class ProjectController {
 	
 	@Autowired
 	private HttpSession httpSession;
+	
+	@Autowired
+	private ProjectValidator projectValidator;
+	
+	//绑定表单验证
+	@InitBinder("editForm")
+	protected void initBinder1(WebDataBinder binder) {
+		binder.setValidator(projectValidator);
+	}
 	
 //	@ModelAttribute("adminList")
 	public Map<Integer,String> userList(){
@@ -89,6 +100,28 @@ public class ProjectController {
 		enableList.put(0, "停用");
 		enableList.put(1, "启用");
 		return enableList;
+	}
+	
+	@RequestMapping(value="/project/template/id",method=RequestMethod.POST)
+	public void getTemplateEntity(Integer id,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		if(id != null){
+			TemplateEntity templateEntity = templateService.findByTemplateId(id);
+			if(templateEntity != null){
+				result.accumulate("status", 1);
+				result.accumulate("message", "success");
+				result.accumulate("data", templateEntity.getLayoutJSON());
+			}else{
+				result.accumulate("status", 0);
+				result.accumulate("message", "fail");
+			}
+		}
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
 	}
 	
 	/**
@@ -157,7 +190,7 @@ public class ProjectController {
 		TemplateEntity templateEntity = templateService.findByTemplateId(projectEntity.getTid());
 		model.addAttribute("projectEntity", projectEntity);
 		model.addAttribute("templateEntity",templateEntity);
-		return "manager/projectUI";
+		return "manager/publishProject";
 	}
 	
 	/**
@@ -165,7 +198,7 @@ public class ProjectController {
 	 */
 	@RequestMapping(value = "/project/addUI", method = RequestMethod.GET)
 	public String addUI(Model model){
-		model.addAttribute("projectForm", new ProjectForm());
+		model.addAttribute("editForm", new ProjectForm());
 		return "manager/addProject";
 	}
 	
@@ -194,7 +227,7 @@ public class ProjectController {
 		} else {
 			editForm.setModifyTime(new Date());
 			editForm.setCreateTime(new Date());
-			AdminForm admin = (AdminForm)httpSession.getAttribute("admin");
+			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
 			editForm.setAid(admin.getId());
 			editForm.setVisible(1);
 			int status = projectService.save(editForm);
