@@ -19,11 +19,9 @@
 			<p class="edit_title" id="newH"><i class="glyphicon glyphicon-edit"></i> 信息修改</p>
 		    <div class="edit_user_cont" style="height:230px;">
 		    	<span class="jt_new"></span>
-		    		<spring:url value="/project/edit" var="userActionUrl" />
+		    	<spring:url value="/project/edit" var="userActionUrl" />
 				<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
-<%-- 						<form:hidden path="page" /> --%>
 						<form:hidden path="id" />
-<%-- 						<form:hidden path="visible"/> --%>
 						<spring:bind path="name">
 							<div class="form-group ${status.error ? 'has-error' : ''}">
 								<label for="name">项目名:</label>
@@ -36,12 +34,6 @@
 								<label for="imageUrl">项目图片</label>
 								<input type="text" class="form-control " name="imageUrl" value="${status.value}"  placeholder="请输入邮箱地址" />
 								<form:errors path="imageUrl" />
-							</div>
-						</spring:bind>
-						<spring:bind path="tid">
-							<div class="form-group">
-								<label for="tid">项目模板:</label>
-			              	 	<form:select path="tid" items="${templateList}" class="form-control" />
 							</div>
 						</spring:bind>
 						<spring:bind path="zcloudID">
@@ -79,7 +71,6 @@
 				   	<form:errors path="*" />
 				   	<p ><a target="_self" href="${basePath }/login.jsp">用户登录</a></p>
 				</form:form>
-				
 		    </div>
 		</div>
 		<!---------------------------脚本引用------------------------------>

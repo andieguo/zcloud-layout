@@ -175,7 +175,7 @@ function macListBuild(dataJson){
 		sensorObj.tid = tid;
 		sensorObj.title =  dataJson[tid].title;
 		sensorObj.channel = $(this).find(".channel").val();
-		sensorObj.command = $(this).find(".command").val();
+		sensorObj.command = JSON.parse($(this).find(".command").val());
 		sensorObj.address = $(this).find(".address").val();
 		sensorObj.dataType = dataJson[tid].dataType;
 		sensorAarry.push(sensorObj);
