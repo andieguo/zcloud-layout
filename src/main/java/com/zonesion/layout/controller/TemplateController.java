@@ -127,7 +127,7 @@ public class TemplateController {
 			templateEntity.setModifyTime(new Date());
 			int status = templateService.update(templateEntity);
 			JSONObject result = new JSONObject();// 构建一个JSONObject
-			response.setContentType("application/x-json");// 需要设置ContentType
+			response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
 			PrintWriter out = response.getWriter();
 			if(status > 0){//更新成功
 				result.accumulate("status", 1);
@@ -195,7 +195,7 @@ public class TemplateController {
 		templateEntity.setAid(admin.getId());
 		int status = templateService.save(templateEntity);
 		JSONObject result = new JSONObject();// 构建一个JSONObject
-		response.setContentType("application/x-json");// 需要设置ContentType
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
 		PrintWriter out = response.getWriter();
 		if(status > 0){//更新成功
 			result.accumulate("status", 1);

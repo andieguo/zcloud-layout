@@ -123,7 +123,7 @@ public class AdminController {
 				result.accumulate("message", "fail");
 			}
 		}
-		response.setContentType("application/x-json");// 需要设置ContentType
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
 		// 为"application/x-json"
 		PrintWriter out = response.getWriter();
 		out.println(result.toString());// 向客户端输出JSONObject字符串
@@ -151,7 +151,7 @@ public class AdminController {
 			result.accumulate("status", 0);
 			result.accumulate("message", "fail");
 		}
-		response.setContentType("application/x-json");// 需要设置ContentType
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
 		// 为"application/x-json"
 		PrintWriter out = response.getWriter();
 		out.println(result.toString());// 向客户端输出JSONObject字符串

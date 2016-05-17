@@ -26,7 +26,6 @@
 	<![endif]-->
 
 <!-- Fav and touch icons -->
-<link rel="shortcut icon" href="${basePath }/resources/layoutit/images/favicon.png">
 
 <script type="text/javascript" src="${basePath }/resources/layoutit/js/jquery-2.0.0.min.js"></script>
 <!--[if lt IE 9]>

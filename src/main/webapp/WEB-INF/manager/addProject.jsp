@@ -199,22 +199,25 @@ function macListBuild(dataJson){
 function contentBuild(dataJson){
 	var content = "";
 	$.each(dataJson,function(name,value) {
-		if(value.dataType == 'video'){
-			content = content + "<div class='video' id="+value.tid+">"
-			 + "<label>"+value.title+":</label>"
-			 + "<div class='form-group'><label>摄像头地址：</label><input type='text' value='Camera:192.168.1.91:81' class='address'></div>"
-			 + "<div class='form-group'><label>用户名：</label><input type='text' value='admin' class='user'></div>"
-			 + "<div class='form-group'><label>密码：</label><input type='text' value='admin' class='pwd'></div>"
-			 + "<div class='form-group'><label>摄像头类型：</label><input type='text' value='H3-Series' class='camtype'></div>"
-			 + "</div>";
-		}else{
-			content = content + "<div class='sensor' id="+value.tid+">"
-			 + "<label>"+value.title+":</label>"
-			 + "<div class='form-group'><label>通道：</label><input type='text' value='9999' class='channel'></div>"
-			 + "<div class='form-group'><label>地址：</label><input type='text' value='8888' class='address'></div>"
-			 + "<div class='form-group'><label>命令：</label><input type='text' value='7777' class='command'></div>"
-			 + "</div>";		
+		if(typeof(value.dataType) != 'undefined'){
+			if(value.dataType == 'video'){
+				content = content + "<div class='video' id="+value.tid+">"
+				 + "<label>"+value.title+":</label>"
+				 + "<div class='form-group'><label>摄像头地址：</label><input type='text' value='Camera:192.168.1.91:81' class='address'></div>"
+				 + "<div class='form-group'><label>用户名：</label><input type='text' value='admin' class='user'></div>"
+				 + "<div class='form-group'><label>密码：</label><input type='text' value='admin' class='pwd'></div>"
+				 + "<div class='form-group'><label>摄像头类型：</label><input type='text' value='H3-Series' class='camtype'></div>"
+				 + "</div>";
+			}else{
+				content = content + "<div class='sensor' id="+value.tid+">"
+				 + "<label>"+value.title+":</label>"
+				 + "<div class='form-group'><label>通道：</label><input type='text' value='' class='channel'></div>"
+				 + "<div class='form-group'><label>地址：</label><input type='text' value='' class='address'></div>"
+				 + "<div class='form-group'><label>命令：</label><input type='text' value='' class='command'></div>"
+				 + "</div>";		
+			}
 		}
+		
 	});
 	$("#macDiv").html(content);
 }

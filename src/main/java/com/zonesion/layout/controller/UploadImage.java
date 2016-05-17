@@ -68,7 +68,7 @@ public class UploadImage {
 			result.accumulate("status", 1);
 			result.accumulate("message", "true");
 			result.accumulate("data", newFileName);
-			response.setContentType("application/x-json");// 需要设置ContentType
+			response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
 			// 为"application/x-json"
 			PrintWriter out = response.getWriter();
 			out.println(result.toString());// 向客户端输出JSONObject字符串

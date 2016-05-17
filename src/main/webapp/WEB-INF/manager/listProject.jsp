@@ -45,6 +45,7 @@
 	          <table class="table table-striped">
 					<thead>
 						<tr>
+							<th>项目ID</th>
 							<th>项目名</th>
 							<th>项目管理员</th>
 							<th>模板</th>
@@ -56,6 +57,7 @@
 					<tbody>
 						<c:forEach items="${pageView.records}" var="entry">
 							<tr>
+								<td>${entry.id }</td>
 								<td>${entry.name }</td>
 								<td>${entry.nickname }</td>
 								<td>
@@ -64,6 +66,7 @@
 								<td>${entry.createTime }</td> 
 								<td>${entry.modifyTime }</td> 
 								<td>
+								    <a href="${basePath }/project/publish?id=${entry.id}" class="font-green" target="_blank">发布</a>
 									<a href="javascript:modifyAction(${entry.id})" class="font-green">修改</a>
 									<a href="javascript:deleteAction(${entry.id},${entry.visible==0?1:0})" class="font-red">
 										<c:if test="${entry.visible==1}">启用</c:if>
