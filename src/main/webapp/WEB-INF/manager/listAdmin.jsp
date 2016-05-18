@@ -75,7 +75,13 @@
 							</tr>
 						</c:forEach>
 					<tbody>
-					<%@ include file="/WEB-INF/share/page.jsp"%>
+					<tfoot>
+						<tr>
+							<td colspan="6">
+       						<%@ include file="/WEB-INF/share/page.jsp" %>
+					    	</td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</form:form>

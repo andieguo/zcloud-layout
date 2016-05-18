@@ -23,24 +23,24 @@
     <div class="content sw">
         <div class="panel">
             <spring:url value="/project/add" var="userActionUrl" />
-			<form:form class="wc600" method="post" modelAttribute="editForm" action="${userActionUrl}">
+			<form:form method="post" modelAttribute="editForm" action="${userActionUrl}">
 					<form:hidden path="macList"/>
 					<form:hidden path="imageUrl"/>
 					<form:hidden path="tid"/>
 					<spring:bind path="name">
 						<div class="form-group">
-							<label for="name">项目名:</label>
+							<label for="name">项目名：</label>
 							<input id="name" name="name"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
 							<form:errors path="name" cssClass="error" />
 						</div>
 					</spring:bind>
 					<div class="form-group">
-						<label for="imageSrc">项目图片</label>
-						<img alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
-						<a href="javascript:loadImg()" target="_blank">请选择图片</a>
+						<label for="imageSrc">项目图片：</label>
+						<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
+						<a class="btn" href="javascript:loadImg()" target="_blank">上产图片</a>
 					</div>
 					<div class="form-group">
-						<label>模板类型:</label>
+						<label>模板类型：</label>
 						<select id="templateType" onchange="templateTypeChange()">
 						  <option value="-1">请选择</option>
 	                      <option value="1">用户模板</option>
@@ -48,27 +48,27 @@
 	                    </select>
 					</div>
 					<div class="form-group">
-						<label for="templateList">模板列表:</label>
+						<label for="templateList">模板列表：</label>
 	              	 	<select id="templateList" onchange="templateIdChange()"></select>
 	              	 	 <form:errors path="tid" cssClass="error" />
 					</div>
 					<spring:bind path="zcloudID">
 						<div class="form-group">
-							<label for="zcloudID">智云ID:</label>
+							<label for="zcloudID">智云ID：</label>
 	              			<input type="text" class="form-control " id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
 							<form:errors path="zcloudID" cssClass="error" />
 						</div>
 					</spring:bind>
 				   	<spring:bind path="zcloudKEY">
 						<div class="form-group">
-							<label for="zcloudKEY">智云KEY:</label>
+							<label for="zcloudKEY">智云KEY：</label>
 	              			<input type="text" class="form-control " id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
 							<form:errors path="zcloudKEY" cssClass="error" />
 						</div>
 					</spring:bind>
 					<spring:bind path="serverAddr">
 						<div class="form-group">
-							<label for="serverAddr">智云Server:</label>
+							<label for="serverAddr">智云Server：</label>
 	              			<input type="text" class="form-control " id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
 							<form:errors path="serverAddr" cssClass="error" />
 						</div>
@@ -77,6 +77,14 @@
 					<div class="form-group">
 		                <label>硬件数据配置：</label>
 		                <div id="config" class="config">
+		                	<div class="head">
+		                		<a>温度</a>
+		                	</div>
+		                	<div class="sensor body" id="fs_dial_978771">
+		                	<label>地址：</label><input type="text" value="" class="address"><hr>
+		                	<label>通道：</label><input type="text" value="" class="channel"><hr>
+		                	<label>命令：</label><input type="text" value="" class="command">
+		                	</div>
 		                </div>
 		            </div>
 		            
