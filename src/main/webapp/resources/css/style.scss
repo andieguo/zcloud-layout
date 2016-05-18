@@ -21,6 +21,12 @@ body {
 .hide {
 	display: none;
 }
+.filter {
+	-webkit-filter: blur(2px);
+	   -moz-filter: blur(2px);
+	    -ms-filter: blur(2px);
+	        filter: blur(2px);
+}
 .header {
 	width: 100%;
 	// height: 100px;
@@ -188,6 +194,7 @@ iframe {
 	background-color: $color01;
 }
 .panel {
+	position: relative;
 	box-sizing: border-box;
 	margin-left: 10px;
 	margin-right: 10px;
@@ -363,7 +370,7 @@ iframe {
 		box-sizing: border-box;
 		display: inline-block;
 		width: 40%;
-		min-width: 200px;
+		min-width: 100px;
 		height: 40px;
 		padding-left: 10px;
 		padding-right: 10px;
@@ -444,7 +451,8 @@ iframe {
 	margin-top: 30px; 
 	margin-bottom: 30px;
 	margin-left: 30%;
-	button[type="submit"] {
+	button[type="submit"],
+	.submit {
 		padding-left: 50px;
 		padding-right: 50px;
 		background-color: #b90000;
@@ -512,7 +520,18 @@ iframe {
 		}
 	}
 }
-
+.altContent-shell {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 600px;
+	height: 400px;
+	padding: 20px;
+	border: 1px solid #c9c9c9;
+	border-radius: 5px;
+	background-color: #fff;
+	box-shadow: 0 0 10px #aaa;
+}
 @media screen and (max-height:800px) {
 	.banner {
 		height: 40px;

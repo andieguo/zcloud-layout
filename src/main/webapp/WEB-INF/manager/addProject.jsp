@@ -89,13 +89,15 @@
 		            </div>
 		            
 					 <div class="form-button">
-	                    &nbsp;<a class="btn" href="javascript:saveAction()">保存</a>
+	                    &nbsp;<a class="btn submit" href="javascript:saveAction()">保存</a>
 	                </div>
 			</form:form>
             <!-- /修改用户资料 -->
-			<div id="altContent">
-				<h1>美图秀秀</h1>
-			</div>
+            <div class="altContent-shell hide">
+				<div id="altContent">
+					<h1>美图秀秀</h1>
+				</div>
+        	</div>
         </div>
     </div>
 </section>
@@ -274,8 +276,16 @@ function templateTypeChange(){
 }
 
 function loadImg(){
+	var altContentTop = $("body").height()/2 - 240;
+	var altContentLeft = $(".panel").eq(0).width()/2 - 300;
+	$(".altContent-shell").eq(0).css({
+		"display":"block",
+		"top":altContentTop + "px",
+		"left":altContentLeft + "px"
+	});
+	$("#editForm").addClass("filter");
 	/*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
-	xiuxiu.embedSWF("altContent",5,"100%","500");
+	xiuxiu.embedSWF("altContent",5,"100%","100%");
     //修改为您自己的图片上传接口
 	xiuxiu.setUploadURL("${basePath}/uploadImage");
     xiuxiu.setUploadType(2);
@@ -295,6 +305,8 @@ function loadImg(){
 			if(dat.status == 1){//push成功
 				var path = "${basePath}/photo/"+dat.data;
 				$("#imageSrc").attr('src',path); 
+				$(".altContent-shell").eq(0).css("display","none");
+				$("#editForm").removeClass("filter");
 			}else{
 				console.log("提交图片失败!");
 			}
