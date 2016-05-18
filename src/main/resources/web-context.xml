@@ -31,6 +31,9 @@
 		<mvc:interceptor>
 			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
 			<mvc:mapping path="/**" />
+			<mvc:exclude-mapping path="/homepage.jsp" />
+			<mvc:exclude-mapping path="/project/publish" />
+			<mvc:exclude-mapping path="/project/all" />
 			<mvc:exclude-mapping path="/load.jsp" />
 			<mvc:exclude-mapping path="/resources/**" />
 			<mvc:exclude-mapping path="/admin/loginUI" />

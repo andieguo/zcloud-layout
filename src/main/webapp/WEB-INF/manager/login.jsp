@@ -16,8 +16,8 @@
         <a href="index.html"><img src="${basePath }/resources/images/logo.png"></a>
     	<h1>智云组态仿真软件项目</h1>
     	<div class="header-sign">
-            <a href="sign_in.html">登陆</a>
-    		<a href="sign_up.html">注册</a>
+            <a href="${basePath }/admin/loginUI">登陆</a>
+    		<a href="${basePath }/admin/registerUI">注册</a>
     	</div>
     </header>
     <section class="banner sign-main">

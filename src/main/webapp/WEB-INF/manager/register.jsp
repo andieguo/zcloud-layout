@@ -9,15 +9,15 @@
 <head>
     <meta charset="UTF-8">
     <title>智云组态仿真软件项目</title>
-    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
+    <link rel="stylesheet" href="${basePath }/resources/css_index/style.css">
 </head>
 <body>
     <header class="content">
         <a href="index.html"><img src="${basePath }/resources/images/logo.png"></a>
     	<h1>智云组态仿真软件项目</h1>
     	<div class="header-sign">
-            <a href="sign_in.html">登陆</a>
-            <a href="sign_up.html">注册</a>
+            <a href="${basePath }/admin/loginUI">登陆</a>
+    		<a href="${basePath }/admin/registerUI">注册</a>
     	</div>
     </header>
     <section class="banner sign-main">
@@ -25,7 +25,7 @@
             <div class="sign-up-panel">
                 <div class="sign-up-header">
                     <h1 class="sign-up-title">注册账号</h1>
-                    <a href="sign_in.html" class="sign-up-more">使用账号登陆</a>
+                    <a href="${basePath }/admin/loginUI" class="sign-up-more">使用账号登陆</a>
                 </div>
                 <div class="sign-up-body form-inline">
                     <spring:url value="/admin/register" var="userActionUrl" />

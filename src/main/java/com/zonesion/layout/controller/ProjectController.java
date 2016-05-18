@@ -164,6 +164,38 @@ public class ProjectController {
 	
 	/**
 	 * 后台展示项目管理列表
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/project/all", method = {RequestMethod.POST, RequestMethod.GET})
+	public void projectList(HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		List<ProjectEntity> projectList = projectService.findAll();
+		if(projectList.size() > 0){
+			JSONArray array = new JSONArray();
+			for(ProjectEntity entity:projectList){
+				JSONObject obj = new JSONObject();
+				obj.put("id", entity.getId());
+				obj.put("imageUrl", entity.getImageUrl());
+				obj.put("name", entity.getName());
+				array.put(obj);
+			}
+			result.accumulate("status", 1);
+			result.accumulate("message", "success");
+			result.accumulate("data", array);
+		}else{
+			result.accumulate("status", 0);
+			result.accumulate("message", "fail");
+		}
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
+	}
+	
+	/**
+	 * 后台展示项目管理列表
 	 */
 	@RequestMapping(value = "/project/list", method = {RequestMethod.POST, RequestMethod.GET})
 	public String list(@ModelAttribute("projectForm") ProjectForm projectForm,Model model) {

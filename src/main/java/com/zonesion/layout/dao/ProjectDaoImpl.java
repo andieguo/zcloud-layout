@@ -24,7 +24,7 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 	@Override
 	public List<ProjectEntity> findAll() {
 		// TODO Auto-generated method stub
-		return getJdbcTemplate().query("select * from tb_project", 
+		return getJdbcTemplate().query("select * from tb_project where visible=1 and aid in ( select id from tb_admin where visible=1)", 
 				new Object[] {}, new BeanPropertyRowMapper<ProjectEntity>(ProjectEntity.class));
 	}
 	
