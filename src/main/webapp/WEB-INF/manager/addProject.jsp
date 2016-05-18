@@ -73,9 +73,13 @@
 							<form:errors path="serverAddr" cssClass="error" />
 						</div>
 					</spring:bind>
-					<div id="macDiv">
-                    
-					</div>
+
+					<div class="form-group">
+		                <label>硬件数据配置：</label>
+		                <div id="config" class="config">
+		                </div>
+		            </div>
+		            
 					 <div class="form-button">
 	                    &nbsp;<a class="btn" href="javascript:saveAction()">保存</a>
 	                </div>
@@ -129,7 +133,7 @@ function saveValidate(){
 
 function saveAction() {
 	//客户端校验通过才能执行提交
-	//if(saveValidate()){
+	if(saveValidate()){
 		var imageUrl = $("#imageSrc").attr('src');
 		imageUrl = imageUrl.substring(imageUrl.lastIndexOf("/")+1,imageUrl.length);
 		$("#imageUrl").val(imageUrl);
@@ -138,7 +142,7 @@ function saveAction() {
 		$("#macList").val(JSON.stringify(macList));
 		var form = document.forms[0];
 		form.submit();
-	//}
+	}
 }
 
 function templateIdChange(){
@@ -155,6 +159,7 @@ function templateIdChange(){
 						console.log("data:"+data.data);
 						dataJson = JSON.parse(data.data);
 						contentBuild(dataJson);
+						configNavActive();
 					}else if(data.status==0){
 						console.log("failed");
 					}
@@ -197,29 +202,34 @@ function macListBuild(dataJson){
 }
 
 function contentBuild(dataJson){
-	var content = "";
+	//加载title
+	var content = "<div class='head'>";
+	$.each(dataJson,function(name,value) {
+		if(typeof(value.dataType) != 'undefined'){
+			content = content + "<a>"+ value.title+"</a>";
+		}
+	});
+	content = content + "</div>";
+	//加载content	
 	$.each(dataJson,function(name,value) {
 		if(typeof(value.dataType) != 'undefined'){
 			if(value.dataType == 'video'){
-				content = content + "<div class='video' id="+value.tid+">"
-				 + "<label>"+value.title+":</label>"
-				 + "<div class='form-group'><label>摄像头地址：</label><input type='text' value='Camera:192.168.1.91:81' class='address'></div>"
-				 + "<div class='form-group'><label>用户名：</label><input type='text' value='admin' class='user'></div>"
-				 + "<div class='form-group'><label>密码：</label><input type='text' value='admin' class='pwd'></div>"
-				 + "<div class='form-group'><label>摄像头类型：</label><input type='text' value='H3-Series' class='camtype'></div>"
+				content = content + "<div class='video body hide' id="+value.tid+">"
+				 + "<label>摄像头地址：</label><input type='text' value='Camera:192.168.1.91:81' class='address'><hr>"
+				 + "<label>用户名：</label><input type='text' value='admin' class='user'><hr>"
+				 + "<label>密码：</label><input type='text' value='admin' class='pwd'><hr>"
+				 + "<label>摄像头类型：</label><input type='text' value='H3-Series' class='camtype'>"
 				 + "</div>";
 			}else{
-				content = content + "<div class='sensor' id="+value.tid+">"
-				 + "<label>"+value.title+":</label>"
-				 + "<div class='form-group'><label>通道：</label><input type='text' value='' class='channel'></div>"
-				 + "<div class='form-group'><label>地址：</label><input type='text' value='' class='address'></div>"
-				 + "<div class='form-group'><label>命令：</label><input type='text' value='' class='command'></div>"
+				content = content + "<div class='sensor body hide' id="+value.tid+">"
+				 + "<label>地址：</label><input type='text' value='' class='address'><hr>"
+				 + "<label>通道：</label><input type='text' value='' class='channel'><hr>"
+				 + "<label>命令：</label><input type='text' value='' class='command'>"
 				 + "</div>";		
 			}
 		}
-		
 	});
-	$("#macDiv").html(content);
+	$("#config").html(content);
 }
 
 function templateTypeChange(){

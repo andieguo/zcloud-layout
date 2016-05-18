@@ -388,5 +388,45 @@ iframe {
   line-height: 40px;
   border-radius: 5px;
   background-color: #1C8F8A; }
+  
+ .config {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 40%;
+  font-size: 14px;
+  vertical-align: top;
+  border: 2px solid #c9c9c9;
+  border-radius: 5px; }
+  .config .head {
+    padding: 10px 10px 5px 10px;
+    border-bottom: 2px solid #c9c9c9; }
+    .config .head a {
+      cursor: pointer;
+      display: inline-block;
+      margin-bottom: 5px;
+      padding: 5px 8px;
+      color: #fff;
+      border-radius: 4px;
+      background-color: #c9c9c9; }
+    .config .head .on {
+      background-color: #1C8F8A; }
+    .config .head .active {
+      background-color: #24bab3; }
+    .config .head .error {
+      background-color: #b30011; }
+  .config .body {
+    padding: 0 10px; }
+    .config .body label {
+      width: 3.5em;
+      font-size: 14px; }
+    .config .body input {
+      margin-top: 6px;
+      margin-bottom: 6px;
+      width: calc(100% - 3.5em);
+      height: 28px;
+      line-height: 28px;
+      border: 0; }
+    .config .body hr {
+      border-bottom: 1px solid #c9c9c9; }
 
 /*# sourceMappingURL=style.css.map */
