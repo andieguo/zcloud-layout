@@ -209,8 +209,8 @@ public class ProjectController {
 	public String editUI(ProjectForm editForm,Model model){
 		ProjectEntity projectEntity = projectService.findByProjectId(editForm.getId());
 		//只需要将表单中有的字段添加到form表单即可（安全）
-		//ProjectForm projectForm = new ProjectForm();
-		model.addAttribute("editForm", projectEntity);
+		ProjectForm projectForm = new ProjectForm(projectEntity);
+		model.addAttribute("editForm", projectForm);
 		return "manager/editProject";
 	}
 
@@ -254,9 +254,10 @@ public class ProjectController {
 			return "manager/editProject";//跳转到manager/editProject.jsp页面
 		} else {
 			ProjectEntity projectEntity = projectService.findByProjectId(editForm.getId());
+			projectEntity.setName(editForm.getName());
 			projectEntity.setModifyTime(new Date());
 			projectEntity.setImageUrl(editForm.getImageUrl());
-			projectEntity.setMacList(editForm.getImageUrl());
+			projectEntity.setMacList(editForm.getMacList());
 			projectEntity.setServerAddr(editForm.getServerAddr());
 			projectEntity.setZcloudID(editForm.getZcloudID());
 			projectEntity.setZcloudKEY(editForm.getZcloudKEY());

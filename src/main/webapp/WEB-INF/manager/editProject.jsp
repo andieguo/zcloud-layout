@@ -4,80 +4,105 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>项目修改</title>
-		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!---------------------------样式引用------------------------------>
-		<%@ include file="/resources/share/style_backstage.jsp"%>
-	</head>
-	<body>
-		<div class="top_Height"></div>
-		<div class="edit_user" >
-			<p class="edit_title" id="newH"><i class="glyphicon glyphicon-edit"></i> 信息修改</p>
-		    <div class="edit_user_cont" style="height:230px;">
-		    	<span class="jt_new"></span>
-		    	<spring:url value="/project/edit" var="userActionUrl" />
-				<form:form class="form-horizontal" method="post" modelAttribute="editForm" action="${userActionUrl}">
+
+
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>智云组态仿真软件</title>
+    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
+    <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
+    <script src="${basePath }/resources/js/script.js"></script>
+</head>
+<body>
+	<section class="main">
+	    <aside class="text">
+	    <h1>中智讯（武汉）科技有限公司</h1>
+	    <p>版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯</p>
+	    <p>（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有</p>
+	    </aside>
+	    <div class="content sw">
+	        <div class="panel">
+				<spring:url value="/project/edit" var="userActionUrl" />
+				<form:form class="wc600" method="post" modelAttribute="editForm" action="${userActionUrl}">
 						<form:hidden path="id" />
+						<form:hidden path="tid"/>
+						<form:hidden path="macList"/>
+						<form:hidden path="imageUrl"/>
 						<spring:bind path="name">
-							<div class="form-group ${status.error ? 'has-error' : ''}">
+							<div class="form-group">
 								<label for="name">项目名:</label>
-								<input id="name" name="${status.expression }"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
+								<input id="name" name="name"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
 								<form:errors path="name" cssClass="error" />
 							</div>
 						</spring:bind>
-						<spring:bind path="imageUrl">
-							<div class="form-group">
-								<label for="imageUrl">项目图片</label>
-								<input type="text" class="form-control " name="imageUrl" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="imageUrl" />
-							</div>
-						</spring:bind>
+						<div class="form-group">
+							<label for="imageSrc">项目图片</label>
+							<img alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
+							<a href="javascript:loadImg()" target="_blank">请选择图片</a>
+						</div>
 						<spring:bind path="zcloudID">
 							<div class="form-group">
 								<label for="zcloudID">智云ID:</label>
-		              			<input type="text" class="form-control " name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="zcloudID" />
+		              			<input type="text" class="form-control " id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
+								<form:errors path="zcloudID" cssClass="error" />
 							</div>
 						</spring:bind>
 					   	<spring:bind path="zcloudKEY">
 							<div class="form-group">
 								<label for="zcloudKEY">智云KEY:</label>
-		              			<input type="text" class="form-control " name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="zcloudKEY" />
+		              			<input type="text" class="form-control " id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
+								<form:errors path="zcloudKEY" cssClass="error" />
 							</div>
 						</spring:bind>
 						<spring:bind path="serverAddr">
 							<div class="form-group">
 								<label for="serverAddr">智云Server:</label>
-		              			<input type="text" class="form-control " name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="serverAddr" />
+		              			<input type="text" class="form-control " id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
+								<form:errors path="serverAddr" cssClass="error" />
 							</div>
 						</spring:bind>
-						<spring:bind path="macList">
-							<div class="form-group">
-								<label for="macList">智云Mac:</label>
-		              			<input type="text" class="form-control " name="macList" value="${status.value}"  placeholder="请输入邮箱地址" />
-								<form:errors path="macList" />
-							</div>
-						</spring:bind>
-					<div>
-						<input value="修改"  type="submit"></input>
-				   	</div>
-				   	<hr/>
-				   	<form:errors path="*" />
-				   	<p ><a target="_self" href="${basePath }/login.jsp">用户登录</a></p>
+	
+						<div class="form-group">
+							<label for="textMacList">智云Mac:</label>
+							<textarea rows="3" cols="20" class="form-control" id="textMacList" name="textMacList"></textarea>
+							<form:errors path="macList" />
+						</div>
+			            
+						<div class="form-button">
+		                    &nbsp;<a class="btn" href="javascript:editAction()">修改</a>
+		                </div>
 				</form:form>
-		    </div>
-		</div>
-		<!---------------------------脚本引用------------------------------>
-		<%@ include file="/resources/share/script.jsp"%>
+	            <!-- /修改用户资料 -->
+				<div id="altContent">
+					<h1>美图秀秀</h1>
+				</div>
+	        </div>
+	    </div>
+	</section>
+</body>
+<!---------------------------脚本引用------------------------------>
+<%@ include file="/resources/share/script.jsp"%>
 
-		<script>
-			
-		</script>
-	</body>
+<script>
+	$(function(){
+		var textMacList  = JSON.parse('${editForm.macList}');
+		$("#textMacList").val(JSON.stringify(textMacList, null, "\t"));
+	});
+	
+	function editAction() {
+		//填充imageUrl
+		var imageUrl = $("#imageSrc").attr('src');
+		imageUrl = imageUrl.substring(imageUrl.lastIndexOf("/")+1,imageUrl.length);
+		$("#imageUrl").val(imageUrl);
+		//填充MacList
+		var textMacList = JSON.parse($("#textMacList").val());
+		textMacList = JSON.stringify(textMacList);
+		$("#macList").val(textMacList);
+		//提交表单
+		var form = document.forms[0];
+		form.submit();
+	}
+</script>
 </html>

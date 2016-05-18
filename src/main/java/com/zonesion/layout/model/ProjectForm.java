@@ -13,6 +13,10 @@ public class ProjectForm extends ProjectEntity{
 	private String nickname;
 	private String templatename;
 	
+	public ProjectForm(ProjectEntity entity){
+		super(entity.getId(), entity.getName(), entity.getImageUrl(), entity.getTid(), entity.getAid(), entity.getZcloudID(), entity.getZcloudKEY(), entity.getServerAddr(), entity.getMacList(), entity.getCreateTime(), entity.getModifyTime(), entity.getVisible());
+	}
+	
 	public ProjectForm() {
 		super();
 //		setAid(-1);
