@@ -47,13 +47,19 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	}
 	
 	@Override
-	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role) {
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role,String nickname) {
 		// TODO Auto-generated method stub
 		QueryResult<AdminEntity> qr = new QueryResult<AdminEntity>();
 		StringBuffer sql  = new StringBuffer("select * from tb_admin where 1=1");
 		StringBuffer countSql = new StringBuffer("select count(*) from tb_admin where 1=1");
-		List<Integer> parmas = Lists.newArrayList();
-		List<Integer> countParmas = Lists.newArrayList();
+		List<Object> parmas = Lists.newArrayList();
+		List<Object> countParmas = Lists.newArrayList();
+		if(nickname!=null && !nickname.equals("")){
+			sql.append(" and nickname=?");
+			parmas.add(nickname);
+			countSql.append(" and nickname=?");
+			countParmas.add(nickname);
+		}
 		if(visible != -1){
 			sql.append(" and visible=?");
 			parmas.add(visible);

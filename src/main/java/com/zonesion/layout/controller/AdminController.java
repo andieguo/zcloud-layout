@@ -225,9 +225,10 @@ public class AdminController {
 		int page = listForm.getPage();
 		int visible = listForm.getVisible();
 		int role = listForm.getRole();
+		String nickname = listForm.getNickname();
 		PageView<AdminEntity> pageView = new PageView<>(10,page);
 		int firstindex = (pageView.getCurrentpage()-1)*pageView.getMaxresult();
-		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,visible,role);
+		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,visible,role,nickname);
 		pageView.setQueryResult(queryResult);
 		model.addAttribute("pageView",pageView);
 		return "manager/listAdmin";//跳转到manager/listAdmin.jsp页面

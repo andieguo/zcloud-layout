@@ -20,7 +20,7 @@ public interface AdminDao {
 	
 	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult);
 	
-	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role);
+	public QueryResult<AdminEntity> findAll(int firstindex,int maxresult,int visible,int role,String nickname);
 	
 	public AdminEntity findById(int id);
 	

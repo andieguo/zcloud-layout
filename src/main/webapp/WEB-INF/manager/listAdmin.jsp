@@ -27,7 +27,7 @@
 			<header class="table-header clearfix">
 				<div class="header-left">
 					<label>用户名：</label>
-					<input type="text">
+					<form:input path="nickname"/>
 					<c:if test="${admin.role==0}">
 						<label>角色：</label>
 						<form:select path="role" items="${roleList}" class="form-control" />
@@ -37,16 +37,12 @@
 					<a href="javascript:queryAction()" class="font-green" href="#">搜索</a>
 
 				</div>
-				<div class="header-right">
-					<from class="search"> <input type="text">
-					<button class="icon" type="submit"></button>
-					</from>
-				</div>
 			</header>
 			<div class="table-body">
 				<table>
 					<thead>
 						<tr>
+						    <th>用户ID</th>
 							<th>用户名</th>
 							<th>姓名</th>
 							<th>手机</th>
@@ -58,6 +54,7 @@
 					<tbody>
 						<c:forEach items="${pageView.records}" var="entry">
 							<tr>
+								<td>${entry.id }</td>
 								<td>${entry.nickname }</td>
 								<td>${entry.email }</td>
 								<td>${entry.phoneNumber }</td>

@@ -83,9 +83,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public QueryResult<AdminEntity> findAll(int firstindex, int maxresult, int visible, int role) {
+	public QueryResult<AdminEntity> findAll(int firstindex, int maxresult, int visible, int role,String nickname) {
 		// TODO Auto-generated method stub
-		return adminDao.findAll(firstindex, maxresult, visible, role);
+		return adminDao.findAll(firstindex, maxresult, visible, role,nickname);
 	}
 
 	@Override
