@@ -25,6 +25,9 @@
 	
 	<!-- mvc:resources建立了一个服务于静态资源的处理器，用于处理静态资源的请求 -->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	
+	<!-- 设置全局的异常处理器 -->
+	<bean id="exceptionResolver" class="com.zonesion.layout.controller.ExceptionHandler"/>
 
 	<!--配置拦截器, 多个拦截器,顺序执行 -->
 	<mvc:interceptors>

@@ -56,14 +56,18 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         logger.info("requestUri:"+requestUri);    
         logger.info("contextPath:"+contextPath);    
         logger.info("url:"+url);    
-          
-        AdminEntity admin =  (AdminEntity)request.getSession().getAttribute("admin");   
-        if(admin == null ){
-        	logger.info("Interceptor：跳转到login页面！");
-        	response.sendRedirect(contextPath+"/admin/loginUI");
-            return false;  
-        }else  
-            return true;   
+        if(url.startsWith("/admin") || url.startsWith("/project") || url.startsWith("/template")){
+        	AdminEntity admin =  (AdminEntity)request.getSession().getAttribute("admin");   
+        	if(admin == null ){
+        		logger.info("Interceptor：跳转到login页面！");
+        		response.sendRedirect(contextPath+"/admin/loginUI");
+        		return false;  //不放行
+        	}else  
+        		return true;   //放行
+        }else{
+        	response.sendRedirect(contextPath+"/error/404.jsp");
+        	return false; //不放行
+        }
 	}
 
 }

@@ -5,6 +5,7 @@
 <web-app>
 	<display-name>zcloud-layout</display-name>
 	
+	<!-- 为ContextLoaderListener指定一个或多个Spring配置文件 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
@@ -12,24 +13,32 @@
 		</param-value>
 	</context-param>
 	
+	<!-- springmvc 字符集过滤器 以下配置相当于在servlet中配置了
+		request.setCharacterEncoding("UTF-8");  
+		response.setCharacterEncoding("UTF-8");   -->
 	<filter>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<!-- 将过滤到的request的字符集设置为encoding指定的值 -->
 		<init-param>
 			<param-name>encoding</param-name>
 			<param-value>utf-8</param-value>
 		</init-param>
+		<!-- 指定response的字符集是否也设置成encoding所指定的字符集 -->
+		<init-param>  
+	        <param-name>forceEncoding</param-name>  
+	        <param-value>true</param-value>  
+	    </init-param> 
 	</filter>
 	<filter-mapping>
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 监听Web容器启动和关闭 -->
+	<!-- 配置ContextLoaderListener,其能加载其他的配置文件到一个Spring上下文中 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
 
 	<!-- 核心控制器，拦截用户请求，将请求发送给SpringMVC控制器 -->
 	<servlet>
@@ -48,6 +57,23 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>homepage.jsp</welcome-file>
 	</welcome-file-list>
+	
+	<error-page>  
+        <error-code>403</error-code>  
+        <location>/WEB-INF/error/403.jsp</location>  
+    </error-page>  
+    <error-page>  
+        <error-code>404</error-code>  
+        <location>/WEB-INF/error/404.jsp</location>  
+    </error-page>  
+    <error-page>  
+        <error-code>405</error-code>  
+        <location>/WEB-INF/error/405.jsp</location>  
+    </error-page>  
+    <error-page>  
+        <error-code>500</error-code>  
+        <location>/WEB-INF/error/500.jsp</location>  
+    </error-page>
 </web-app>
