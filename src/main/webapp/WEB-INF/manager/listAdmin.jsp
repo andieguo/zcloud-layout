@@ -11,7 +11,7 @@
 <title>智云组态仿真软件</title>
 <link rel="stylesheet" href="${basePath }/resources/css/style.css">
 <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-<script src="${basePath }/resources/js/script.js"></script>
+<script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>
 	<section class="main content">
@@ -77,7 +77,7 @@
 					<tbody>
 					<tfoot>
 						<tr>
-							<td colspan="6">
+							<td colspan="7">
        						<%@ include file="/WEB-INF/share/page.jsp" %>
 					    	</td>
 						</tr>

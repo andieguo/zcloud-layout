@@ -13,7 +13,6 @@
     <title>智云组态仿真软件</title>
     <link rel="stylesheet" href="${basePath }/resources/css/style.css">
     <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/script.js"></script>
 </head>
 <body>
 	<section class="main">
@@ -32,52 +31,54 @@
 						<form:hidden path="imageUrl"/>
 						<spring:bind path="name">
 							<div class="form-group">
-								<label for="name">项目名:</label>
+								<label for="name">项目名：</label>
 								<input id="name" name="name"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
 								<form:errors path="name" cssClass="error" />
 							</div>
 						</spring:bind>
 						<div class="form-group">
-							<label for="imageSrc">项目图片</label>
+							<label for="imageSrc">项目图片：</label>
 							<img alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
 							<a href="javascript:loadImg()" target="_blank">请选择图片</a>
 						</div>
 						<spring:bind path="zcloudID">
 							<div class="form-group">
-								<label for="zcloudID">智云ID:</label>
+								<label for="zcloudID">智云ID：</label>
 		              			<input type="text" class="form-control " id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
 								<form:errors path="zcloudID" cssClass="error" />
 							</div>
 						</spring:bind>
 					   	<spring:bind path="zcloudKEY">
 							<div class="form-group">
-								<label for="zcloudKEY">智云KEY:</label>
+								<label for="zcloudKEY">智云KEY：</label>
 		              			<input type="text" class="form-control " id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
 								<form:errors path="zcloudKEY" cssClass="error" />
 							</div>
 						</spring:bind>
 						<spring:bind path="serverAddr">
 							<div class="form-group">
-								<label for="serverAddr">智云Server:</label>
+								<label for="serverAddr">智云Server：</label>
 		              			<input type="text" class="form-control " id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
 								<form:errors path="serverAddr" cssClass="error" />
 							</div>
 						</spring:bind>
 	
 						<div class="form-group">
-							<label for="textMacList">智云Mac:</label>
+							<label for="textMacList">智云Mac：</label>
 							<textarea rows="3" cols="20" class="form-control" id="textMacList" name="textMacList"></textarea>
 							<form:errors path="macList" />
 						</div>
 			            
 						<div class="form-button">
-		                    &nbsp;<a class="btn" href="javascript:editAction()">修改</a>
+		                    &nbsp;<a class="btn submit" href="javascript:editAction()">修改</a>
 		                </div>
 				</form:form>
 	            <!-- /修改用户资料 -->
-				<div id="altContent">
-					<h1>美图秀秀</h1>
-				</div>
+	            <!-- <div class="altContent-shell hide"> -->
+					<div id="altContent">
+						<h1>美图秀秀</h1>
+					</div>
+	        	<!-- </div> -->
 	        </div>
 	    </div>
 	</section>

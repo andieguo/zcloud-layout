@@ -204,14 +204,14 @@ iframe {
       line-height: 30px;
       vertical-align: middle; }
     .table-header .header-left select {
-      margin-right: 20px;
+      margin-right: 10px;
       padding: 5px;
       font-size: 12px;
       vertical-align: middle;
       border: 1px solid #1C8F8A;
       border-radius: 5px; }
     .table-header .header-left input {
-      margin-right: 20px;
+      margin-right: 10px;
       padding: 6px 5px;
       width: 100px;
       font-size: 12px;
@@ -265,7 +265,7 @@ iframe {
       text-align: center;
       border-top: 1px solid #EFEFEF; }
       .table-body table tbody tr {
-        line-height: 40px;
+        line-height: 50px;
         border-bottom: 1px solid #EFEFEF; }
       .table-body table tbody a {
         font-size: 14px;
@@ -464,6 +464,9 @@ iframe {
         display: inline; }
     .banner .color-box1,
     .banner .color-box2 {
-      height: 40px; } }
+      height: 40px; }
+
+  .table-body table tbody tr {
+    line-height: 40px; } }
 
 /*# sourceMappingURL=style.css.map */

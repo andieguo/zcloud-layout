@@ -240,7 +240,7 @@ iframe {
 			vertical-align:middle;
 		}
 		select {
-			margin-right: 20px;
+			margin-right: 10px;
 			padding: 5px;
 			font-size: 12px;
 			vertical-align:middle;
@@ -248,7 +248,7 @@ iframe {
 			border-radius: 5px;
 		}
 		input {
-			margin-right: 20px;
+			margin-right: 10px;
 			padding: 6px 5px;
 			width: 100px;
 			font-size: 12px;
@@ -311,7 +311,7 @@ iframe {
 			text-align: center;
 			border-top: 1px solid #EFEFEF;
 			tr {
-				line-height: 40px;
+				line-height: 50px;
 				border-bottom: 1px solid #EFEFEF;
 			}
 			a {
@@ -548,6 +548,9 @@ iframe {
 		.color-box2 {
 			height: 40px;
 		}
+	}
+	.table-body table tbody tr {
+		line-height: 40px;
 	}
 }
 // @media screen and (max-width:900px) {

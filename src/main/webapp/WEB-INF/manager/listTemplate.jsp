@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="${basePath }/resources/css/style.css">
     <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/script.js"></script>
+    <script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>
 <section class="main content">
@@ -33,7 +33,7 @@
 			<div class="header-left">
 				<label>用户：</label> 
 				<form:input path="nickname"/>
-	            <label>模板名</label>
+	            <label>模板名：</label>
 	            <form:input path="name"/>
 				<label>启/停用：</label>
 				<form:select path="visible" items="${enableList}" class="form-control" />
