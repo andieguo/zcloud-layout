@@ -11,7 +11,7 @@
     <title>智云组态仿真软件</title>
     <link rel="stylesheet" href="${basePath }/resources/css/style.css">
     <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/script.js"></script>
+    <script src="${basePath }/resources/js/form.js"></script>
 </head>
 <body><section class="main">
     <aside class="text">
@@ -86,9 +86,5 @@
         </div>
     </div>
 </section>
-<!-- 修改用户资料按钮 -->
-<script type="text/javascript">
-</script>
-<!-- /修改用户资料按钮 -->
 </body>
 </html>

@@ -11,6 +11,7 @@
     <title>智云组态仿真软件</title>
     <link rel="stylesheet" href="${basePath }/resources/css/style.css">
     <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
+    <script src="${basePath }/resources/js/form.js"></script>
 </head>
 <body>
 <section class="main">
@@ -29,14 +30,14 @@
 					<spring:bind path="name">
 						<div class="form-group">
 							<label for="name">项目名：</label>
-							<input id="name" name="name"  value="${status.value}" type="text"  class="form-control" placeholder="请输入账号" >
+							<input id="name" name="name"  value="${status.value}" type="text" placeholder="请输入账号" >
 							<form:errors path="name" cssClass="error" />
 						</div>
 					</spring:bind>
 					<div class="form-group">
 						<label for="imageSrc">项目图片：</label>
 						<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
-						<a class="btn" href="javascript:loadImg()" target="_blank">上传图片</a>
+						<a class="btn" href="javascript:loadImg()">上传图片</a>
 					</div>
 					<div class="form-group">
 						<label>模板类型：</label>
@@ -54,21 +55,21 @@
 					<spring:bind path="zcloudID">
 						<div class="form-group">
 							<label for="zcloudID">智云ID：</label>
-	              			<input type="text" class="form-control " id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
+	              			<input type="text" id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
 							<form:errors path="zcloudID" cssClass="error" />
 						</div>
 					</spring:bind>
 				   	<spring:bind path="zcloudKEY">
 						<div class="form-group">
 							<label for="zcloudKEY">智云KEY：</label>
-	              			<input type="text" class="form-control " id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
+	              			<input type="text" id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
 							<form:errors path="zcloudKEY" cssClass="error" />
 						</div>
 					</spring:bind>
 					<spring:bind path="serverAddr">
 						<div class="form-group">
 							<label for="serverAddr">智云Server：</label>
-	              			<input type="text" class="form-control " id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
+	              			<input type="text" id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
 							<form:errors path="serverAddr" cssClass="error" />
 						</div>
 					</spring:bind>
@@ -93,6 +94,7 @@
 			</form:form>
             <!-- /修改用户资料 -->
             <div class="altContent-shell hide">
+            	<i class="icon icon-close" onclick="loadImgClose()"></i>
 				<div id="altContent">
 					<h1>美图秀秀</h1>
 				</div>
@@ -273,7 +275,7 @@ function templateTypeChange(){
 		$('#templateList').empty();
 	}
 }
-
+//美图秀秀
 function loadImg(){
 	var altContentTop = $("body").height()/2 - 240;
 	var altContentLeft = $(".panel").eq(0).width()/2 - 300;
@@ -285,17 +287,17 @@ function loadImg(){
 	$("#editForm").addClass("filter");
 	/*第1个参数是加载编辑器div容器，第2个参数是编辑器类型，第3个参数是div容器宽，第4个参数是div容器高*/
 	xiuxiu.embedSWF("altContent",5,"100%","100%");
-    //修改为您自己的图片上传接口
+  //修改为您自己的图片上传接口
 	xiuxiu.setUploadURL("${basePath}/uploadImage");
-    xiuxiu.setUploadType(2);
-    xiuxiu.setUploadDataFieldName("upload_file");
+  xiuxiu.setUploadType(2);
+  xiuxiu.setUploadDataFieldName("upload_file");
 	xiuxiu.onInit = function ()
 	{
 		xiuxiu.loadPhoto("${basePath}/resources/images/meituxiuxiu.jpg");
 	};
 	xiuxiu.onUploadResponse = function (data)
 	{
-// 		console.log("data:"+JSON);
+//		console.log("data:"+JSON);
 		if(data != ''){
 			var dat = JSON.parse(data);
 			console.log("status:"+dat.status);
@@ -303,7 +305,7 @@ function loadImg(){
 			console.log("boolean:"+(dat.status == 1));
 			if(dat.status == 1){//push成功
 				var path = "${basePath}/photo/"+dat.data;
-				$("#imageSrc").attr('src',path); 
+				$("#imageSrc").attr('src',path);
 				$(".altContent-shell").eq(0).css("display","none");
 				$("#editForm").removeClass("filter");
 			}else{
@@ -311,54 +313,9 @@ function loadImg(){
 			}
 		}
 	};
-	
-}
-//硬件数据配置：active
-function configNavActive(){
-	var head = $("#config .head").children("a");
-	var body = $("#config .body");
-	head.eq(0).addClass("active");
-	body.eq(0).removeClass("hide");
-	head.click(function(){
-		var n = $(this).index();
-		if ($("#config .body").eq(n).css("display") == ("none")) {
-			$.each(body, function(i){
-				body.eq(i).hide();
-			});
-			$.each(head, function(i){
-				head.eq(i).removeClass("active");
-			});
-			body.eq(n).show();
-			$(this).addClass("active");
-			configChange(n);
-		};
-	});
-
-	for (var ii = 0; ii <= head.length - 1; ii++) {
-		var bodyInput = body.eq(ii).find("input");
-		var value = "";
-		for (var i = 0; i <= bodyInput.length - 1; i++) {
-			value += bodyInput.eq(i).attr("value");
-		};
-		if (value) {
-			head.eq(ii).addClass("on");
-		};
-	};
 };
-//硬件数据配置：change
-$(function configChange(a){
-	var n = $("#config .body").eq(a).children("input");
-	n.change(function(){
-		var head = $("#config .head").children("a");
-		head.eq(a).addClass("on");
-		var value = "";
-		for (var i = 0; i <= n.length - 1; i++) {
-			value += n.eq(i).val();
-		};
-		if (!value) {
-			head.eq(a).removeClass("on");
-		};
-  	});
+$(function(){
+	configChange(a);
 });
 </script>
 </body>

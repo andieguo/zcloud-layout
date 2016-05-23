@@ -97,7 +97,7 @@
     		<iframe id="iframe" src="${basePath }/admin/notice" name="iframe"></iframe>
 	<%
     	}
-	%>    	
+	%>	
     <!-- /内容 -->
     <!-- 页尾 -->
     <footer class="footer">中智讯（武汉）科技有限公司版权所有&nbsp;&nbsp;&nbsp;&nbsp;鄂ICP备13015866号-2</footer>
