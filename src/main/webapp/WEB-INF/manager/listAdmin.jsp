@@ -48,7 +48,7 @@
 							<th>手机</th>
 							<th>角色</th>
 							<th>创建时间</th>
-							<th>操作</th>
+							<th>状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,12 +64,9 @@
 								</td>
 								<td>${entry.createTime }</td>
 								<td><a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a> 
-									<a class="font-red" href="javascript:deleteAction(${entry.id},${entry.visible==0?1:0})">
-										<c:if test="${entry.visible==1}">
-											启用
-										</c:if> <c:if test="${entry.visible==0}">
-											停用
-										</c:if>
+									<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==0?1:0}">
+										<c:if test="${entry.visible==1}">启用</c:if>
+										<c:if test="${entry.visible==0}">停用</c:if>
 									</a>
 								</td>
 							</tr>
@@ -100,6 +97,39 @@
 			document.getElementById("id").value = id;
 			form.submit();
 		}
+		//使能用户
+		function enableAction(id){
+			var url = "${basePath}/admin/enable";
+			var status = $("#enable_"+id).attr("visible");
+			if(status == 1){
+				alert("亲，确定要执行启用操作么？");
+			}else if(status == 0){
+				alert("亲，确认要执行停用操作么？");
+			}
+			$.ajax({//提交给后台
+					url : url,
+					type : 'post',
+					data : {'id':id,'deleted':status},
+					dataType : 'json',
+					success : function(data) {//返回的data本身即是一个JSON对象
+						if(data.status == 1){//push成功
+							if(status == 0){
+								$("#enable_"+id).attr("visible",1);
+								$('#enable_'+id).text("停用");
+							}else if(status == 1){
+								$("#enable_"+id).attr("visible",0);
+								$('#enable_'+id).text("启用");
+							}
+						}else if(data.status==0){//push失败，恢复UI部分
+							console.log("failed");
+						}
+					},
+					error : function() {
+						alert("您请求的页面有异常 ");
+					}
+			});
+		}
+		//删除用户--目前未使用
 		function deleteAction(id, status) {
 			var form = document.forms[0];
 			form.action = "${basePath}/admin/delete";

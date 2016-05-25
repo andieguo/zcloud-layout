@@ -330,4 +330,26 @@ public class ProjectController {
 		redirectAttributes.addAttribute("name",projectForm.getName());
 		return "redirect:/project/list";
 	}
+	
+	/**
+	 * 使能project
+	 */
+	@RequestMapping(value="/project/enable",method=RequestMethod.POST)
+	public void enable(Integer id,Integer deleted,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		int status = projectService.enable(id,deleted);
+		if(status > 0){
+			result.accumulate("status", 1);
+			result.accumulate("message", "success");
+		}else{
+			result.accumulate("status", 0);
+			result.accumulate("message", "fail");
+		}
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
+	}
 }

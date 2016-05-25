@@ -107,6 +107,28 @@ public class AdminController {
 	}
 	
 	/**
+	 * 使能用户
+	 */
+	@RequestMapping(value="/admin/enable",method=RequestMethod.POST)
+	public void enable(Integer id,Integer deleted,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		int status = adminService.enable(id,deleted);
+		if(status > 0){
+			result.accumulate("status", 1);
+			result.accumulate("message", "success");
+		}else{
+			result.accumulate("status", 0);
+			result.accumulate("message", "fail");
+		}
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
+	}
+	
+	/**
 	 * 校验用户是否存在
 	 */
 	@RequestMapping(value="/admin/isExist",method=RequestMethod.POST)
@@ -370,4 +392,5 @@ public class AdminController {
 		redirectAttributes.addAttribute("role", listForm.getRole());
 		return "redirect:/admin/list";
 	}
+	
 }
