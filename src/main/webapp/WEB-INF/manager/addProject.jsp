@@ -36,7 +36,7 @@
 					</spring:bind>
 					<div class="form-group">
 						<label for="imageSrc">项目图片：</label>
-						<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
+						<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath}/resources/images/meituxiuxiu.jpg" >
 						<a class="btn" href="javascript:loadImg()">上传图片</a>
 					</div>
 					<div class="form-group">
@@ -314,9 +314,9 @@ function loadImg(){
 		}
 	};
 };
-$(function(){
-	configChange(a);
-});
+// $(function(){
+// 	configChange(a);
+// });
 </script>
 </body>
 </html>

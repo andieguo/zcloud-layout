@@ -39,7 +39,7 @@
 						</spring:bind>
 						<div class="form-group">
 							<label for="imageSrc">项目图片：</label>
-							<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/MT_1463132423427.jpg" >
+							<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/${editForm.imageUrl}" >
 							<a class="btn" href="javascript:loadImg()">请选择图片</a>
 						</div>
 						<spring:bind path="zcloudID">

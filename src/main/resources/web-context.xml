@@ -46,6 +46,7 @@
 			<mvc:exclude-mapping path="/admin/register" />
 			<mvc:exclude-mapping path="/admin/register" />
 			<mvc:exclude-mapping path="/uploadImage" />
+			<mvc:exclude-mapping path="/photo/**" />
 			<bean class="com.zonesion.layout.controller.LoginInterceptor"></bean>
 		</mvc:interceptor>
 		<!-- 当设置多个拦截器时，先按顺序调用preHandle方法，然后逆序调用每个拦截器的postHandle和afterCompletion方法 -->
