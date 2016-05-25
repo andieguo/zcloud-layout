@@ -27,7 +27,7 @@
 		<form:hidden path="deleted" />
 		<header class="table-header clearfix">
 			<div class="header-right">
-	         	<a class="font-green" href="${basePath }/project/addUI?type=${templateForm.type}" target="_blank">新建</a>
+	         	<a class="font-green" href="${basePath }/project/addUI">新建</a>
 	   		</div>
 			<div class="header-left">
 				<label>用户：</label> 
@@ -51,7 +51,7 @@
 							<th>模板</th>
 							<th>创建时间</th>
 							<th>修改时间</th>
-							<th>操作</th>
+							<th>状态</th>
 						</tr>
 					</thead>
 					<tbody>

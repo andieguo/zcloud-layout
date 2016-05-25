@@ -50,7 +50,7 @@
 						<th>模板类型</th>
 						<th>创建时间</th>
 						<th>修改时间</th>
-						<th>操作</th>
+						<th>状态</th>
 					</tr>
 				</thead>
 				<tbody>

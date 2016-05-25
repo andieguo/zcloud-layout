@@ -24,8 +24,9 @@
 					<spring:bind path="nickname">
 						<div class="form-group">
 							<label>账号：</label>
-							<input id="nickname" name="nickname"  value="${status.value}" type="text" placeholder="请输入账号" >
+							<input id="nickname" name="nickname"  value="${status.value}" type="text" placeholder="请输入账号"  onchange="textChange()">
 							<form:errors path="nickname" cssClass="error" />
+							<div id="isExistedDiv"></div>
 						</div>
 					</spring:bind>
 	                <div class="form-group">
@@ -82,5 +83,38 @@
         </div>
     </div>
 </section>
+<script>
+function textChange()
+{
+	var oldname = '${editForm.nickname}';
+	var name = $("#nickname").val();
+	if(oldname != name){
+		name = encodeURI(name);//解决中文乱码问题
+		var url="${basePath}"+"/admin/isExist";
+		console.log("url:"+url);
+		 $.ajax( {
+				url : url,
+				type : 'post',
+				data : {nickname:name},
+				dataType : 'json',
+				success : function(data) {//返回的data本身即是一个JSON对象
+					console.log("data.status:"+data.status);
+					console.log("data.message:"+data.message);
+					if(data.status == 1){//存在该用户
+						$('#nickname').val("");
+						$('#isExistedDiv').html("该用户名已存在，请重新输入");
+					}else if(data.status==0){//不存在该用户
+						$('#isExistedDiv').html("恭喜您，可使用该用户名注册");
+					}
+				},
+				error : function() {
+					alert("您请求的页面有异常 ");
+				}
+		});
+	}else{
+		$('#isExistedDiv').html("");
+	}
+}
+</script>
 </body>
 </html>
