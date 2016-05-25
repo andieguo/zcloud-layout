@@ -14,11 +14,7 @@
     <script src="${basePath }/resources/js/form.js"></script>
 </head>
 <body><section class="main">
-    <aside class="text">
-    <h1>中智讯（武汉）科技有限公司</h1>
-    <p>版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯</p>
-    <p>（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有中智讯（武汉）科技有限公司版权所有</p>
-    </aside>
+   	<%@ include file="/WEB-INF/share/notice.jsp" %>
     <div class="content sw">
         <div class="panel">
            <!-- 修改用户资料 -->
