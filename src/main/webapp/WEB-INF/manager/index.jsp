@@ -22,7 +22,6 @@
     <!-- 页头 -->
     <header class="header">
         <div class="logo">
-            <!-- <img class="logo-img" src="images/logo.png" alt=""> -->
             <h1 class="name">智云组态仿真软件</h1>
         </div>
         <div class="user">

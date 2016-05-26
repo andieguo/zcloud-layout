@@ -206,6 +206,7 @@ a.language-selected { font-style: italic; font-weight: bold; }
     padding: .5em .5em .5em .7em;
     min-height: 0; /* support: IE7 */
     font-size: 100%;
+    line-height: 1em;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
     border: 1px solid #b1d1a7;
@@ -252,6 +253,7 @@ a.language-selected { font-style: italic; font-weight: bold; }
     padding: .5em .5em .5em .7em;
     min-height: 0; /* support: IE7 */
     font-size: 100%;
+    line-height: 1em;
     border-top-right-radius: 6px;
     border-top-left-radius: 6px;
     border: 1px solid #c1d8ba;

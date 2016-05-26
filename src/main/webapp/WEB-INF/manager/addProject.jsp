@@ -17,7 +17,7 @@
 <section class="main">
    	<%@ include file="/WEB-INF/share/notice.jsp" %>
     <div class="content sw">
-        <div class="panel">
+        <div class="panel" style="min-height:916px;">
             <spring:url value="/project/add" var="userActionUrl" />
 			<form:form method="post" modelAttribute="editForm" action="${userActionUrl}">
 					<form:hidden path="macList"/>
@@ -26,7 +26,7 @@
 					<spring:bind path="name">
 						<div class="form-group">
 							<label for="name">项目名：</label>
-							<input id="name" name="name"  value="${status.value}" type="text" placeholder="请输入账号" >
+							<input id="name" name="name"  value="${status.value}" type="text" placeholder="请输入项目名称" >
 							<form:errors path="name" cssClass="error" />
 						</div>
 					</spring:bind>
