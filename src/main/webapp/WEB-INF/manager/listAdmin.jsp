@@ -69,9 +69,9 @@
 										<a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a>
 									</c:if>	
 									<c:if test="${admin.role==2}">
-										<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==0?1:0}">
-											<c:if test="${entry.visible==1}">启用</c:if>
-											<c:if test="${entry.visible==0}">停用</c:if>
+										<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==1?0:1}">
+											<c:if test="${entry.visible==0}">启用</c:if>
+											<c:if test="${entry.visible==1}">停用</c:if>
 										</a>
 									</c:if>
 								</td>
@@ -119,11 +119,11 @@
 					dataType : 'json',
 					success : function(data) {//返回的data本身即是一个JSON对象
 						if(data.status == 1){//push成功
-							if(status == 0){
-								$("#enable_"+id).attr("visible",1);
-								$('#enable_'+id).text("停用");
-							}else if(status == 1){
+							if(status == 1){
 								$("#enable_"+id).attr("visible",0);
+								$('#enable_'+id).text("停用");
+							}else if(status == 0){
+								$("#enable_"+id).attr("visible",1);
 								$('#enable_'+id).text("启用");
 							}
 						}else if(data.status==0){//push失败，恢复UI部分

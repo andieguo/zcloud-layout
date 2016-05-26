@@ -50,7 +50,7 @@
 						<th>模板类型</th>
 						<th>创建时间</th>
 						<th>修改时间</th>
-						<th>状态</th>
+						<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,8 +69,8 @@
 								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">查看</a>
 								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
 								<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
-									<c:if test="${entry.visible==1}">启用</c:if>
-									<c:if test="${entry.visible==0}">停用</c:if>
+									<c:if test="${entry.visible==0}">启用</c:if>
+									<c:if test="${entry.visible==1}">停用</c:if>
 								</a>
 							</td>   
 		      			</tr>
@@ -119,11 +119,11 @@
 						dataType : 'json',
 						success : function(data) {//返回的data本身即是一个JSON对象
 							if(data.status == 1){//push成功
-								if(status == 0){
-									$("#enable_"+id).attr("visible",1);
-									$('#enable_'+id).text("停用");
-								}else if(status == 1){
+								if(status == 1){
 									$("#enable_"+id).attr("visible",0);
+									$('#enable_'+id).text("停用");
+								}else if(status == 0){
+									$("#enable_"+id).attr("visible",1);
 									$('#enable_'+id).text("启用");
 								}
 							}else if(data.status==0){//push失败，恢复UI部分
