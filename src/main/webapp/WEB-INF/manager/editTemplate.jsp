@@ -120,7 +120,8 @@ $(function(){
 	var layoutJSON = '${templateEntity.layoutJSON}'; 
 	var content = '${templateEntity.layoutContent}';
 	//初始化模板UI属性缓存对象
-  initTemplateUI(layoutJSON,content);
+	uiTemplateObj = {};
+    initTemplateUI(layoutJSON,content);
 })
 </script>
 
