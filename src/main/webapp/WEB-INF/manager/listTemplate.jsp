@@ -66,7 +66,6 @@
 							<td>${entry.createTime }</td> 
 							<td>${entry.modifyTime }</td> 
 							<td>
-								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">查看</a>
 								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
 								<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
 									<c:if test="${entry.visible==0}">启用</c:if>

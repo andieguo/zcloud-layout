@@ -48,7 +48,9 @@
 							<th>手机</th>
 							<th>角色</th>
 							<th>创建时间</th>
-							<th>操作</th>
+							<c:if test="${admin.role==2}">
+								<th>操作</th>
+							</c:if>	
 						</tr>
 					</thead>
 					<tbody>
@@ -65,10 +67,9 @@
 								</td>
 								<td>${entry.createTime }</td>
 								<td>
+									
 									<c:if test="${admin.role==2}">
 										<a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a>
-									</c:if>	
-									<c:if test="${admin.role==2}">
 										<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==1?0:1}">
 											<c:if test="${entry.visible==0}">启用</c:if>
 											<c:if test="${entry.visible==1}">停用</c:if>
