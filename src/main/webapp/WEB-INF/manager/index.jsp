@@ -48,7 +48,8 @@
             <a>用户管理</a>
             <i class="icon icon-off"></i>
             <ul class="hide">
-            	<c:if test="${admin.role == 0}">
+            	<!-- 普通管理员和超级管理员能够访问 -->
+            	<c:if test="${admin.role != 1}">
             		<li><a href="${basePath }/admin/list" target="iframe">用户列表</a></li>
             	</c:if>
                 <li><a href="${basePath }/admin/detail?id=${admin.id}" target="iframe">用户资料</a></li>

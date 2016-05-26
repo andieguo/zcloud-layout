@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=utf-8" import="com.zonesion.layout.model.AdminEntity" isELIgnored="false"%>
 <%@ include file="/WEB-INF/share/taglib.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,13 +15,18 @@
 </head>
 <body><section class="main">
 	<%@ include file="/WEB-INF/share/notice.jsp" %>
+	<%
+    	HttpSession sessions = request.getSession();
+    	AdminEntity adminEntity = (AdminEntity)sessions.getAttribute("admin");
+   	%>
     <div class="content sw">
         <div class="panel">
             <!-- 用户资料 -->
             <div class="wc600">
                 <div class="change-btn">
                     <i class="icon icon-change"></i>
-                    <a class="text" href="${basePath }/admin/editUI?id=${admin.id}">修改资料</a>
+                    <!-- 超级管理员能修改所有用户的资料，普通管理员和用户只能查看，普通管理员能添加系统模板 -->
+               		 <a class="text" href="${basePath }/admin/editUI?id=${admin.id}">修改资料</a>
                 </div>
                 <div class="form-group">
                     <span class="label">账号：</span>
@@ -32,6 +37,7 @@
                     <span class="input">
 	           			<c:if test="${admin.role==0}">管理员</c:if>
 						<c:if test="${admin.role==1}">用户</c:if>
+						<c:if test="${admin.role==2}">超级管理员</c:if>
 					</span>
                 </div>
                 <div class="form-group">

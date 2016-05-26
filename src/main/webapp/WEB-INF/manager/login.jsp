@@ -39,6 +39,7 @@
 						<div class="form-group ">
 							<label for="password">角 色:</label>
 							<select id="role" name="role" >
+								<option value="2" >超级管理员</option>
 								<option value="0" select="selected">管理员</option>
 								<option value="1" >普通用户</option>
 							</select>

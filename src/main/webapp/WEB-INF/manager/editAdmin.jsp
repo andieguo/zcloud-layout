@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" isELIgnored="false"%>
+<%@ page import="com.zonesion.layout.model.AdminEntity"%>
 <%@ include file="/WEB-INF/share/taglib.jsp" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -15,6 +16,10 @@
 </head>
 <body><section class="main">
    	<%@ include file="/WEB-INF/share/notice.jsp" %>
+   	<%
+    	HttpSession sessions = request.getSession();
+    	AdminEntity admin = (AdminEntity)sessions.getAttribute("admin");
+    %>
     <div class="content sw">
         <div class="panel">
            <!-- 修改用户资料 -->
@@ -31,10 +36,30 @@
 					</spring:bind>
 	                <div class="form-group">
 	                    <span class="label">角色：</span>
-	                    <span class="input">
-		           			<c:if test="${admin.role==0}">管理员</c:if>
-							<c:if test="${admin.role==1}">用户</c:if>
-						</span>
+	                    <c:if test="${admin.role == 2}">
+	                     	<div class="form-checkbox">
+		                        <input id="admin" type="radio"  value="0" name="role" checked="checked">
+		                        <label class="checkbox-img" for="admin"></label>
+		                        <label class="checkbox-text" for="admin">管理员</label>
+		                    </div>
+		                    <div class="form-checkbox">
+		                        <input id="user" type="radio"  value="1" name="role">
+		                        <label class="checkbox-img" for="user"></label>
+		                        <label class="checkbox-text" for="user">普通用户</label>
+		                    </div>
+		                    <div class="form-checkbox">
+		                        <input id="superadmin" type="radio"  value="2" name="role">
+		                        <label class="checkbox-img" for="superadmin"></label>
+		                        <label class="checkbox-text" for="superadmin">超级管理员</label>
+		                    </div>
+						</c:if>
+						<c:if test="${admin.role != 2}">
+							<span class="input">
+			           			<c:if test="${admin.role==0}">管理员</c:if>
+								<c:if test="${admin.role==1}">用户</c:if>
+								<c:if test="${admin.role==2}">超级管理员</c:if>
+							</span>
+						</c:if>
 	                </div>
 					<spring:bind path="email">
 						<div class="form-group">

@@ -48,7 +48,7 @@
 							<th>手机</th>
 							<th>角色</th>
 							<th>创建时间</th>
-							<th>状态</th>
+							<th>操作</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,13 +61,19 @@
 								<td>
 									<c:if test="${entry.role==0}">管理员</c:if> 
 									<c:if test="${entry.role==1}">用户</c:if>
+									<c:if test="${entry.role==2}">超级管理员</c:if>
 								</td>
 								<td>${entry.createTime }</td>
-								<td><a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a> 
-									<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==0?1:0}">
-										<c:if test="${entry.visible==1}">启用</c:if>
-										<c:if test="${entry.visible==0}">停用</c:if>
-									</a>
+								<td>
+									<c:if test="${admin.role==2}">
+										<a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a>
+									</c:if>	
+									<c:if test="${admin.role==2}">
+										<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==0?1:0}">
+											<c:if test="${entry.visible==1}">启用</c:if>
+											<c:if test="${entry.visible==0}">停用</c:if>
+										</a>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>
