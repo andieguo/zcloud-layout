@@ -52,6 +52,12 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return projectDao.delete(id);
 	}
+	
+	@Override
+	public int delete(int[] ids) {
+		// TODO Auto-generated method stub
+		return projectDao.delete(ids);
+	}
 
 	@Override
 	public int update(ProjectEntity projectEntity) {

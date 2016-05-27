@@ -39,13 +39,14 @@
 				<label>启/停用：</label>
 				<form:select path="visible" items="${enableList}" class="form-control" />
 				<a href="javascript:queryAction()" class="font-green" href="#">搜索</a>
+				<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
 			</div>
 		</header>
 	    <div class="table-body">
 	          <table class="table table-striped">
 					<thead>
 						<tr>
-							<th>项目ID</th>
+							<th class="text-left"><input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" /><tt>序号</tt></th>
 							<th>项目名</th>
 							<th>项目管理员</th>
 							<th>模板</th>
@@ -55,9 +56,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach items="${pageView.records}" var="entry">
+						<c:set var="currentpage" value="${pageView.currentpage}" />
+						<c:set var="maxresult" value="${pageView.maxresult}" />
+						<c:forEach items="${pageView.records}" var="entry" varStatus="status">
 							<tr>
-								<td>${entry.id }</td>
+								<td class="text-left"><input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" /><tt>${(currentpage-1)*maxresult+status.index+1}</tt></td>
 								<td>${entry.name }</td>
 								<td>${entry.nickname }</td>
 								<td>
@@ -90,6 +93,7 @@
 
 <!---------------------------脚本引用------------------------------>
 		<%@ include file="/resources/share/script.jsp"%>
+		<script src="<%=basePath %>/resources/js/checkbox.js" type="text/javascript"></script>
 		<script language="JavaScript">
 			function queryAction(){
 				var form = document.forms[0];
@@ -135,12 +139,17 @@
 						}
 				});
 			}
-			function deleteAction(id,status){
-				var form = document.forms[0];
-				form.action="${basePath}/project/delete";
-				document.getElementById("id").value = id;
-				document.getElementById("deleted").value= status;
-				form.submit();
+			function deleteAction(){
+				var value=0;
+				$("input[name='keyIds']").each(function () {
+					if(this.checked){
+						var form = document.forms[0];
+						form.action="${basePath}/project/delete";
+						form.submit();
+						value=1;
+					}
+				});
+				if(!value){alert("请选择删除项");};
 			}
 		</script>
 </body>

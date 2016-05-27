@@ -312,7 +312,7 @@ public class ProjectController {
 	@RequestMapping(value = "/project/delete", method = {RequestMethod.POST, RequestMethod.GET})
 	public String delete(ProjectForm projectForm,final RedirectAttributes redirectAttributes){
 		logger.debug("deleteProject()");
-		int result = projectService.enable(projectForm.getId(),projectForm.getDeleted());
+		int result = projectService.delete(projectForm.getKeyIds());
 		if(result > 0){
 			//addFlashAttribute表示如果F5的时候，会发现参数丢失
 			redirectAttributes.addFlashAttribute("css", "success");

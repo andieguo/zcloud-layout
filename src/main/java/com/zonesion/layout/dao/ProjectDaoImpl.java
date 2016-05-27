@@ -81,6 +81,24 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update("update tb_project set visible=0 where id=?",new Object[] {id});	
 	}
+	
+	@Override
+	public int delete(int[] ids) {
+		// TODO Auto-generated method stub
+		//delete from tb_project where id in (?,?,?,?);
+		if(ids.length > 0){
+			Object[] params = new Object[ids.length];
+			StringBuffer sql = new StringBuffer("delete from tb_project where id in (");
+			for(int i=0;i<ids.length;i++){
+				params[i] = ids[i];
+				sql.append("?,");
+			}
+			sql.delete(sql.length()-1, sql.length()).append(")");
+			return getJdbcTemplate().update(sql.toString(),params);	
+		}else{
+			return -1;
+		}
+	}
 
 	@Override
 	public int update(ProjectEntity projectEntity) {
@@ -235,6 +253,16 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 		//查询总记录数
 		queryResult.setTotalrecord(count);
 		return queryResult;
+	}
+	
+	public static void main(String[] args) {
+		int[] ids = {1,1,1,1,1};
+		StringBuffer sql = new StringBuffer("delete from tb_project where id in (");
+		for(int i=0;i<ids.length;i++){
+			sql.append("?,");
+		}
+		sql.delete(sql.length()-1, sql.length()).append(")");
+		System.out.println(sql.toString());
 	}
 
 }
