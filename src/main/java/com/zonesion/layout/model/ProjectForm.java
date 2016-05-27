@@ -12,6 +12,7 @@ public class ProjectForm extends ProjectEntity{
 	private int deleted;
 	private String nickname;
 	private String templatename;
+	private int[] keyIds;
 	
 	public ProjectForm(ProjectEntity entity){
 		super(entity.getId(), entity.getName(), entity.getImageUrl(), entity.getTid(), entity.getAid(), entity.getZcloudID(), entity.getZcloudKEY(), entity.getServerAddr(), entity.getMacList(), entity.getCreateTime(), entity.getModifyTime(), entity.getVisible());
@@ -47,5 +48,12 @@ public class ProjectForm extends ProjectEntity{
 	public void setTemplatename(String templatename) {
 		this.templatename = templatename;
 	}
-	
+
+	public int[] getKeyIds() {
+		return keyIds;
+	}
+
+	public void setKeyIds(int[] keyIds) {
+		this.keyIds = keyIds;
+	}
 }

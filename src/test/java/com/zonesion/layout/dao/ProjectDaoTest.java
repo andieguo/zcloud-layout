@@ -87,5 +87,10 @@ public class ProjectDaoTest extends TestCase {
 	public void testDelete(){
 		System.out.println(projectDao.delete(1));
 	}
+	
+	public void testDeleteAll(){
+		int[] ids = {28,29};
+		System.out.println(projectDao.delete(ids));
+	}
 }
 
