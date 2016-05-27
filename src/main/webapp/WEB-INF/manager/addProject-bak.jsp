@@ -71,21 +71,18 @@
 					</spring:bind>
 
 					<div class="form-group">
-						<label>硬件数据配置：</label>
-<!-- 								                <div id="config" class="config"> -->
-<!-- 								                	<div class="head"> -->
-<!-- 								                		<a>温度</a> -->
-<!-- 								                	</div> -->
-<!-- 								                	<div class="sensor body" id="fs_dial_978771"> -->
-<!-- 								                	<label>地址：</label><input type="text" value="" class="address"><hr> -->
-<!-- 								                	<label>通道：</label><input type="text" value="" class="channel"><hr> -->
-<!-- 								                	<label>命令：</label><input type="text" value="" class="command"> -->
-<!-- 								                	</div> -->
-<!-- 								                </div> -->
-						<textarea id="json_input" name="json_input" class="json_input"
-							style="font-size: 11px !important;" rows="10" spellcheck="false"
-							placeholder="请输入需要检验的json字符串或URL"></textarea>
-					</div></div>
+		                <label>硬件数据配置：</label>
+		                <div id="config" class="config">
+		                	<div class="head">
+		                		<a>温度</a>
+		                	</div>
+		                	<div class="sensor body" id="fs_dial_978771">
+		                	<label>地址：</label><input type="text" value="" class="address"><hr>
+		                	<label>通道：</label><input type="text" value="" class="channel"><hr>
+		                	<label>命令：</label><input type="text" value="" class="command">
+		                	</div>
+		                </div>
+		            </div>
 		            
 					 <div class="form-button">
 	                    &nbsp;<a class="btn submit" href="javascript:saveAction()">保存</a>
@@ -148,11 +145,7 @@ function saveAction() {
 		imageUrl = imageUrl.substring(imageUrl.lastIndexOf("/")+1,imageUrl.length);
 		$("#imageUrl").val(imageUrl);
 		$("#tid").val($("#templateList").val());
-		//模式一
-		//var macList = macListBuild(dataJson);
-		//$("#macList").val(JSON.stringify(macList));
-		//模式二
-		var macList = JSON.parse($("#json_input").val());
+		var macList = macListBuild(dataJson);
 		$("#macList").val(JSON.stringify(macList));
 		var form = document.forms[0];
 		form.submit();
@@ -170,13 +163,10 @@ function templateIdChange(){
 				dataType : 'json',
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){
-						//console.log("data:"+data.data);
+						console.log("data:"+data.data);
 						dataJson = JSON.parse(data.data);
-						//模式二
-						buildJSONTextArea(dataJson);
-						//模式一
-						//contentBuild(dataJson);
-						//configNavActive();
+						contentBuild(dataJson);
+						configNavActive();
 					}else if(data.status==0){
 						console.log("failed");
 					}
@@ -188,41 +178,6 @@ function templateIdChange(){
 	}
 }
 
-//JSON数据编辑模式：构造JSON文本域
-function buildJSONTextArea(data){
-	var sensorArray = new Array();
-	$.each(data,function(name,value) {
-		if(typeof(value.dataType) != 'undefined'){
-			var sensorObj = new Object();
-			if(value.dataType == 'video'){
-				sensorObj.tid = value.tid;
-				sensorObj.title = value.title;
-				sensorObj.user = "";
-				sensorObj.pwd = "";
-				sensorObj.camtype = "";
-				sensorObj.address = "";
-				sensorObj.dataType = value.dataType;
-				sensorArray.push(sensorObj);
-			}else{
-				sensorObj.tid = value.tid;
-				sensorObj.title = value.title;
-				sensorObj.channel = "";
-				sensorObj.command = {};
-				sensorObj.address = "";
-				sensorObj.dataType = value.dataType;
-				sensorArray.push(sensorObj);
-			}
-			//console.log("name:"+name+",value:"+value);
-			//console.log(sensorArray);
-			//去除格式后输出
-			//console.log(JSON.stringify(sensorArray));
-			//格式化输出
-			$("#json_input").val(JSON.stringify(sensorArray,null,"\t"));
-		}
-	});
-}
-
-//输入框编辑模式：生成保存到后台的代码
 function macListBuild(dataJson){
 	//提交，生成JSON数据保存
 	var sensorAarry = new Array();
@@ -253,7 +208,6 @@ function macListBuild(dataJson){
 	return sensorAarry;
 }
 
-//输入框编辑模式：构造编辑框
 function contentBuild(dataJson){
 	//加载title
 	var content = "<div class='head'>";
