@@ -1,13 +1,18 @@
 var fs_temperature = {
 
-	html : ' <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
-                '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
-                 '<div class="preview">温度计</div>' +
-                 '<div class="view">' +
-                   '<div id="fs_temperature">'+
-                   '</div>'+
-                 '</div>'+
-         '</div>',
+	html : '<div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>'+
+			 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
+			 '<div class="preview">温度计</div>' +
+			 '<div class="view">' +
+			   '<div class="panel-sensor">'+
+				   '<h3 class="title">温度计</h3>'+
+				   '<div class="body">'+
+					   '<div id="fs_temperature">'+
+					   '</div>'+
+				   '</div>'+
+			   '</div>'+
+			 '</div>'+
+		   '</div>',
 
   configHtml :  '<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
                 '<div class="attr-body">' +

@@ -4,8 +4,13 @@ var hc_curve = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">曲线-hc</div>' +
                  '<div class="view">' +
-                   '<div id="hc_curve">'+
-                    '</div>'+
+	                 '<div class="panel-sensor">'+
+						'<h3 class="title">曲线-hc</h3>'+
+						'<div class="body">'+
+							'<div id="hc_curve">'+
+							'</div>'+
+						'</div>'+
+					 '</div>'+
                  '</div>'+
             '</div>',
 
