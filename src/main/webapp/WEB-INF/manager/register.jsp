@@ -78,11 +78,9 @@
                     <div class="form-group">
 							<label for="logonId" class="form-label">验证码：</label>
 							<input type="text" data-verify="input" name="authcode" placeholder="请输入验证码"></input>    
-							<div>
-								<a href="javascript:changeimg();" >
-									<img id="code" data-verify="img" src="<%=basePath %>/authimg.jsp" title="换一张"/>
-								</a>
-							</div>
+							<a href="javascript:changeimg();" >
+								<img id="code" data-verify="img" src="<%=basePath %>/authimg.jsp" title="换一张"/>
+							</a>
 							<form:errors path="authcode" cssClass="error" />
 					</div>
                     <div class="form-button">

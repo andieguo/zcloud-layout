@@ -4,8 +4,13 @@ var hc_dial = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">表盘-hc</div>' +
                  '<div class="view">' +
-                   '<div id="hc_dial">'+
-                    '</div>'+
+	                 '<div class="panel-sensor">'+
+					   '<h3 class="title">温度计</h3>'+
+					   '<div class="body">'+
+						   '<div id="hc_dial">'+
+						   '</div>'+
+					   '</div>'+
+					 '</div>'+
                  '</div>'+
             '</div>',
 

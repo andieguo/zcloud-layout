@@ -22,7 +22,6 @@
     <!-- 页头 -->
     <header class="header">
         <div class="logo">
-            <!-- <img class="logo-img" src="images/logo.png" alt=""> -->
             <h1 class="name">智云组态仿真软件</h1>
         </div>
         <div class="user">
@@ -48,7 +47,8 @@
             <a>用户管理</a>
             <i class="icon icon-off"></i>
             <ul class="hide">
-            	<c:if test="${admin.role == 0}">
+            	<!-- 普通管理员和超级管理员能够访问 -->
+            	<c:if test="${admin.role != 1}">
             		<li><a href="${basePath }/admin/list" target="iframe">用户列表</a></li>
             	</c:if>
                 <li><a href="${basePath }/admin/detail?id=${admin.id}" target="iframe">用户资料</a></li>
@@ -60,7 +60,8 @@
             <a>模板管理</a>
             <i class="icon icon-off"></i>
             <ul class="hide">
-            	<c:if test="${admin.role == 0}">
+            	<!-- 普通管理员和超级管理员能够访问 -->
+            	<c:if test="${admin.role != 1}">
                		<li><a href="${basePath }/template/list?type=0" target="iframe">系统模板</a></li>
                 </c:if>
                 <li><a href="${basePath }/template/list?type=1" target="iframe">用户模板</a></li>
@@ -97,7 +98,7 @@
     		<iframe id="iframe" src="${basePath }/admin/notice" name="iframe"></iframe>
 	<%
     	}
-	%>    	
+	%>	
     <!-- /内容 -->
     <!-- 页尾 -->
     <footer class="footer">中智讯（武汉）科技有限公司版权所有&nbsp;&nbsp;&nbsp;&nbsp;鄂ICP备13015866号-2</footer>

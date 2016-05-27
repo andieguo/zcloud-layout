@@ -12,7 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="${basePath }/resources/css/style.css">
     <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/script.js"></script>
+    <script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>
 <section class="main content">
@@ -33,7 +33,7 @@
 			<div class="header-left">
 				<label>用户：</label> 
 				<form:input path="nickname"/>
-	            <label>模板名</label>
+	            <label>模板名：</label>
 	            <form:input path="name"/>
 				<label>启/停用：</label>
 				<form:select path="visible" items="${enableList}" class="form-control" />
@@ -66,11 +66,10 @@
 							<td>${entry.createTime }</td> 
 							<td>${entry.modifyTime }</td> 
 							<td>
-								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">查看</a>
 								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
-								<a href="javascript:deleteAction(${entry.id},${entry.visible==0?1:0},${entry.type})" class="font-red">
-									<c:if test="${entry.visible==1}">启用</c:if>
-									<c:if test="${entry.visible==0}">停用</c:if>
+								<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
+									<c:if test="${entry.visible==0}">启用</c:if>
+									<c:if test="${entry.visible==1}">停用</c:if>
 								</a>
 							</td>   
 		      			</tr>
@@ -102,6 +101,38 @@
 				form.method = "get";
 				document.getElementById("id").value = id;
 				form.submit();
+			}
+			//使能用户
+			function enableAction(id,type){
+				var url = "${basePath}/template/enable";
+				var status = $("#enable_"+id).attr("visible");
+				if(status == 1){
+					alert("亲，确定要执行启用操作么？");
+				}else if(status == 0){
+					alert("亲，确认要执行停用操作么？");
+				}
+				$.ajax({//提交给后台
+						url : url,
+						type : 'post',
+						data : {'id':id,'type':type,'deleted':status},
+						dataType : 'json',
+						success : function(data) {//返回的data本身即是一个JSON对象
+							if(data.status == 1){//push成功
+								if(status == 1){
+									$("#enable_"+id).attr("visible",0);
+									$('#enable_'+id).text("停用");
+								}else if(status == 0){
+									$("#enable_"+id).attr("visible",1);
+									$('#enable_'+id).text("启用");
+								}
+							}else if(data.status==0){//push失败，恢复UI部分
+								console.log("failed");
+							}
+						},
+						error : function() {
+							alert("您请求的页面有异常 ");
+						}
+				});
 			}
 			function deleteAction(id,status,type){
 				var form = document.forms[0];

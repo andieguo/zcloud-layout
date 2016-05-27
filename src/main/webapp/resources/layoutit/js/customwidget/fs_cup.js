@@ -4,10 +4,15 @@ var fs_cup = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">量杯</div>' +
                  '<div class="view">' +
-                   '<div id="fs_cup">'+
-                   '</div>'+
+	                 '<div class="panel-sensor">'+
+						'<h3 class="title">量杯</h3>'+
+						'<div class="body">'+
+							'<div id="fs_cup">'+
+							'</div>'+
+						'</div>'+
+					 '</div>'+
                  '</div>'+
-         '</div>',
+             '</div>',
 
   configHtml :  '<div class="attr-header">属性设置<button data-target="#close" class="close">&times;</button></div>' +
                 '<div class="attr-body">' +

@@ -17,7 +17,7 @@
 
 <!-- Le styles -->
 <link href="${basePath }/resources/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
-<link href="${basePath }/resources/layoutit/css/layoutit.css" rel="stylesheet">
+<link href="${basePath }/resources/layoutit/css/layoutit-edit.css" rel="stylesheet">
 <link href="${basePath }/resources/layoutit/css/style.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -120,7 +120,8 @@ $(function(){
 	var layoutJSON = '${templateEntity.layoutJSON}'; 
 	var content = '${templateEntity.layoutContent}';
 	//初始化模板UI属性缓存对象
-  initTemplateUI(layoutJSON,content);
+	uiTemplateObj = {};
+    initTemplateUI(layoutJSON,content);
 })
 </script>
 
@@ -158,7 +159,7 @@ $(function(){
     </div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container">
   <div class="row-fluid">
     <div class="">
       <div class="sidebar-nav">
@@ -231,7 +232,7 @@ $(function(){
             </div>
           </li>
         </ul>
-        <ul class="nav nav-list accordion-group">
+        <!-- <ul class="nav nav-list accordion-group">
           <li class="nav-header"><i class="icon-plus icon-white"></i> 基本CSS
             <div class="pull-right popover-info"><i class="icon-question-sign "></i>
               <div class="popover fade right">
@@ -496,7 +497,7 @@ $(function(){
               <div class="view"> <img alt="140x140" src="${basePath }/resources/layoutit/images/a.jpg"> </div>
             </div>
           </li>
-        </ul>
+        </ul> -->
         <ul class="nav nav-list accordion-group">
           <li class="nav-header"><i class="icon-plus icon-white"></i> 组件
             <div class="pull-right popover-info"><i class="icon-question-sign "></i>
@@ -508,7 +509,7 @@ $(function(){
             </div>
           </li>
           <li class="boxes nav-body" id="elmComponents">
-            <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"> <span class="btn-group"> <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">方向<span class="caret"></span></a>
+            <!-- <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"> <span class="btn-group"> <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">方向<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li class="active"><a href="#" rel="">横向</a></li>
                 <li class=""><a href="#" rel="btn-group-vertical">竖向</a></li>
@@ -740,10 +741,10 @@ $(function(){
                    请尽量使用HTML5兼容的视频格式和视频代码实现视频播放, 以达到更好的体验效果. </div>
                 </div>
               </div>
-            </div>
+            </div> -->
           </li>
         </ul>
-        <ul class="nav nav-list accordion-group">
+        <!-- <ul class="nav nav-list accordion-group">
           <li class="nav-header"><i class="icon-plus icon-white"></i> 交互组件 <span class="label label-important">NEW!</span>
             <div class="pull-right popover-info"><i class="icon-question-sign "></i>
               <div class="popover fade right">
@@ -756,11 +757,8 @@ $(function(){
           <li class="boxes mute nav-body" id="elmJS">
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span>
               <div class="preview">遮罩窗体</div>
-              <div class="view"> 
-                <!-- Button to trigger modal --> 
+              <div class="view">
                 <a id="myModalLink" href="#myModalContainer" role="button" class="btn" data-toggle="modal" contenteditable="true">触发遮罩窗体</a> 
-                
-                <!-- Modal -->
                 <div id="myModalContainer" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -777,7 +775,6 @@ $(function(){
               </div>
             </div>
             <div class="box box-element ui-draggable"> <a href="#close" class="remove label label-important"><i class="icon-remove icon-white"></i>删除</a> <span class="drag label"><i class="icon-move"></i>拖动</span> <span class="configuration"><button type="button" class="btn btn-mini" data-target="#editorModal" role="button" data-toggle="modal">编辑</button> <a class="btn btn-mini" href="#" rel="navbar-inverse">Inverse</a> 
-              <!--a class="btn btn-mini" href="#" rel="navbar-fixed-top">Navbar fixed top</a--> 
               </span>
               <div class="preview">导航栏</div>
               <div class="view">
@@ -815,10 +812,8 @@ $(function(){
                           </li>
                         </ul>
                       </div>
-                      <!-- /.nav-collapse --> 
                     </div>
                   </div>
-                  <!-- /navbar-inner --> 
                 </div>
               </div>
             </div>
@@ -832,7 +827,7 @@ $(function(){
               </span> </span>
               <div class="preview">切换卡</div>
               <div class="view">
-                <div class="tabbable" id="myTabs"> <!-- Only required for left/right tabs -->
+                <div class="tabbable" id="myTabs">
                   <ul class="nav nav-tabs">
                     <li class="active"><a href="#tab1" data-toggle="tab" contenteditable="true">第一部分</a></li>
                     <li><a href="#tab2" data-toggle="tab" contenteditable="true">第二部分</a></li>
@@ -925,8 +920,10 @@ $(function(){
             <div class="preview">建设中...</div>
           </li>
         </ul>
+         -->
       </div>
     </div>
+
     <!--UI编辑区-->
     <div class="demo ui-sortable" style="min-height: 304px; ">
       

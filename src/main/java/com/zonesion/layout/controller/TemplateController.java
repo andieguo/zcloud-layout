@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -205,6 +206,28 @@ public class TemplateController {
 			result.accumulate("message", "failed");
 		}
 		// 为"application/x-json"
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
+	}
+	
+	/**
+	 * 使能template
+	 */
+	@RequestMapping(value="/template/enable",method=RequestMethod.POST)
+	public void enable(Integer id,Integer deleted,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		int status = templateService.enable(id,deleted);
+		if(status > 0){
+			result.accumulate("status", 1);
+			result.accumulate("message", "success");
+		}else{
+			result.accumulate("status", 0);
+			result.accumulate("message", "fail");
+		}
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
 		out.println(result.toString());// 向客户端输出JSONObject字符串
 		out.flush();
 		out.close();

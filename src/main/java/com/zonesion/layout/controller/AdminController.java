@@ -107,6 +107,28 @@ public class AdminController {
 	}
 	
 	/**
+	 * 使能用户
+	 */
+	@RequestMapping(value="/admin/enable",method=RequestMethod.POST)
+	public void enable(Integer id,Integer deleted,HttpServletResponse response,HttpServletRequest request) throws IOException{
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		int status = adminService.enable(id,deleted);
+		if(status > 0){
+			result.accumulate("status", 1);
+			result.accumulate("message", "success");
+		}else{
+			result.accumulate("status", 0);
+			result.accumulate("message", "fail");
+		}
+		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+		// 为"application/x-json"
+		PrintWriter out = response.getWriter();
+		out.println(result.toString());// 向客户端输出JSONObject字符串
+		out.flush();
+		out.close();
+	}
+	
+	/**
 	 * 校验用户是否存在
 	 */
 	@RequestMapping(value="/admin/isExist",method=RequestMethod.POST)
@@ -188,9 +210,9 @@ public class AdminController {
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
 			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-			if(admin.getRole() == 1){
+			if(admin.getRole() == 1){//普通用户
 				model.addAttribute("to", "adminDetail");
-			}else if(admin.getRole() == 0){
+			}else if(admin.getRole() == 0 || admin.getRole() == 2){//普通管理员、系统管理员
 				model.addAttribute("to", "adminList");
 			}
 			return "manager/index";//跳转到后台首页
@@ -203,11 +225,17 @@ public class AdminController {
 	@RequestMapping(value = "/admin/loginUI", method = RequestMethod.GET)
 	public String loginUI(Model model,final RedirectAttributes redirectAttributes) {
 		logger.debug("loginUI() ");
-		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-		if(admin != null){
+		AdminEntity adminEntity = (AdminEntity)httpSession.getAttribute("admin");
+		if(adminEntity != null){
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "用户已经登录!");
-			return "redirect:/admin/list";
+			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+			if(admin.getRole() == 1){//普通用户
+				model.addAttribute("to", "adminDetail");
+			}else if(admin.getRole() == 0 || admin.getRole() == 2){//普通管理员、系统管理员
+				model.addAttribute("to", "adminList");
+			}
+			return "manager/index";//跳转到后台首页
 		}else{
 			model.addAttribute("loginForm", new AdminForm());
 			return "manager/login";//跳转到manager/login.jsp页面
@@ -281,6 +309,8 @@ public class AdminController {
 			adminEntity.setPhoneNumber(editForm.getPhoneNumber());
 			adminEntity.setSex(editForm.getSex());
 			adminEntity.setModifyTime(new Date());
+			int role = editForm.getRole();
+			if(role != -1) adminEntity.setRole(role);
 			adminService.update(adminEntity);
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "更新用户信息成功");
@@ -370,4 +400,5 @@ public class AdminController {
 		redirectAttributes.addAttribute("role", listForm.getRole());
 		return "redirect:/admin/list";
 	}
+	
 }

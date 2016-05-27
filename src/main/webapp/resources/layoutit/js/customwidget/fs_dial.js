@@ -4,8 +4,13 @@ var fs_dial = {
                    '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                    '<div class="preview">表盘-fs</div>' +
                    '<div class="view">' +
-                     '<div id="fs_dial">'+
-                      '</div>'+
+	                   '<div class="panel-sensor">'+
+						   '<h3 class="title">表盘-fs</h3>'+
+						   '<div class="body">'+
+							   '<div id="fs_dial">'+
+							   '</div>'+
+						   '</div>'+
+					   '</div>'+
                    '</div>'+
              '</div>',
 

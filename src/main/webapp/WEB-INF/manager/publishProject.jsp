@@ -221,7 +221,7 @@ $(function(){
 
 <body style="min-height: 660px; cursor: auto;" class="devpreview sourcepreview">
 
-<div class="container-fluid">
+<div class="container">
   <div class="row-fluid">
     <!--UI编辑区-->
     <div class="demo ui-sortable" style="min-height: 304px; ">

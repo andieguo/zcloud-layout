@@ -33,8 +33,9 @@ footer {
 	line-height: 50px;
 	color: #fff;
 	text-align: center;
-	background-color: #000;
+	background-color: #0D1428;
 }
+footer p{margin: 0;}
 /* alarm 报警器 */
 .alarm .button {text-align: right;}
 .alarm img {display: block;margin: 0 auto;width: 40%;}
