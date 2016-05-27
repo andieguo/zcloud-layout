@@ -244,7 +244,7 @@ function HCDialUI(prop) {
             rotation: 'auto'
         },
         title: {
-            text: prop.init
+            text: prop.unit
         },
         plotBands: [prop.layer1, prop.layer2, prop.layer3]
     },
