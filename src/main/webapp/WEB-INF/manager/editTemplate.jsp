@@ -17,7 +17,7 @@
 
 <!-- Le styles -->
 <link href="${basePath }/resources/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
-<link href="${basePath }/resources/layoutit/css/layoutit.css" rel="stylesheet">
+<link href="${basePath }/resources/layoutit/css/layoutit-edit.css" rel="stylesheet">
 <link href="${basePath }/resources/layoutit/css/style.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -159,7 +159,7 @@ $(function(){
     </div>
   </div>
 </div>
-<div class="container-fluid">
+<div class="container">
   <div class="row-fluid">
     <div class="">
       <div class="sidebar-nav">
