@@ -5,7 +5,7 @@ var fs_cup = {
                  '<div class="preview">量杯</div>' +
                  '<div class="view">' +
 	                 '<div class="panel-sensor">'+
-						'<h3 class="title">量杯</h3>'+
+						'<h3 class="title">湿度</h3>'+
 						'<div class="body">'+
 							'<div id="fs_cup">'+
 							'</div>'+
@@ -48,7 +48,7 @@ var fs_cup = {
                     '<span class="add-on">填充颜色</span>' +
                     '<input class="w100p widgetAttrChange" id="fill_color" type="text">' +
                   '</div>' +
-                ' </div>',
+                '</div>',
 
   create: function(){//默认情况下无参数，可接收控件属性参数对象create(properties)
     var properties = {
@@ -102,7 +102,10 @@ var fs_cup = {
       var unit = $("#value_unit").val();
       var bgcolor = $("#bg_color").val();
       var gaugeFillColor = $("#fill_color").val();
-              
+        
+      //标题显示
+      $("#"+divid).parents(".view").find(".title").text(title);
+      
       var properties = {
           tid: divid,
           title: title,
@@ -123,7 +126,8 @@ var fs_cup = {
   setValue: function(divid,chan,val){
     var reg = /^.*A[0-7].*$/;
     if(reg.test(chan)){
-      FusionCharts.items["id_"+divid].feedData( "value="+ val );
+    	var fsId = $("#"+divid).children().attr("id");
+    	FusionCharts.items[fsId].feedData( "value="+ val );
     }
   } 
 }
@@ -138,7 +142,6 @@ function FSCupUI(prop) {
   };
 
   var csatGauge = new FusionCharts({
-      "id": "id_"+prop.tid,
       "type": "cylinder",
       "renderAt": prop.tid,
       "width": prop.width,

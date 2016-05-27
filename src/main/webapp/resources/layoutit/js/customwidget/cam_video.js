@@ -4,52 +4,54 @@ var cam_video = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">视频监控类</div>' +
                  '<div class="view">' +
-                    '<div class="panel-sensor" id="cam_video">'+
+                    '<div class="panel-sensor">'+
                                 '<h3 class="title">摄像头名称</h3>'+
                                 '<div class="body">'+
-                                    '<div class="row">'+
-                                        '<div class="col-md-12">'+
-                                            '<div class="camera">'+
-                                                '<img id = "img_cam_video" class="camera-img" src="'+layoutitPath+'images/camera-bg.jpg" alt="" width="100%" />'+
-                                                '<div class="camera-bg">'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                        '<div class="col-md-12">'+
-                                            '<div class="row">'+
-                                                '<div class="col-lg-6 col-ms-12 pb15">'+
-                                                    '<div class="row">'+
-                                                        '<div class="col-lg-3 col-xs-3">'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="LEFT" type="button">←</button>'+
-                                                        '</div>'+
-                                                        '<div class="col-lg-5 col-xs-6">'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block mb10" ctr_cmd="UP" type="button">↑</button>'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="DOWN" type="button">↓</button>'+
-                                                        '</div>'+
-                                                        '<div class="col-lg-3 col-xs-3">'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="RIGHT" type="button">→</button>'+
-                                                        '</div>'+
-                                                    '</div>'+
-                                                '</div>'+
-                                               '<div class="col-lg-6 col-xs-12 pb15">'+
-                                                    '<div class="row">'+
-                                                        '<div class="col-lg-6 col-md-12 col-xs-12 mb10">'+
-                                                            '<button class="btn_camera btn btn-large btn-danger btn-block"ctr_cmd="SWITCH" type="button">开关</button>'+
-                                                        '</div>'+
-                                                        '<div class="col-lg-6 col-md-4 col-xs-4 mb10">'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="360PATROL" type="button">全局巡航</button>'+
-                                                        '</div>'+
-                                                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="HPATROL" type="button">左右巡航</button>'+
-                                                        '</div>'+
-                                                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
-                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="VPATROL" type="button">上下巡航</button>'+
-                                                        '</div>'+
-                                                    '</div>'+
-                                                '</div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
+                                	'<div id="cam_video">'+
+	                                    '<div class="row">'+
+	                                        '<div class="col-md-12">'+
+	                                            '<div class="camera">'+
+	                                                '<img id = "img_cam_video" class="camera-img" src="'+layoutitPath+'images/camera-bg.jpg" alt="" width="100%" />'+
+	                                                '<div class="camera-bg">'+
+	                                                '</div>'+
+	                                            '</div>'+
+	                                        '</div>'+
+	                                        '<div class="col-md-12">'+
+	                                            '<div class="row">'+
+	                                                '<div class="col-lg-6 col-ms-12 pb15">'+
+	                                                    '<div class="row">'+
+	                                                        '<div class="col-lg-3 col-xs-3">'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="LEFT" type="button">←</button>'+
+	                                                        '</div>'+
+	                                                        '<div class="col-lg-5 col-xs-6">'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block mb10" ctr_cmd="UP" type="button">↑</button>'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="DOWN" type="button">↓</button>'+
+	                                                        '</div>'+
+	                                                        '<div class="col-lg-3 col-xs-3">'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="RIGHT" type="button">→</button>'+
+	                                                        '</div>'+
+	                                                    '</div>'+
+	                                                '</div>'+
+	                                               '<div class="col-lg-6 col-xs-12 pb15">'+
+	                                                    '<div class="row">'+
+	                                                        '<div class="col-lg-6 col-md-12 col-xs-12 mb10">'+
+	                                                            '<button class="btn_camera btn btn-large btn-danger btn-block"ctr_cmd="SWITCH" type="button">开关</button>'+
+	                                                        '</div>'+
+	                                                        '<div class="col-lg-6 col-md-4 col-xs-4 mb10">'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="360PATROL" type="button">全局巡航</button>'+
+	                                                        '</div>'+
+	                                                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="HPATROL" type="button">左右巡航</button>'+
+	                                                        '</div>'+
+	                                                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
+	                                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="VPATROL" type="button">上下巡航</button>'+
+	                                                        '</div>'+
+	                                                    '</div>'+
+	                                                '</div>'+
+	                                            '</div>'+
+	                                        '</div>'+
+	                                    '</div>'+
+			                       '</div>'+             
                                 '</div>'+
                     '</div>'+
                  '</div>'+
@@ -162,51 +164,49 @@ var cam_video = {
 
 function CamVideoUI(prop) {
     this.properties = prop;
-    var  html = '<h3 class="title">'+prop.title+'</h3>'+
-                '<div class="body">'+
-                    '<div class="row">'+
-                        '<div class="col-md-12">'+
-                            '<div class="camera">'+
-                                '<img id = "img_'+prop.tid+'" class="camera-img" src="'+layoutitPath+'images/camera-bg.jpg" alt="" width="100%" />'+
-                                '<div class="camera-bg">'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'+
-                        '<div class="col-md-12">'+
-                            '<div class="row">'+
-                                '<div class="col-lg-6 col-ms-12 pb15">'+
-                                    '<div class="row">'+
-                                        '<div class="col-lg-3 col-xs-3">'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="LEFT" type="button">←</button>'+
-                                        '</div>'+
-                                        '<div class="col-lg-5 col-xs-6">'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block mb10" ctr_cmd="UP" type="button">↑</button>'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="DOWN" type="button">↓</button>'+
-                                        '</div>'+
-                                        '<div class="col-lg-3 col-xs-3">'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="RIGHT" type="button">→</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                               '<div class="col-lg-6 col-xs-12 pb15">'+
-                                    '<div class="row">'+
-                                        '<div class="col-lg-6 col-md-12 col-xs-12 mb10">'+
-                                            '<button class="btn_camera btn btn-large btn-danger btn-block"ctr_cmd="SWITCH" type="button">开</button>'+
-                                        '</div>'+
-                                        '<div class="col-lg-6 col-md-4 col-xs-4 mb10">'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="360PATROL" type="button">全局巡航</button>'+
-                                        '</div>'+
-                                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="HPATROL" type="button">左右巡航</button>'+
-                                        '</div>'+
-                                        '<div class="col-lg-6 col-md-4 col-xs-4">'+
-                                            '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="VPATROL" type="button">上下巡航</button>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                        '</div>'+
-                    '</div>'+
-                '</div>';
+    var  html = '<div class="row">'+
+				    '<div class="col-md-12">'+
+				    '<div class="camera">'+
+				        '<img id = "img_cam_video" class="camera-img" src="'+layoutitPath+'images/camera-bg.jpg" alt="" width="100%" />'+
+				        '<div class="camera-bg">'+
+				        '</div>'+
+				    '</div>'+
+				'</div>'+
+				'<div class="col-md-12">'+
+				    '<div class="row">'+
+				        '<div class="col-lg-6 col-ms-12 pb15">'+
+				            '<div class="row">'+
+				                '<div class="col-lg-3 col-xs-3">'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="LEFT" type="button">←</button>'+
+				                '</div>'+
+				                '<div class="col-lg-5 col-xs-6">'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block mb10" ctr_cmd="UP" type="button">↑</button>'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="DOWN" type="button">↓</button>'+
+				                '</div>'+
+				                '<div class="col-lg-3 col-xs-3">'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block lh2" ctr_cmd="RIGHT" type="button">→</button>'+
+				                '</div>'+
+				            '</div>'+
+				        '</div>'+
+				       '<div class="col-lg-6 col-xs-12 pb15">'+
+				            '<div class="row">'+
+				                '<div class="col-lg-6 col-md-12 col-xs-12 mb10">'+
+				                    '<button class="btn_camera btn btn-large btn-danger btn-block"ctr_cmd="SWITCH" type="button">开关</button>'+
+				                '</div>'+
+				                '<div class="col-lg-6 col-md-4 col-xs-4 mb10">'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="360PATROL" type="button">全局巡航</button>'+
+				                '</div>'+
+				                '<div class="col-lg-6 col-md-4 col-xs-4">'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="HPATROL" type="button">左右巡航</button>'+
+				                '</div>'+
+				                '<div class="col-lg-6 col-md-4 col-xs-4">'+
+				                    '<button class="btn_camera btn btn-large btn-success btn-block" ctr_cmd="VPATROL" type="button">上下巡航</button>'+
+				                '</div>'+
+				            '</div>'+
+				        '</div>'+
+				    '</div>'+
+				'</div>'+
+				'</div>';
     $("#"+prop.tid).html(html);
+    $("#"+prop.tid).parent().parent().find("h3").text(prop.title);//更新标题
 }

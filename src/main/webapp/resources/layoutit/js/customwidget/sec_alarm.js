@@ -4,17 +4,19 @@ var sec_alarm = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">安防类</div>' +
                  '<div class="view">' +
-                    '<div class="panel-sensor alarm" id="sec_alarm">'+
+                    '<div class="panel-sensor alarm" >'+
                         '<h3 class="title">安防设备名称</h3>'+
                         '<div class="body">'+
-                          '<div class="button">' +
-                            '<button class="btn btn-success" type="button">布防<tton>' +
-                            '<button class="btn btn-danger" type="button">撤防<tton>' +
-                          '</div>' +
-                          '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
-                          '<div class="value" id="alarm_text">正在检测中...</div>' +
+                          '<div id="sec_alarm">'+
+	                          '<div class="button">' +
+	                            '<button class="btn btn-success" type="button">布防<tton>' +
+	                            '<button class="btn btn-danger" type="button">撤防<tton>' +
+	                          '</div>' +
+	                          '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
+	                          '<div class="value" id="alarm_text">正在检测中...</div>' +
+	                          '<audio src="#" autoplay="autoplay" loop="loop"></audio>'+
+	                      '</div>'+
                         '</div>'+
-                        '<audio src="#" autoplay="autoplay" loop="loop"></audio>'+
                     '</div>'+
                  '</div>'+
          '</div>',
@@ -151,15 +153,13 @@ var sec_alarm = {
 function SecAlarmUI(prop)
 {
 	this.properties = prop;
-	var html = '<h3 class="title">'+prop.title+'</h3>'+
-		    '<div class="body">'+
-			    '<div class="button">' +
-			      '<button class="sec_button btn btn-success" type="button">布防<tton>' +
-			      '<button class="sec_button btn btn-danger" type="button">撤防<tton>' +
-			    '</div>' +
-			    '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
-			    '<div class="value" id="alarm_text">正在检测中...</div>' +
-		    '</div>'+
-		    '<audio src="#" autoplay="autoplay" loop="loop"></audio>';
+	var html = '<div class="button">' +
+			      '<button class="btn btn-success" type="button">布防<tton>' +
+			      '<button class="btn btn-danger" type="button">撤防<tton>' +
+			   '</div>' +
+			   '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
+			   '<div class="value" id="alarm_text">正在检测中...</div>' +
+			   '<audio src="#" autoplay="autoplay" loop="loop"></audio>';
 	$("#"+prop.tid).html(html);
+	$("#"+prop.tid).parent().parent().find("h3").text(prop.title);//更新标题
 }

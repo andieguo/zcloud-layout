@@ -4,13 +4,13 @@ var fs_temperature = {
 			 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
 			 '<div class="preview">温度计</div>' +
 			 '<div class="view">' +
-			   '<div class="panel-sensor">'+
-				   '<h3 class="title">温度计</h3>'+
+	             '<div class="panel-sensor">'+
+				   '<h3 class="title">温度</h3>'+
 				   '<div class="body">'+
 					   '<div id="fs_temperature">'+
 					   '</div>'+
 				   '</div>'+
-			   '</div>'+
+			     '</div>'+
 			 '</div>'+
 		   '</div>',
 
@@ -102,7 +102,10 @@ var fs_temperature = {
       var unit = $("#value_unit").val();
       var bgcolor = $("#bg_color").val();
       var gaugeFillColor = $("#fill_color").val();
-              
+      
+      //标题显示
+      $("#"+divid).parents(".view").find(".title").text(title);  
+      
       var properties = {
           tid: divid,
           title: title,
@@ -123,7 +126,8 @@ var fs_temperature = {
   setValue: function(divid,chan,val){
     var reg = /^.*A[0-7].*$/;
     if(reg.test(chan)){
-      FusionCharts.items["id_"+divid].feedData( "value="+ val );
+    	var fsId = $("#"+divid).children().attr("id");
+    	FusionCharts.items[fsId].feedData( "value="+ val );
     }
   } 
 }
@@ -138,7 +142,6 @@ function TemperatureUI(prop) {
   };
 
   var csatGauge = new FusionCharts({
-    "id": "id_" + prop.tid,
     "type": "thermometer",
     "renderAt": prop.tid,
     "width": prop.width,

@@ -5,7 +5,7 @@ var fs_dial = {
                    '<div class="preview">表盘-fs</div>' +
                    '<div class="view">' +
 	                   '<div class="panel-sensor">'+
-						   '<h3 class="title">表盘-fs</h3>'+
+						   '<h3 class="title">温度</h3>'+
 						   '<div class="body">'+
 							   '<div id="fs_dial">'+
 							   '</div>'+
@@ -148,8 +148,8 @@ var fs_dial = {
         var layer3_to = $("#layer3_to").val();
         var layer3_color = ($("#layer3_color").val()).substring(1);     
 
-        $("#"+divid).html("");
-
+        //标题显示
+        $("#"+divid).parents(".view").find(".title").text(title);
 
         var properties = {
             tid: divid,
@@ -172,10 +172,11 @@ var fs_dial = {
 
     //控件赋值
     setValue: function(divid,chan,val){
-    var reg = /^.*A[0-7].*$/;
-    if(reg.test(chan)){
-      FusionCharts.items["id_"+divid].feedData( "value="+ val );
-    }
+	    var reg = /^.*A[0-7].*$/;
+	    if(reg.test(chan)){
+	    	var fsId = $("#"+divid).children().attr("id");
+	    	FusionCharts.items[fsId].feedData( "value="+ val );
+	    }
     }    
 
 }
@@ -184,7 +185,6 @@ function FSDialUI(prop) {
     this.properties = prop;
        
     var csatGauge = new FusionCharts({
-        "id": "id_"+prop.tid,
         "type": "angulargauge",
         "renderAt": prop.tid,
         "width": prop.width,

@@ -4,10 +4,12 @@ var ctr_switch = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">开关类</div>' +
                  '<div class="view">' +
-                    '<div class="panel-sensor" id="ctr_switch">'+
+                    '<div class="panel-sensor">'+
                         '<h3 class="title">开关名称</h3>'+
                         '<div class="body">'+
-                            '<img class="switch_button" src="'+layoutitPath+'images/off.png"/>'+
+	                        '<div id="ctr_switch">'+
+	                            '<img class="switch_button" src="'+layoutitPath+'images/off.png"/>'+
+	                        '</div>'+
                         '</div>'+
                     '</div>'+
                  '</div>'+
@@ -123,9 +125,7 @@ var ctr_switch = {
 function CtrSwitchUI(prop)
 {
 	this.properties = prop;
-	var html = '<h3 class="title">'+prop.title+'</h3>'+
-    	'<div class="body">'+
-    		'<img class="switch_button" src="'+layoutitPath+'images/off.png"/>'+
-    	'</div>';
+	var html = '<img class="switch_button" src="'+layoutitPath+'images/off.png"/>';
 	$("#"+prop.tid).html(html);
+	$("#"+prop.tid).parent().parent().find("h3").text(prop.title);//更新标题
 }

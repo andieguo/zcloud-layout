@@ -5,7 +5,7 @@ var hc_dial = {
                  '<div class="preview">表盘-hc</div>' +
                  '<div class="view">' +
 	                 '<div class="panel-sensor">'+
-					   '<h3 class="title">温度计</h3>'+
+					   '<h3 class="title">温度</h3>'+
 					   '<div class="body">'+
 						   '<div id="hc_dial">'+
 						   '</div>'+
@@ -131,6 +131,7 @@ var hc_dial = {
         $("#layer3_to").val(properties.layer3.to);
         $("#layer3_color").val(properties.layer3.color);     
     },
+    
     updateAttr: function(divid){
         var title = $("#widget_title").val();
         var width = parseInt($("#widget_width").val());
@@ -146,7 +147,11 @@ var hc_dial = {
         var layer2_color = $("#layer2_color").val(); 
         var layer3_from = parseInt($("#layer3_from").val());
         var layer3_to = parseInt($("#layer3_to").val());
-        var layer3_color = $("#layer3_color").val();               
+        var layer3_color = $("#layer3_color").val();
+        
+        //标题显示
+        $("#"+divid).parents(".view").find(".title").text(title);
+        
         var properties = {
             tid: divid,
             title: title,

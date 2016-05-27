@@ -5,7 +5,7 @@ var hc_curve = {
                  '<div class="preview">曲线-hc</div>' +
                  '<div class="view">' +
 	                 '<div class="panel-sensor">'+
-						'<h3 class="title">曲线-hc</h3>'+
+						'<h3 class="title">温度历史数据</h3>'+
 						'<div class="body">'+
 							'<div id="hc_curve">'+
 							'</div>'+
@@ -88,6 +88,10 @@ var hc_curve = {
         var ctype = $("#curve_type").val();
         var unit = $("#value_unit").val(); 
         var data = [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]];     
+        
+        //标题显示
+        $("#"+divid).parents(".view").find(".title").text(title);
+        
         var properties = {
             tid: divid,
             title: title,

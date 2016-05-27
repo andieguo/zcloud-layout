@@ -132,13 +132,13 @@ function removeElm() {
 		e.preventDefault();
 		$(this).parent().remove();
 		if (!$(".demo .lyrow").length > 0) {
-			clearDemo()
+			clearDemo();
 		}
 	})
 }
 function clearDemo() {
 	$(".demo").empty();
-	initTemplateObj();		
+	uiTemplateObj = {};	
 }
 function removeMenuClasses() {
 	$("#menu-layoutit li button").removeClass("active")
@@ -299,7 +299,7 @@ $(document).ready(function() {
 		},
 		stop: function(e, t) {			
 			handleJsIds();
-			var uid = t.helper.children(".view").children().attr("id");
+			var uid = t.helper.children(".view").find(".body").children().attr("id");
 			if(typeof(uid)!='undefined'){//控件中的<div id>属性是否存在 
 				if(uid.indexOf("fs") >= 0 || uid.indexOf("hc") >= 0 
 					|| uid.indexOf("ctr") >= 0 || uid.indexOf("sec") >= 0|| uid.indexOf("cam") >= 0
@@ -336,7 +336,7 @@ $(document).ready(function() {
 	$('body.edit .demo').on("click","[data-target=#attrEditorModal]",function(e) {
 		console.log("attrEditorModal");
 		console.log($("#attrModal").html());
-		var uid = $(this).parent().parent().find('.view').children().attr("id");
+		var uid = $(this).parent().parent().find('.view').find(".body").children().attr("id");
 		console.log(uid);
 
 		//从缓存中取出控件的属性列表
@@ -361,16 +361,11 @@ $(document).ready(function() {
 
 		//根据新属性更新控件样式
 		$(".widgetAttrChange").change(function(){
-			/*先更新id，再从缓存中删除原id、属性*/
-	        new_uid = uid.substring(0,placeOfChar(uid,2,'_')+1) + randomNumber();
-	        $("#"+uid).attr("id",new_uid);  
 	        delete uiTemplateObj[uid];//删除原控件属性记录
-	        uid = new_uid;
 
 			var ui = gUiObject[widgetIndex].updateAttr(uid);//动态更新控件显示
-			uiTemplateObj[ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存			
+			uiTemplateObj[ui.properties.tid] = ui.properties;//将拖动后创建的控件ID、属性进行缓存	
 		});
-
 	});
 
 	<!--属性窗口关闭-->
