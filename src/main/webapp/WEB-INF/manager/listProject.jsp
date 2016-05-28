@@ -47,7 +47,7 @@
 	          <table class="table table-striped">
 					<thead>
 						<tr>
-							<th class="text-left"><input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" /><tt>序号</tt></th>
+							<th class="text-left"><input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" /><tt>ID</tt></th>
 							<th>项目名</th>
 							<th>项目管理员</th>
 							<th>模板</th>
@@ -61,7 +61,7 @@
 						<c:set var="maxresult" value="${pageView.maxresult}" />
 						<c:forEach items="${pageView.records}" var="entry" varStatus="status">
 							<tr>
-								<td class="text-left"><input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" /><tt>${(currentpage-1)*maxresult+status.index+1}</tt></td>
+								<td class="text-left"><input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" /><tt>${entry.id }</tt></td>
 								<td>${entry.name }</td>
 								<td>${entry.nickname }</td>
 								<td>
