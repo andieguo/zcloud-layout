@@ -1,8 +1,5 @@
-body {}
 .demo .preview { display: none; }
-/*.demo .box .view { display: block;}*/
 .devpreview .drag, .devpreview .configuration, .devpreview .remove { display:none; }
-#download-layout { display: none;}
 .panel-subsys .title {
     display: block;
     position: relative;
@@ -18,11 +15,9 @@ body {}
     font-weight: bold;
     color: #2b7d17;
 }
-
 .panel-subsys .title span {
     float: right;
 }
-
 .panel-subsys .body {
     padding: 1em 1.4em 0;
     border-bottom-right-radius: 6px;
@@ -38,37 +33,41 @@ body {}
     font-size: 100%;
     list-style: none;
 }
-
 .panel-subsys .body .button {
     display: block;
     margin: 25px auto 20px auto;
     width: 80%;
 }
-
 .panel-sensor {
-    margin-bottom: 1%;
+    height: 298px;/*300*/
+    margin-bottom: 20px;
     /*margin-left: 2%;
     margin-right: 2%;*/
     border-radius: 6px;
 	border: 1px solid #C4C4C4;
     background: #fff;
 }
+.panel-switch {
+    height: 138px;/*140*/
+}
 .panel-sensor .title {
     display: block;
     position: relative;
     margin: 0;
-    padding: 0.8em 1em;
+    padding: 0 1em;
     min-height: 0; /* support: IE7 */
-    font-size: 100%;
-    line-height: 1em;
+    font-size: 1em;
+    line-height: 2.4em;
     border-radius: 6px 6px 0 0;
     background: #F5F5F5;
     font-weight: 100;
 }
 .panel-sensor .body {
+    box-sizing: border-box;
     position: relative;
     padding: 1em 1.4em;
     overflow: auto;
+    height: calc(100% - 33px);
     color: #362b36;
     margin: 0;
     outline: 0;
@@ -78,3 +77,78 @@ body {}
     list-style: none;
     text-align: center;
 }
+/* camera */
+.camera-btn a {
+    display: inline-block;
+    cursor: pointer;
+    outline:none;
+    border: 0;
+    background-image: url(img/camera-btn.png);
+}
+.camera-btn .top-left {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+.camera-btn .top-left a {
+    width: 75px;
+    height: 26px;
+    background-position: 0 -250px;
+}
+.camera-btn .right {
+    position: absolute;
+    top: calc(42% - 60px);
+    right: 5%;
+    width: 120px;
+    height: 120px;
+}
+.camera-btn .right a {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+}
+.camera-btn .right a[name="上"] {
+    top: 0;
+    left: 40px;
+    background-position: -40px 0;
+}
+.camera-btn .right a[name="左"] {
+    top: 40px;
+    left: 0;
+    background-position: 0 -40px;
+}
+.camera-btn .right a[name="右"] {
+    top: 40px;
+    right: 0;
+    background-position: -80px -40px;
+}
+.camera-btn .right a[name="下"] {
+    bottom: 0;
+    left: 40px;
+    background-position: -40px -80px;
+}
+.camera-btn .bottom {
+    position: absolute;
+    bottom: 5%;
+    left: 5%;
+    width: calc(100% - 10%);
+}
+.camera-btn .bottom a {
+    width: 80px;
+    height: 30px;
+}
+.camera-btn .bottom a[name="左右巡航"] {
+    float: left;
+    background-position: 0 -130px;
+}
+.camera-btn .bottom a[name="全局巡航"] {
+    background-position: 0 -170px;
+}
+.camera-btn .bottom a[name="上下巡航"] {
+    float: right;
+    background-position: 0 -210px;
+}
+.camera-img{
+    height: 100%;
+}
+/* camera */

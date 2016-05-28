@@ -1,19 +1,20 @@
 /* header 项目页头 */
 header {
-	margin: 0 auto;
+	margin: 0 auto 20px auto;
 	width: 100%;
-	max-width: 1024px;
+	background-color: #2D93E8;
 }
 header img {
 	float: left;
+	margin-left: 30px;
 	width: 80px;
 	height: 80px;
 }
 header hgroup {
 	float: left;
 	margin-left: 20px;
-	/*width: 70%;*/
-	width: calc(100% - 100px);
+	width: calc(100% - 130px);
+	color: #fff;
 }
 header hgroup h1 {
 	margin: 0;
@@ -26,6 +27,15 @@ header hgroup h2 {
 	font-size: 14px;
 	line-height: 1.4em;
 }
+.header-bg {
+	position: absolute;
+	top: 0;
+	left: -50%;
+	z-index: -1;
+	width: 200%;
+	height: 80px;
+	background-color: #2D93E8;
+}
 /* footer 项目页尾 */
 footer {
 	width: 100%;
@@ -36,6 +46,15 @@ footer {
 	background-color: #0D1428;
 }
 footer p{margin: 0;}
+.footer-bg {
+	position: absolute;
+	top: 0;
+	left: -50%;
+	z-index: -1;
+	width: 200%;
+	height: 50px;
+	background-color: #0D1428;
+}
 /* alarm 报警器 */
 .alarm .button {text-align: right;}
 .alarm img {display: block;margin: 0 auto;width: 40%;}
