@@ -10,7 +10,9 @@ import java.io.OutputStreamWriter;
 import java.util.Date;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONStringer;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -20,6 +22,7 @@ import com.zonesion.layout.model.TemplateEntity;
 import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.util.JsonFormatter;
+import com.zonesion.layout.util.JsonFormatterTool;
 
 import junit.framework.TestCase;
 
@@ -203,7 +206,7 @@ public class TemplateDaoTest extends TestCase {
 	}
 	
 	/**
-	 * 测试导出工程文件
+	 * 测试导出工程文件(不保存JSON元素顺序+格式化输出)
 	 */
 	public void testExportProject() throws Exception{
 		ProjectEntity projectEntity = projectDao.findByProjectId(34);
@@ -228,5 +231,57 @@ public class TemplateDaoTest extends TestCase {
 			e.printStackTrace();
 		}
 	}
+	//无序输出
+	public void testJSON2(){
+		JSONObject obj = new JSONObject();
+		obj.append("name", "hello");
+		obj.append("name2", "asdfa");
+		obj.append("name3", "adsfaf");
+		System.out.println(obj.toString());
+	}
+	//有序输出
+	public void testJSON3(){
+		JSONStringer jsonStringer = new JSONStringer();  
+        try {  
+		   jsonStringer.object();  
+           jsonStringer.key("name").value("Jason");  
+           jsonStringer.key("id").value(20130001);  
+           jsonStringer.key("phone").value("13579246810");  
+           jsonStringer.endObject();  
+       } catch (JSONException e) {  
+           e.printStackTrace();  
+       }  
+       System.out.println(jsonStringer.toString()); 
+	}
 	
+	/**
+	 * 测试导出工程文件(保持JSON元素顺序+格式化输出)
+	 */
+	public void testExportProject2() throws Exception{
+		ProjectEntity projectEntity = projectDao.findByProjectId(42);
+		JSONStringer result = new JSONStringer();  
+		result.object();
+		result.key("name").value(projectEntity.getName());
+		result.key("tid").value(projectEntity.getTid());
+		result.key("imageUrl").value(projectEntity.getImageUrl());
+		result.key("zcloudID").value(projectEntity.getZcloudID());
+		result.key("zcloudKEY").value(projectEntity.getZcloudKEY());
+		result.key("serverAddr").value(projectEntity.getServerAddr());
+		JSONArray macListArray = new JSONArray(projectEntity.getMacList());
+		result.key("macList").value(macListArray);
+		result.endObject(); 
+		System.out.println(result.toString());
+		 // 写字符换转成字节流（使用GBK编码进行写）
+        FileOutputStream outputStream;
+		try {
+			outputStream = new FileOutputStream(new File("E:\\export2"));
+			OutputStreamWriter writer = new OutputStreamWriter(outputStream,"UTF-8");
+			writer.write(JsonFormatterTool.formatJson(result.toString()));//格式化输出
+			writer.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 }

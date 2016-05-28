@@ -8,7 +8,7 @@ import org.json.JSONObject;
 
 /**    
  * @author andieguo andieguo@foxmail.com
- * @Description: TODO 
+ * @Description: 将JSONObject对象进行缩进格式化输出 
  * @date 2016年5月28日 下午3:11:59  
  * @version V1.0    
  */
@@ -18,7 +18,7 @@ public class JsonFormatter {
     private static String wrap = "\r\n";
      
     public JsonFormatter(){
-        prefixChar = "\t";
+        prefixChar = "   ";
     }
      
     public JsonFormatter(String prefixChar){
@@ -170,7 +170,7 @@ public class JsonFormatter {
     }
     
     public static void main(String[] args) {
-		String jsonStr = "{\"imageUrl\":\"meituxiuxiu.jpg\",\"zcloudKEY\":\"Xrk6UicNrbo3KiX1tYDDaUq9HAMHBYhuE2Sb4NLKFKdNcLH5\",\"name\":\"shenliang\",\"serverAddr\":\"zhiyun360.com:28080\",\"tid\":89,\"macList\":[{\"dataType\":\"realTime\",\"title\":\"湿度\",\"address\":\"00:12:4B:00:02:CB:A8:52\",\"command\":{},\"tid\":\"fs_cup_549600\",\"channel\":\"A1\"},{\"dataType\":\"realTime\",\"title\":\"温度\",\"address\":\"00:12:4B:00:02:CB:A8:52\",\"command\":{},\"tid\":\"fs_dial_843629\",\"channel\":\"A0\"}],\"zcloudID\":\"1155223953\"}";
+    	String jsonStr = "{\"name\":\"caoxinlin\",\"tid\":92,\"imageUrl\":\"meituxiuxiu.jpg\",\"zcloudID\":\"1155223953\",\"zcloudKEY\":\"Xrk6UicNrbo3KiX1tYDDaUq9HAMHBYhuE2Sb4NLKFKdNcLH5\",\"serverAddr\":\"zhiyun360.com:28080\",\"macList\":[{\"dataType\":\"realTime|history\",\"title\":\"温度历史数据\",\"address\":\"00:12:4B:00:02:CB:A8:52\",\"command\":{},\"tid\":\"hc_curve_356712\",\"channel\":\"A0\"},{\"dataType\":\"realTime\",\"title\":\"湿度\",\"address\":\"00:12:4B:00:02:CB:A8:52\",\"command\":{},\"tid\":\"fs_cup_620452\",\"channel\":\"A1\"},{\"dataType\":\"realTime\",\"title\":\"灯光\",\"address\":\"00:12:4B:00:03:A7:E1:17\",\"command\":{\"open\":\"{OD1=1,D1=?}\",\"close\":\"{CD1=1,D1=?}\"},\"tid\":\"ctr_switch_497389\",\"channel\":\"D1.1\"}]}";
 		JSONObject jsonObject = new JSONObject(jsonStr);
 		System.out.println(JsonFormatter.to(jsonObject));
     }
