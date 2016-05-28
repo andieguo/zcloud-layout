@@ -157,14 +157,13 @@ public class TemplateController {
 			TemplateEntity templateEntity = templateService.findByTemplateId(id);
 			if(templateEntity != null){
 				JSONObject result = new JSONObject();// 构建一个JSONObject
-				response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+				response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType为"application/x-json"
 				String str = "attachment;filename=" + java.net.URLEncoder.encode(templateEntity.getName()+".template", "utf-8");
 				response.setHeader("Content-Disposition", str);
 				PrintWriter out = response.getWriter();
 				result.accumulate("name", templateEntity.getName());
 				result.accumulate("content", templateEntity.getLayoutContent());
 				result.accumulate("layout", templateEntity.getLayoutJSON());
-				// 为"application/x-json"
 				out.println(result.toString());// 向客户端输出JSONObject字符串
 				out.flush();
 				out.close();
@@ -182,7 +181,7 @@ public class TemplateController {
 			templateEntity.setModifyTime(new Date());
 			int status = templateService.update(templateEntity);
 			JSONObject result = new JSONObject();// 构建一个JSONObject
-			response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+			response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType为"application/x-json"
 			PrintWriter out = response.getWriter();
 			if(status > 0){//更新成功
 				result.accumulate("status", 1);
@@ -191,7 +190,6 @@ public class TemplateController {
 				result.accumulate("status", 0);
 				result.accumulate("message", "failed");
 			}
-			// 为"application/x-json"
 			out.println(result.toString());// 向客户端输出JSONObject字符串
 			out.flush();
 			out.close();
@@ -211,20 +209,20 @@ public class TemplateController {
 	}
 	
 	/**
-	 * 删除模板
+	 * 批量删除模板
 	 */
 	@RequestMapping(value = "/template/delete", method = {RequestMethod.POST, RequestMethod.GET})
 	public String delete(TemplateForm templateForm,final RedirectAttributes redirectAttributes){
 		logger.debug("deleteTemplate()");
-		int result = templateService.enable(templateForm.getId(),templateForm.getDeleted());
+		int result = templateService.delete(templateForm.getKeyIds());
 		if(result > 0){
 			//addFlashAttribute表示如果F5的时候，会发现参数丢失
 			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
+			redirectAttributes.addFlashAttribute("msg", "删除模板成功!");
 		}else{
 			//addFlashAttribute表示如果F5的时候，会发现参数丢失
 			redirectAttributes.addFlashAttribute("css", "failed");
-			redirectAttributes.addFlashAttribute("msg", "删除用户失败!");
+			redirectAttributes.addFlashAttribute("msg", "删除模板失败!");
 		}
 		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
 		redirectAttributes.addAttribute("page", templateForm.getPage());//重定向传递参数，删除后跳转到page页
@@ -280,15 +278,10 @@ public class TemplateController {
 			result.accumulate("message", "fail");
 		}
 		response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
-		// 为"application/x-json"
 		PrintWriter out = response.getWriter();
 		out.println(result.toString());// 向客户端输出JSONObject字符串
 		out.flush();
 		out.close();
-	}
-	
-	public static void main(String[] args) {
-		//String content = "{\"content\":\"<div class=\"lyrow ui-draggable\" style=\"display: block;\"><a href=\"#close\" class=\"remove label label-important\"><i class=\"icon-remove icon-white\"><\/i>删除<\/a><span class=\"drag label\"><i class=\"icon-move\"><\/i>拖动<\/span><div class=\"preview\"><input value=\"6 6\" type=\"text\"><\/div><div class=\"view\"><div class=\"row-fluid clearfix\"><div class=\"span6 column ui-sortable\"><\/div><div class=\"span6 column ui-sortable\"><\/div><\/div><\/div><\/div>","layout":"{}","name":"湖南师范模板"}";
 	}
 	
 }

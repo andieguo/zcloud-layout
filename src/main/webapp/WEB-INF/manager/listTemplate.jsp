@@ -38,6 +38,7 @@
 				<label>启/停用：</label>
 				<form:select path="visible" items="${enableList}" class="form-control" />
 				<a href="javascript:queryAction()" class="font-green" >搜索</a>
+				<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
 				<input type="file" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
 			</div>
 		</header>
@@ -45,6 +46,7 @@
 	        <table class="table table-striped">
 				<thead>
 					<tr>
+						<th class="text-left"><input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" /><tt>序号</tt></th>
 					    <th>id</th>
 						<th>模板名</th>
 						<th>用户名</th>
@@ -57,6 +59,7 @@
 				<tbody>
 					<c:forEach items="${pageView.records}" var="entry">
 						<tr>
+							<td class="text-left"><input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" /><tt>${(currentpage-1)*maxresult+status.index+1}</tt></td>
 						    <td>${entry.id }</td>
 							<td>${entry.name }</td>
 							<td>${entry.nickname }</td>
@@ -91,6 +94,7 @@
 
 <!---------------------------脚本引用------------------------------>
 		<%@ include file="/resources/share/script.jsp"%>
+		<script src="<%=basePath %>/resources/js/checkbox.js" type="text/javascript"></script>
 		<script language="JavaScript">
 			function importAction(){
 				var form = document.forms[0];
@@ -142,13 +146,17 @@
 						}
 				});
 			}
-			function deleteAction(id,status,type){
-				var form = document.forms[0];
-				form.action="${basePath}/template/delete";
-				document.getElementById("id").value = id;
-				document.getElementById("type").value = type;
-				document.getElementById("deleted").value= status;
-				form.submit();
+			function deleteAction(){
+				var value=0;
+				$("input[name='keyIds']").each(function () {
+					if(this.checked){
+						var form = document.forms[0];
+						form.action="${basePath}/template/delete";
+						form.submit();
+						value=1;
+					}
+				});
+				if(!value){alert("请选择删除项");};
 			}
 		</script>
 </body>

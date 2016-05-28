@@ -60,6 +60,12 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 	
 	@Override
+	public int delete(int[] ids) {
+		// TODO Auto-generated method stub
+		return templateDao.delete(ids);
+	}
+	
+	@Override
 	public int enable(int id,int visible) {
 		// TODO Auto-generated method stub
 		return templateDao.enable(id,visible);

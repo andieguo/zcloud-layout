@@ -71,6 +71,23 @@ public class TemplateDaoImpl extends JdbcDaoSupport implements TemplateDao {
 	}
 	
 	@Override
+	public int delete(int[] ids) {
+		// TODO Auto-generated method stub
+		if(ids.length > 0){
+			Object[] params = new Object[ids.length];
+			StringBuffer sql = new StringBuffer("delete from tb_template where id in (");
+			for(int i=0;i<ids.length;i++){
+				params[i] = ids[i];
+				sql.append("?,");
+			}
+			sql.delete(sql.length()-1, sql.length()).append(")");
+			return getJdbcTemplate().update(sql.toString(),params);	
+		}else{
+			return -1;
+		}
+	}
+	
+	@Override
 	public int enable(int id,int visible) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update("update tb_template set visible=? where id=?",new Object[]{visible,id});

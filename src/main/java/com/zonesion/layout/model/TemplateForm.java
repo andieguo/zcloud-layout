@@ -11,6 +11,7 @@ public class TemplateForm extends TemplateEntity{
 	private int page = 1;
 	private int deleted;
 	private String nickname;
+	private int[] keyIds;
 	
 	public TemplateForm() {
 		super();
@@ -46,6 +47,14 @@ public class TemplateForm extends TemplateEntity{
 
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
+	}
+
+	public int[] getKeyIds() {
+		return keyIds;
+	}
+
+	public void setKeyIds(int[] keyIds) {
+		this.keyIds = keyIds;
 	}
 	
 }
