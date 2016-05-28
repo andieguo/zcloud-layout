@@ -191,7 +191,7 @@ $(function(){
 	//开关控制类、安防类按钮监听事件
 	$(".switch_button,.sec_button").click(function(){
 		var clickObj =$(this);
-		var divid = $(this).parents(".view").children().attr("id");
+		var divid = $(this).closest(".view").find(".body").children().attr("id");
 		var widgetIndex = divid.substring(0,placeOfChar(divid,2,'_'));
 		for(var i in realTimeSensorArry){
 			if(realTimeSensorArry[i].tid == divid){
@@ -205,7 +205,7 @@ $(function(){
 	//摄像头控制类按钮监听事件
 	$(".btn_camera").click(function(){
 		var cmd = $(this).attr("ctr_cmd");
-		var divid = $(this).parents(".view").children().attr("id");
+		var divid = $(this).closest(".view").find(".body").children().attr("id");
 		var widgetIndex = divid.substring(0,placeOfChar(divid,2,'_'));
 		for(var i in videoArry){
 			if(videoArry[i].tid == divid){

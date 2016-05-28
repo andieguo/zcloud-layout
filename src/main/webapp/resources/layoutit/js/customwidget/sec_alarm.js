@@ -9,8 +9,8 @@ var sec_alarm = {
                         '<div class="body">'+
                           '<div id="sec_alarm">'+
 	                          '<div class="button">' +
-	                            '<button class="btn btn-success" type="button">布防<tton>' +
-	                            '<button class="btn btn-danger" type="button">撤防<tton>' +
+	                            '<button class="btn btn-success sec_button" type="button">布防<tton>' +
+	                            '<button class="btn btn-danger sec_button" type="button">撤防<tton>' +
 	                          '</div>' +
 	                          '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
 	                          '<div class="value" id="alarm_text">正在检测中...</div>' +
@@ -154,8 +154,8 @@ function SecAlarmUI(prop)
 {
 	this.properties = prop;
 	var html = '<div class="button">' +
-			      '<button class="btn btn-success" type="button">布防<tton>' +
-			      '<button class="btn btn-danger" type="button">撤防<tton>' +
+			      '<button class="btn btn-success sec_button" type="button">布防<tton>' +
+			      '<button class="btn btn-danger sec_button" type="button">撤防<tton>' +
 			   '</div>' +
 			   '<img src="'+layoutitPath+'images/alarm-on.png" alt="">' +
 			   '<div class="value" id="alarm_text">正在检测中...</div>' +
