@@ -37,7 +37,8 @@
 	            <form:input path="name"/>
 				<label>启/停用：</label>
 				<form:select path="visible" items="${enableList}" class="form-control" />
-				<a href="javascript:queryAction()" class="font-green" href="#">搜索</a>
+				<a href="javascript:queryAction()" class="font-green" >搜索</a>
+				<input type="file" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
 			</div>
 		</header>
 	    <div class="table-body">
@@ -71,6 +72,7 @@
 									<c:if test="${entry.visible==0}">启用</c:if>
 									<c:if test="${entry.visible==1}">停用</c:if>
 								</a>
+								<a href="${basePath}/template/export?id=${entry.id}" class="font-green">导出</a>
 							</td>   
 		      			</tr>
 		      		</c:forEach>
@@ -90,6 +92,12 @@
 <!---------------------------脚本引用------------------------------>
 		<%@ include file="/resources/share/script.jsp"%>
 		<script language="JavaScript">
+			function importAction(){
+				var form = document.forms[0];
+				form.action="${basePath}/template/import";
+				form.enctype="multipart/form-data";
+				form.submit();
+			}
 			function queryAction(){
 				var form = document.forms[0];
 				document.getElementById("page").value = 1;

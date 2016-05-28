@@ -1,8 +1,13 @@
 package com.zonesion.layout.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,6 +124,85 @@ public class TemplateController {
 		model.addAttribute("method","save");
 		model.addAttribute("type",type);
 		return "manager/editTemplate";
+	}
+	
+	@RequestMapping(value = "/template/import", method = {RequestMethod.POST, RequestMethod.GET})
+	public String importContent(HttpServletRequest request,HttpServletResponse response) throws Exception{
+		String contentType = request.getContentType();
+		if ((contentType.indexOf("multipart/form-data") >= 0)) {
+			DiskFileItemFactory factory = new DiskFileItemFactory();
+			// 设置内存中存储文件的最大值
+			factory.setSizeThreshold(5000 * 1024);
+			// 本地存储的数据大于 maxMemSize.
+			factory.setRepository(new File(System.getProperty("user.home")));
+			// 创建一个新的文件上传处理程序
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			// 设置最大上传的文件大小
+			upload.setSizeMax(5000 * 1024);
+			// 上传文件，并解析出所有的表单字段，包括普通字段和文件字段
+			List<FileItem> items = upload.parseRequest(request);
+			// 下面对每个字段进行处理，分普通字段和文件字段
+			Iterator<?> it = items.iterator();
+			while (it.hasNext()) {
+				FileItem fileItem = (FileItem) it.next();
+				// 如果是文件
+				if (!fileItem.isFormField()) {
+					System.out.println(fileItem.getFieldName() + "   " + fileItem.getName() + "   " + fileItem.isInMemory() + "    " + fileItem.getContentType() + "   " + fileItem.getSize());
+					// 保存文件，其实就是把缓存里的数据写到目标路径下
+					if (fileItem.getName() != null && fileItem.getSize() != 0) {
+						// File fullFile = new File(fileItem.getName());
+						String[] array = fileItem.getName().split("\\\\");
+						//写入文件
+						File newFile = new File(System.getProperty("user.home") + File.separator + array[array.length - 1]);
+						try {
+							fileItem.write(newFile);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						//读文件,使用本地环境中的默认字符集，例如在中文环境中将使用 GBK编码
+				        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(newFile),"UTF-8"));
+				        StringBuffer content = new StringBuffer();
+				        String line = null;
+				        while((line = in.readLine()) != null){
+				        	content.append(line);
+				        }
+				        in.close();
+				        //解析上传文件内容
+				        JSONObject jsonObject = new JSONObject(content.toString());
+				        String name = jsonObject.getString("name");
+				        String layoutContent = jsonObject.getString("content");
+				        String layoutJSON = jsonObject.getString("layout");
+						AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+						templateService.save(new TemplateEntity(name, layoutJSON, layoutContent, admin.getId(), 1, new Date(), new Date()));
+						if (newFile.exists()) {
+							newFile.delete();
+						}
+					}
+				}
+			}
+		}
+		return "redirect:/template/list";//跳转到manager/listTemplate.jsp页面
+	}
+	
+	@RequestMapping(value = "/template/export", method = {RequestMethod.POST, RequestMethod.GET})
+	public void exportContent(Integer id,HttpServletResponse response) throws IOException{
+		if(id != null){
+			TemplateEntity templateEntity = templateService.findByTemplateId(id);
+			if(templateEntity != null){
+				JSONObject result = new JSONObject();// 构建一个JSONObject
+				response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+				String str = "attachment;filename=" + java.net.URLEncoder.encode(templateEntity.getName()+".json", "utf-8");
+				response.setHeader("Content-Disposition", str);
+				PrintWriter out = response.getWriter();
+				result.accumulate("name", templateEntity.getName());
+				result.accumulate("content", templateEntity.getLayoutContent());
+				result.accumulate("layout", templateEntity.getLayoutJSON());
+				// 为"application/x-json"
+				out.println(result.toString());// 向客户端输出JSONObject字符串
+				out.flush();
+				out.close();
+			}
+		}
 	}
 	
 	@RequestMapping(value = "/template/edit", method = {RequestMethod.POST, RequestMethod.GET})
@@ -231,6 +318,10 @@ public class TemplateController {
 		out.println(result.toString());// 向客户端输出JSONObject字符串
 		out.flush();
 		out.close();
+	}
+	
+	public static void main(String[] args) {
+		//String content = "{\"content\":\"<div class=\"lyrow ui-draggable\" style=\"display: block;\"><a href=\"#close\" class=\"remove label label-important\"><i class=\"icon-remove icon-white\"><\/i>删除<\/a><span class=\"drag label\"><i class=\"icon-move\"><\/i>拖动<\/span><div class=\"preview\"><input value=\"6 6\" type=\"text\"><\/div><div class=\"view\"><div class=\"row-fluid clearfix\"><div class=\"span6 column ui-sortable\"><\/div><div class=\"span6 column ui-sortable\"><\/div><\/div><\/div><\/div>","layout":"{}","name":"湖南师范模板"}";
 	}
 	
 }
