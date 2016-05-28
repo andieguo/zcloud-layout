@@ -285,6 +285,7 @@ public class ProjectController {
 		try {
 			File stoageHome = new File(Constants.LAYOUT_PROJECT_PATH);
 			String content = UploadUtil.upload(stoageHome,request);
+			content = content.replace(JsonFormatter.prefixChar, "").replace(JsonFormatter.wrap, "");
 			if(content != null){
 				//解析上传文件内容
 				JSONObject jsonObject = new JSONObject(content);

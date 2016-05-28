@@ -14,11 +14,11 @@ import org.json.JSONObject;
  */
 public class JsonFormatter {
 	 
-    private static String prefixChar = "\t";
-    private static String wrap = "\r\n";
+    public static String prefixChar = "\t";
+    public static String wrap = "\r\n";
      
     public JsonFormatter(){
-        prefixChar = "   ";
+        prefixChar = "\t";
     }
      
     public JsonFormatter(String prefixChar){
@@ -172,7 +172,10 @@ public class JsonFormatter {
     public static void main(String[] args) {
     	String jsonStr = "{\"name\":\"caoxinlin\",\"tid\":92,\"imageUrl\":\"meituxiuxiu.jpg\",\"zcloudID\":\"1155223953\",\"zcloudKEY\":\"Xrk6UicNrbo3KiX1tYDDaUq9HAMHBYhuE2Sb4NLKFKdNcLH5\",\"serverAddr\":\"zhiyun360.com:28080\",\"macList\":[{\"dataType\":\"realTime|history\",\"title\":\"温度历史数据\",\"address\":\"00:12:4B:00:02:CB:A8:52\",\"command\":{},\"tid\":\"hc_curve_356712\",\"channel\":\"A0\"},{\"dataType\":\"realTime\",\"title\":\"湿度\",\"address\":\"00:12:4B:00:02:CB:A8:52\",\"command\":{},\"tid\":\"fs_cup_620452\",\"channel\":\"A1\"},{\"dataType\":\"realTime\",\"title\":\"灯光\",\"address\":\"00:12:4B:00:03:A7:E1:17\",\"command\":{\"open\":\"{OD1=1,D1=?}\",\"close\":\"{CD1=1,D1=?}\"},\"tid\":\"ctr_switch_497389\",\"channel\":\"D1.1\"}]}";
 		JSONObject jsonObject = new JSONObject(jsonStr);
-		System.out.println(JsonFormatter.to(jsonObject));
+		String content =  JsonFormatter.to(jsonObject);
+		content = content.replace(JsonFormatter.prefixChar, "").replace(JsonFormatter.wrap, "");
+		System.out.println(content);
+		//System.out.println(JsonFormatter.to(jsonObject));
     }
      
 }
