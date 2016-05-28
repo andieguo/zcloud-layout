@@ -3,17 +3,28 @@ package com.zonesion.layout.dao;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.reflect.TypeToken;
 import com.zonesion.layout.dao.TemplateDao;
+import com.zonesion.layout.model.ProjectDO;
+import com.zonesion.layout.model.ProjectEntity;
+import com.zonesion.layout.model.SensorDO;
 import com.zonesion.layout.model.TemplateEntity;
 import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.QueryResult;
@@ -29,6 +40,7 @@ import junit.framework.TestCase;
 public class TemplateDaoTest extends TestCase {
 
 	private TemplateDao templateDao;
+	private ProjectDao projectDao;
 	@Override
 	protected void setUp() throws Exception {
 		// TODO Auto-generated method stub
@@ -36,6 +48,7 @@ public class TemplateDaoTest extends TestCase {
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		templateDao = (TemplateDao)context.getBean("templateDao");
+		projectDao = (ProjectDao) context.getBean("projectDao");
 	}
 
 	public void testSave(){
@@ -186,5 +199,55 @@ public class TemplateDaoTest extends TestCase {
         String layoutContent = jsonObject.getString("content");
         String layoutJSON = jsonObject.getString("layout");
         templateDao.save(new TemplateEntity(name, layoutJSON, layoutContent, 1, 1, new Date(), new Date()));
+	}
+	
+	public void testExportProject() throws Exception{
+		ProjectEntity projectEntity = projectDao.findByProjectId(34);
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		result.put("name", projectEntity.getName());
+		result.put("tid", projectEntity.getTid());
+		result.put("imageUrl", projectEntity.getImageUrl());
+		result.put("zcloudID", projectEntity.getZcloudID());
+		result.put("zcloudKEY", projectEntity.getZcloudKEY());
+		result.put("serverAddr", projectEntity.getServerAddr());
+		JSONArray macListArray = new JSONArray(projectEntity.getMacList());
+		result.put("macList",macListArray);
+		 // 写字符换转成字节流（使用GBK编码进行写）
+        FileOutputStream outputStream;
+		try {
+			outputStream = new FileOutputStream(new File("E:\\export2"));
+			OutputStreamWriter writer = new OutputStreamWriter(outputStream,"UTF-8");
+			writer.write(result.toString());
+			writer.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void testExportFormate() throws Exception{
+		
+		ProjectEntity projectEntity = projectDao.findByProjectId(34);
+		System.out.println(projectEntity.getMacList());
+		Gson gs = new Gson();
+		List<SensorDO> macList = gs.fromJson(projectEntity.getMacList(), new TypeToken<List<SensorDO>>(){}.getType());//把JSON格式的字符串转为List  
+        for (SensorDO p : macList) {  
+            System.out.println("把JSON格式的字符串转为List///  "+p.toString());  
+        }  
+//		ProjectDO projectDO = new ProjectDO();
+//		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//		String json = gson.toJson();
+//		// 写字符换转成字节流（使用GBK编码进行写）
+//        FileOutputStream outputStream;
+//		try {
+//			outputStream = new FileOutputStream(new File("E:\\export1"));
+//			OutputStreamWriter writer = new OutputStreamWriter(outputStream,"UTF-8");
+//			writer.write(json);
+//			writer.close();
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+        
 	}
 }
