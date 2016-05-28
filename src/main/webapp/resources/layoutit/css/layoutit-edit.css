@@ -293,10 +293,15 @@ a.language-selected { font-style: italic; font-weight: bold; }
     top: 5%;
     left: 5%;
 }
-.camera-btn .top-left a {
-    width: 75px;
-    height: 26px;
+.camera-btn .top-left a.power-off {
+    width: 76px;
+    height: 28px;
     background-position: 0 -250px;
+}
+.camera-btn .top-left a.power-on {
+    width: 76px;
+    height: 28px;
+    background-position: -130px -250px;
 }
 .camera-btn .right {
     position: absolute;
@@ -310,25 +315,37 @@ a.language-selected { font-style: italic; font-weight: bold; }
     width: 40px;
     height: 40px;
 }
-.camera-btn .right a[name="上"] {
+.camera-btn .right a[ctr_cmd="UP"] {
     top: 0;
     left: 40px;
     background-position: -40px 0;
 }
-.camera-btn .right a[name="左"] {
+.camera-btn .right a[ctr_cmd="UP"]:active {
+    background-position: -170px 0;
+}
+.camera-btn .right a[ctr_cmd="LEFT"] {
     top: 40px;
     left: 0;
     background-position: 0 -40px;
 }
-.camera-btn .right a[name="右"] {
+.camera-btn .right a[ctr_cmd="LEFT"]:active {
+    background-position: -130px -40px;
+}
+.camera-btn .right a[ctr_cmd="RIGHT"] {
     top: 40px;
     right: 0;
     background-position: -80px -40px;
 }
-.camera-btn .right a[name="下"] {
+.camera-btn .right a[ctr_cmd="RIGHT"]:active {
+    background-position:  -210px -40px;
+}
+.camera-btn .right a[ctr_cmd="DOWN"] {
     bottom: 0;
     left: 40px;
     background-position: -40px -80px;
+}
+.camera-btn .right a[ctr_cmd="DOWN"]:active {
+    background-position: -170px -80px;
 }
 .camera-btn .bottom {
     position: absolute;
@@ -340,16 +357,25 @@ a.language-selected { font-style: italic; font-weight: bold; }
     width: 80px;
     height: 30px;
 }
-.camera-btn .bottom a[name="左右巡航"] {
+.camera-btn .bottom a[ctr_cmd="HPATROL"] {
     float: left;
     background-position: 0 -130px;
 }
-.camera-btn .bottom a[name="全局巡航"] {
+.camera-btn .bottom a[ctr_cmd="HPATROL"]:active {
+    background-position: -130px -130px;
+}
+.camera-btn .bottom a[ctr_cmd="360PATROL"] {
     background-position: 0 -170px;
 }
-.camera-btn .bottom a[name="上下巡航"] {
+.camera-btn .bottom a[ctr_cmd="360PATROL"]:active {
+    background-position: -130px -170px;
+}
+.camera-btn .bottom a[ctr_cmd="VPATROL"] {
     float: right;
     background-position: 0 -210px;
+}
+.camera-btn .bottom a[ctr_cmd="VPATROL"]:active {
+    background-position: -130px -210px;
 }
 .camera-img{
     height: 100%;

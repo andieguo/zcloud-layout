@@ -9,18 +9,18 @@ var cam_video = {
 			         		'<div class="body camera">' +
 			         			'<div class="camera-btn"  id="cam_video">' +
 			         				'<div class="top-left">' +
-			         					'<a name="开关" class="btn_camera" ctr_cmd="SWITCH"></a>' +
+			         					'<a class="btn_camera power-off" ctr_cmd="SWITCH"></a>' +
 			         				'</div>' +
 			         				'<div class="right">' +
-			         					'<a name="上" class="btn_camera" ctr_cmd="UP"></a>' +
-			         					'<a name="左" class="btn_camera" ctr_cmd="LEFT"></a>' +
-			         					'<a name="右"class="btn_camera" ctr_cmd="RIGHT"></a>' +
-			         					'<a name="下" class="btn_camera" ctr_cmd="DOWN"></a>' +
+			         					'<a class="btn_camera" ctr_cmd="UP"></a>' +
+			         					'<a class="btn_camera" ctr_cmd="LEFT"></a>' +
+			         					'<aclass="btn_camera" ctr_cmd="RIGHT"></a>' +
+			         					'<a class="btn_camera" ctr_cmd="DOWN"></a>' +
 			         				'</div>' +
 			         				'<div class="bottom">' +
-			         					'<a name="左右巡航" class="btn_camera" ctr_cmd="HPATROL"></a>' +
-			         					'<a name="全局巡航" class="btn_camera" ctr_cmd="360PATROL"></a>' +
-			         					'<a name="上下巡航" class="btn_camera" ctr_cmd="VPATROL"></a>' +
+			         					'<a class="btn_camera" ctr_cmd="HPATROL"></a>' +
+			         					'<a class="btn_camera" ctr_cmd="360PATROL"></a>' +
+			         					'<a class="btn_camera" ctr_cmd="VPATROL"></a>' +
 			         				'</div>' +
 			         			'</div>' +
 			         			'<img class="camera-img" id = "img_cam_video" src="'+layoutitPath+'images/camera-bg.jpg" alt="" />' +
@@ -118,14 +118,16 @@ var cam_video = {
         		  if(state){
                 	  cameraObj.openVideo();
                       console.log("摄像头：开");
-                      btnObj.text("关");
+                      //btnObj.text("关");
+                      $(".top-left").find("a").removeClass("power-on").addClass("power-off");
         		  }
         	  });
           }
           else{//关闭摄像头
               cameraObj.closeVideo();
               console.log("摄像头：关");
-              btnObj.text("开");
+              //btnObj.text("开");
+              $(".top-left").find("a").removeClass("power-off").addClass("power-on");
           }
       }
       else{//其它控制指令
@@ -137,18 +139,18 @@ var cam_video = {
 function CamVideoUI(prop) {
     this.properties = prop;
     var  html = '<div class="top-left">' +
-					'<a name="开关" class="btn_camera" ctr_cmd="SWITCH"></a>' +
+					'<a class="btn_camera power-off" ctr_cmd="SWITCH"></a>' +
 				'</div>' +
 				'<div class="right">' +
-					'<a name="上" class="btn_camera" ctr_cmd="UP"></a>' +
-					'<a name="左" class="btn_camera" ctr_cmd="LEFT"></a>' +
-					'<a name="右"class="btn_camera" ctr_cmd="RIGHT"></a>' +
-					'<a name="下" class="btn_camera" ctr_cmd="DOWN"></a>' +
+					'<a class="btn_camera" ctr_cmd="UP"></a>' +
+					'<a class="btn_camera" ctr_cmd="LEFT"></a>' +
+					'<a class="btn_camera" ctr_cmd="RIGHT"></a>' +
+					'<a class="btn_camera" ctr_cmd="DOWN"></a>' +
 				'</div>' +
 				'<div class="bottom">' +
-					'<a name="左右巡航" class="btn_camera" ctr_cmd="HPATROL"></a>' +
-					'<a name="全局巡航" class="btn_camera" ctr_cmd="360PATROL"></a>' +
-					'<a name="上下巡航" class="btn_camera" ctr_cmd="VPATROL"></a>' +
+					'<a class="btn_camera" ctr_cmd="HPATROL"></a>' +
+					'<a class="btn_camera" ctr_cmd="360PATROL"></a>' +
+					'<a class="btn_camera" ctr_cmd="VPATROL"></a>' +
 				'</div>';
     $("#"+prop.tid).html(html);
     $("#"+prop.tid).parent().find("img").attr("id","img_"+prop.tid);

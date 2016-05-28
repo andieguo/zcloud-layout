@@ -6,7 +6,8 @@ var page_footer = {
               '<div class="view">'+
               	'<div>'+
 	              	'<div class="body">'+
-	                  '<footer contenteditable="true" id = "page_footer">此处填写项目的版权信息</footer>'+
+	                  '<footer id = "page_footer">此处填写项目的版权信息</footer>'+
+		              '<div class="footer-bg"></div>'+
 	                '</div>'+ 
 	            '</div>'+
               '</div>'+

@@ -4,7 +4,7 @@ var ctr_switch = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
                  '<div class="preview">开关类</div>' +
                  '<div class="view">' +
-                    '<div class="panel-sensor">'+
+                    '<div class="panel-sensor panel-switch">'+
                         '<h3 class="title">开关名称</h3>'+
                         '<div class="body">'+
 	                        '<div id="ctr_switch">'+

@@ -9,10 +9,11 @@ var page_header = {
 	                  '<header class="clearfix" id="page_header">'+
 	                    '<img src="'+layoutitPath+'images/prog_logo1.jpg" alt="logo">'+
 	                    '<hgroup>'+
-	                      '<h1 contenteditable="true">项目名称</h1>'+
-	                      '<h2 contenteditable="true">此处为对项目的简单描述</h2>'+
+	                      '<h1>项目名称</h1>'+
+	                      '<h2>此处为对项目的简单描述</h2>'+
 	                    '</hgroup>'+
 	                  '</header>'+
+	                  '<div class="header-bg"></div>'+
 	                '</div>'+
 	             '</div>'+
               '</div>'+
