@@ -51,21 +51,21 @@
 					<spring:bind path="zcloudID">
 						<div class="form-group">
 							<label for="zcloudID">智云ID：</label>
-	              			<input type="text" id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入邮箱地址" />
+	              			<input type="text" id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入智云ID" />
 							<form:errors path="zcloudID" cssClass="error" />
 						</div>
 					</spring:bind>
 				   	<spring:bind path="zcloudKEY">
 						<div class="form-group">
 							<label for="zcloudKEY">智云KEY：</label>
-	              			<input type="text" id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入邮箱地址" />
+	              			<input type="text" id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入智云KEY" />
 							<form:errors path="zcloudKEY" cssClass="error" />
 						</div>
 					</spring:bind>
 					<spring:bind path="serverAddr">
 						<div class="form-group">
 							<label for="serverAddr">智云Server：</label>
-	              			<input type="text" id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入邮箱地址" />
+	              			<input type="text" id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入智云服务器地址" />
 							<form:errors path="serverAddr" cssClass="error" />
 						</div>
 					</spring:bind>
@@ -84,7 +84,7 @@
 <!-- 								                </div> -->
 						<textarea id="json_input" name="json_input" class="json_input"
 							style="font-size: 11px !important;" rows="10" spellcheck="false"
-							placeholder="请输入需要检验的json字符串或URL"></textarea>
+							placeholder="请输入正确JSON格式的硬件配置数据"></textarea>
 					</div></div>
 		            
 					 <div class="form-button">
@@ -206,9 +206,9 @@ function buildJSONTextArea(data){
 			}else{
 				sensorObj.tid = value.tid;
 				sensorObj.title = value.title;
+				sensorObj.address = "";
 				sensorObj.channel = "";
 				sensorObj.command = {};
-				sensorObj.address = "";
 				sensorObj.dataType = value.dataType;
 				sensorArray.push(sensorObj);
 			}

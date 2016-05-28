@@ -9,14 +9,17 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Date;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.zonesion.layout.dao.TemplateDao;
+import com.zonesion.layout.model.ProjectEntity;
 import com.zonesion.layout.model.TemplateEntity;
 import com.zonesion.layout.model.TemplateVO;
 import com.zonesion.layout.page.QueryResult;
+import com.zonesion.layout.util.JsonFormatter;
 
 import junit.framework.TestCase;
 
@@ -29,6 +32,7 @@ import junit.framework.TestCase;
 public class TemplateDaoTest extends TestCase {
 
 	private TemplateDao templateDao;
+	private ProjectDao projectDao;
 	@Override
 	protected void setUp() throws Exception {
 		// TODO Auto-generated method stub
@@ -36,6 +40,7 @@ public class TemplateDaoTest extends TestCase {
 		@SuppressWarnings("resource")
 		ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 		templateDao = (TemplateDao)context.getBean("templateDao");
+		projectDao = (ProjectDao) context.getBean("projectDao");
 	}
 
 	public void testSave(){
@@ -141,13 +146,16 @@ public class TemplateDaoTest extends TestCase {
 		templateDao.delete(1);
 	}
 	
+	/**
+	 * 测试生成模板文件
+	 */
 	public void testExport(){
 		TemplateEntity templateEntity = templateDao.findByTemplateId(37);
 		JSONObject result = new JSONObject();// 构建一个JSONObject
 		result.accumulate("name", templateEntity.getName());
 		result.accumulate("content", templateEntity.getLayoutContent());
 		JSONObject layoutJSON = new JSONObject(templateEntity.getLayoutJSON());
-		result.accumulate("layout",layoutJSON );
+		result.accumulate("layout",layoutJSON);
 		  // 写字符换转成字节流（使用GBK编码进行写）
         FileOutputStream outputStream;
 		try {
@@ -161,6 +169,9 @@ public class TemplateDaoTest extends TestCase {
 		}
 	}
 	
+	/**
+	 * 测试导入模板文件
+	 */
 	public void testImport() throws IOException{
 		//读文件,使用本地环境中的默认字符集，例如在中文环境中将使用 GBK编码
         BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream("E:\\export1"),"UTF-8"));
@@ -178,6 +189,9 @@ public class TemplateDaoTest extends TestCase {
 		templateDao.save(new TemplateEntity(name, layoutJSON.toString(), layoutContent, 1, 1, new Date(), new Date()));
 	}
 	
+	/**
+	 * 测试JSON转义
+	 */
 	public void testJSON(){
 		String content = "{\"content\":\"<div class=\"lyrow ui-draggable\" style=\"display: block;\"><a href=\"#close\" class=\"remove label label-important\"><i class=\"icon-remove icon-white\"></i>删除</a><span class=\"drag label\"><i class=\"icon-move\"></i>拖动</span><div class=\"preview\"><input value=\"6 6\" type=\"text\"></div><div class=\"view\"><div class=\"row-fluid clearfix\"><div class=\"span6 column ui-sortable\"></div><div class=\"span6 column ui-sortable\"></div></div></div></div>\",\"layout\":\"\",\"name\":\"湖南师范模板\"}";
 		content = "{\"content\":\"<div class=\"lyrow ui-draggable\"\",\"layout\":\"{}\",\"name\":\"湖南师范模板\"}";
@@ -187,4 +201,32 @@ public class TemplateDaoTest extends TestCase {
         String layoutJSON = jsonObject.getString("layout");
         templateDao.save(new TemplateEntity(name, layoutJSON, layoutContent, 1, 1, new Date(), new Date()));
 	}
+	
+	/**
+	 * 测试导出工程文件
+	 */
+	public void testExportProject() throws Exception{
+		ProjectEntity projectEntity = projectDao.findByProjectId(34);
+		JSONObject result = new JSONObject();// 构建一个JSONObject
+		result.put("name", projectEntity.getName());
+		result.put("tid", projectEntity.getTid());
+		result.put("imageUrl", projectEntity.getImageUrl());
+		result.put("zcloudID", projectEntity.getZcloudID());
+		result.put("zcloudKEY", projectEntity.getZcloudKEY());
+		result.put("serverAddr", projectEntity.getServerAddr());
+		JSONArray macListArray = new JSONArray(projectEntity.getMacList());
+		result.put("macList",macListArray);
+		 // 写字符换转成字节流（使用GBK编码进行写）
+        FileOutputStream outputStream;
+		try {
+			outputStream = new FileOutputStream(new File("E:\\export2"));
+			OutputStreamWriter writer = new OutputStreamWriter(outputStream,"UTF-8");
+			writer.write(JsonFormatter.to(result));//格式化输出
+			writer.close();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }

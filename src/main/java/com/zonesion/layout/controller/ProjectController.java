@@ -1,5 +1,6 @@
 package com.zonesion.layout.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -37,6 +38,8 @@ import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.service.AdminService;
 import com.zonesion.layout.service.ProjectService;
 import com.zonesion.layout.service.TemplateService;
+import com.zonesion.layout.util.Constants;
+import com.zonesion.layout.util.JsonFormatter;
 import com.zonesion.layout.validate.ProjectValidator;
 
 /**    
@@ -275,6 +278,68 @@ public class ProjectController {
 	}
 	
 	/**
+	 * 上传文件：读取客户端上传的文件，导入模板到数据库
+	 */
+	@RequestMapping(value = "/project/import", method = {RequestMethod.POST, RequestMethod.GET})
+	public String importContent(HttpServletRequest request,HttpServletResponse response,final RedirectAttributes redirectAttributes) {
+		try {
+			File stoageHome = new File(Constants.LAYOUT_PROJECT_PATH);
+			String content = UploadUtil.upload(stoageHome,request);
+			if(content != null){
+				//解析上传文件内容
+				JSONObject jsonObject = new JSONObject(content);
+				String name = jsonObject.getString("name");
+				Integer tid = jsonObject.getInt("tid");
+				String imageUrl = jsonObject.getString("imageUrl");
+				String zcloudID = jsonObject.getString("zcloudID");
+				String zcloudKEY = jsonObject.getString("zcloudKEY");
+				String serverAddr = jsonObject.getString("serverAddr");
+				JSONArray macListArray = jsonObject.getJSONArray("macList");
+				AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+				ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
+				projectService.save(projectEntity);
+				redirectAttributes.addFlashAttribute("css", "success");
+				redirectAttributes.addFlashAttribute("msg", "导入工程文件成功");
+			}else{
+				redirectAttributes.addFlashAttribute("css", "fail");
+				redirectAttributes.addFlashAttribute("msg", "导入工程文件失败");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "redirect:/project/list";//跳转到manager/listTemplate.jsp页面
+	}
+	
+	/**
+	 * 客户端下载文件：读取数据库内容，生成reponse响应
+	 */
+	@RequestMapping(value = "/project/export", method = {RequestMethod.POST, RequestMethod.GET})
+	public void exportContent(Integer id,HttpServletResponse response) throws IOException{
+		if(id != null){
+			ProjectEntity projectEntity = projectService.findByProjectId(id);
+			if(projectEntity != null){
+				JSONObject result = new JSONObject();// 构建一个JSONObject
+				response.setContentType("application/x-json;charset=utf-8");// 需要设置ContentType
+				String str = "attachment;filename=" + java.net.URLEncoder.encode(projectEntity.getName()+".project", "utf-8");
+				response.setHeader("Content-Disposition", str);
+				PrintWriter out = response.getWriter();
+				result.put("name", projectEntity.getName());
+				result.put("tid", projectEntity.getTid());
+				result.put("imageUrl", projectEntity.getImageUrl());
+				result.put("zcloudID", projectEntity.getZcloudID());
+				result.put("zcloudKEY", projectEntity.getZcloudKEY());
+				result.put("serverAddr", projectEntity.getServerAddr());
+				JSONArray macListArray = new JSONArray(projectEntity.getMacList());
+				result.put("macList",macListArray);
+				// 为"application/x-json"
+				out.println(JsonFormatter.to(result));// 向客户端输出格式化后的JSONObject字符串
+				out.flush();
+				out.close();
+			}
+		}
+	}
+	
+	/**
 	 * 编辑项目
 	 */
 	@RequestMapping(value = "/project/edit", method = RequestMethod.POST)
@@ -352,4 +417,5 @@ public class ProjectController {
 		out.flush();
 		out.close();
 	}
+	
 }
