@@ -39,6 +39,7 @@ import com.zonesion.layout.service.AdminService;
 import com.zonesion.layout.service.ProjectService;
 import com.zonesion.layout.service.TemplateService;
 import com.zonesion.layout.util.Constants;
+import com.zonesion.layout.util.JsonFormatter;
 import com.zonesion.layout.validate.ProjectValidator;
 
 /**    
@@ -331,7 +332,7 @@ public class ProjectController {
 				JSONArray macListArray = new JSONArray(projectEntity.getMacList());
 				result.put("macList",macListArray);
 				// 为"application/x-json"
-				out.println(result.toString());// 向客户端输出JSONObject字符串
+				out.println(JsonFormatter.to(result));// 向客户端输出格式化后的JSONObject字符串
 				out.flush();
 				out.close();
 			}
