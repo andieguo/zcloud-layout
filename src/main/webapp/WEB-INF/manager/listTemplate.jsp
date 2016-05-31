@@ -96,7 +96,7 @@
 		<script language="JavaScript">
 			function importAction(){
 				var form = document.forms[0];
-				form.action="${basePath}/template/import";
+				form.action="${basePath}/template/import?type=${type}";
 				form.enctype="multipart/form-data";
 				form.submit();
 			}
