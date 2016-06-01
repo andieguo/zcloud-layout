@@ -56,7 +56,7 @@ var method = "${method}";
 
 function importAction(){
 	var form = document.forms[0];
-	form.action="${basePath}/template/importUI?templateType=${templateForm.type}";
+	form.action="${basePath}/template/importUI?templateType=${type}";
 	form.enctype="multipart/form-data";
 	form.submit();
 }

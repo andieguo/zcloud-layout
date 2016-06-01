@@ -124,7 +124,7 @@ public class TemplateController {
 	 * 上传文件：读取模板编辑页面客户端上传的文件
 	 */
 	@RequestMapping(value = "/template/importUI", method = {RequestMethod.POST, RequestMethod.GET})
-	public String importUI(int templateType,HttpServletRequest request,HttpServletResponse response,Model model) {
+	public String importUI(int type,HttpServletRequest request,HttpServletResponse response,Model model) {
 		try {
 			File stoageHome = new File(Constants.LAYOUT_TEMPLATE_PATH);
 			String content = UploadUtil.upload(stoageHome,request);
@@ -139,7 +139,7 @@ public class TemplateController {
 				templateEntity.setName(name);
 				templateEntity.setLayoutContent(layoutContent);
 				templateEntity.setLayoutJSON(layoutJSON);
-				templateEntity.setType(templateType);//获取/template/importUI?templateType=1请求
+				templateEntity.setType(type);//获取/template/importUI?type=1请求
 				model.addAttribute("templateEntity",templateEntity);
 				model.addAttribute("method","save");
 			}
