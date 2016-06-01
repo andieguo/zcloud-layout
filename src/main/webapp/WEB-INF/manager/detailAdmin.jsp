@@ -21,6 +21,7 @@
    	%>
     <div class="content sw">
         <div class="panel">
+        	<%@ include file="/WEB-INF/share/msg.jsp"%>
             <!-- 用户资料 -->
             <div class="wc600">
                 <div class="change-btn">

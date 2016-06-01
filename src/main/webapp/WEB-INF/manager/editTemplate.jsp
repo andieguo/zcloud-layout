@@ -55,10 +55,17 @@ var uiTemplateObj;
 var method = "${method}";
 
 function importAction(){
-	var form = document.forms[0];
-	form.action="${basePath}/template/importUI?templateType=${templateForm.type}";
-	form.enctype="multipart/form-data";
-	form.submit();
+	var templateFile = $("#templateFile").val();
+	if(templateFile != ""){
+		var form = document.forms[0];
+		//multipart/form-data使得后台无法获取header中的参数，故添加type到head头中
+		form.action="${basePath}/template/importUI?type=${type}";
+		form.enctype="multipart/form-data";
+		form.submit();
+	}else{
+		alert("导入文件不能为空!");
+		return;
+	}
 }
 
 /**将编辑页面内容中的控件UI部分清空**/
@@ -110,13 +117,13 @@ function pushTemplate(){
 		var layoutContent = getLayoutContent();
 		if(method == 'save'){
 			var url = "${basePath}/template/save";
-			var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
-			var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${templateEntity.type}'};
+			var locationHref = "${basePath}/template/tolist?type=${type}";
+			var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${type}'};
 			pushAjax(url,pushdata,locationHref);
 		}else if(method == 'edit'){
 			var url = "${basePath}/template/edit";
 			var templateId = "${templateEntity.id}";
-			var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
+			var locationHref = "${basePath}/template/tolist?type=${type}";
 			var pushdata = {'id':templateId,'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent};
 			pushAjax(url,pushdata,locationHref);
 		}
@@ -159,7 +166,7 @@ $(function(){
             <div class="btn-group">
             	<input type="text" id="templateName" name="templateName" value="${templateEntity.name}"></input>
 				<form class="h100" method="post" >
-					<input type="file" name="templateFile" size="50" />
+					<input type="file" id="templateFile" name="templateFile" size="50" />
 					<button class="btn btn-primary" onclick="importAction()" id="clear"><i class="icon-trash icon-white"></i>导入</button>
 				</form>
             </div>

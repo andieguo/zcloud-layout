@@ -30,6 +30,7 @@
                 <div class="sign-up-body form-inline">
                     <spring:url value="/admin/register" var="userActionUrl" />
 					<form:form class="form-horizontal" method="post" modelAttribute="adminForm" action="${userActionUrl}">
+             		<%@ include file="/WEB-INF/share/msg.jsp"%>
                     <div class="form-group">
 						<label for="nickname">填写账号:</label>
 						<input id="nickname" name="nickname" type="text" placeholder="请输入账号" onchange="textChange()">
