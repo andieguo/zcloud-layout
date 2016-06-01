@@ -92,7 +92,11 @@ public class TemplateController {
 	}
 
 	/**
-	 * 后台展示模板管理列表(管理员模板管理、用户模板管理)
+	 * 后台展示模板管理列表(管理员模板管理、用户模板管理)</br>
+	 * 1、超级管理员可以看到所有的信息</br>
+	 * 2、管理员和用户可以看到所有的系统模板</br>
+	 * 3、管理员可以创建系统模板</br>
+	 * 4、管理员和用户只能看到自己创建的用户模板</br>
 	 */
 	@RequestMapping(value = "/template/list", method = {RequestMethod.POST, RequestMethod.GET})
 	public String list(@ModelAttribute("templateForm") TemplateForm templateForm,Model model) {
@@ -104,7 +108,17 @@ public class TemplateController {
 		String nickname = templateForm.getNickname();
 		int type = templateForm.getType();
 		int visible = templateForm.getVisible();
-		QueryResult<TemplateVO> queryResult = templateService.findByAdminAndType(nickname, templatename, type, visible, firstindex, 10);
+		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+		QueryResult<TemplateVO> queryResult = null;
+		if(type == 0){//查看系统模板
+			queryResult = templateService.findByAdminAndType(nickname, templatename, type, visible, firstindex, 10);
+		}else if(type == 1){//查看用户模板
+			if(admin.getRole() == 1 || admin.getRole() == 0){//用户、管理员
+				queryResult = templateService.findByAdminAndType(admin.getNickname(), templatename, type, visible, firstindex, 10);
+			}else if(admin.getRole() == 2 ){//超级管理员
+				queryResult = templateService.findByAdminAndType(nickname, templatename, type, visible, firstindex, 10);
+			}
+		}
 		pageView.setQueryResult(queryResult);
 		model.addAttribute("pageView",pageView);
 		return "manager/listTemplate";//跳转到manager/listTemplate.jsp页面

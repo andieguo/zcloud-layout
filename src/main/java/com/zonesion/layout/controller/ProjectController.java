@@ -198,7 +198,9 @@ public class ProjectController {
 	}
 	
 	/**
-	 * 后台展示项目管理列表
+	 * 后台展示项目管理列表</br>
+	 * 1、超级管理员可以看到所有的项目</br>
+	 * 2、管理员和用户只能看到自己的项目</br>
 	 */
 	@RequestMapping(value = "/project/list", method = {RequestMethod.POST, RequestMethod.GET})
 	public String list(@ModelAttribute("projectForm") ProjectForm projectForm,Model model) {
@@ -210,7 +212,13 @@ public class ProjectController {
 		String templatename = projectForm.getTemplatename();
 		String name = projectForm.getName();
 		int visible = projectForm.getVisible();
-		QueryResult<ProjectVO> queryResult = projectService.findByAdminIdAndTemplate(nickname, templatename, name,visible, firstindex, 10);
+		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+		QueryResult<ProjectVO> queryResult = null;
+		if(admin.getRole() == 2){//超级管理员
+			queryResult = projectService.findByAdminIdAndTemplate(nickname, templatename, name,visible, firstindex, 10);
+		}else if(admin.getRole() == 1 || admin.getRole() == 0){//管理员、用户
+			queryResult = projectService.findByAdminIdAndTemplate(admin.getNickname(), templatename, name,visible, firstindex, 10);
+		}
 		pageView.setQueryResult(queryResult);
 		model.addAttribute("pageView",pageView);
 		return "manager/listProject";//跳转到manager/listProject.jsp页面

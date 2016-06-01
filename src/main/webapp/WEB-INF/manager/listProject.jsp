@@ -31,8 +31,10 @@
 	         	<a class="font-green" href="${basePath }/project/addUI">新建</a>
 	   		</div>
 			<div class="header-left">
-				<label>用户：</label> 
-				<form:input path="nickname"/>
+				<c:if test="${admin.role == 2 }">
+					<label>用户：</label> 
+					<form:input path="nickname"/>
+				</c:if>
 	            <label>模板名：</label>
 	            <form:input path="templatename"/>
 	            <label>项目名：</label>

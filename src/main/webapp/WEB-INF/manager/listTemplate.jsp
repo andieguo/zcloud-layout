@@ -28,12 +28,33 @@
 		<form:hidden path="deleted" />
 		<form:hidden path="type" />
 		<header class="table-header clearfix">
-			<div class="header-right">
-          			 <a class="font-green" href="${basePath }/template/addUI?type=${templateForm.type}" target="_blank">新建</a>
-    			</div>
+			<!-- 1、用户模板，所有角色都可以创建 -->
+			<c:if test="${templateForm.type == 1}">
+				<div class="header-right">
+	          			 <a class="font-green" href="${basePath }/template/addUI?type=${templateForm.type}" target="_blank">新建</a>
+	    		</div>
+    		</c:if>
+    		<c:if test="${templateForm.type == 0}">
+				<c:if test="${admin.role == 0 || admin.role == 2}">
+					<div class="header-right">
+		          			<a class="font-green" href="${basePath }/template/addUI?type=${templateForm.type}" target="_blank">新建</a>
+		    		</div>
+				</c:if>
+    		</c:if>
+    		<!-- 2、系统模板，管理员和超级管理员可以创建 -->
 			<div class="header-left">
-				<label>用户：</label> 
-				<form:input path="nickname"/>
+				<!-- 1、用户模块，管理员和用户只能查看自己的模板，系统管理员可以查看所有用户模板-->
+				<c:if test="${templateForm.type == 1}">
+					<c:if test="${admin.role == 2 }">
+						<label>用户：</label> 
+						<form:input path="nickname"/>
+					</c:if>
+				</c:if>
+				<!-- 2、系统模板，所有用户都能查看系统模板 -->
+				<c:if test="${templateForm.type == 0}">
+					<label>用户：</label> 
+					<form:input path="nickname"/>
+				</c:if>
 	            <label>模板名：</label>
 	            <form:input path="name"/>
 				<label>启/停用：</label>
@@ -69,11 +90,14 @@
 							<td>${entry.createTime }</td> 
 							<td>${entry.modifyTime }</td> 
 							<td>
-								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
-								<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
-									<c:if test="${entry.visible==0}">启用</c:if>
-									<c:if test="${entry.visible==1}">停用</c:if>
-								</a>
+								<!-- 1、只有管理员自己能修改自己的系统模板 -->
+								<c:if test="${admin.nickname == entry.nickname }">
+									<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
+									<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
+										<c:if test="${entry.visible==0}">启用</c:if>
+										<c:if test="${entry.visible==1}">停用</c:if>
+									</a>
+								</c:if>
 								<a href="${basePath}/template/export?id=${entry.id}" class="font-green">导出</a>
 							</td>   
 		      			</tr>

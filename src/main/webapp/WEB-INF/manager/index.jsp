@@ -60,10 +60,7 @@
             <a>模板管理</a>
             <i class="icon icon-off"></i>
             <ul class="hide">
-            	<!-- 普通管理员和超级管理员能够访问 -->
-            	<c:if test="${admin.role != 1}">
-               		<li><a href="${basePath }/template/list?type=0" target="iframe">系统模板</a></li>
-                </c:if>
+            	<li><a href="${basePath }/template/list?type=0" target="iframe">系统模板</a></li>
                 <li><a href="${basePath }/template/list?type=1" target="iframe">用户模板</a></li>
             </ul>
         </li>
