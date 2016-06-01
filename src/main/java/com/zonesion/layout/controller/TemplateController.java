@@ -153,7 +153,7 @@ public class TemplateController {
 	 * 上传文件：读取客户端上传的文件，导入模板到数据库
 	 */
 	@RequestMapping(value = "/template/import", method = {RequestMethod.POST, RequestMethod.GET})
-	public String importContent(HttpServletRequest request,HttpServletResponse response,final RedirectAttributes redirectAttributes) {
+	public String importContent(int type,HttpServletRequest request,HttpServletResponse response,final RedirectAttributes redirectAttributes) {
 		try {
 			File stoageHome = new File(Constants.LAYOUT_TEMPLATE_PATH);
 			String content = UploadUtil.upload(stoageHome,request);
@@ -164,7 +164,8 @@ public class TemplateController {
 				String layoutContent = jsonObject.getString("content");
 				String layoutJSON = jsonObject.getString("layout");
 				AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-				templateService.save(new TemplateEntity(name, layoutJSON, layoutContent, admin.getId(), 1, new Date(), new Date()));
+				templateService.save(new TemplateEntity(name, layoutJSON, layoutContent, admin.getId(), type, new Date(), new Date()));
+				redirectAttributes.addAttribute("type", type);
 				redirectAttributes.addFlashAttribute("css", "success");
 				redirectAttributes.addFlashAttribute("msg", "导入模板文件成功");
 			}else{

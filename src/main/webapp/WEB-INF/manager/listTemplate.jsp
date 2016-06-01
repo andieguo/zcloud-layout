@@ -39,7 +39,7 @@
 				<form:select path="visible" items="${enableList}" class="form-control" />
 				<a href="javascript:queryAction()" class="font-green" >搜索</a>
 				<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
-				<input type="file" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
+				<input type="file" id="templateFile" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
 			</div>
 		</header>
 	    <div class="table-body">
@@ -95,10 +95,16 @@
 		<script src="<%=basePath %>/resources/js/checkbox.js" type="text/javascript"></script>
 		<script language="JavaScript">
 			function importAction(){
-				var form = document.forms[0];
-				form.action="${basePath}/template/import?type=${type}";
-				form.enctype="multipart/form-data";
-				form.submit();
+				var templateFile = $("#templateFile").val();
+				if(templateFile != ""){
+					var form = document.forms[0];
+					form.action="${basePath}/template/import?type=${templateForm.type}";
+					form.enctype="multipart/form-data";
+					form.submit();
+				}else{
+					alert("导入文件不能为空!");
+					return;
+				}
 			}
 			function queryAction(){
 				var form = document.forms[0];
