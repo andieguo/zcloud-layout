@@ -28,6 +28,7 @@
                 <div class="sign-in-body">
                 	<spring:url value="/admin/login" var="loginUrl" />
  					<form:form class="form-horizontal" method="post" modelAttribute="loginForm" action="${loginUrl}">
+        				<%@ include file="/WEB-INF/share/msg.jsp"%>
                   		<div class="form-group ">
 							<label for="nickname">账 号:<form:errors path="nickname" cssClass="error" /></label>
 							<input id="nickname" name="nickname"  type="text" placeholder="请输入账号" >

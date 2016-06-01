@@ -282,13 +282,19 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return "manager/register";//跳转到/register.jsp页面
 		} else {
-			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "注册用户成功!");
-			redirectAttributes.addAttribute("page", 1);//重定向传递参数,注册后跳转到第1页
 			adminForm.setRole(1);//普通用户
 			adminForm.setCreateTime(new Date());
-			adminService.register(adminForm);
-			return "redirect:/admin/loginUI";//跳转到/admin/list
+			int status = adminService.register(adminForm);
+			if(status > 0 ){
+				redirectAttributes.addFlashAttribute("css", "success");
+				redirectAttributes.addFlashAttribute("msg", "注册用户成功，请重新登录!");
+				redirectAttributes.addAttribute("page", 1);//重定向传递参数,注册后跳转到第1页
+				return "redirect:/admin/loginUI";//跳转到/admin/list
+			}else{
+				redirectAttributes.addFlashAttribute("css", "success");
+				redirectAttributes.addFlashAttribute("msg", "注册用户失败!");
+				return "manager/register";//跳转到/register.jsp页面
+			}
 		}
 	}
 	
@@ -311,12 +317,18 @@ public class AdminController {
 			adminEntity.setModifyTime(new Date());
 			int role = editForm.getRole();
 			if(role != -1) adminEntity.setRole(role);
-			adminService.update(adminEntity);
-			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "更新用户信息成功");
-			redirectAttributes.addAttribute("id", adminEntity.getId());
-			//重定向传递GET参数有两种方式，方式一
-			return "redirect:/admin/detail";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
+			int status = adminService.update(adminEntity);
+			if(status > 0){
+				redirectAttributes.addFlashAttribute("css", "success");
+				redirectAttributes.addFlashAttribute("msg", "更新用户信息成功!");
+				redirectAttributes.addAttribute("id", adminEntity.getId());
+				//重定向传递GET参数有两种方式，方式一
+				return "redirect:/admin/detail";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
+			}else{
+				redirectAttributes.addFlashAttribute("css", "fail");
+				redirectAttributes.addFlashAttribute("msg", "更新用户信息失败!");
+				return "manager/editAdmin";//跳转到manager/updateAdmin.jsp页面
+			}
 		}
 	}
 	
@@ -368,12 +380,18 @@ public class AdminController {
 		} else {
 			AdminEntity adminEntity = adminService.findById(passwdForm.getId());//只需要将到form表单需要更新的字段更新到数据库即可（安全）
 			adminEntity.setPassword(passwdForm.getNewPassword());
-			adminService.update(adminEntity);
-			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "更新密码成功");
-			redirectAttributes.addAttribute("id", adminEntity.getId());
-			//重定向传递GET参数有两种方式，方式一
-			return "redirect:/admin/detail";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
+			int status = adminService.update(adminEntity);
+			if(status > 0){
+				redirectAttributes.addFlashAttribute("css", "success");
+				redirectAttributes.addFlashAttribute("msg", "更新用户密码成功!");
+				redirectAttributes.addAttribute("id", adminEntity.getId());
+				//重定向传递GET参数有两种方式，方式一
+				return "redirect:/admin/detail";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
+			}else{
+				redirectAttributes.addFlashAttribute("css", "failed");
+				redirectAttributes.addFlashAttribute("msg", "更新用户密码失败!");
+				return "manager/editPasswd";//跳转到manager/updateAdmin.jsp页面
+			}
 		}
 	}
 	

@@ -167,10 +167,10 @@ public class TemplateController {
 				templateService.save(new TemplateEntity(name, layoutJSON, layoutContent, admin.getId(), type, new Date(), new Date()));
 				redirectAttributes.addAttribute("type", type);
 				redirectAttributes.addFlashAttribute("css", "success");
-				redirectAttributes.addFlashAttribute("msg", "导入模板文件成功");
+				redirectAttributes.addFlashAttribute("msg", "导入模板文件成功!");
 			}else{
 				redirectAttributes.addFlashAttribute("css", "fail");
-				redirectAttributes.addFlashAttribute("msg", "导入模板文件失败");
+				redirectAttributes.addFlashAttribute("msg", "导入模板文件失败!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

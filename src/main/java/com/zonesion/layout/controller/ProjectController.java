@@ -268,10 +268,10 @@ public class ProjectController {
 			int status = projectService.save(editForm);
 			if(status > 0){
 				redirectAttributes.addFlashAttribute("css", "success");
-				redirectAttributes.addFlashAttribute("msg", "保存项目信息成功");
+				redirectAttributes.addFlashAttribute("msg", "保存项目信息成功!");
 			}else{
 				redirectAttributes.addFlashAttribute("css", "failed");
-				redirectAttributes.addFlashAttribute("msg", "保存项目信息失败");
+				redirectAttributes.addFlashAttribute("msg", "保存项目信息失败!");
 			}
 			return "redirect:/project/list";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
 		}
@@ -300,10 +300,10 @@ public class ProjectController {
 				ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
 				projectService.save(projectEntity);
 				redirectAttributes.addFlashAttribute("css", "success");
-				redirectAttributes.addFlashAttribute("msg", "导入工程文件成功");
+				redirectAttributes.addFlashAttribute("msg", "导入工程文件成功!");
 			}else{
 				redirectAttributes.addFlashAttribute("css", "fail");
-				redirectAttributes.addFlashAttribute("msg", "导入工程文件失败");
+				redirectAttributes.addFlashAttribute("msg", "导入工程文件失败!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -363,10 +363,10 @@ public class ProjectController {
 			int status = projectService.update(projectEntity);
 			if(status > 0){
 				redirectAttributes.addFlashAttribute("css", "success");
-				redirectAttributes.addFlashAttribute("msg", "更新项目信息成功");
+				redirectAttributes.addFlashAttribute("msg", "更新项目信息成功!");
 			}else{
 				redirectAttributes.addFlashAttribute("css", "failed");
-				redirectAttributes.addFlashAttribute("msg", "更新项目信息失败");
+				redirectAttributes.addFlashAttribute("msg", "更新项目信息失败!");
 			}
 			return "redirect:/project/list";//跳转到/admin/list,正确做法是跳转到用户详细信息视图界面
 		}
@@ -382,11 +382,11 @@ public class ProjectController {
 		if(result > 0){
 			//addFlashAttribute表示如果F5的时候，会发现参数丢失
 			redirectAttributes.addFlashAttribute("css", "success");
-			redirectAttributes.addFlashAttribute("msg", "删除用户成功!");
+			redirectAttributes.addFlashAttribute("msg", "批量删除项目成功!");
 		}else{
 			//addFlashAttribute表示如果F5的时候，会发现参数丢失
 			redirectAttributes.addFlashAttribute("css", "failed");
-			redirectAttributes.addFlashAttribute("msg", "删除用户失败!");
+			redirectAttributes.addFlashAttribute("msg", "批量删除项目失败!");
 		}
 		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
 		redirectAttributes.addAttribute("page", projectForm.getPage());//重定向传递参数，删除后跳转到page页

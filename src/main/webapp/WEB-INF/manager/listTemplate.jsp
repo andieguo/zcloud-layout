@@ -22,6 +22,7 @@
    	%>
 	<spring:url value="/template/list" var="userActionUrl" />
 	<form:form class="h100" method="post" modelAttribute="templateForm" action="${userActionUrl}">
+		<%@ include file="/WEB-INF/share/msg.jsp"%>
 		<form:hidden path="page" />
 		<form:hidden path="id" />
 		<form:hidden path="deleted" />

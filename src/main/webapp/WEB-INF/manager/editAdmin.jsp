@@ -22,6 +22,7 @@
     %>
     <div class="content sw">
         <div class="panel">
+         	<%@ include file="/WEB-INF/share/msg.jsp"%>
            <!-- 修改用户资料 -->
            	<spring:url value="/admin/edit" var="userActionUrl" />
 			<form:form class="wc600" method="post" modelAttribute="editForm" action="${userActionUrl}">
