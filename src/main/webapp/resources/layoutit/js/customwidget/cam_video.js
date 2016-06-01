@@ -110,25 +110,25 @@ var cam_video = {
   //摄像头控制操作
   sendCmd:function(divid,cameraObj,cmd){
 	  console.log(cmd);
-      if(cmd == "SWITCH"){//开关操作
-          var btnObj = $("#"+divid).find('*[ctr_cmd="SWITCH"]');
-          var btnState = btnObj.text();
-          if(btnState == "开"){//打开摄像头
-        	  cameraObj.checkOnline(function(state){//先检查摄像头是否在线，在线状态才能打开摄像头
-        		  if(state){
-                	  cameraObj.openVideo();
-                      console.log("摄像头：开");
-                      //btnObj.text("关");
-                      $(".top-left").find("a").removeClass("power-on").addClass("power-off");
-        		  }
-        	  });
-          }
-          else{//关闭摄像头
-              cameraObj.closeVideo();
-              console.log("摄像头：关");
-              //btnObj.text("开");
-              $(".top-left").find("a").removeClass("power-off").addClass("power-on");
-          }
+      if(cmd == "OPEN"){//打开摄像头
+          var btnObj = $("#"+divid).find('*[ctr_cmd="OPEN"]');
+    	  cameraObj.checkOnline(function(state){//先检查摄像头是否在线，在线状态才能打开摄像头
+    		  if(state){
+            	  cameraObj.openVideo();
+                  console.log("摄像头：开");
+
+                  $("#"+divid).children(".top-left").find("a").removeClass("power-on").addClass("power-off");
+                  btnObj.attr("ctr_cmd","CLOSE");
+    		  }
+    	  });
+      }
+      else if(cmd == "CLOSE"){//关闭摄像头
+    	  var btnObj = $("#"+divid).find('*[ctr_cmd="CLOSE"]');
+          cameraObj.closeVideo();
+          console.log("摄像头：关");
+
+          $("#"+divid).children(".top-left").find("a").removeClass("power-off").addClass("power-on"); 
+          btnObj.attr("ctr_cmd","OPEN");
       }
       else{//其它控制指令
           cameraObj.control(cmd);
@@ -139,7 +139,7 @@ var cam_video = {
 function CamVideoUI(prop) {
     this.properties = prop;
     var  html = '<div class="top-left">' +
-					'<a class="btn_camera power-off" ctr_cmd="SWITCH"></a>' +
+					'<a class="btn_camera power-off" ctr_cmd="OPEN"></a>' +
 				'</div>' +
 				'<div class="right">' +
 					'<a class="btn_camera" ctr_cmd="UP"></a>' +
