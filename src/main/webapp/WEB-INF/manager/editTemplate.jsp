@@ -56,7 +56,8 @@ var method = "${method}";
 
 function importAction(){
 	var form = document.forms[0];
-	form.action="${basePath}/template/importUI?templateType=${type}";
+	//multipart/form-data使得后台无法获取header中的参数，故添加type到head头中
+	form.action="${basePath}/template/importUI?type=${type}";
 	form.enctype="multipart/form-data";
 	form.submit();
 }
@@ -110,13 +111,13 @@ function pushTemplate(){
 		var layoutContent = getLayoutContent();
 		if(method == 'save'){
 			var url = "${basePath}/template/save";
-			var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
-			var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${templateEntity.type}'};
+			var locationHref = "${basePath}/template/tolist?type=${type}";
+			var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${type}'};
 			pushAjax(url,pushdata,locationHref);
 		}else if(method == 'edit'){
 			var url = "${basePath}/template/edit";
 			var templateId = "${templateEntity.id}";
-			var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
+			var locationHref = "${basePath}/template/tolist?type=${type}";
 			var pushdata = {'id':templateId,'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent};
 			pushAjax(url,pushdata,locationHref);
 		}

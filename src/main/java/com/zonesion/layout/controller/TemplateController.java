@@ -139,8 +139,8 @@ public class TemplateController {
 				templateEntity.setName(name);
 				templateEntity.setLayoutContent(layoutContent);
 				templateEntity.setLayoutJSON(layoutJSON);
-				templateEntity.setType(type);//获取/template/importUI?type=1请求
 				model.addAttribute("templateEntity",templateEntity);
+				model.addAttribute("type",type);//获取/template/importUI?type=1请求
 				model.addAttribute("method","save");
 			}
 		} catch (Exception e) {
@@ -234,6 +234,7 @@ public class TemplateController {
 		TemplateEntity templateEntity = templateService.findByTemplateId(templateForm.getId());
 		model.addAttribute("templateEntity",templateEntity);
 		model.addAttribute("method","edit");
+		model.addAttribute("type",templateEntity.getType());
 		return "manager/editTemplate";
 	}
 	
