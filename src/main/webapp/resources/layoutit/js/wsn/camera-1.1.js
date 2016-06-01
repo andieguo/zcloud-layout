@@ -36,7 +36,7 @@
 			thiz.setDiv = function(divID)
 			{
 				thiz.camid = divID;
-				$("#" + divID).hide();
+				//$("#" + divID).hide();
 			}
 			//在线处理函数
 			thiz.handOnLine = function(cal)
