@@ -121,6 +121,35 @@ public class TemplateController {
 	}
 	
 	/**
+	 * 上传文件：读取模板编辑页面客户端上传的文件
+	 */
+	@RequestMapping(value = "/template/importUI", method = {RequestMethod.POST, RequestMethod.GET})
+	public String importUI(int templateType,HttpServletRequest request,HttpServletResponse response,Model model) {
+		try {
+			File stoageHome = new File(Constants.LAYOUT_TEMPLATE_PATH);
+			String content = UploadUtil.upload(stoageHome,request);
+			if(content != null){
+				//解析上传文件内容
+				JSONObject jsonObject = new JSONObject(content);
+				String name = jsonObject.getString("name");
+				String layoutContent = jsonObject.getString("content");
+				String layoutJSON = jsonObject.getString("layout");
+				//AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+				TemplateEntity templateEntity = new TemplateEntity();
+				templateEntity.setName(name);
+				templateEntity.setLayoutContent(layoutContent);
+				templateEntity.setLayoutJSON(layoutJSON);
+				templateEntity.setType(templateType);//获取/template/importUI?templateType=1请求
+				model.addAttribute("templateEntity",templateEntity);
+				model.addAttribute("method","save");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "manager/editTemplate";
+	}
+	
+	/**
 	 * 上传文件：读取客户端上传的文件，导入模板到数据库
 	 */
 	@RequestMapping(value = "/template/import", method = {RequestMethod.POST, RequestMethod.GET})
@@ -229,6 +258,7 @@ public class TemplateController {
 		redirectAttributes.addAttribute("visible", templateForm.getVisible());
 		redirectAttributes.addAttribute("nickname", templateForm.getNickname());
 		redirectAttributes.addAttribute("name", templateForm.getName());
+		redirectAttributes.addAttribute("type",templateForm.getType());
 		return "redirect:/template/list";
 	}
 	

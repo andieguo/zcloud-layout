@@ -54,6 +54,13 @@ var layoutitPath = basePath + "/resources/layoutit/";
 var uiTemplateObj;
 var method = "${method}";
 
+function importAction(){
+	var form = document.forms[0];
+	form.action="${basePath}/template/importUI?templateType=${templateForm.type}";
+	form.enctype="multipart/form-data";
+	form.submit();
+}
+
 /**将编辑页面内容中的控件UI部分清空**/
 function removeWidgetUI(){
 	for(var i in uiTemplateObj){
@@ -97,22 +104,24 @@ function pushAjax(url,pushdata,locationHref){
 
 /*将控件的配置、UI保存到后台*/  
 function pushTemplate(){
-	var layoutJSON =  JSON.stringify(uiTemplateObj);
-	var layoutContent = getLayoutContent();
-	if(method == 'save'){
-		var url = "${basePath}/template/save";
-		var templateName = "hello";
-		var type = "${type}";
-		var locationHref = "${basePath}/template/tolist?type=${type}";
-		var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':type};
-		pushAjax(url,pushdata,locationHref);
-	}else if(method == 'edit'){
-		var templateName = "${templateEntity.name}";
-		var url = "${basePath}/template/edit";
-		var templateId = "${templateEntity.id}";
-		var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
-		var pushdata = {'id':templateId,'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent};
-		pushAjax(url,pushdata,locationHref);
+	var templateName = $("#templateName").val();
+	if(templateName != ""){
+		var layoutJSON =  JSON.stringify(uiTemplateObj);
+		var layoutContent = getLayoutContent();
+		if(method == 'save'){
+			var url = "${basePath}/template/save";
+			var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
+			var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${templateEntity.type}'};
+			pushAjax(url,pushdata,locationHref);
+		}else if(method == 'edit'){
+			var url = "${basePath}/template/edit";
+			var templateId = "${templateEntity.id}";
+			var locationHref = "${basePath}/template/tolist?type=${templateEntity.type}";
+			var pushdata = {'id':templateId,'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent};
+			pushAjax(url,pushdata,locationHref);
+		}
+	}else{
+		alert("模板名不能为空");
 	}
 }
 
@@ -147,12 +156,19 @@ $(function(){
               <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
               <button class="btn btn-primary" href="#clear" id="clear"><i class="icon-trash icon-white"></i>清空</button>
             </div>
+            <div class="btn-group">
+            	<input type="text" id="templateName" name="templateName" value="${templateEntity.name}"></input>
+				<form class="h100" method="post" >
+					<input type="file" name="templateFile" size="50" />
+					<button class="btn btn-primary" onclick="importAction()" id="clear"><i class="icon-trash icon-white"></i>导入</button>
+				</form>
+            </div>
           </li>
         </ul>
         <ul class="nav pull-right">
             <li>
-               	  <div class="btn-group"> </div>
-			      </li>
+             	  <div class="btn-group"> </div>
+	      	</li>
           </ul>
       </div>
       <!--/.nav-collapse --> 
