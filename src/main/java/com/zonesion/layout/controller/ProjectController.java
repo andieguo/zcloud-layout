@@ -44,7 +44,7 @@ import com.zonesion.layout.validate.ProjectValidator;
 
 /**    
  * @author andieguo andieguo@foxmail.com
- * @Description: TODO 
+ * @Description: 项目控制器 
  * @date 2016年4月29日 上午10:34:38  
  * @version V1.0    
  */
@@ -214,9 +214,9 @@ public class ProjectController {
 		int visible = projectForm.getVisible();
 		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
 		QueryResult<ProjectVO> queryResult = null;
-		if(admin.getRole() == 2){//超级管理员
+		if(admin.getRole() == Constants.SUPERADMIN){//超级管理员
 			queryResult = projectService.findByAdminIdAndTemplate(nickname, templatename, name,visible, firstindex, 10);
-		}else if(admin.getRole() == 1 || admin.getRole() == 0){//管理员、用户
+		}else if(admin.getRole() == Constants.ADMIN || admin.getRole() == Constants.USER){//管理员、用户
 			queryResult = projectService.findByAdminIdAndTemplate(admin.getNickname(), templatename, name,visible, firstindex, 10);
 		}
 		pageView.setQueryResult(queryResult);

@@ -36,12 +36,18 @@ public class TemplateDaoImpl extends JdbcDaoSupport implements TemplateDao {
 	}
 
 	@Override
-	public List<TemplateEntity> findByAdminId(int aid) {
+	public List<TemplateEntity> findByAdminId(int aid,int visible) {
 		// TODO Auto-generated method stub
-		return getJdbcTemplate().query("select * from tb_template where aid=? and visible=1", new Object[] {aid}, 
+		return getJdbcTemplate().query("select * from tb_template where aid=? and visible=?", new Object[] {aid,visible}, 
 				new BeanPropertyRowMapper<TemplateEntity>(TemplateEntity.class));
 	}
-
+	
+	@Override
+	public List<Integer> findByAdminId(int aid) {
+		// TODO Auto-generated method stub
+		return getJdbcTemplate().queryForList("select id from tb_template where aid=?", new Object[] {aid},Integer.class);
+	}
+	
 	@Override
 	public List<TemplateEntity> findByAdminAndType(int aid, int type) {
 		// TODO Auto-generated method stub
@@ -71,10 +77,28 @@ public class TemplateDaoImpl extends JdbcDaoSupport implements TemplateDao {
 	}
 	
 	@Override
+	public int delete(int[] ids,int aid) {
+		// TODO Auto-generated method stub
+		if(ids.length > 0){
+			Object[] params = new Object[ids.length+1];
+			StringBuffer sql = new StringBuffer("delete from tb_template where id in (");
+			for(int i=0;i<ids.length;i++){
+				params[i] = ids[i];
+				sql.append("?,");
+			}
+			sql.delete(sql.length()-1, sql.length()).append(") and aid=?");
+			params[ids.length] = aid;
+			return getJdbcTemplate().update(sql.toString(),params);	
+		}else{
+			return -1;
+		}
+	}
+	
+	@Override
 	public int delete(int[] ids) {
 		// TODO Auto-generated method stub
 		if(ids.length > 0){
-			Object[] params = new Object[ids.length];
+			Object[] params = new Object[ids.length+1];
 			StringBuffer sql = new StringBuffer("delete from tb_template where id in (");
 			for(int i=0;i<ids.length;i++){
 				params[i] = ids[i];

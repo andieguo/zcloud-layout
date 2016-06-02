@@ -14,6 +14,11 @@ public class Constants {
 	public static final String PROJECTPATH = HOMEPATH+File.separator+PROJECTNAME;	
 	public static final String LAYOUT_TEMPLATE_PATH = PROJECTPATH+File.separator+"template";
 	public static final String LAYOUT_PROJECT_PATH = PROJECTPATH+File.separator+"project";
+	public static final int ADMIN = 0;
+	public static final int USER = 1;
+	public static final int SUPERADMIN = 2;
+	public static final int SYSTEMTEMPLATE = 0;
+	public static final int USERTEMPLATE = 1;
 	
 	static{
 		mkdir(PROJECTPATH);

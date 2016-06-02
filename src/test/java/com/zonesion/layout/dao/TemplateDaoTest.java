@@ -72,7 +72,13 @@ public class TemplateDaoTest extends TestCase {
 	}
 	
 	public void testFindByAdminId(){
-		for(TemplateEntity t:templateDao.findByAdminId(1)){
+		for(TemplateEntity t:templateDao.findByAdminId(1,1)){
+			System.out.println(t);
+		}
+	}
+	
+	public void testFindByAdminId2(){
+		for(Integer t:templateDao.findByAdminId(2)){
 			System.out.println(t);
 		}
 	}

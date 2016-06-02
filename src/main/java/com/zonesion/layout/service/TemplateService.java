@@ -20,7 +20,9 @@ public List<TemplateEntity> findAll();
 	
 	public TemplateEntity findByTemplateId(int tid);
 	
-	public List<TemplateEntity> findByAdminId(int aid);
+	public List<TemplateEntity> findByAdminId(int aid,int visible);
+	
+	public List<Integer> findByAdminId(int aid);
 	
 	public QueryResult<TemplateEntity> findByAdminId(int aid,int firstindex, int maxresult);
 	
@@ -36,6 +38,8 @@ public List<TemplateEntity> findAll();
 	public int save(TemplateEntity templateEntity);
 	
 	public int delete(int id);
+	
+	public int delete(int[] ids,int aid);
 	
 	public int delete(int[] ids);
 	

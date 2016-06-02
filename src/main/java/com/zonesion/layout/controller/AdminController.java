@@ -31,6 +31,7 @@ import com.zonesion.layout.model.AdminForm;
 import com.zonesion.layout.page.PageView;
 import com.zonesion.layout.page.QueryResult;
 import com.zonesion.layout.service.AdminService;
+import com.zonesion.layout.util.Constants;
 import com.zonesion.layout.validate.AdminEditValidator;
 import com.zonesion.layout.validate.AdminLoginValidator;
 import com.zonesion.layout.validate.AdminPasswdValidator;
@@ -38,7 +39,7 @@ import com.zonesion.layout.validate.AdminSaveValidator;
 
 /**    
  * @author andieguo andieguo@foxmail.com
- * @Description: TODO 
+ * @Description: 管理员控制器 
  * @date 2016年4月22日 下午4:50:15  
  * @version V1.0    
  */
@@ -210,9 +211,9 @@ public class AdminController {
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
 			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-			if(admin.getRole() == 1){//普通用户
+			if(admin.getRole() == Constants.USER){//普通用户
 				model.addAttribute("to", "adminDetail");
-			}else if(admin.getRole() == 0 || admin.getRole() == 2){//普通管理员、系统管理员
+			}else if(admin.getRole() == Constants.SUPERADMIN || admin.getRole() == Constants.ADMIN){//普通管理员、系统管理员
 				model.addAttribute("to", "adminList");
 			}
 			return "manager/index";//跳转到后台首页
@@ -230,9 +231,9 @@ public class AdminController {
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "用户已经登录!");
 			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-			if(admin.getRole() == 1){//普通用户
+			if(admin.getRole() == Constants.USER){//普通用户
 				model.addAttribute("to", "adminDetail");
-			}else if(admin.getRole() == 0 || admin.getRole() == 2){//普通管理员、系统管理员
+			}else if(admin.getRole() == Constants.SUPERADMIN || admin.getRole() == Constants.ADMIN){//普通管理员、系统管理员
 				model.addAttribute("to", "adminList");
 			}
 			return "manager/index";//跳转到后台首页
@@ -282,7 +283,7 @@ public class AdminController {
 		if (result.hasErrors()) {
 			return "manager/register";//跳转到/register.jsp页面
 		} else {
-			adminForm.setRole(1);//普通用户
+			adminForm.setRole(Constants.USER);//普通用户
 			adminForm.setCreateTime(new Date());
 			int status = adminService.register(adminForm);
 			if(status > 0 ){

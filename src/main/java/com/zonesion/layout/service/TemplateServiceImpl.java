@@ -36,7 +36,13 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	@Override
-	public List<TemplateEntity> findByAdminId(int aid) {
+	public List<TemplateEntity> findByAdminId(int aid,int visible) {
+		// TODO Auto-generated method stub
+		return templateDao.findByAdminId(aid,visible);
+	}
+	
+	@Override
+	public List<Integer> findByAdminId(int aid) {
 		// TODO Auto-generated method stub
 		return templateDao.findByAdminId(aid);
 	}
@@ -57,6 +63,12 @@ public class TemplateServiceImpl implements TemplateService {
 	public int delete(int id) {
 		// TODO Auto-generated method stub
 		return templateDao.delete(id);
+	}
+	
+	@Override
+	public int delete(int[] ids,int aid) {
+		// TODO Auto-generated method stub
+		return templateDao.delete(ids,aid);
 	}
 	
 	@Override

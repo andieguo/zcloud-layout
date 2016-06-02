@@ -32,7 +32,9 @@ public interface TemplateDao {
 	/**
 	 * 根据管理员ID查找TemplateEntity
 	 */
-	public List<TemplateEntity> findByAdminId(int aid);
+	public List<TemplateEntity> findByAdminId(int aid,int visible);
+	
+	public List<Integer> findByAdminId(int aid);
 	
 	/**
 	 * 分页根据管理员ID查找TemplateEntity集合
@@ -64,6 +66,8 @@ public interface TemplateDao {
 	public int save(TemplateEntity templateEntity);
 	
 	public int delete(int id);
+	
+	public int delete(int[] ids,int aid);
 	
 	public int delete(int[] ids);
 	

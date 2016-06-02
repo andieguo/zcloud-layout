@@ -34,7 +34,7 @@ import com.zonesion.layout.util.Constants;
 
 /**    
  * @author andieguo andieguo@foxmail.com
- * @Description: TODO 
+ * @Description: 模板控制器 
  * @date 2016年4月28日 下午3:00:14  
  * @version V1.0    
  */
@@ -48,7 +48,7 @@ public class TemplateController {
 	
 	@Autowired
 	private AdminService adminService;
-	
+
 	@Autowired
 	private HttpSession httpSession;
 	
@@ -110,12 +110,12 @@ public class TemplateController {
 		int visible = templateForm.getVisible();
 		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
 		QueryResult<TemplateVO> queryResult = null;
-		if(type == 0){//查看系统模板
+		if(type == Constants.SYSTEMTEMPLATE){//查看系统模板
 			queryResult = templateService.findByAdminAndType(nickname, templatename, type, visible, firstindex, 10);
-		}else if(type == 1){//查看用户模板
-			if(admin.getRole() == 1 || admin.getRole() == 0){//用户、管理员
+		}else if(type == Constants.USERTEMPLATE){//查看用户模板
+			if(admin.getRole() == Constants.ADMIN || admin.getRole() == Constants.USER){//用户、管理员
 				queryResult = templateService.findByAdminAndType(admin.getNickname(), templatename, type, visible, firstindex, 10);
-			}else if(admin.getRole() == 2 ){//超级管理员
+			}else if(admin.getRole() == Constants.SUPERADMIN ){//超级管理员
 				queryResult = templateService.findByAdminAndType(nickname, templatename, type, visible, firstindex, 10);
 			}
 		}
@@ -257,9 +257,16 @@ public class TemplateController {
 	 * 批量删除模板
 	 */
 	@RequestMapping(value = "/template/delete", method = {RequestMethod.POST, RequestMethod.GET})
-	public String delete(TemplateForm templateForm,final RedirectAttributes redirectAttributes){
+	public String delete(TemplateForm deleteForm,final RedirectAttributes redirectAttributes){
 		logger.debug("deleteTemplate()");
-		int result = templateService.delete(templateForm.getKeyIds());
+		AdminEntity adminEntity = (AdminEntity) httpSession.getAttribute("admin");
+		int result = -1;
+		int role = adminEntity.getRole();
+		if(role == Constants.SUPERADMIN){//超级管理员
+			result = templateService.delete(deleteForm.getKeyIds());
+		}else if(role == Constants.ADMIN || role == Constants.USER){//管理员,普通用户
+			result = templateService.delete(deleteForm.getKeyIds(),adminEntity.getId());
+		}
 		if(result > 0){
 			//addFlashAttribute表示如果F5的时候，会发现参数丢失
 			redirectAttributes.addFlashAttribute("css", "success");
@@ -270,11 +277,11 @@ public class TemplateController {
 			redirectAttributes.addFlashAttribute("msg", "删除模板失败!");
 		}
 		//重定向传递GET参数有两种方式，方式二（addAttribute表示GET方式提交）
-		redirectAttributes.addAttribute("page", templateForm.getPage());//重定向传递参数，删除后跳转到page页
-		redirectAttributes.addAttribute("visible", templateForm.getVisible());
-		redirectAttributes.addAttribute("nickname", templateForm.getNickname());
-		redirectAttributes.addAttribute("name", templateForm.getName());
-		redirectAttributes.addAttribute("type",templateForm.getType());
+		redirectAttributes.addAttribute("page", deleteForm.getPage());//重定向传递参数，删除后跳转到page页
+		redirectAttributes.addAttribute("visible", deleteForm.getVisible());
+		redirectAttributes.addAttribute("nickname", deleteForm.getNickname());
+		redirectAttributes.addAttribute("name", deleteForm.getName());
+		redirectAttributes.addAttribute("type",deleteForm.getType());
 		return "redirect:/template/list";
 	}
 	
