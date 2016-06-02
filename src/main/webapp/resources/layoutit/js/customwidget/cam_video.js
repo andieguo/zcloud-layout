@@ -117,7 +117,7 @@ var cam_video = {
             	  cameraObj.openVideo();
                   console.log("摄像头：开");
 
-                  $("#"+divid).children(".top-left").find("a").removeClass("power-on").addClass("power-off");
+                  $("#"+divid).children(".top-left").find("a").removeClass("power-off").addClass("power-on");
                   $("#"+divid).addClass('hide');
                   btnObj.attr("ctr_cmd","CLOSE");
     		  }
@@ -128,12 +128,16 @@ var cam_video = {
           cameraObj.closeVideo();
           console.log("摄像头：关");
 
-          $("#"+divid).children(".top-left").find("a").removeClass("power-off").addClass("power-on");
-          $("#"+divid).removeClass('hide');
+          $("#"+divid).children(".top-left").find("a").removeClass("power-on").addClass("power-off");
+          $("#"+divid).children(".camera-btn").removeClass('hide');
           btnObj.attr("ctr_cmd","OPEN");
       }
       else{//其它控制指令
-          cameraObj.control(cmd);
+    	var state = $("#"+divid).children(".top-left").find("a").attr("ctr_cmd");
+		if(state =="CLOSE"){
+			cameraObj.control(cmd);
+		}	
+          
       }
   }
 }
@@ -162,15 +166,15 @@ function CamVideoUI(prop) {
 $(function(){
 	//摄像头页面鼠标拖放事件处理
 	$(".camera").mouseover(function(event) {
-		var cmd = $(this).children().children().find("a").attr("ctr_cmd");
+		var cmd = $(this).find(".top-left").find("a").attr("ctr_cmd");
 		if(cmd =="CLOSE"){
-			$(this).children().removeClass('hide');
+			$(this).children(".camera-btn").show();
 		}	
 	});
 	$(".camera").mouseout(function(event) {
 		var cmd = $(this).children().children().find("a").attr("ctr_cmd");
 		if(cmd =="CLOSE"){		
-			$(this).children().addClass('hide');
+			$(this).children(".camera-btn").hide();
 		}
 	});
 });
