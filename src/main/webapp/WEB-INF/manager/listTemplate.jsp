@@ -34,6 +34,7 @@
 	          			 <a class="font-green" href="${basePath }/template/addUI?type=${templateForm.type}" target="_blank">新建</a>
 	    		</div>
     		</c:if>
+    		<!-- 2、系统模板，管理员和超级管理员可以创建 -->
     		<c:if test="${templateForm.type == 0}">
 				<c:if test="${admin.role == 0 || admin.role == 2}">
 					<div class="header-right">
@@ -41,7 +42,6 @@
 		    		</div>
 				</c:if>
     		</c:if>
-    		<!-- 2、系统模板，管理员和超级管理员可以创建 -->
 			<div class="header-left">
 				<!-- 1、用户模块，管理员和用户只能查看自己的模板，系统管理员可以查看所有用户模板-->
 				<c:if test="${templateForm.type == 1}">
@@ -60,15 +60,33 @@
 				<label>启/停用：</label>
 				<form:select path="visible" items="${enableList}" class="form-control" />
 				<a href="javascript:queryAction()" class="font-green" >搜索</a>
-				<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
-				<input type="file" id="templateFile" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
+				<!-- 1、用户模板，所有角色都可以删除自己的模板 -->
+				<c:if test="${templateForm.type == 1}">
+					<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
+					<input type="file" id="templateFile" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
+				</c:if>
+				<!-- 2、系统模板，管理员和超级管理员可以批量删除-->
+    			<c:if test="${templateForm.type == 0}">
+    				<c:if test="${admin.role == 0 || admin.role == 2}">
+						<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
+						<input type="file" id="templateFile" name="templateFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
+					</c:if>
+				</c:if>
 			</div>
 		</header>
 	    <div class="table-body">
 	        <table class="table table-striped">
 				<thead>
 					<tr>
-						<th class="text-left"><input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" /><tt>ID</tt></th>
+						<th class="text-left">
+							<c:if test="${admin.role == 1}">
+				    			<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" disabled="true"/>
+			    			</c:if>
+			    			<c:if test="${admin.role != 1}">
+			    				<input name="chkAll" id="chkAll" title="全选" onClick="ChkAllClick('keyIds','chkAll')" type="checkbox" />
+			    			</c:if>
+							ID
+						</th>
 						<th>模板名</th>
 						<th>用户名</th>
 						<th>模板类型</th>
@@ -80,7 +98,31 @@
 				<tbody>
 					<c:forEach items="${pageView.records}" var="entry">
 						<tr>
-							<td class="text-left"><input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" /><tt>${entry.id }</tt></td>
+							<td class="text-left">
+								<!-- 1、用户模板，所有角色都可以删除自己的模板 -->
+								<c:if test="${templateForm.type == 1}">
+									<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" />
+								</c:if>
+								<!-- 2、系统模板，管理员可以批量删除自己的系统模板-->
+				    			<c:if test="${templateForm.type == 0}">
+					    			<c:if test="${admin.role == 1}">
+										<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" disabled="true"/>
+					    			</c:if>
+				    				<c:if test="${admin.role == 0}">
+				    					<c:if test="${admin.nickname != entry.nickname }">
+											<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" disabled="true"/>
+										</c:if>
+										<c:if test="${admin.nickname == entry.nickname }">
+											<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')"/>
+										</c:if>
+									</c:if>
+									<!-- 3、系统模板，超级管理员可以批量删除所有系统模板-->
+									<c:if test="${admin.role == 2}">
+										<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')"/>
+									</c:if>
+								</c:if>
+								${entry.id }
+							</td>
 							<td>${entry.name }</td>
 							<td>${entry.nickname }</td>
 							<td>
@@ -90,15 +132,16 @@
 							<td>${entry.createTime }</td> 
 							<td>${entry.modifyTime }</td> 
 							<td>
+								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">查看</a>
 								<!-- 1、管理员和用户只能修改自己的系统模板 -->
 								<c:if test="${admin.role == 0 || admin.role == 1}">
-								<c:if test="${admin.nickname == entry.nickname }">
-									<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
-									<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
-										<c:if test="${entry.visible==0}">启用</c:if>
-										<c:if test="${entry.visible==1}">停用</c:if>
-									</a>
-								</c:if>
+									<c:if test="${admin.nickname == entry.nickname }">
+										<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
+										<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
+											<c:if test="${entry.visible==0}">启用</c:if>
+											<c:if test="${entry.visible==1}">停用</c:if>
+										</a>
+									</c:if>
 								</c:if>
 								<!-- 2、超级管理员能修改所有模板 -->
 								<c:if test="${admin.role == 2}">
