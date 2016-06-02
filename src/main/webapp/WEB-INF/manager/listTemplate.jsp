@@ -90,8 +90,18 @@
 							<td>${entry.createTime }</td> 
 							<td>${entry.modifyTime }</td> 
 							<td>
-								<!-- 1、只有管理员自己能修改自己的系统模板 -->
+								<!-- 1、管理员和用户只能修改自己的系统模板 -->
+								<c:if test="${admin.role == 0 || admin.role == 1}">
 								<c:if test="${admin.nickname == entry.nickname }">
+									<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
+									<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
+										<c:if test="${entry.visible==0}">启用</c:if>
+										<c:if test="${entry.visible==1}">停用</c:if>
+									</a>
+								</c:if>
+								</c:if>
+								<!-- 2、超级管理员能修改所有模板 -->
+								<c:if test="${admin.role == 2}">
 									<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">修改</a>
 									<a href="javascript:enableAction(${entry.id},${entry.type})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
 										<c:if test="${entry.visible==0}">启用</c:if>
