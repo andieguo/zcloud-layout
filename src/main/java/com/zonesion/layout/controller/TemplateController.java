@@ -67,8 +67,8 @@ public class TemplateController {
 	public Map<Integer,String> typeList(){
 		Map<Integer, String> typeList = new LinkedHashMap<Integer, String>();
 		typeList.put(-1, "全部");
-		typeList.put(0, "系统模板");
-		typeList.put(1, "用户模板");
+		typeList.put(Constants.SYSTEMTEMPLATE, "系统模板");
+		typeList.put(Constants.USERTEMPLATE, "用户模板");
 		return typeList;
 	}
 	

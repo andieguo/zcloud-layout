@@ -136,10 +136,10 @@ public class ProjectController {
 		if(type!=null){
 			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
 			List<TemplateEntity> templateList = new ArrayList<TemplateEntity>();
-			if(type.equals(0)){//系统模板
-				templateList = templateService.findByType(0);
-			}else if(type.equals(1)){//用户模板
-				templateList = templateService.findByAdminAndType(admin.getId(),1);
+			if(type.equals(Constants.SYSTEMTEMPLATE)){//系统模板
+				templateList = templateService.findByType(Constants.SYSTEMTEMPLATE);
+			}else if(type.equals(Constants.USERTEMPLATE)){//用户模板
+				templateList = templateService.findByAdminAndType(admin.getId(),Constants.USERTEMPLATE);
 			}
 			if(templateList.size() > 0){
 				result.accumulate("status", 1);

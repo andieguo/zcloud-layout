@@ -93,8 +93,8 @@ public class AdminController {
 	public Map<Integer,String> roleList(){
 		Map<Integer, String> roleList = new LinkedHashMap<Integer, String>();
 		roleList.put(-1, "全部");
-		roleList.put(0, "管理员");
-		roleList.put(1, "普通用户");
+		roleList.put(Constants.ADMIN, "管理员");
+		roleList.put(Constants.USER, "普通用户");
 		return roleList;
 	}
 	
