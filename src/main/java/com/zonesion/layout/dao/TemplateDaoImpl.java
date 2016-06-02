@@ -49,10 +49,22 @@ public class TemplateDaoImpl extends JdbcDaoSupport implements TemplateDao {
 	}
 	
 	@Override
-	public List<TemplateEntity> findByAdminAndType(int aid, int type) {
-		// TODO Auto-generated method stub
-		return getJdbcTemplate().query("select * from tb_template where aid=? and type=? and visible=1", new Object[] {aid,type}, 
+	public List<TemplateEntity> findByAdminIdAndTid(int aid,int tid,int visible){
+		return getJdbcTemplate().query("select * from tb_template where aid=? and id=? and visible=?", new Object[] {aid,tid,visible}, 
 				new BeanPropertyRowMapper<TemplateEntity>(TemplateEntity.class));
+	}
+	
+	@Override
+	public List<TemplateEntity> findByAdminAndType(int aid, int type,int visible) {
+		// TODO Auto-generated method stub
+		return getJdbcTemplate().query("select * from tb_template where aid=? and type=? and visible=?", new Object[] {aid,type,visible}, 
+				new BeanPropertyRowMapper<TemplateEntity>(TemplateEntity.class));
+	}
+	
+	@Override
+	public List<TemplateEntity> findByTempalteAndType(int tid,int type,int visible){
+		return getJdbcTemplate().query("select * from tb_template where id=? and type=? and visible=?", new Object[] {tid,type,visible}, 
+				new BeanPropertyRowMapper<TemplateEntity>(TemplateEntity.class));	
 	}
 	
 	@Override

@@ -34,6 +34,8 @@ public interface TemplateDao {
 	 */
 	public List<TemplateEntity> findByAdminId(int aid,int visible);
 	
+	public List<TemplateEntity> findByAdminIdAndTid(int aid,int tid,int visible);
+	
 	public List<Integer> findByAdminId(int aid);
 	
 	/**
@@ -44,8 +46,10 @@ public interface TemplateDao {
 	/**
 	 * 根据管理员id和模板类型获取模板TemplateEntity集合
 	 */
-	public List<TemplateEntity> findByAdminAndType(int aid,int type);
+	public List<TemplateEntity> findByAdminAndType(int aid,int type,int visible);
 	
+	public List<TemplateEntity> findByTempalteAndType(int tid,int type,int visible);
+
 	/**
 	 * 根据模板类型获取模板TemplateEntity集合
 	 */

@@ -29,7 +29,11 @@ public List<TemplateEntity> findAll();
 	/**
 	 * 根据管理员id和模板类型获取模板
 	 */
-	public List<TemplateEntity> findByAdminAndType(int aid,int type);
+	public List<TemplateEntity> findByAdminAndType(int aid,int type,int visible);
+	
+	public List<TemplateEntity> findByTempalteAndType(int tid,int type,int visible);
+	
+	public List<TemplateEntity> findByAdminIdAndTid(int aid,int tid,int visible);
 	
 	public List<TemplateEntity> findByType(int type);
 	

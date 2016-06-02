@@ -48,9 +48,20 @@ public class TemplateServiceImpl implements TemplateService {
 	}
 
 	@Override
-	public List<TemplateEntity> findByAdminAndType(int aid, int type) {
+	public List<TemplateEntity> findByAdminAndType(int aid, int type,int visible) {
 		// TODO Auto-generated method stub
-		return templateDao.findByAdminAndType(aid, type);
+		return templateDao.findByAdminAndType(aid, type,visible);
+	}
+	
+	@Override
+	public List<TemplateEntity> findByTempalteAndType(int tid,int type,int visible){
+		return templateDao.findByTempalteAndType(tid, type, visible);
+	}
+
+	
+	@Override
+	public List<TemplateEntity> findByAdminIdAndTid(int aid,int tid,int visible){
+		return templateDao.findByAdminIdAndTid(aid, tid, visible);
 	}
 
 	@Override

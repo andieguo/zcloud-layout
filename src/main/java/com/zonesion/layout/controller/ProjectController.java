@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -139,7 +140,7 @@ public class ProjectController {
 			if(type.equals(Constants.SYSTEMTEMPLATE)){//系统模板
 				templateList = templateService.findByType(Constants.SYSTEMTEMPLATE);
 			}else if(type.equals(Constants.USERTEMPLATE)){//用户模板
-				templateList = templateService.findByAdminAndType(admin.getId(),Constants.USERTEMPLATE);
+				templateList = templateService.findByAdminAndType(admin.getId(),Constants.USERTEMPLATE,1);
 			}
 			if(templateList.size() > 0){
 				result.accumulate("status", 1);
@@ -295,23 +296,45 @@ public class ProjectController {
 			String content = UploadUtil.upload(stoageHome,request);
 			content = content.replace(JsonFormatter.prefixChar, "").replace(JsonFormatter.wrap, "");
 			if(content != null){
-				//解析上传文件内容
-				JSONObject jsonObject = new JSONObject(content);
-				String name = jsonObject.getString("name");
-				Integer tid = jsonObject.getInt("tid");
-				String imageUrl = jsonObject.getString("imageUrl");
-				String zcloudID = jsonObject.getString("zcloudID");
-				String zcloudKEY = jsonObject.getString("zcloudKEY");
-				String serverAddr = jsonObject.getString("serverAddr");
-				JSONArray macListArray = jsonObject.getJSONArray("macList");
-				AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-				ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
-				projectService.save(projectEntity);
-				redirectAttributes.addFlashAttribute("css", "success");
-				redirectAttributes.addFlashAttribute("msg", "导入工程文件成功!");
+				try{
+					//解析上传文件内容
+					JSONObject jsonObject = new JSONObject(content);
+					String name = jsonObject.getString("name");
+					Integer tid = jsonObject.getInt("tid");
+					String imageUrl = jsonObject.getString("imageUrl");
+					String zcloudID = jsonObject.getString("zcloudID");
+					String zcloudKEY = jsonObject.getString("zcloudKEY");
+					String serverAddr = jsonObject.getString("serverAddr");
+					JSONArray macListArray = jsonObject.getJSONArray("macList");
+					AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+					//检测该模板是否为用户模板
+					List<TemplateEntity> templateList = templateService.findByTempalteAndType(tid, 0, 1);
+					if(templateList.size() <= 0){//如果为用户模板
+						//如果为用户模板，检测该用户是否有该用户模板
+						AdminEntity adminEntity = (AdminEntity)httpSession.getAttribute("admin");
+						List<TemplateEntity> templateEntities = templateService.findByAdminIdAndTid(adminEntity.getId(), tid, 1);
+						if(templateEntities.size() > 0){//当前用户有该用户模板
+							ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
+							projectService.save(projectEntity);
+							redirectAttributes.addFlashAttribute("css", "success");
+							redirectAttributes.addFlashAttribute("msg", "导入工程文件成功!");
+						}else{
+							redirectAttributes.addFlashAttribute("css", "fail");
+							redirectAttributes.addFlashAttribute("msg", "工程文件引用了当前用户没有的用户模板，导入工程文件失败!");
+						}
+					}else{//如果为系统模板
+						ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
+						projectService.save(projectEntity);
+						redirectAttributes.addFlashAttribute("css", "success");
+						redirectAttributes.addFlashAttribute("msg", "导入工程文件成功!");
+					}
+				}catch(JSONException e){
+					redirectAttributes.addFlashAttribute("css", "fail");
+					redirectAttributes.addFlashAttribute("msg", "工程文件格式错误，导入工程文件失败!");
+				}
 			}else{
 				redirectAttributes.addFlashAttribute("css", "fail");
-				redirectAttributes.addFlashAttribute("msg", "导入工程文件失败!");
+				redirectAttributes.addFlashAttribute("msg", "工程文件格式错误，导入工程文件失败!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
