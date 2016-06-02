@@ -12,8 +12,9 @@ function docHeight() {
 	$(".main").css("height",a + "px");
 	$("#iframe").css("height",a + "px");
 };
-//nav下拉效果
+//topNav
 function topNav(){
+	//topNav下拉效果
 	var a = $(".topNav").children("li");
 	var b = a.children("a");
 	var lastClickTime = new Date().getTime();
@@ -31,5 +32,13 @@ function topNav(){
 			$(this).siblings("ul").slideToggle(250);
 			$(this).siblings("i").removeClass("icon-off").addClass("icon-on");
 		};
+	});
+	//topNav高亮
+	var c = $(".topNav").find("ul").find("a");
+	c.click(function(){
+		$.each(c,function(i){
+			c.eq(i).removeClass("active");
+		});
+		$(this).addClass("active");
 	});
 };
