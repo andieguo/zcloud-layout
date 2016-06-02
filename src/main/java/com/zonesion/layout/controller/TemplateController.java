@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -173,15 +174,20 @@ public class TemplateController {
 			String content = UploadUtil.upload(stoageHome,request);
 			if(content != null){
 				//解析上传文件内容
-				JSONObject jsonObject = new JSONObject(content);
-				String name = jsonObject.getString("name");
-				String layoutContent = jsonObject.getString("content");
-				String layoutJSON = jsonObject.getString("layout");
-				AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-				templateService.save(new TemplateEntity(name, layoutJSON, layoutContent, admin.getId(), type, new Date(), new Date()));
-				redirectAttributes.addAttribute("type", type);
-				redirectAttributes.addFlashAttribute("css", "success");
-				redirectAttributes.addFlashAttribute("msg", "导入模板文件成功!");
+				try{
+					JSONObject jsonObject = new JSONObject(content);
+					String name = jsonObject.getString("name");
+					String layoutContent = jsonObject.getString("content");
+					String layoutJSON = jsonObject.getString("layout");
+					AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+					templateService.save(new TemplateEntity(name, layoutJSON, layoutContent, admin.getId(), type, new Date(), new Date()));
+					redirectAttributes.addAttribute("type", type);
+					redirectAttributes.addFlashAttribute("css", "success");
+					redirectAttributes.addFlashAttribute("msg", "导入模板文件成功!");
+				}catch(JSONException e){
+					redirectAttributes.addFlashAttribute("css", "fail");
+					redirectAttributes.addFlashAttribute("msg", "模板文件格式错误，导入模板文件失败!");
+				}
 			}else{
 				redirectAttributes.addFlashAttribute("css", "fail");
 				redirectAttributes.addFlashAttribute("msg", "导入模板文件失败!");

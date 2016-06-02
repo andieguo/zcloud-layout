@@ -251,7 +251,7 @@ public class AdminController {
 	@RequestMapping(value = "/admin/list", method = {RequestMethod.POST, RequestMethod.GET})
 	public String list(@ModelAttribute("listForm") AdminForm listForm,Model model) {
 		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-		if(admin.getRole() == Constants.ADMIN || admin.getRole() == Constants.ADMIN){
+		if(admin.getRole() == Constants.ADMIN || admin.getRole() == Constants.SUPERADMIN){
 			int page = listForm.getPage();
 			int visible = listForm.getVisible();
 			int role = listForm.getRole();
@@ -263,12 +263,7 @@ public class AdminController {
 			model.addAttribute("pageView",pageView);
 			return "manager/listAdmin";//跳转到manager/listAdmin.jsp页面
 		}else{
-			if(admin.getRole() == Constants.USER){//普通用户
-				model.addAttribute("to", "adminDetail");
-			}else if(admin.getRole() == Constants.SUPERADMIN || admin.getRole() == Constants.ADMIN){//普通管理员、系统管理员
-				model.addAttribute("to", "adminList");
-			}
-			return "manager/index";
+			return "error/404";
 		}
 	}
 	
