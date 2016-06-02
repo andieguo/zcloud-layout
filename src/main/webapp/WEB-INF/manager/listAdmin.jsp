@@ -32,7 +32,7 @@
 				<div class="header-left">
 					<label>用户名：</label>
 					<form:input path="nickname"/>
-					<c:if test="${admin.role==ADMIN || admin.role = SUPERADMIN}">
+					<c:if test="${admin.role==ADMIN || admin.role == SUPERADMIN}">
 						<label>角色：</label>
 						<form:select path="role" items="${roleList}" class="form-control" />
 					</c:if>

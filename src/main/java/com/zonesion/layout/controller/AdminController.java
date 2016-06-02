@@ -250,17 +250,26 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/admin/list", method = {RequestMethod.POST, RequestMethod.GET})
 	public String list(@ModelAttribute("listForm") AdminForm listForm,Model model) {
-		logger.debug("listAdmins()");
-		int page = listForm.getPage();
-		int visible = listForm.getVisible();
-		int role = listForm.getRole();
-		String nickname = listForm.getNickname();
-		PageView<AdminEntity> pageView = new PageView<>(10,page);
-		int firstindex = (pageView.getCurrentpage()-1)*pageView.getMaxresult();
-		QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,visible,role,nickname);
-		pageView.setQueryResult(queryResult);
-		model.addAttribute("pageView",pageView);
-		return "manager/listAdmin";//跳转到manager/listAdmin.jsp页面
+		AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+		if(admin.getRole() == Constants.ADMIN || admin.getRole() == Constants.ADMIN){
+			int page = listForm.getPage();
+			int visible = listForm.getVisible();
+			int role = listForm.getRole();
+			String nickname = listForm.getNickname();
+			PageView<AdminEntity> pageView = new PageView<>(10,page);
+			int firstindex = (pageView.getCurrentpage()-1)*pageView.getMaxresult();
+			QueryResult<AdminEntity> queryResult = adminService.findAll(firstindex,10,visible,role,nickname);
+			pageView.setQueryResult(queryResult);
+			model.addAttribute("pageView",pageView);
+			return "manager/listAdmin";//跳转到manager/listAdmin.jsp页面
+		}else{
+			if(admin.getRole() == Constants.USER){//普通用户
+				model.addAttribute("to", "adminDetail");
+			}else if(admin.getRole() == Constants.SUPERADMIN || admin.getRole() == Constants.ADMIN){//普通管理员、系统管理员
+				model.addAttribute("to", "adminList");
+			}
+			return "manager/index";
+		}
 	}
 	
 	/**
