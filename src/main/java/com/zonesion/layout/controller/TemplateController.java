@@ -144,19 +144,33 @@ public class TemplateController {
 			File stoageHome = new File(Constants.LAYOUT_TEMPLATE_PATH);
 			String content = UploadUtil.upload(stoageHome,request);
 			if(content != null){
-				//解析上传文件内容
-				JSONObject jsonObject = new JSONObject(content);
-				String name = jsonObject.getString("name");
-				String layoutContent = jsonObject.getString("content");
-				String layoutJSON = jsonObject.getString("layout");
-				//AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
-				TemplateEntity templateEntity = new TemplateEntity();
-				templateEntity.setName(name);
-				templateEntity.setLayoutContent(layoutContent);
-				templateEntity.setLayoutJSON(layoutJSON);
-				model.addAttribute("templateEntity",templateEntity);
+				try{
+					//解析上传文件内容
+					JSONObject jsonObject = new JSONObject(content);
+					String name = jsonObject.getString("name");
+					String layoutContent = jsonObject.getString("content");
+					String layoutJSON = jsonObject.getString("layout");
+					//AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
+					TemplateEntity templateEntity = new TemplateEntity();
+					templateEntity.setName(name);
+					templateEntity.setLayoutContent(layoutContent);
+					templateEntity.setLayoutJSON(layoutJSON);
+					model.addAttribute("templateEntity",templateEntity);
+					model.addAttribute("type",type);//获取/template/importUI?type=1请求
+					model.addAttribute("method","save");
+					model.addAttribute("css", "success");
+					model.addAttribute("msg", "导入模板文件成功!");
+				}catch(JSONException e){
+					model.addAttribute("type",type);//获取/template/importUI?type=1请求
+					model.addAttribute("method","save");
+					model.addAttribute("css", "fail");
+					model.addAttribute("msg", "模板文件格式错误，导入模板文件失败!");
+				}
+			}else{
 				model.addAttribute("type",type);//获取/template/importUI?type=1请求
 				model.addAttribute("method","save");
+				model.addAttribute("css", "fail");
+				model.addAttribute("msg", "模板文件格式错误，导入模板文件失败!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -185,12 +199,14 @@ public class TemplateController {
 					redirectAttributes.addFlashAttribute("css", "success");
 					redirectAttributes.addFlashAttribute("msg", "导入模板文件成功!");
 				}catch(JSONException e){
+					redirectAttributes.addAttribute("type", type);
 					redirectAttributes.addFlashAttribute("css", "fail");
 					redirectAttributes.addFlashAttribute("msg", "模板文件格式错误，导入模板文件失败!");
 				}
 			}else{
+				redirectAttributes.addAttribute("type", type);
 				redirectAttributes.addFlashAttribute("css", "fail");
-				redirectAttributes.addFlashAttribute("msg", "导入模板文件失败!");
+				redirectAttributes.addFlashAttribute("msg", "模板文件格式错误，导入模板文件失败!");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

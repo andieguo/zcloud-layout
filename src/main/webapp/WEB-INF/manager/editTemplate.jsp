@@ -946,7 +946,7 @@ $(function(){
          -->
       </div>
     </div>
-
+	<%@ include file="/WEB-INF/share/msg.jsp"%>
     <!--UI编辑区-->
     <div class="demo ui-sortable" style="min-height: 304px; ">
       
