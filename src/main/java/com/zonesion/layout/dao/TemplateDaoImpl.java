@@ -110,7 +110,7 @@ public class TemplateDaoImpl extends JdbcDaoSupport implements TemplateDao {
 	public int delete(int[] ids) {
 		// TODO Auto-generated method stub
 		if(ids.length > 0){
-			Object[] params = new Object[ids.length+1];
+			Object[] params = new Object[ids.length];
 			StringBuffer sql = new StringBuffer("delete from tb_template where id in (");
 			for(int i=0;i<ids.length;i++){
 				params[i] = ids[i];
