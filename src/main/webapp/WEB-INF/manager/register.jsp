@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>智云组态仿真软件项目</title>
     <link rel="stylesheet" href="${basePath }/resources/css_index/style.css">
+	<%@ include file="/resources/share/script.jsp"%>
 </head>
 <body>
     <header class="content">
@@ -95,7 +96,6 @@
     </section>
     <footer>中智讯（武汉）科技有限公司版权所有 鄂ICP备13015866号-2</footer>
     <!--****************************脚本引用****************************-->
-	<%@ include file="/resources/share/script.jsp"%>
     <script type="text/javascript">
 			function changeimg(){
 				var myimg = document.getElementById("code"); 

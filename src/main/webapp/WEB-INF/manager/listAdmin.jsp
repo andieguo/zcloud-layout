@@ -10,7 +10,7 @@
 <meta charset="UTF-8">
 <title>智云组态仿真软件</title>
 <link rel="stylesheet" href="${basePath }/resources/css/style.css">
-<script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
+<%@ include file="/resources/share/script.jsp"%>
 <script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>
@@ -95,67 +95,66 @@
 				</table>
 			</div>
 		</form:form>
-		<!---------------------------脚本引用------------------------------>
-		<%@ include file="/resources/share/script.jsp"%>
 	</section>
-	<script language="JavaScript">
-		$(function(){
-			stateColor();
-			stateImage();
-		});
-		function queryAction() {
-			var form = document.forms[0];
-			document.getElementById("page").value = 1;
-			form.submit();
+<!---------------------------脚本引用------------------------------>
+<script language="JavaScript">
+	$(function(){
+		stateColor();
+		stateImage();
+	});
+	function queryAction() {
+		var form = document.forms[0];
+		document.getElementById("page").value = 1;
+		form.submit();
+	}
+	function modifyAction(id) {
+		var form = document.forms[0];
+		form.action = "${basePath}/admin/editUI";
+		document.getElementById("id").value = id;
+		form.submit();
+	}
+	//使能用户
+	function enableAction(id){
+		var url = "${basePath}/admin/enable";
+		var status = $("#enable_"+id).attr("visible");
+		if(status == 1){
+			alert("亲，确定要执行启用操作么？");
+		}else if(status == 0){
+			alert("亲，确认要执行停用操作么？");
 		}
-		function modifyAction(id) {
-			var form = document.forms[0];
-			form.action = "${basePath}/admin/editUI";
-			document.getElementById("id").value = id;
-			form.submit();
-		}
-		//使能用户
-		function enableAction(id){
-			var url = "${basePath}/admin/enable";
-			var status = $("#enable_"+id).attr("visible");
-			if(status == 1){
-				alert("亲，确定要执行启用操作么？");
-			}else if(status == 0){
-				alert("亲，确认要执行停用操作么？");
-			}
-			$.ajax({//提交给后台
-					url : url,
-					type : 'post',
-					data : {'id':id,'deleted':status},
-					dataType : 'json',
-					success : function(data) {//返回的data本身即是一个JSON对象
-						if(data.status == 1){//push成功
-							if(status == 1){
-								$("#enable_"+id).attr("visible",0);
-								$('#enable_'+id).text("停用");
-							}else if(status == 0){
-								$("#enable_"+id).attr("visible",1);
-								$('#enable_'+id).text("启用");
-							}
-							stateColor();
-							stateImage();
-						}else if(data.status==0){//push失败，恢复UI部分
-							console.log("failed");
+		$.ajax({//提交给后台
+				url : url,
+				type : 'post',
+				data : {'id':id,'deleted':status},
+				dataType : 'json',
+				success : function(data) {//返回的data本身即是一个JSON对象
+					if(data.status == 1){//push成功
+						if(status == 1){
+							$("#enable_"+id).attr("visible",0);
+							$('#enable_'+id).text("停用");
+						}else if(status == 0){
+							$("#enable_"+id).attr("visible",1);
+							$('#enable_'+id).text("启用");
 						}
-					},
-					error : function() {
-						alert("您请求的页面有异常 ");
+						stateColor();
+						stateImage();
+					}else if(data.status==0){//push失败，恢复UI部分
+						console.log("failed");
 					}
-			});
-		}
-		//删除用户--目前未使用
-		function deleteAction(id, status) {
-			var form = document.forms[0];
-			form.action = "${basePath}/admin/delete";
-			document.getElementById("id").value = id;
-			document.getElementById("deleted").value = status;
-			form.submit();
-		}
-	</script>
+				},
+				error : function() {
+					alert("您请求的页面有异常 ");
+				}
+		});
+	}
+	//删除用户--目前未使用
+	function deleteAction(id, status) {
+		var form = document.forms[0];
+		form.action = "${basePath}/admin/delete";
+		document.getElementById("id").value = id;
+		document.getElementById("deleted").value = status;
+		form.submit();
+	}
+</script>
 </body>
 </html>

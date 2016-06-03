@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>智云组态仿真软件项目</title>
     <link rel="stylesheet" href="${basePath }/resources/css_index/style.css">
+	<%@ include file="/resources/share/script.jsp"%>
 </head>
 <body>
     <header class="content">

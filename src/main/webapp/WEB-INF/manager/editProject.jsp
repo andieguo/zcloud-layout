@@ -11,8 +11,8 @@
 <head>
     <meta charset="UTF-8">
     <title>智云组态仿真软件</title>
-    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
-    <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
+	<link rel="stylesheet" href="${basePath }/resources/css/style.css">
+	<%@ include file="/resources/share/script.jsp"%>
     <script src="${basePath }/resources/js/form.js"></script>
 </head>
 <body>

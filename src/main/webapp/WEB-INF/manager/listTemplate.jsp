@@ -10,9 +10,9 @@
 	<title>模板列表</title>
 	<meta http-equiv='Content-Type' content='text/html; charset=utf-8' /> 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
-    <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/list.js"></script>
+	<link rel="stylesheet" href="${basePath }/resources/css/style.css">
+	<%@ include file="/resources/share/script.jsp"%>
+	<script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>
 <section class="main content">
@@ -83,7 +83,7 @@
 	        <table class="table table-striped">
 				<thead>
 					<tr>
-						<th class="text-left">
+						<th>
 							<c:if test="${admin.role == USER}">
 				    			<input  title="全选" type="checkbox" disabled="true"/>
 			    			</c:if>
@@ -104,7 +104,7 @@
 				<tbody>
 					<c:forEach items="${pageView.records}" var="entry">
 						<tr id="enable_${entry.id }">
-							<td class="text-left">
+							<td>
 								<!-- 1、用户模板，所有角色都可以删除自己的模板 -->
 								<c:if test="${templateForm.type == USERTEMPLATE}">
 									<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" />
@@ -127,7 +127,7 @@
 										<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')"/>
 									</c:if>
 								</c:if>
-								${entry.id }
+								<tt>${entry.id }</tt>
 							</td>
 							<td>${entry.name }</td>
 							<td>${entry.nickname }</td>
@@ -176,83 +176,82 @@
 </section>
 
 <!---------------------------脚本引用------------------------------>
-		<%@ include file="/resources/share/script.jsp"%>
-		<script src="<%=basePath %>/resources/js/checkbox.js" type="text/javascript"></script>
-		<script language="JavaScript">
-			$(function(){
-				stateColor();
-				stateImage();
-			});
-			function importAction(){
-				var templateFile = $("#templateFile").val();
-				if(templateFile != ""){
-					var form = document.forms[0];
-					form.action="${basePath}/template/import?type=${templateForm.type}";
-					form.enctype="multipart/form-data";
-					form.submit();
-				}else{
-					alert("导入文件不能为空!");
-					return;
-				}
-			}
-			function queryAction(){
-				var form = document.forms[0];
-				document.getElementById("page").value = 1;
-				form.submit();
-			}
-			function modifyAction(id){
-				var form = document.forms[0];
-				form.action="${basePath}/template/editUI";
-				form.method = "get";
-				document.getElementById("id").value = id;
-				form.submit();
-			}
-			//使能用户
-			function enableAction(id,type){
-				var url = "${basePath}/template/enable";
-				var status = $("#enable_"+id).attr("visible");
-				if(status == 1){
-					alert("亲，确定要执行启用操作么？");
-				}else if(status == 0){
-					alert("亲，确认要执行停用操作么？");
-				}
-				$.ajax({//提交给后台
-						url : url,
-						type : 'post',
-						data : {'id':id,'type':type,'deleted':status},
-						dataType : 'json',
-						success : function(data) {//返回的data本身即是一个JSON对象
-							if(data.status == 1){//push成功
-								if(status == 1){
-									$("#enable_"+id).attr("visible",0);
-									$('#enable_'+id).text("停用");
-								}else if(status == 0){
-									$("#enable_"+id).attr("visible",1);
-									$('#enable_'+id).text("启用");
-								}
-								stateColor();
-								stateImage();
-							}else if(data.status==0){//push失败，恢复UI部分
-								console.log("failed");
-							}
-						},
-						error : function() {
-							alert("您请求的页面有异常 ");
+<script src="<%=basePath %>/resources/js/checkbox.js" type="text/javascript"></script>
+<script language="JavaScript">
+	$(function(){
+		stateColor();
+		stateImage();
+	});
+	function importAction(){
+		var templateFile = $("#templateFile").val();
+		if(templateFile != ""){
+			var form = document.forms[0];
+			form.action="${basePath}/template/import?type=${templateForm.type}";
+			form.enctype="multipart/form-data";
+			form.submit();
+		}else{
+			alert("导入文件不能为空!");
+			return;
+		}
+	}
+	function queryAction(){
+		var form = document.forms[0];
+		document.getElementById("page").value = 1;
+		form.submit();
+	}
+	function modifyAction(id){
+		var form = document.forms[0];
+		form.action="${basePath}/template/editUI";
+		form.method = "get";
+		document.getElementById("id").value = id;
+		form.submit();
+	}
+	//使能用户
+	function enableAction(id,type){
+		var url = "${basePath}/template/enable";
+		var status = $("#enable_"+id).attr("visible");
+		if(status == 1){
+			alert("亲，确定要执行启用操作么？");
+		}else if(status == 0){
+			alert("亲，确认要执行停用操作么？");
+		}
+		$.ajax({//提交给后台
+				url : url,
+				type : 'post',
+				data : {'id':id,'type':type,'deleted':status},
+				dataType : 'json',
+				success : function(data) {//返回的data本身即是一个JSON对象
+					if(data.status == 1){//push成功
+						if(status == 1){
+							$("#enable_"+id).attr("visible",0);
+							$('#enable_'+id).text("停用");
+						}else if(status == 0){
+							$("#enable_"+id).attr("visible",1);
+							$('#enable_'+id).text("启用");
 						}
-				});
-			}
-			function deleteAction(){
-				var value=0;
-				$("input[name='keyIds']").each(function () {
-					if(this.checked){
-						var form = document.forms[0];
-						form.action="${basePath}/template/delete";
-						form.submit();
-						value=1;
+						stateColor();
+						stateImage();
+					}else if(data.status==0){//push失败，恢复UI部分
+						console.log("failed");
 					}
-				});
-				if(!value){alert("请选择删除项");};
+				},
+				error : function() {
+					alert("您请求的页面有异常 ");
+				}
+		});
+	}
+	function deleteAction(){
+		var value=0;
+		$("input[name='keyIds']").each(function () {
+			if(this.checked){
+				var form = document.forms[0];
+				form.action="${basePath}/template/delete";
+				form.submit();
+				value=1;
 			}
-		</script>
+		});
+		if(!value){alert("请选择删除项");};
+	}
+</script>
 </body>
 </html>

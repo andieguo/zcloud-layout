@@ -9,9 +9,9 @@
 <head>
     <meta charset="UTF-8">
     <title>智云组态仿真软件</title>
-    <link rel="stylesheet" href="${basePath }/resources/css/style.css">
-    <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/script.js"></script>
+	<link rel="stylesheet" href="${basePath }/resources/css/style.css">
+	<%@ include file="/resources/share/script.jsp"%>
+    <script src="${basePath }/resources/js/form.js"></script>
 </head>
 <body>
 <section class="main">
@@ -47,35 +47,33 @@
     </div>
 </section>
 <!---------------------------脚本引用------------------------------>
-		<%@ include file="/resources/share/script.jsp"%>
-		<script>
-		function textChange()
-		{
-			var password = $("#password").val();
-			password = encodeURI(password);//解决中文乱码问题
-			var url="${basePath}"+"/admin/conformPasswd";
-			var id =$("#id").val();
-			console.log("url:"+url);
-			 $.ajax( {
-					url : url,
-					type : 'get',
-					data : {'password':password,'id':id},
-					dataType : 'json',
-					success : function(data) {//返回的data本身即是一个JSON对象
-						console.log("data.status:"+data.status);
-						console.log("data.message:"+data.message);
-						if(data.status == 1){//当前密码输入正确
-							$('#conformFailDiv').html("恭喜您，当前密码输入正确");
-						}else if(data.status==0){//当前密码输入错误
-							$('#password').val("");
-							$('#conformFailDiv').html("当前密码输入错误");
-						}
-					},
-					error : function() {
-						alert("您请求的页面有异常 ");
-					}
-			});
+<script>
+function textChange() {
+	var password = $("#password").val();
+	password = encodeURI(password);//解决中文乱码问题
+	var url="${basePath}"+"/admin/conformPasswd";
+	var id =$("#id").val();
+	console.log("url:"+url);
+	$.ajax( {
+		url : url,
+		type : 'get',
+		data : {'password':password,'id':id},
+		dataType : 'json',
+		success : function(data) {//返回的data本身即是一个JSON对象
+			console.log("data.status:"+data.status);
+			console.log("data.message:"+data.message);
+			if(data.status == 1){//当前密码输入正确
+				$('#conformFailDiv').html("恭喜您，当前密码输入正确");
+			}else if(data.status==0){//当前密码输入错误
+				$('#password').val("");
+				$('#conformFailDiv').html("当前密码输入错误");
+			}
+		},
+		error : function() {
+			alert("您请求的页面有异常 ");
 		}
-		</script>
+	});
+}
+</script>
 </body>
 </html>

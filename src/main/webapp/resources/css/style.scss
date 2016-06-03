@@ -318,6 +318,7 @@ iframe {
 		background-color: #fff;
 		thead {
 			line-height: 50px;
+			vertical-align: middle;
 		}
 		tbody {
 			font-size: 12px;
@@ -388,9 +389,8 @@ iframe {
 		width: 40%;
 		min-width: 100px;
 		height: 40px;
-		padding: 14px 10px;
+		padding: 10px;
 		font-size: 14px;
-		line-height: 40px;
 		vertical-align:middle;
 		border:2px solid #c9c9c9;
 		border-radius: 5px;
