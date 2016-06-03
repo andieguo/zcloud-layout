@@ -37,23 +37,25 @@
 					</spring:bind>
 	                <div class="form-group">
 	                    <span class="label">角色：</span>
+	                    <!-- 超级管理员才能修改角色 -->
 	                    <c:if test="${admin.role == 2}">
 	                     	<div class="form-checkbox">
-		                        <input id="admin" type="radio"  value="0" name="role" checked="checked">
+		                        <input id="admin" type="radio"  value="0" name="role" <c:if test="${editForm.role==0}">checked="checked"</c:if>>
 		                        <label class="checkbox-img" for="admin"></label>
 		                        <label class="checkbox-text" for="admin">管理员</label>
 		                    </div>
 		                    <div class="form-checkbox">
-		                        <input id="user" type="radio"  value="1" name="role">
+		                        <input id="user" type="radio"  value="1" name="role" <c:if test="${editForm.role==1}">checked="checked"</c:if>>
 		                        <label class="checkbox-img" for="user"></label>
 		                        <label class="checkbox-text" for="user">普通用户</label>
 		                    </div>
 		                    <div class="form-checkbox">
-		                        <input id="superadmin" type="radio"  value="2" name="role">
+		                        <input id="superadmin" type="radio"  value="2" name="role" <c:if test="${editForm.role==2}">checked="checked"</c:if>>
 		                        <label class="checkbox-img" for="superadmin"></label>
 		                        <label class="checkbox-text" for="superadmin">超级管理员</label>
 		                    </div>
 						</c:if>
+						<!-- 普通用户、管理员不能修改角色 ，只是显示当前用户的角色-->
 						<c:if test="${admin.role != 2}">
 							<span class="input">
 			           			<c:if test="${admin.role==0}">管理员</c:if>
@@ -76,25 +78,16 @@
 							<form:errors path="phoneNumber" cssClass="error" />
 						</div>
 					</spring:bind>
-					<c:if test="${entry.role==0}">
-						<spring:bind path="role">
-							<div class="form-group">
-								<label for="role">角色：</label>
-		              			<form:select path="role" items="${roleList}" />
-								<form:errors path="role" cssClass="error" />
-							</div>
-						</spring:bind>
-					</c:if>
 					<spring:bind path="sex">
 						<div class="form-group">
 		                    <label>性别：</label>
 		                    <div class="form-checkbox">
-		                        <input id="man" type="radio"  value="1" name="sex" checked="checked">
+		                        <input id="man" type="radio"  value="1" name="sex" <c:if test="${editForm.sex==1}">checked="checked"</c:if>>
 		                        <label class="checkbox-img" for="man"></label>
 		                        <label class="checkbox-text" for="man">男</label>
 		                    </div>
 		                    <div class="form-checkbox">
-		                        <input id="woman" type="radio"  value="0" name="sex">
+		                        <input id="woman" type="radio"  value="0" name="sex" <c:if test="${editForm.sex==0}">checked="checked"</c:if>>
 		                        <label class="checkbox-img" for="woman"></label>
 		                        <label class="checkbox-text" for="woman">女</label>
 		                    </div>
