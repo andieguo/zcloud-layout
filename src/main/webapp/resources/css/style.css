@@ -279,6 +279,7 @@ iframe {
         line-height: 50px;
         border-bottom: 1px solid #EFEFEF; }
       .table-body table tbody a {
+        cursor: pointer;
         font-size: 14px;
         margin-left: 10px;
         margin-right: 10px;

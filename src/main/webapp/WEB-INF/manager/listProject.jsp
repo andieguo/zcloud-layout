@@ -46,7 +46,8 @@
 				<form:select path="visible" items="${enableList}" class="form-control" />
 				<a href="javascript:queryAction()" class="font-green" href="#">搜索</a>
 				<a href="javascript:deleteAction()" class="font-green" href="#">批量删除</a>
-				<input type="file" name="projectFile" size="50" /><a href="javascript:importAction()" class="font-green" >导入</a>
+				<input type="file" name="projectFile" size="50" />
+				<a href="javascript:importAction()" class="font-green" >导入</a>
 			</div>
 		</header>
 	    <div class="table-body">
@@ -70,7 +71,7 @@
 						<c:set var="currentpage" value="${pageView.currentpage}" />
 						<c:set var="maxresult" value="${pageView.maxresult}" />
 						<c:forEach items="${pageView.records}" var="entry" varStatus="status">
-							<tr>
+							<tr visible="${entry.visible==0?1:0}">
 								<td>
 									<input name="keyIds" type="checkbox"  value='${entry.id}' onclick="ChkSonClick('keyIds','chkAll')" />
 									<tt>${entry.id }</tt>
@@ -85,7 +86,8 @@
 								<td>
 								    <a href="${basePath }/project/publish?id=${entry.id}" class="font-green" target="_blank">发布</a>
 									<a href="javascript:modifyAction(${entry.id})" class="font-green">修改</a>
-									<a href="javascript:enableAction(${entry.id})" id="enable_${entry.id }" class="state-text font-red" visible="${entry.visible==0?1:0}">
+									<a class="state-text font-red">
+									<%-- <a href="javascript:enableAction(${entry.id})" id="enable_${entry.id }" class="state-text font-red"> --%>
 										<c:if test="${entry.visible==0}">启用</c:if>
 										<c:if test="${entry.visible==1}">停用</c:if>
 									</a>
@@ -98,7 +100,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="8">
-       						<%@ include file="/WEB-INF/share/page.jsp" %>
+	       						<%@ include file="/WEB-INF/share/page.jsp" %>
 					    	</td>
 						</tr>
 					</tfoot>
@@ -113,6 +115,7 @@
 	$(function(){
 		stateColor();
 		stateImage();
+		enableAction("${basePath}/project/enable");//使能project
 	});
 	function importAction(){
 		var form = document.forms[0];
@@ -131,40 +134,6 @@
 		form.method = "get";
 		document.getElementById("id").value = id;
 		form.submit();
-	}
-	//使能project
-	function enableAction(id){
-		var url = "${basePath}/project/enable";
-		var status = $("#enable_"+id).attr("visible");
-		if(status == 1){
-			alert("亲，确定要执行启用操作么？");
-		}else if(status == 0){
-			alert("亲，确认要执行停用操作么？");
-		}
-		$.ajax({//提交给后台
-				url : url,
-				type : 'post',
-				data : {'id':id,'deleted':status},
-				dataType : 'json',
-				success : function(data) {//返回的data本身即是一个JSON对象
-					if(data.status == 1){//push成功
-						if(status == 1){
-							$("#enable_"+id).attr("visible",0);
-							$('#enable_'+id).text("停用");
-						}else if(status == 0){
-							$("#enable_"+id).attr("visible",1);
-							$('#enable_'+id).text("启用");
-						}
-						stateColor();
-						stateImage();
-					}else if(data.status==0){//push失败，恢复UI部分
-						console.log("failed");
-					}
-				},
-				error : function() {
-					alert("您请求的页面有异常 ");
-				}
-		});
 	}
 	function deleteAction(){
 		var value=0;

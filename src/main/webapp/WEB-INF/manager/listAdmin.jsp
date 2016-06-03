@@ -60,8 +60,8 @@
 					<tbody>
 
 						<c:forEach items="${pageView.records}" var="entry">
-							<tr>
-								<td>${entry.id }</td>
+							<tr visible="${entry.visible==1?0:1}">
+								<td><tt>${entry.id }</tt></td>
 								<td>${entry.nickname }</td>
 								<td>${entry.email }</td>
 								<td>${entry.phoneNumber }</td>
@@ -75,7 +75,7 @@
 									
 									<c:if test="${admin.role==SUPERADMIN}">
 										<a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a>
-										<a class="state-text font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==1?0:1}">
+										<a class="state-text font-red">
 											<c:if test="${entry.visible==0}">启用</c:if>
 											<c:if test="${entry.visible==1}">停用</c:if>
 										</a>
@@ -101,6 +101,7 @@
 	$(function(){
 		stateColor();
 		stateImage();
+		enableAction("${basePath}/admin/enable");//使能project
 	});
 	function queryAction() {
 		var form = document.forms[0];
@@ -112,40 +113,6 @@
 		form.action = "${basePath}/admin/editUI";
 		document.getElementById("id").value = id;
 		form.submit();
-	}
-	//使能用户
-	function enableAction(id){
-		var url = "${basePath}/admin/enable";
-		var status = $("#enable_"+id).attr("visible");
-		if(status == 1){
-			alert("亲，确定要执行启用操作么？");
-		}else if(status == 0){
-			alert("亲，确认要执行停用操作么？");
-		}
-		$.ajax({//提交给后台
-				url : url,
-				type : 'post',
-				data : {'id':id,'deleted':status},
-				dataType : 'json',
-				success : function(data) {//返回的data本身即是一个JSON对象
-					if(data.status == 1){//push成功
-						if(status == 1){
-							$("#enable_"+id).attr("visible",0);
-							$('#enable_'+id).text("停用");
-						}else if(status == 0){
-							$("#enable_"+id).attr("visible",1);
-							$('#enable_'+id).text("启用");
-						}
-						stateColor();
-						stateImage();
-					}else if(data.status==0){//push失败，恢复UI部分
-						console.log("failed");
-					}
-				},
-				error : function() {
-					alert("您请求的页面有异常 ");
-				}
-		});
 	}
 	//删除用户--目前未使用
 	function deleteAction(id, status) {
