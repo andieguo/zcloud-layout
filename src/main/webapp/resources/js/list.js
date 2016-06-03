@@ -17,8 +17,7 @@ function stateColor(){
 function stateImage(){
 	var stateImage = $(".state-image");
 	stateImage.each(function (){
-		var valueNode = $(this).parents("tr").find("a[visible]")
-		console.log(23);
+		var valueNode = $(this).parents("tr").find(".state-text");
 		if(valueNode.attr("visible") == 0) {
 			$(this).removeClass("state-off").addClass("state-on");
 		}else {

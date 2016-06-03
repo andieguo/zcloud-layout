@@ -212,9 +212,8 @@ footer {
   box-sizing: border-box;
   display: block;
   width: 100%;
-  padding-left: 18px;
+  padding: 14px 18px;
   font-size: 14px;
-  line-height: 46px;
   vertical-align: middle;
   border: 2px solid #c9c9c9;
   border-radius: 5px; }
@@ -223,7 +222,7 @@ footer {
   width: 45%; }
 .form-group select {
   width: 100%;
-  padding: 13px;
+  padding: 13px 18px;
   line-height: 46px;
   border: 2px solid #c9c9c9;
   border-radius: 5px; }

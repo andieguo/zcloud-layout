@@ -169,7 +169,7 @@ iframe {
   width: 100%;
   height: 40px;
   color: #fff;
-  line-height: 50px;
+  line-height: 40px;
   text-align: center;
   background-color: #121921; }
 
@@ -285,18 +285,16 @@ iframe {
     .table-body table tfoot {
       font-size: 12px;
       line-height: 50px; }
+      .table-body table tfoot a {
+        margin-left: 5px;
+        margin-right: 5px;
+        color: #24bab3; }
       .table-body table tfoot .left {
         display: inline;
         float: left; }
       .table-body table tfoot .right {
         display: inline;
         float: right; }
-        .table-body table tfoot .right a {
-          margin-left: 5px;
-          margin-right: 5px;
-          color: #121921; }
-          .table-body table tfoot .right a:hover {
-            color: #24bab3; }
         .table-body table tfoot .right input {
           margin-left: 3px;
           margin-right: 3px;
@@ -304,6 +302,10 @@ iframe {
           text-align: center; }
     .table-body table td {
       padding: 0 15px; }
+    .table-body table input[type="checkbox"] {
+      vertical-align: middle; }
+    .table-body table tt {
+      vertical-align: middle; }
 
 .table-body-h100 {
   height: 100%; }
@@ -324,8 +326,7 @@ iframe {
     width: 40%;
     min-width: 100px;
     height: 40px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 14px 10px;
     font-size: 14px;
     line-height: 40px;
     vertical-align: middle;
@@ -402,11 +403,9 @@ iframe {
   cursor: pointer;
   display: inline-block;
   margin-right: 15px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 14px 20px;
   font-size: 18px;
   color: #fff;
-  line-height: 40px;
   border-radius: 5px;
   background-color: #1C8F8A; }
 
