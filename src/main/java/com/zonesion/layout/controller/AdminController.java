@@ -296,7 +296,7 @@ public class AdminController {
 				redirectAttributes.addAttribute("page", 1);//重定向传递参数,注册后跳转到第1页
 				return "redirect:/admin/loginUI";//跳转到/admin/list
 			}else{
-				redirectAttributes.addFlashAttribute("css", "success");
+				redirectAttributes.addFlashAttribute("css", "fail");
 				redirectAttributes.addFlashAttribute("msg", "注册用户失败!");
 				return "manager/register";//跳转到/register.jsp页面
 			}
