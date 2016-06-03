@@ -467,6 +467,19 @@ iframe {
   background-color: #fff;
   box-shadow: 0 0 10px #aaa; }
 
+.state-image {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  background-size: 100% 100%; }
+
+.state-on {
+  background-image: url("../images/state-on.png"); }
+
+.state-off {
+  background-image: url("../images/state-off.png"); }
+
 .alert {
   padding: 8px 35px 8px 14px;
   margin-bottom: 20px;

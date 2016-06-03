@@ -53,7 +53,8 @@
 							<th>创建时间</th>
 							<c:if test="${admin.role==SUPERADMIN}">
 								<th>操作</th>
-							</c:if>	
+							</c:if>
+							<th>状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -74,18 +75,19 @@
 									
 									<c:if test="${admin.role==SUPERADMIN}">
 										<a class="font-green" href="javascript:modifyAction(${entry.id})">修改</a>
-										<a class="font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==1?0:1}">
+										<a class="state-text font-red" id="enable_${entry.id}" href="javascript:enableAction(${entry.id})" visible="${entry.visible==1?0:1}">
 											<c:if test="${entry.visible==0}">启用</c:if>
 											<c:if test="${entry.visible==1}">停用</c:if>
 										</a>
 									</c:if>
 								</td>
+								<td><i class="state-image state-on"></i></td> 
 							</tr>
 						</c:forEach>
 					<tbody>
 					<tfoot>
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
        						<%@ include file="/WEB-INF/share/page.jsp" %>
 					    	</td>
 						</tr>
@@ -97,6 +99,10 @@
 		<%@ include file="/resources/share/script.jsp"%>
 	</section>
 	<script language="JavaScript">
+		$(function(){
+			stateColor();
+			stateImage();
+		});
 		function queryAction() {
 			var form = document.forms[0];
 			document.getElementById("page").value = 1;
@@ -131,6 +137,8 @@
 								$("#enable_"+id).attr("visible",1);
 								$('#enable_'+id).text("启用");
 							}
+							stateColor();
+							stateImage();
 						}else if(data.status==0){//push失败，恢复UI部分
 							console.log("failed");
 						}

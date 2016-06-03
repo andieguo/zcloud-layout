@@ -1,13 +1,28 @@
 $(function(){
-	enableColor();
 	mouseover();
 });
+
 //启用颜色判断
-function enableColor(){
-	var enableColor = $(".table-body:eq(0) .font-red");
-	$.each(enableColor ,function(i) {
-		if (enableColor.eq(i).html().indexOf("启用") != -1) {
-			enableColor.eq(i).css("color","#24bab3");
+function stateColor(){
+	var stateColor = $(".state-text");
+	stateColor.each(function (){
+		if ($(this).attr("visible") == 0) {
+			$(this).css("color","#e60016");
+		}else {
+			$(this).css("color","#24bab3");
+		};
+	});
+};
+//状态判断
+function stateImage(){
+	var stateImage = $(".state-image");
+	stateImage.each(function (){
+		var valueNode = $(this).parents("tr").find("a[visible]")
+		console.log(23);
+		if(valueNode.attr("visible") == 0) {
+			$(this).removeClass("state-off").addClass("state-on");
+		}else {
+			$(this).removeClass("state-on").addClass("state-off");
 		};
 	});
 };
@@ -21,3 +36,4 @@ function mouseover(){
 		$(this).css("background-color","none");
 	});
 };
+

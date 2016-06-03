@@ -60,6 +60,7 @@
 							<th>创建时间</th>
 							<th>修改时间</th>
 							<th>操作</th>
+							<th>状态</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -78,18 +79,19 @@
 								<td>
 								    <a href="${basePath }/project/publish?id=${entry.id}" class="font-green" target="_blank">发布</a>
 									<a href="javascript:modifyAction(${entry.id})" class="font-green">修改</a>
-									<a href="javascript:enableAction(${entry.id})" id="enable_${entry.id }" class="font-red" visible="${entry.visible==0?1:0}">
+									<a href="javascript:enableAction(${entry.id})" id="enable_${entry.id }" class="state-text font-red" visible="${entry.visible==0?1:0}">
 										<c:if test="${entry.visible==0}">启用</c:if>
 										<c:if test="${entry.visible==1}">停用</c:if>
 									</a>
 									<a href="${basePath}/project/export?id=${entry.id}" class="font-green">导出</a>
-								</td>   
+								</td>
+								<td><i class="state-image state-on"></i></td>   
 			      			</tr>
 			      		</c:forEach>
 					<tbody>
 					<tfoot>
 						<tr>
-							<td colspan="7">
+							<td colspan="8">
        						<%@ include file="/WEB-INF/share/page.jsp" %>
 					    	</td>
 						</tr>
@@ -103,6 +105,10 @@
 		<%@ include file="/resources/share/script.jsp"%>
 		<script src="<%=basePath %>/resources/js/checkbox.js" type="text/javascript"></script>
 		<script language="JavaScript">
+			$(function(){
+				stateColor();
+				stateImage();
+			});
 			function importAction(){
 				var form = document.forms[0];
 				form.action="${basePath}/project/import";
@@ -144,6 +150,8 @@
 									$("#enable_"+id).attr("visible",1);
 									$('#enable_'+id).text("启用");
 								}
+								stateColor();
+								stateImage();
 							}else if(data.status==0){//push失败，恢复UI部分
 								console.log("failed");
 							}
