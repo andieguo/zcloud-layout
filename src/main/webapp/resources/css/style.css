@@ -281,8 +281,8 @@ iframe {
       .table-body table tbody a {
         cursor: pointer;
         font-size: 14px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-left: 3px;
+        margin-right: 3px;
         font-weight: bold; }
     .table-body table tfoot {
       font-size: 12px;

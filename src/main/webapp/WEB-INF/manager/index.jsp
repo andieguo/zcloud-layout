@@ -46,7 +46,7 @@
         <li>
             <a>用户管理</a>
             <i class="icon icon-off"></i>
-            <ul class="hide">
+            <ul class="">
             	<!-- 普通管理员和超级管理员能够访问 -->
             	<c:if test="${admin.role != 1}">
             		<li><a class="active" href="${basePath }/admin/list" target="iframe">用户列表</a></li>

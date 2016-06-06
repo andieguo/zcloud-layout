@@ -82,8 +82,8 @@ var fs_dial = {
         var properties = {
             tid: "fs_dial",
             title:"温度",
-            width: 280,
-            height: 280,
+            //width: 280,
+            //height: 233,
             min: 0,
             max: 120,
             unit: "℃",
@@ -187,8 +187,8 @@ function FSDialUI(prop) {
     var csatGauge = new FusionCharts({
         "type": "angulargauge",
         "renderAt": prop.tid,
-        "width": prop.width,
-        "height": prop.height,
+        "width": 233,
+        "height": 233,
         "dataFormat": "json",
         "dataSource": {
             "chart": {

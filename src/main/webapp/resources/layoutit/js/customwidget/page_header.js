@@ -4,18 +4,16 @@ var page_header = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
               '<div class="preview">项目头</div>'+
               '<div class="view">'+
-              	'<div>'+
-	              	'<div class="body">'+
-	                  '<header class="clearfix" id="page_header">'+
-	                    '<img src="'+layoutitPath+'images/prog_logo1.jpg" alt="logo">'+
-	                    '<hgroup>'+
-	                      '<h1>项目名称</h1>'+
-	                      '<h2>此处为对项目的简单描述</h2>'+
-	                    '</hgroup>'+
-	                  '</header>'+
-	                  '<div class="header-bg"></div>'+
-	                '</div>'+
-	             '</div>'+
+              	'<div class="body" style="position:relative;">'+
+                  '<header class="clearfix" id="page_header">'+
+                    '<img src="'+layoutitPath+'images/prog_logo1.jpg" alt="logo">'+
+                    '<hgroup>'+
+                      '<h1>项目名称</h1>'+
+                      '<h2>此处为对项目的简单描述</h2>'+
+                    '</hgroup>'+
+                  '</header>'+
+                  '<div class="header-bg"></div>'+
+                '</div>'+
               '</div>'+
             '</div>',
 
@@ -103,8 +101,8 @@ function PageHeaderUI(prop)
 	this.properties = prop;
 	var html = '<img src="'+layoutitPath+prop.prog_logo+'" alt="logo">'+
 			   '<hgroup>'+
-			   '<h1 contenteditable="true">'+prop.prog_name+'</h1>'+
-			   '<h2 contenteditable="true">'+prop.prog_des+'</h2>'+
+			   '<h1>'+prop.prog_name+'</h1>'+
+			   '<h2>'+prop.prog_des+'</h2>'+
 			   '</hgroup>';
 	$("#"+prop.tid).html(html);
 }

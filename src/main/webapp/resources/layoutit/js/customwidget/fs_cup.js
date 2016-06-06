@@ -55,11 +55,11 @@ var fs_cup = {
         tid: "fs_cup",
         title: "湿度",
         width: 140,
-        height: 200,
+        //height: 200,
         max: 100,
         min: 0,
         unit: "%",
-        bgcolor: "#f2f5f7",
+        bgcolor: "#ffffff",
         gaugeFillColor: "#5aff00",
         dataType:'realTime'
     };
@@ -145,7 +145,7 @@ function FSCupUI(prop) {
       "type": "cylinder",
       "renderAt": prop.tid,
       "width": prop.width,
-      "height": prop.height,
+      "height": 233,
       "dataFormat": "json",
       "dataSource": {
           "chart": {

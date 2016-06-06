@@ -138,8 +138,8 @@ function HCCurveUI(prop) {
             type: prop.ctype,
             animation: false,
             zoomType: 'x',
-            width: prop.width,
-            height: prop.height,
+            //width: prop.width,
+            height: 237,
         },
         legend: {
             enabled: false

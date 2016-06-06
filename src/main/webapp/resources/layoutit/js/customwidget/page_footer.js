@@ -4,12 +4,10 @@ var page_footer = {
                 '<span class="configuration"><button type="button" class="btn btn-mini" data-target="#attrEditorModal" role="button" data-toggle="modal">编辑</button></span>'+
               '<div class="preview">项目尾</div>'+
               '<div class="view">'+
-              	'<div>'+
-	              	'<div class="body">'+
-	                  '<footer id = "page_footer">此处填写项目的版权信息</footer>'+
-		              '<div class="footer-bg"></div>'+
-	                '</div>'+ 
-	            '</div>'+
+              	'<div class="body" style="position:relative;">'+
+                  '<footer id = "page_footer">此处填写项目的版权信息</footer>'+
+	              '<div class="footer-bg"></div>'+
+                '</div>'+ 
               '</div>'+
             '</div>',
 

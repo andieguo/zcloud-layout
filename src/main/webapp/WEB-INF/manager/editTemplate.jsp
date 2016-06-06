@@ -18,7 +18,6 @@
 <!-- Le styles -->
 <link href="${basePath }/resources/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
 <link href="${basePath }/resources/layoutit/css/layoutit-edit.css" rel="stylesheet">
-<link href="${basePath }/resources/layoutit/css/style.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -153,23 +152,28 @@ $(function(){
       	<ul class="nav" id="menu-layoutit">
           <li class="divider-vertical"></li>
           <li>
-            <div class="btn-group" data-toggle="buttons-radio">
-              <button type="button" id="edit" class="btn btn-primary active"><i class="icon-edit icon-white"></i>编辑</button>
-              <button type="button" class="btn btn-primary" id="devpreview"><i class="icon-eye-close icon-white"></i>布局编辑</button>
-              <button type="button" class="btn btn-primary" id="sourcepreview"><i class="icon-eye-open icon-white"></i>预览</button>
-            </div>
-            <div class="btn-group">
-              <button type="button" class="btn btn-primary" data-target="#downloadModal" rel="/build/downloadModal" role="button" data-toggle="modal"><i class="icon-chevron-down icon-white"></i>下载</button>
-              <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
-              <button class="btn btn-primary" href="#clear" id="clear"><i class="icon-trash icon-white"></i>清空</button>
-            </div>
-            <div class="btn-group">
-            	<input type="text" id="templateName" name="templateName" value="${templateEntity.name}"></input>
-				<form class="h100" method="post" >
+			<form class="form-inline" method="post" style="margin:0;">
+	            <div class="btn-group input-prepend">
+  					<span class="btn btn-primary">模板名称</span>
+            		<input class="input-medium" type="text" id="templateName" name="templateName" value="${templateEntity.name}"></input>
+	            </div>
+	            <div class="btn-group" data-toggle="buttons-radio">
+	              <button type="button" id="edit" class="btn btn-primary active"><i class="icon-edit icon-white"></i>编辑</button>
+	              <button type="button" class="btn btn-primary" id="devpreview"><i class="icon-eye-close icon-white"></i>布局编辑</button>
+	              <button type="button" class="btn btn-primary" id="sourcepreview"><i class="icon-eye-open icon-white"></i>预览</button>
+	            </div>
+	            <div class="btn-group">
+	              <button type="button" class="btn btn-primary" data-target="#downloadModal" rel="/build/downloadModal" role="button" data-toggle="modal"><i class="icon-chevron-down icon-white"></i>下载</button>
+	              <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
+	              <button class="btn btn-primary" href="#clear" id="clear"><i class="icon-trash icon-white"></i>清空</button>
+	            </div>
+	            <div class="btn-group">
 					<input type="file" id="templateFile" name="templateFile" size="50" />
+				</div>
+	            <div class="btn-group">
 					<button class="btn btn-primary" onclick="importAction()" id="clear"><i class="icon-trash icon-white"></i>导入</button>
-				</form>
-            </div>
+				</div>
+			</form>
           </li>
         </ul>
         <ul class="nav pull-right">

@@ -54,12 +54,12 @@ var fs_temperature = {
     var properties = {
         tid: "fs_temperature",
         title: "温度",
-        width: 240,
-        height: 200,
+        width: 140,
+        //height: 200,
         max: 100,
         min: 0,
         unit: "℃",
-        bgcolor: "#f3f5f7",
+        bgcolor: "#ffffff",
         gaugeFillColor: "#ffc420",
         dataType:'realTime'
     };
@@ -145,7 +145,7 @@ function TemperatureUI(prop) {
     "type": "thermometer",
     "renderAt": prop.tid,
     "width": prop.width,
-    "height": prop.height,
+    "height": 233,
     "dataFormat": "json",
     "dataSource": {
         "chart": {

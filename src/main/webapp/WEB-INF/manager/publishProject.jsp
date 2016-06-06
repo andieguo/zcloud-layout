@@ -15,7 +15,6 @@
 <!-- Le styles -->
 <link href="${basePath }/resources/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
 <link href="${basePath }/resources/layoutit/css/layoutit.css" rel="stylesheet">
-<link href="${basePath }/resources/layoutit/css/style.css" rel="stylesheet">
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
@@ -214,6 +213,14 @@ $(function(){
 			}
 		}
 	});	
+});
+$(function(){
+	var a = $(window).width();
+	var b = $(window).width() - $(".container").width();
+	$(".header-bg").css("width",a + "px");
+	$(".header-bg").css("left",-b/2 + "px");
+	$(".footer-bg").css("width",a + "px");
+	$(".footer-bg").css("left",-b/2 + "px");
 });
 </script>
 
