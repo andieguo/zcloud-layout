@@ -228,6 +228,9 @@ iframe {
       vertical-align: middle;
       border: 1px solid #1C8F8A;
       border-radius: 5px; }
+    .table-header .header-left input[type="file"] {
+      padding: 4px 5px;
+      width: 160px; }
   .table-header .header-right {
     display: inline-block;
     float: right; }

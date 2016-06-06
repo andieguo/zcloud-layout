@@ -39,11 +39,10 @@ function mouseover(){
 function enableAction(url){
 	var stateText = $(".state-text");
 	stateText.click(function(){
-		//var url = "${basePath}/project/enable";
 		var status = $(this).parents("tr").attr("visible");
 		var id = $(this).parents("tr").find("tt").text();
 		var partentThis = $(this);
-		var r = confirm("亲，确定要执行启用操作么？")
+		var r = confirm("亲，确定要执行此操作么？")
 		if (r == true) {
 			$.ajax({//提交给后台
 				url : url,
