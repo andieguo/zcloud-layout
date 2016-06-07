@@ -175,14 +175,14 @@ $(function(){
 				<c:if test="${method != 'edit' && method != 'view'}">
 	            <div class="btn-group" data-toggle="buttons-radio">
 	              <button type="button" id="edit" class="btn btn-primary active"><i class="icon-edit icon-white"></i>编辑</button>
-	              <button type="button" class="btn btn-primary" id="devpreview"><i class="icon-eye-close icon-white"></i>布局编辑</button>
-	              <button type="button" class="btn btn-primary" id="sourcepreview"><i class="icon-eye-open icon-white"></i>预览</button>
+	              <button type="button" class="btn btn-primary" id="devpreview"><i class="icon-eye-open icon-white"></i>预览</button>
+	              <!-- <button type="button" class="btn btn-primary" id="sourcepreview"><i class="icon-eye-open icon-white"></i>预览</button> -->
 	            </div>
 	            </c:if>
 	            <div class="btn-group">
-	              <c:if test="${method != 'edit' && method != 'view'}">
+	              <%-- <c:if test="${method != 'edit' && method != 'view'}">
 	              <button type="button" class="btn btn-primary" data-target="#downloadModal" rel="/build/downloadModal" role="button" data-toggle="modal"><i class="icon-chevron-down icon-white"></i>下载</button>
-	              </c:if>
+	              </c:if> --%>
 	              <c:if test="${method != 'view'}">
 	              <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
 	              </c:if>
