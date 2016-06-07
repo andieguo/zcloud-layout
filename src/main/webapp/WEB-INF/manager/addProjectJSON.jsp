@@ -27,7 +27,6 @@
 						<div class="form-group">
 							<label for="name">项目名：</label>
 							<input id="name" name="name"  value="${status.value}" type="text" placeholder="请输入项目名称" >
-							<form:errors path="name" cssClass="error" />
 						</div>
 					</spring:bind>
 					<div class="form-group">
@@ -46,27 +45,23 @@
 					<div class="form-group">
 						<label for="templateList">模板列表：</label>
 	              	 	<select id="templateList" onchange="templateIdChange()"></select>
-	              	 	 <form:errors path="tid" cssClass="error" />
 					</div>
 					<spring:bind path="zcloudID">
 						<div class="form-group">
 							<label for="zcloudID">智云ID：</label>
 	              			<input type="text" id="zcloudID" name="zcloudID" value="${status.value}"  placeholder="请输入智云ID" />
-							<form:errors path="zcloudID" cssClass="error" />
 						</div>
 					</spring:bind>
 				   	<spring:bind path="zcloudKEY">
 						<div class="form-group">
 							<label for="zcloudKEY">智云KEY：</label>
 	              			<input type="text" id="zcloudKEY" name="zcloudKEY" value="${status.value}"  placeholder="请输入智云KEY" />
-							<form:errors path="zcloudKEY" cssClass="error" />
 						</div>
 					</spring:bind>
 					<spring:bind path="serverAddr">
 						<div class="form-group">
 							<label for="serverAddr">智云Server：</label>
 	              			<input type="text" id="serverAddr" name="serverAddr" value="${status.value}"  placeholder="请输入智云服务器地址" />
-							<form:errors path="serverAddr" cssClass="error" />
 						</div>
 					</spring:bind>
 
@@ -116,27 +111,33 @@ function saveValidate(){
 	var tid = $("#templateList").val();
 	if(name == ""){
 		namepass = false;
-		console.log("项目名不能为空");
+		$('<span class="error">项目名不能为空</span>').insertAfter('#name');
+		//console.log("项目名不能为空");
 	}
 	if(zcloudID == ""){
 		idpass = false;
-		console.log("智云ID不能为空");
+		$('<span class="error">智云ID不能为空</span>').insertAfter('#zcloudID');
+		//console.log("智云ID不能为空");
 	}
 	if(zcloudKEY == ""){
 		keypass = false;
-		console.log("智云KEY不能为空");
+		$('<span class="error">智云KEY不能为空</span>').insertAfter('#zcloudKEY');
+		//console.log("智云KEY不能为空");
 	}
 	if(serverAddr == ""){
 		addrpass = false;
-		console.log("智云服务器地址不能为空");
+		$('<span class="error">智云服务器地址不能为空</span>').insertAfter('#serverAddr');
+		//console.log("智云服务器地址不能为空");
 	}
 	if(templateType == -1){
 		typepass = false;
-		console.log("请选择模板类型");
+		$('<span class="error">请选择模板类型</span>').insertAfter('#templateType');
+		//console.log("请选择模板类型");
 	}
 	if(tid == null || tid == -1){
 		tidpass = false;
-		console.log("模板ID不能为空");
+		$('<span class="error">模板ID不能为空</span>').insertAfter('#templateList');
+		//console.log("模板ID不能为空");
 	}
 	return namepass && idpass && keypass && addrpass && typepass && tidpass;
 }
