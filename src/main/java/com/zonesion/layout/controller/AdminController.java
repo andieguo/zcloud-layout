@@ -210,6 +210,10 @@ public class AdminController {
 		}else{
 			redirectAttributes.addFlashAttribute("css", "success");
 			redirectAttributes.addFlashAttribute("msg", "登录成功!");
+			String from_url = (String)httpSession.getAttribute("from");
+			if(from_url != null && !from_url.equals("")){
+				return "redirect:"+from_url;
+			}
 			AdminEntity admin = (AdminEntity)httpSession.getAttribute("admin");
 			if(admin.getRole() == Constants.USER){//普通用户
 				model.addAttribute("to", "adminDetail");

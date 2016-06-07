@@ -1,5 +1,6 @@
 package com.zonesion.layout.controller;
 
+import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -52,14 +53,16 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         String requestUri = request.getRequestURI();  
         String contextPath = request.getContextPath();  
         String url = requestUri.substring(contextPath.length());  
-        
+        String params = request.getQueryString();
         logger.info("requestUri:"+requestUri);    
         logger.info("contextPath:"+contextPath);    
-        logger.info("url:"+url);    
+        logger.info("url:"+url); //url:/template/editUI
+        logger.info("params:"+params);
         if(url.startsWith("/admin") || url.startsWith("/project") || url.startsWith("/template")){
         	AdminEntity admin =  (AdminEntity)request.getSession().getAttribute("admin");   
         	if(admin == null ){
         		logger.info("Interceptor：跳转到login页面！");
+        		request.getSession().setAttribute("from", url+"?"+params);
         		response.sendRedirect(contextPath+"/admin/loginUI");
         		return false;  //不放行
         	}else  
@@ -68,6 +71,24 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         	response.sendRedirect(contextPath+"/error/404.jsp");
         	return false; //不放行
         }
+	}
+	
+	public String getParams(HttpServletRequest request){
+		StringBuffer result = new StringBuffer("");
+		@SuppressWarnings("rawtypes")
+		Enumeration paramNames = request.getParameterNames();  
+        while (paramNames.hasMoreElements()) {  
+            String paramName = (String) paramNames.nextElement();  
+            String[] paramValues = request.getParameterValues(paramName);  
+            if (paramValues.length == 1) {  
+                String paramValue = paramValues[0];  
+                if (paramValue.length() != 0) {  
+                	result.append(paramName).append("=").append(paramValue).append("&");
+                }  
+            }  
+        }
+        result.delete(result.length()-1, result.length());
+        return result.toString();
 	}
 
 }
