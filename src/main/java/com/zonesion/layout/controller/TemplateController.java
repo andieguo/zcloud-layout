@@ -276,6 +276,19 @@ public class TemplateController {
 	}
 	
 	/**
+	 * 跳转到用户编辑模板页面(返回JSON格式数据)
+	 */
+	@RequestMapping(value = "/template/viewUI", method = {RequestMethod.POST, RequestMethod.GET})
+	public String viewUI(TemplateForm templateForm,Model model){
+		logger.debug("editUI()");
+		TemplateEntity templateEntity = templateService.findByTemplateId(templateForm.getId());
+		model.addAttribute("templateEntity",templateEntity);
+		model.addAttribute("method","view");
+		model.addAttribute("type",templateEntity.getType());
+		return "manager/editTemplate";
+	}
+	
+	/**
 	 * 批量删除模板
 	 */
 	@RequestMapping(value = "/template/delete", method = {RequestMethod.POST, RequestMethod.GET})

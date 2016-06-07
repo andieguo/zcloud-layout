@@ -138,7 +138,7 @@
 							<td>${entry.createTime }</td> 
 							<td>${entry.modifyTime }</td> 
 							<td>
-								<a href="${basePath}/template/editUI?id=${entry.id}" target="_blank" class="font-green">查看</a>
+								<a href="${basePath}/template/viewUI?id=${entry.id}" target="_blank" class="font-green">查看</a>
 								<!-- 1、管理员和用户只能修改自己的系统模板 -->
 								<c:if test="${admin.role == ADMIN || admin.role == USER}">
 									<c:if test="${admin.nickname == entry.nickname }">

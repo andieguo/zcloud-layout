@@ -158,26 +158,38 @@ $(function(){
           <li class="divider-vertical"></li>
           <li>
 			<form class="form-inline" method="post" style="margin:0;">
+				<c:if test="${method != 'view'}">
 	            <div class="btn-group input-prepend">
   					<span class="btn btn-primary">模板名称</span>
             		<input class="input-medium" type="text" id="templateName" name="templateName" value="${templateEntity.name}"></input>
 	            </div>
+	            </c:if>
+				<c:if test="${method != 'edit' && method != 'view'}">
 	            <div class="btn-group" data-toggle="buttons-radio">
 	              <button type="button" id="edit" class="btn btn-primary active"><i class="icon-edit icon-white"></i>编辑</button>
 	              <button type="button" class="btn btn-primary" id="devpreview"><i class="icon-eye-close icon-white"></i>布局编辑</button>
 	              <button type="button" class="btn btn-primary" id="sourcepreview"><i class="icon-eye-open icon-white"></i>预览</button>
 	            </div>
+	            </c:if>
 	            <div class="btn-group">
+	              <c:if test="${method != 'edit' && method != 'view'}">
 	              <button type="button" class="btn btn-primary" data-target="#downloadModal" rel="/build/downloadModal" role="button" data-toggle="modal"><i class="icon-chevron-down icon-white"></i>下载</button>
+	              </c:if>
+	              <c:if test="${method != 'view'}">
 	              <button class="btn btn-primary" href="#" role="button" data-toggle="modal" data-target="#shareModal"><i class="icon-share icon-white"></i>保存</button>
+	              </c:if>
+	              <c:if test="${method != 'edit' && method != 'view'}">
 	              <button class="btn btn-primary" href="#clear" id="clear"><i class="icon-trash icon-white"></i>清空</button>
+	              </c:if>
 	            </div>
+	            <c:if test="${method != 'edit' && method != 'view'}">
 	            <div class="btn-group">
 					<input type="file" id="templateFile" name="templateFile" size="50" />
 				</div>
 	            <div class="btn-group">
 					<button class="btn btn-primary" onclick="importAction()" id="clear"><i class="icon-trash icon-white"></i>导入</button>
 				</div>
+				</c:if>
 			</form>
           </li>
         </ul>
@@ -194,6 +206,7 @@ $(function(){
 <div class="container">
   <div class="row-fluid">
     <div class="">
+      <c:if test="${method != 'edit' && method != 'view'}">
       <div class="sidebar-nav">
         <ul class="nav nav-list accordion-group">
           <li class="nav-header">
@@ -954,6 +967,7 @@ $(function(){
         </ul>
          -->
       </div>
+   	  </c:if>
     </div>
 	<%@ include file="/WEB-INF/share/msg.jsp"%>
     <!--UI编辑区-->
