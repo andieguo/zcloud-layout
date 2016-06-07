@@ -98,6 +98,7 @@ body {
 .edit .demo .lyrow .drag { top:5px; right:80px; z-index:10; }
 .edit .demo .column .box .drag { top:5px; }
 .edit .demo .column .box .configuration {position: absolute; top: 3px; right: 140px;white-space:nowrap; }
+.modify .demo .column .box .configuration {position: absolute; top: 3px; right: 0;white-space:nowrap; }
 .edit .demo .remove { position: absolute; top: 5px; right: 5px; z-index:10; }
 .demo .configuration {
 	filter: alpha(opacity=0);
@@ -172,6 +173,9 @@ body {
 	margin: 15px 0;
 	padding: 39px 19px 24px;
 	position: relative;
+}
+.modify .column {
+	padding-top: 5px;
 }
 
 /* preview */
