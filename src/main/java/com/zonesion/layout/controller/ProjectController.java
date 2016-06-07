@@ -238,12 +238,21 @@ public class ProjectController {
 	}
 	
 	/**
-	 * 跳转到添加项目页面
+	 * 跳转到添加项目页面(UI配置版本)
 	 */
 	@RequestMapping(value = "/project/addUI", method = RequestMethod.GET)
-	public String addUI(Model model){
+	public String addProjectUI(Model model){
 		model.addAttribute("editForm", new ProjectForm());
-		return "manager/addProject";
+		return "manager/addProjectUI";
+	}
+	
+	/**
+	 * 跳转到添加项目页面(JSON配置版本)
+	 */
+	@RequestMapping(value = "/project/addJSON", method = RequestMethod.GET)
+	public String addProjectJSON(Model model){
+		model.addAttribute("editForm", new ProjectForm());
+		return "manager/addProjectJSON";
 	}
 	
 	/**

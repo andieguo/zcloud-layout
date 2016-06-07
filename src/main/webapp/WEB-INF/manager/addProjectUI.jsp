@@ -231,7 +231,7 @@ function contentBuild(dataJson){
 				content = content + "<div class='sensor body hide' id="+value.tid+">"
 				 + "<label>地址：</label><input type='text' value='' class='address'><hr>"
 				 + "<label>通道：</label><input type='text' value='' class='channel'><hr>"
-				 + "<label>命令：</label><input type='text' value='' class='command'>"
+				 + "<label>命令：</label><input type='text' value='{}' class='command'>"
 				 + "</div>";		
 			}
 		}

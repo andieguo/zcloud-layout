@@ -31,7 +31,8 @@
 		<form:hidden path="deleted" />
 		<header class="table-header clearfix">
 			<div class="header-right">
-	         	<a class="font-green" href="${basePath }/project/addUI">新建</a>
+	         	<a class="font-green" href="${basePath }/project/addUI">UI新建</a>
+         		<a class="font-green" href="${basePath }/project/addJSON">JSON新建</a>
 	   		</div>
 			<div class="header-left">
 				<c:if test="${admin.role == SUPERADMIN}">
