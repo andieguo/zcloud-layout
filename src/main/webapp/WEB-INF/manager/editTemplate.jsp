@@ -147,7 +147,15 @@ $(function(){
 
 </head>
 
+<c:if test="${method != 'edit' && method != 'view'}">
 <body style="min-height: 660px; cursor: auto;" class="edit">
+</c:if>
+<c:if test="${method == 'view'}">
+<body style="min-height: 660px; cursor: auto;" class="devpreview">
+</c:if>
+<c:if test="${method == 'edit'}">
+<body style="min-height: 660px; cursor: auto;" class="edit modify">
+</c:if>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container-fluid">
