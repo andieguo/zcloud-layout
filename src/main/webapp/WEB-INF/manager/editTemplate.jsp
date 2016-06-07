@@ -111,20 +111,25 @@ function pushAjax(url,pushdata,locationHref){
 /*将控件的配置、UI保存到后台*/  
 function pushTemplate(){
 	var templateName = $("#templateName").val();
+	console.log(templateName.length);
 	if(templateName != ""){
-		var layoutJSON =  JSON.stringify(uiTemplateObj);
-		var layoutContent = getLayoutContent();
-		if(method == 'save'){
-			var url = "${basePath}/template/save";
-			var locationHref = "${basePath}/template/tolist?type=${type}";
-			var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${type}'};
-			pushAjax(url,pushdata,locationHref);
-		}else if(method == 'edit'){
-			var url = "${basePath}/template/edit";
-			var templateId = "${templateEntity.id}";
-			var locationHref = "${basePath}/template/tolist?type=${type}";
-			var pushdata = {'id':templateId,'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent};
-			pushAjax(url,pushdata,locationHref);
+		if(templateName.length <= 20){
+			var layoutJSON =  JSON.stringify(uiTemplateObj);
+			var layoutContent = getLayoutContent();
+			if(method == 'save'){
+				var url = "${basePath}/template/save";
+				var locationHref = "${basePath}/template/tolist?type=${type}";
+				var pushdata = {'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent,'type':'${type}'};
+				pushAjax(url,pushdata,locationHref);
+			}else if(method == 'edit'){
+				var url = "${basePath}/template/edit";
+				var templateId = "${templateEntity.id}";
+				var locationHref = "${basePath}/template/tolist?type=${type}";
+				var pushdata = {'id':templateId,'name':templateName,'layoutJSON':layoutJSON,'layoutContent':layoutContent};
+				pushAjax(url,pushdata,locationHref);
+			}
+		}else{
+			alert("模板名不能超过20个字符");
 		}
 	}else{
 		alert("模板名不能为空");
