@@ -4,13 +4,15 @@
 header {
 	margin: 0 auto 20px auto;
 	width: 100%;
-	background-color: #2D93E8;
+	height: 80px;
+	background-color: #4D68B3;
 }
 header img {
 	float: left;
-	margin-left: 30px;
-	width: 80px;
-	height: 80px;
+	margin-left: 10px;
+	margin-top: 10px;
+	width: 60px;
+	height: 60px;
 }
 header hgroup {
 	float: left;
