@@ -261,6 +261,18 @@ public class ProjectController {
 	@RequestMapping(value = "/project/editUI", method = RequestMethod.GET)
 	public String editUI(ProjectForm editForm,Model model){
 		ProjectEntity projectEntity = projectService.findByProjectId(editForm.getId());
+		TemplateEntity templateEntity = templateService.findByTemplateId(projectEntity.getTid());
+		String layoutJSON = templateEntity.getLayoutJSON();
+		JSONObject layoutObj = new JSONObject(layoutJSON);
+		String macList = projectEntity.getMacList();
+		JSONArray array = new JSONArray(macList);
+		for(int i=0;i<array.length();i++){
+			JSONObject obj = array.getJSONObject(i);
+			String tid = obj.getString("tid");
+			JSONObject uiObj = layoutObj.getJSONObject(tid);
+			obj.put("title", uiObj.getString("title"));
+		}
+		projectEntity.setMacList(array.toString());
 		//只需要将表单中有的字段添加到form表单即可（安全）
 		ProjectForm projectForm = new ProjectForm(projectEntity);
 		model.addAttribute("editForm", projectForm);

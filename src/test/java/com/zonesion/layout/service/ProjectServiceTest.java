@@ -30,7 +30,7 @@ public class ProjectServiceTest extends TestCase {
 	
 	public void testSave(){
 		for(int i=0;i<100;i++){
-			int sum = projectService.save(new ProjectEntity("project"+i, "/image/hello", 1, i%2, "111", "2", "128.9.0.0:0000", "文本", new Date(), new Date()));
+			int sum = projectService.save(new ProjectEntity("project"+i,"","", "/image/hello", 1, i%2, "111", "2", "128.9.0.0:0000", "文本", new Date(), new Date()));
 			System.out.println(sum);
 		}
 	}

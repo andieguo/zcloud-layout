@@ -97,7 +97,7 @@ public class TemplateDaoTest extends TestCase {
 	}
 	
 	public void testFindByAdminAndType(){
-		for(TemplateEntity t : templateDao.findByAdminAndType(1, 0)){
+		for(TemplateEntity t : templateDao.findByAdminAndType(1, 0,1)){
 			System.out.println(t);
 		}
 	}
