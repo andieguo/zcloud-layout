@@ -309,6 +309,8 @@ public class ProjectController {
 					//解析上传文件内容
 					JSONObject jsonObject = new JSONObject(content);
 					String name = jsonObject.getString("name");
+					String titleContent = jsonObject.getString("titleContent");
+					String footContent = jsonObject.getString("footContent");
 					Integer tid = jsonObject.getInt("tid");
 					String imageUrl = jsonObject.getString("imageUrl");
 					String zcloudID = jsonObject.getString("zcloudID");
@@ -323,7 +325,7 @@ public class ProjectController {
 						AdminEntity adminEntity = (AdminEntity)httpSession.getAttribute("admin");
 						List<TemplateEntity> templateEntities = templateService.findByAdminIdAndTid(adminEntity.getId(), tid, 1);
 						if(templateEntities.size() > 0){//当前用户有该用户模板
-							ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
+							ProjectEntity projectEntity = new ProjectEntity(name, titleContent,footContent,imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
 							projectService.save(projectEntity);
 							redirectAttributes.addFlashAttribute("css", "success");
 							redirectAttributes.addFlashAttribute("msg", "导入工程文件成功!");
@@ -332,7 +334,7 @@ public class ProjectController {
 							redirectAttributes.addFlashAttribute("msg", "工程文件引用了当前用户没有的用户模板，导入工程文件失败!");
 						}
 					}else{//如果为系统模板
-						ProjectEntity projectEntity = new ProjectEntity(name, imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
+						ProjectEntity projectEntity = new ProjectEntity(name,titleContent,footContent,imageUrl, tid, admin.getId(), zcloudID, zcloudKEY, serverAddr, macListArray.toString(), new Date(), new Date());
 						projectService.save(projectEntity);
 						redirectAttributes.addFlashAttribute("css", "success");
 						redirectAttributes.addFlashAttribute("msg", "导入工程文件成功!");
@@ -365,6 +367,8 @@ public class ProjectController {
 				response.setHeader("Content-Disposition", str);
 				PrintWriter out = response.getWriter();
 				result.put("name", projectEntity.getName());
+				result.put("titleContent", projectEntity.getTitleContent());
+				result.put("footContent", projectEntity.getFootContent());
 				result.put("tid", projectEntity.getTid());
 				result.put("imageUrl", projectEntity.getImageUrl());
 				result.put("zcloudID", projectEntity.getZcloudID());
@@ -393,6 +397,8 @@ public class ProjectController {
 		} else {
 			ProjectEntity projectEntity = projectService.findByProjectId(editForm.getId());
 			projectEntity.setName(editForm.getName());
+			projectEntity.setTitleContent(editForm.getTitleContent());
+			projectEntity.setFootContent(editForm.getFootContent());
 			projectEntity.setModifyTime(new Date());
 			projectEntity.setImageUrl(editForm.getImageUrl());
 			projectEntity.setMacList(editForm.getMacList());

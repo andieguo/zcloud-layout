@@ -70,8 +70,8 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 	public int save(ProjectEntity projectEntity) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update(
-				"insert into tb_project(name, imageUrl, tid, aid, zcloudID, zcloudKEY, serverAddr, macList, createTime, modifyTime) values (?,?,?,?,?,?,?,?,?,?)",
-				new Object[] {projectEntity.getName(),projectEntity.getImageUrl(),projectEntity.getTid(),projectEntity.getAid()
+				"insert into tb_project(name,titleContent,footContent, imageUrl, tid, aid, zcloudID, zcloudKEY, serverAddr, macList, createTime, modifyTime) values (?,?,?,?,?,?,?,?,?,?,?,?)",
+				new Object[] {projectEntity.getName(),projectEntity.getTitleContent(),projectEntity.getFootContent(),projectEntity.getImageUrl(),projectEntity.getTid(),projectEntity.getAid()
 						,projectEntity.getZcloudID(),projectEntity.getZcloudKEY(),projectEntity.getServerAddr(),projectEntity.getMacList()
 						,projectEntity.getCreateTime(),projectEntity.getModifyTime()});
 	}
@@ -104,8 +104,8 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 	public int update(ProjectEntity projectEntity) {
 		// TODO Auto-generated method stub
 		return getJdbcTemplate().update(
-				"update tb_project set name=?, imageUrl=?, tid=?, aid=?, zcloudID=?, zcloudKEY=?, serverAddr=?, macList=?, createTime=?, modifyTime=? where id=?",
-				new Object[] {projectEntity.getName(),projectEntity.getImageUrl(),projectEntity.getTid(),projectEntity.getAid()
+				"update tb_project set name=?,titleContent=?,footContent=?, imageUrl=?, tid=?, aid=?, zcloudID=?, zcloudKEY=?, serverAddr=?, macList=?, createTime=?, modifyTime=? where id=?",
+				new Object[] {projectEntity.getName(),projectEntity.getTitleContent(),projectEntity.getFootContent(),projectEntity.getImageUrl(),projectEntity.getTid(),projectEntity.getAid()
 						,projectEntity.getZcloudID(),projectEntity.getZcloudKEY(),projectEntity.getServerAddr(),projectEntity.getMacList()
 						,projectEntity.getCreateTime(),projectEntity.getModifyTime(),projectEntity.getId()});
 	}
@@ -153,6 +153,8 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 						ProjectVO projectVO = new ProjectVO();
 						projectVO.setId(rs.getInt("id"));
 						projectVO.setName(rs.getString("name"));
+						projectVO.setTitleContent(rs.getString("titleContent"));
+						projectVO.setFootContent(rs.getString("footContent"));
 						projectVO.setImageUrl(rs.getString("imageUrl"));
 						projectVO.setAid(rs.getInt("aid"));
 						projectVO.setTid(rs.getInt("tid"));
@@ -232,6 +234,8 @@ public class ProjectDaoImpl extends JdbcDaoSupport implements ProjectDao {
 						ProjectVO projectVO = new ProjectVO();
 						projectVO.setId(rs.getInt("id"));
 						projectVO.setName(rs.getString("name"));
+						projectVO.setTitleContent(rs.getString("titleContent"));
+						projectVO.setFootContent(rs.getString("footContent"));
 						projectVO.setImageUrl(rs.getString("imageUrl"));
 						projectVO.setAid(rs.getInt("aid"));
 						projectVO.setTid(rs.getInt("tid"));

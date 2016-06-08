@@ -12,6 +12,8 @@ public class ProjectEntity {
 
 	private Integer id;
 	private String name;
+	private String titleContent;
+	private String footContent;
 	private String imageUrl;
 	private Integer tid;//模板id
 	private Integer aid;//管理员id
@@ -27,9 +29,11 @@ public class ProjectEntity {
 		super();
 	}
 	
-	public ProjectEntity(String name, String imageUrl, Integer tid, Integer aid, String zcloudID, String zcloudKEY, String serverAddr, String macList, Date createTime, Date modifyTime) {
+	public ProjectEntity(String name,String titleContent,String footContent, String imageUrl, Integer tid, Integer aid, String zcloudID, String zcloudKEY, String serverAddr, String macList, Date createTime, Date modifyTime) {
 		super();
 		this.name = name;
+		this.titleContent = titleContent;
+		this.footContent = footContent;
 		this.imageUrl = imageUrl;
 		this.tid = tid;
 		this.aid = aid;
@@ -41,9 +45,11 @@ public class ProjectEntity {
 		this.modifyTime = modifyTime;
 	}
 
-	public ProjectEntity(String name, String imageUrl, Integer tid, Integer aid, String zcloudID, String zcloudKEY, String serverAddr, String macList,Date createTime,Date modifyTime,int visible) {
+	public ProjectEntity(String name,String titleContent,String footContent, String imageUrl, Integer tid, Integer aid, String zcloudID, String zcloudKEY, String serverAddr, String macList,Date createTime,Date modifyTime,int visible) {
 		super();
 		this.name = name;
+		this.titleContent = titleContent;
+		this.footContent = footContent;
 		this.imageUrl = imageUrl;
 		this.tid = tid;
 		this.aid = aid;
@@ -55,10 +61,12 @@ public class ProjectEntity {
 		this.modifyTime = modifyTime;
 		this.visible = visible;
 	}
-	public ProjectEntity(Integer id, String name, String imageUrl, Integer tid, Integer aid,String zcloudID, String zcloudKEY, String serverAddr, String macList,Date createTime,Date modifyTime,int visible) {
+	public ProjectEntity(Integer id, String name,String titleContent,String footContent, String imageUrl, Integer tid, Integer aid,String zcloudID, String zcloudKEY, String serverAddr, String macList,Date createTime,Date modifyTime,int visible) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.titleContent = titleContent;
+		this.footContent = footContent;
 		this.imageUrl = imageUrl;
 		this.tid = tid;
 		this.aid = aid;
@@ -141,6 +149,18 @@ public class ProjectEntity {
 	}
 	public void setVisible(int visible) {
 		this.visible = visible;
+	}
+	public String getTitleContent() {
+		return titleContent;
+	}
+	public void setTitleContent(String titleContent) {
+		this.titleContent = titleContent;
+	}
+	public String getFootContent() {
+		return footContent;
+	}
+	public void setFootContent(String footContent) {
+		this.footContent = footContent;
 	}
 	@Override
 	public String toString() {

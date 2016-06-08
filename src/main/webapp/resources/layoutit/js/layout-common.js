@@ -26,14 +26,29 @@ function resumeWidgetUI(temObj){
 function htmlCompress(html){
 	return html.replace(/\s+|\n/g, " ").replace(/>\s</g,"><");
 };
-  
+
 function initTemplateUI(layoutJSON,content){
+	   //保存控件UI属性配置数据
+	   if(layoutJSON != ''){//判断数据是否为空
+		   uiTemplateObj = JSON.parse(layoutJSON);
+		   //渲染控件布局的div
+		   if(content != ''){
+			   $(".demo").html(content);
+			   //渲染控件的UI
+			   resumeWidgetUI(uiTemplateObj);
+		   }
+	   }
+}
+  
+function initProjectUI(layoutJSON,content,imageURL,name,titleContent,footContent){
    //保存控件UI属性配置数据
    if(layoutJSON != ''){//判断数据是否为空
 	   uiTemplateObj = JSON.parse(layoutJSON);
 	   //渲染控件布局的div
 	   if(content != ''){
-		   $(".demo").html(content);
+		   var headerHTML = '<header class="clearfix" id="page_header_704296"><img src="'+imageURL+'" alt="logo"><hgroup><h1>'+name+'</h1><h2>'+titleContent+'</h2></hgroup></header>';
+		   var footHTML = '<footer contenteditable="true" class="cke_editable cke_editable_inline cke_contents_ltr" tabindex="0" spellcheck="false" style="position: relative;" role="textbox" aria-describedby="cke_51"><p>'+footContent+'</p></footer>';
+		   $(".demo").html(headerHTML+content+footHTML);
 		   //渲染控件的UI
 		   resumeWidgetUI(uiTemplateObj);
 	   }

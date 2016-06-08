@@ -151,7 +151,7 @@ function getNumBit(num,n){
 //文档就绪
 $(function(){
 
-	initTemplateUI(layoutJSON,content);
+	initProjectUI(layoutJSON,content,'${basePath}/photo/${projectEntity.imageUrl}','${projectEntity.name}','${projectEntity.titleContent}','${projectEntity.footContent}');
 	widgetClassify(hardwareInfo.data);
 
 	//实时数据

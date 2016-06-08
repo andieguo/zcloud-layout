@@ -34,6 +34,18 @@
 						<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath}/resources/images/meituxiuxiu.jpg" >
 						<a class="btn" href="javascript:loadImg()">上传图片</a>
 					</div>
+					<spring:bind path="titleContent">
+						<div class="form-group">
+							<label for="titleContent">项目头详细信息：</label>
+							<textarea rows="2" cols="1" id="titleContent" name="titleContent"  value="${status.value}"  placeholder="请输入项目头详细信息"></textarea>
+						</div>
+					</spring:bind>
+					<spring:bind path="footContent">
+						<div class="form-group">
+							<label for="footContent">项目尾详细信息：</label>
+							<input id="footContent" name="footContent"  value="${status.value}" type="text" placeholder="请输入项目尾详细信息" >
+						</div>
+					</spring:bind>
 					<div class="form-group">
 						<label>模板类型：</label>
 						<select id="templateType" onchange="templateTypeChange()">
@@ -67,16 +79,6 @@
 
 					<div class="form-group">
 						<label>硬件数据配置：</label>
-<!-- 								                <div id="config" class="config"> -->
-<!-- 								                	<div class="head"> -->
-<!-- 								                		<a>温度</a> -->
-<!-- 								                	</div> -->
-<!-- 								                	<div class="sensor body" id="fs_dial_978771"> -->
-<!-- 								                	<label>地址：</label><input type="text" value="" class="address"><hr> -->
-<!-- 								                	<label>通道：</label><input type="text" value="" class="channel"><hr> -->
-<!-- 								                	<label>命令：</label><input type="text" value="" class="command"> -->
-<!-- 								                	</div> -->
-<!-- 								                </div> -->
 						<textarea id="json_input" name="json_input" class="json_input"
 							style="font-size: 11px !important;" rows="10" spellcheck="false"
 							placeholder="请输入正确JSON格式的硬件配置数据"></textarea>
@@ -102,8 +104,10 @@
 var dataJson;
 
 function saveValidate(){
-	var namepass=true,idpass=true,keypass=true,addrpass=true,typepass=true,tidpass=true;
+	var namepass=true,titleContentpass=true,footContentpass=true,idpass=true,keypass=true,addrpass=true,typepass=true,tidpass=true;
 	var name = $("#name").val();
+	var titleContent = $("#titleContent").val();
+	var footContent = $("#footContent").val();
 	var zcloudID = $("#zcloudID").val();
 	var zcloudKEY = $("#zcloudKEY").val();
 	var serverAddr = $("#serverAddr").val();
@@ -112,6 +116,16 @@ function saveValidate(){
 	if(name == ""){
 		namepass = false;
 		$('<span class="error">项目名不能为空</span>').insertAfter('#name');
+		//console.log("项目名不能为空");
+	}
+	if(titleContent == ""){
+		titleContentpass = false;
+		$('<span class="error">项目头详细信息不能为空</span>').insertAfter('#titleContent');
+		//console.log("项目名不能为空");
+	}
+	if(footContent == ""){
+		footContentpass = false;
+		$('<span class="error">项目尾详细信息不能为空</span>').insertAfter('#footContent');
 		//console.log("项目名不能为空");
 	}
 	if(zcloudID == ""){
@@ -139,7 +153,7 @@ function saveValidate(){
 		$('<span class="error">模板ID不能为空</span>').insertAfter('#templateList');
 		//console.log("模板ID不能为空");
 	}
-	return namepass && idpass && keypass && addrpass && typepass && tidpass;
+	return namepass && titleContentpass && footContentpass && idpass && keypass && addrpass && typepass && tidpass;
 }
 
 function saveAction() {

@@ -34,6 +34,18 @@
 						<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath}/resources/images/meituxiuxiu.jpg" >
 						<a class="btn" href="javascript:loadImg()">上传图片</a>
 					</div>
+					<spring:bind path="titleContent">
+						<div class="form-group">
+							<label for="titleContent">项目头详细信息：</label>
+							<textarea rows="2" cols="1" id="titleContent" name="titleContent"  value="${status.value}"  placeholder="请输入项目头详细信息"></textarea>
+						</div>
+					</spring:bind>
+					<spring:bind path="footContent">
+						<div class="form-group">
+							<label for="footContent">项目尾详细信息：</label>
+							<input id="footContent" name="footContent"  value="${status.value}" type="text" placeholder="请输入项目尾详细信息" >
+						</div>
+					</spring:bind>
 					<div class="form-group">
 						<label>模板类型：</label>
 						<select id="templateType" onchange="templateTypeChange()">
@@ -99,7 +111,7 @@
 var dataJson;
 
 function saveValidate(){
-	var namepass=true,idpass=true,keypass=true,addrpass=true,typepass=true,tidpass=true;
+	var namepass=true,titleContentpass=true,footContentpass=true,idpass=true,keypass=true,addrpass=true,typepass=true,tidpass=true;
 	var name = $("#name").val();
 	var zcloudID = $("#zcloudID").val();
 	var zcloudKEY = $("#zcloudKEY").val();
@@ -109,6 +121,16 @@ function saveValidate(){
 	if(name == ""){
 		namepass = false;
 		$('<span class="error">项目名不能为空</span>').insertAfter('#name');
+		//console.log("项目名不能为空");
+	}
+	if(titleContent == ""){
+		titleContentpass = false;
+		$('<span class="error">项目头详细信息不能为空</span>').insertAfter('#titleContent');
+		//console.log("项目名不能为空");
+	}
+	if(footContent == ""){
+		footContentpass = false;
+		$('<span class="error">项目尾详细信息不能为空</span>').insertAfter('#footContent');
 		//console.log("项目名不能为空");
 	}
 	if(zcloudID == ""){
@@ -136,7 +158,7 @@ function saveValidate(){
 		$('<span class="error">模板ID不能为空</span>').insertAfter('#templateList');
 		//console.log("模板ID不能为空");
 	}
-	return namepass && idpass && keypass && addrpass && typepass && tidpass;
+	return namepass && titleContentpass && footContentpass && idpass && keypass && addrpass && typepass && tidpass;
 }
 
 function saveAction() {

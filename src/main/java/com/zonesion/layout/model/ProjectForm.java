@@ -15,7 +15,7 @@ public class ProjectForm extends ProjectEntity{
 	private int[] keyIds;
 	
 	public ProjectForm(ProjectEntity entity){
-		super(entity.getId(), entity.getName(), entity.getImageUrl(), entity.getTid(), entity.getAid(), entity.getZcloudID(), entity.getZcloudKEY(), entity.getServerAddr(), entity.getMacList(), entity.getCreateTime(), entity.getModifyTime(), entity.getVisible());
+		super(entity.getId(), entity.getName(),entity.getTitleContent(),entity.getFootContent(), entity.getImageUrl(), entity.getTid(), entity.getAid(), entity.getZcloudID(), entity.getZcloudKEY(), entity.getServerAddr(), entity.getMacList(), entity.getCreateTime(), entity.getModifyTime(), entity.getVisible());
 	}
 	
 	public ProjectForm() {
