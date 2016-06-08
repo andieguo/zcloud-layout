@@ -150,7 +150,7 @@ var hc_dial = {
         var layer3_color = $("#layer3_color").val();
         
         //标题显示
-        $("#"+divid).parents(".view").find(".title").text(title);
+        $("#"+divid).closest(".view").find(".title").text(title);
         
         var properties = {
             tid: divid,

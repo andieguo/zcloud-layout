@@ -149,7 +149,7 @@ var fs_dial = {
         var layer3_color = ($("#layer3_color").val()).substring(1);     
 
         //标题显示
-        $("#"+divid).parents(".view").find(".title").text(title);
+        $("#"+divid).closest(".view").find(".title").text(title);
 
         var properties = {
             tid: divid,

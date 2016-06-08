@@ -38,6 +38,18 @@
 							<img class="pic" alt="" id="imageSrc" name="imageSrc" src="${basePath }/photo/${editForm.imageUrl}" >
 							<a class="btn" href="javascript:loadImg()">请选择图片</a>
 						</div>
+						<spring:bind path="titleContent">
+						<div class="form-group">
+							<label for="titleContent">项目头详细信息：</label>
+							<textarea rows="2" cols="1" id="titleContent" name="titleContent" placeholder="请输入项目头详细信息">${status.value}</textarea>
+						</div>
+						</spring:bind>
+						<spring:bind path="footContent">
+							<div class="form-group">
+								<label for="footContent">项目尾详细信息：</label>
+								<input id="footContent" name="footContent"  value="${status.value}" type="text" placeholder="请输入项目尾详细信息" >
+							</div>
+						</spring:bind>
 						<spring:bind path="zcloudID">
 							<div class="form-group">
 								<label for="zcloudID">智云ID：</label>

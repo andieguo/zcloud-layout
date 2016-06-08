@@ -13,7 +13,7 @@
 <meta name="title" content="智云组态软件">
 <meta name="description" content="智云组态软件">
 <meta name="keywords" content="智云组态软件">
-<title>智云组态软件</title>
+<title>${templateEntity.name}</title>
 
 <!-- Le styles -->
 <link href="${basePath }/resources/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
