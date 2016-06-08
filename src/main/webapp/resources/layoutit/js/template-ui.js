@@ -325,10 +325,10 @@ $(document).ready(function() {
 	$(".switch_button").click(function(){
 		var src = $(this).attr("src");
 		if(src.indexOf("off") >=0 ){
-	      $(this).attr("src","img/on.png");
+	      $(this).attr("src",layoutitPath+"images/on.png");
 	    }
 	    else{
-	      $(this).attr("src","img/off.png");
+	      $(this).attr("src",layoutitPath+"images/off.png");
 	    }
 	});
 
