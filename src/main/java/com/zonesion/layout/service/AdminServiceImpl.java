@@ -41,9 +41,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public AdminEntity login(String nickname, String password,int role) {
+	public AdminEntity login(String nickname, String password,int role,int visible) {
 		// TODO Auto-generated method stub
-		return adminDao.login(nickname, password,role);
+		return adminDao.login(nickname, password,role,visible);
 	}
 
 	@Override

@@ -45,7 +45,7 @@ public class AdminLoginValidator  implements Validator{
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty.adminForm.password");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "authcode", "NotEmpty.adminForm.authcode");
 
-		AdminEntity adminEntity = adminService.login(adminForm.getNickname(), adminForm.getPassword(),adminForm.getRole());
+		AdminEntity adminEntity = adminService.login(adminForm.getNickname(), adminForm.getPassword(),adminForm.getRole(),1);
 		httpSession.setAttribute("admin", adminEntity);
 		String authcode = (String) httpSession.getAttribute("authcode");
 		if(isNotNULL(adminForm.getAuthcode()) && !adminForm.getAuthcode().equalsIgnoreCase(authcode)){

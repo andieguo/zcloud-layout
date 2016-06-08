@@ -23,7 +23,7 @@ public interface AdminService {
 	
 	public AdminEntity findById(int id);
 	
-	public AdminEntity login(String nickname,String password,int role);
+	public AdminEntity login(String nickname,String password,int role,int visible);
 	
 	public boolean confirmPasswd(String password,int id);
 	

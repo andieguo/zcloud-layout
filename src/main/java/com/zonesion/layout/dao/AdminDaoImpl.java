@@ -92,12 +92,12 @@ public class AdminDaoImpl extends JdbcDaoSupport implements AdminDao {
 	}
 
 	@Override
-	public AdminEntity login(String nickname,String password,int role) {
+	public AdminEntity login(String nickname,String password,int role,int visible) {
 		// TODO Auto-generated method stub
 		AdminEntity admin = null;
 		try{
-			admin = getJdbcTemplate().queryForObject("select * from tb_admin where nickname=? and password=? and role=?", 
-					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{nickname,password,role});
+			admin = getJdbcTemplate().queryForObject("select * from tb_admin where nickname=? and password=? and role=? and visible=?", 
+					new BeanPropertyRowMapper<AdminEntity>(AdminEntity.class), new Object[]{nickname,password,role,visible});
 		}catch(Exception e){
 			if(e instanceof EmptyResultDataAccessException){
 				return null;
