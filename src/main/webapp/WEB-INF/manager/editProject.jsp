@@ -110,6 +110,10 @@
 		$("#imageUrl").val(imageUrl);
 		//填充MacList
 		var textMacList = JSON.parse($("#textMacList").val());
+		//获取到macList后，删除title属性后，构造保存到数据库的JSON数据。
+		for(var i=0;i<textMacList.length;i++){
+			delete textMacList[i]["title"];
+		}
 		textMacList = JSON.stringify(textMacList);
 		$("#macList").val(textMacList);
 		//提交表单
