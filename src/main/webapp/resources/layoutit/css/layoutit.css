@@ -1,5 +1,5 @@
 .demo .preview { display: none; }
-.devpreview .drag, .devpreview .configuration, .devpreview .remove { display:none; }
+.devpreview .drag, .devpreview .configuration, .devpreview .remove,.navbar { display:none; }
 /* header 项目页头 */
 header {
 	margin: 0 auto 20px auto;
