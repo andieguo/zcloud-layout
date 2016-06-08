@@ -118,6 +118,7 @@ function saveValidate(){
 	var serverAddr = $("#serverAddr").val();
 	var templateType = $("#templateType").val();
 	var tid = $("#templateList").val();
+	$(".error").detach();
 	if(name == ""){
 		namepass = false;
 		$('<span class="error">项目名不能为空</span>').insertAfter('#name');

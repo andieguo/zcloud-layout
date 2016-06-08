@@ -46,9 +46,20 @@ function initProjectUI(layoutJSON,content,imageURL,name,titleContent,footContent
 	   uiTemplateObj = JSON.parse(layoutJSON);
 	   //渲染控件布局的div
 	   if(content != ''){
-		   var headerHTML = '<header class="clearfix" id="page_header_704296"><img src="'+imageURL+'" alt="logo"><hgroup><h1>'+name+'</h1><h2>'+titleContent+'</h2></hgroup></header>';
-		   var footHTML = '<footer contenteditable="true" class="cke_editable cke_editable_inline cke_contents_ltr" tabindex="0" spellcheck="false" style="position: relative;" role="textbox" aria-describedby="cke_51"><p>'+footContent+'</p></footer>';
-		   $(".demo").html(headerHTML+content+footHTML);
+		   var headerHTML = '<header class="clearfix">' +
+								'<div style="width:1170px;margin: 0 auto;">' +
+				   					'<img src="'+imageURL+'" alt="logo">' +
+				   					'<hgroup>' +
+					   					'<h1>'+name+'</h1>' +
+					   					'<h2>'+titleContent+'</h2>' +
+				   					'</hgroup>' +
+			   					'</div>' +
+		   					'</header>';
+		   var footHTML = '<footer><p>'+footContent+'</p></footer>';
+		   $(".demo").html(content);
+		   //$(".demo").html(headerHTML+content+footHTML);
+		   $(headerHTML).insertBefore('.container');
+		   $(footHTML).insertAfter('.container');
 		   //渲染控件的UI
 		   resumeWidgetUI(uiTemplateObj);
 	   }

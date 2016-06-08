@@ -20,14 +20,14 @@ var hc_dial = {
                         '<span class="add-on">标题</span>' +
                         '<input class="w150p widgetAttrChange" id = "widget_title" type="text" placeholder="标题名称">' +
                       '</div><br>' +
-                      '<div class="input-prepend mr10p">' +
+                      /*'<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件宽度</span>' +
                         '<input class="w50p widgetAttrChange" id="widget_width" type="text">' +
-                      '</div>' +
-                      '<div class="input-prepend mr10p">' +
+                      '</div>' +*/
+                      /*'<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件高度</span>' +
                         '<input class="w50p widgetAttrChange" id="widget_height" type="text">' +
-                      '</div>' +
+                      '</div>' +*/
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">最小值</span>' +
                         '<input class="w50p widgetAttrChange" id="min_value" type="text">' +
@@ -82,8 +82,8 @@ var hc_dial = {
         var properties = {
             tid: "hc_dial",
             title:"温度",
-            width: 300,
-            height: 300,
+            //width: 300,
+            //height: 300,
             max: 100,
             min: 0,
             unit: "℃",
@@ -113,8 +113,8 @@ var hc_dial = {
 
     showAttr: function(properties){
         $("#widget_title").val(properties.title);
-        $("#widget_width").val(properties.width);
-        $("#widget_height").val(properties.height);
+        //$("#widget_width").val(properties.width);
+        //$("#widget_height").val(properties.height);
         $("#min_value").val(properties.min);
         $("#max_value").val(properties.max);
         $("#value_unit").val(properties.unit);
@@ -134,8 +134,8 @@ var hc_dial = {
     
     updateAttr: function(divid){
         var title = $("#widget_title").val();
-        var width = parseInt($("#widget_width").val());
-        var height = parseInt($("#widget_height").val());
+        //var width = parseInt($("#widget_width").val());
+        //var height = parseInt($("#widget_height").val());
         var max = parseInt($("#max_value").val());
         var min = parseInt($("#min_value").val());
         var unit = $("#value_unit").val();
@@ -155,8 +155,8 @@ var hc_dial = {
         var properties = {
             tid: divid,
             title: title,
-            width: width,
-            height: height,
+            //width: width,
+            //height: height,
             max: max,
             min: min,
             unit: unit,
@@ -189,8 +189,7 @@ function HCDialUI(prop) {
     chart: {
         type:"gauge",
         renderTo: $('#'+prop.tid)[0],
-        width: prop.width,
-        height: prop.height,
+        height: 237,
     },
     title: {
         text: prop.title

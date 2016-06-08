@@ -17,8 +17,12 @@
 
 <!-- Le styles -->
 <link href="${basePath }/resources/layoutit/css/bootstrap-combined.min.css" rel="stylesheet">
+<c:if test="${method == 'view'}">
+<link href="${basePath }/resources/layoutit/css/layoutit.css" rel="stylesheet">
+</c:if>
+<c:if test="${method != 'view'}">
 <link href="${basePath }/resources/layoutit/css/layoutit-edit.css" rel="stylesheet">
-
+</c:if>
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
 <!--[if lt IE 9]>
 		<script src="js/html5shiv.js"></script>
@@ -151,10 +155,10 @@ $(function(){
 <body style="min-height: 660px; cursor: auto;" class="edit">
 </c:if>
 <c:if test="${method == 'view'}">
-<body style="min-height: 660px; cursor: auto;" class="devpreview">
+<body style="cursor: auto;padding-top:20px;" class="devpreview">
 </c:if>
 <c:if test="${method == 'edit'}">
-<body style="min-height: 660px; cursor: auto;" class="edit modify">
+<body style="cursor: auto;" class="edit modify">
 </c:if>
 <div class="navbar navbar-inverse navbar-fixed-top">
   <div class="navbar-inner">

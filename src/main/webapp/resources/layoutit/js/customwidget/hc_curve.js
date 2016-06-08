@@ -20,14 +20,14 @@ var hc_curve = {
                         '<span class="add-on">标题</span>' +
                         '<input class="w150p widgetAttrChange" id = "widget_title" type="text" placeholder="标题名称">' +
                       '</div><br>' +
-                      '<div class="input-prepend mr10p">' +
+                      /*'<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件宽度</span>' +
                         '<input class="w50p widgetAttrChange" id="widget_width" type="text">' +
-                      '</div>' +
-                      '<div class="input-prepend mr10p">' +
+                      '</div>' +*/
+                      /*'<div class="input-prepend mr10p">' +
                         '<span class="add-on">控件高度</span>' +
                         '<input class="w50p widgetAttrChange" id="widget_height" type="text">' +
-                      '</div>' +
+                      '</div>' +*/
                       '<div class="input-prepend mr10p">' +
                         '<span class="add-on">线形</span>' +
                         '<select class="w100p widgetAttrChange" id="curve_type">' +
@@ -48,8 +48,8 @@ var hc_curve = {
         var properties = {
             tid: "hc_curve",
             title:"温度历史数据",
-            width: 600,
-            height: 200,
+            //width: 600,
+            //height: 200,
             ctype: 'spline',//'line', 'column', 'spline', 'area', 'areaspline'
             unit: "℃",
             data: [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]],
@@ -76,15 +76,15 @@ var hc_curve = {
 
     showAttr: function(properties){
         $("#widget_title").val(properties.title);
-        $("#widget_width").val(properties.width);
-        $("#widget_height").val(properties.height);
+        //$("#widget_width").val(properties.width);
+        //$("#widget_height").val(properties.height);
         $("#curve_type").val(properties.ctype);
         $("#value_unit").val(properties.unit);    
     },
     updateAttr: function(divid){
         var title = $("#widget_title").val();
-        var width = parseInt($("#widget_width").val());
-        var height = parseInt($("#widget_height").val());
+        //var width = parseInt($("#widget_width").val());
+        //var height = parseInt($("#widget_height").val());
         var ctype = $("#curve_type").val();
         var unit = $("#value_unit").val(); 
         var data = [[1398368037823,2],[1398470377015,6],[1398556786135,1],[1398643177964,9],[1398710239656,10],[1398784852700,7]];     
@@ -95,8 +95,8 @@ var hc_curve = {
         var properties = {
             tid: divid,
             title: title,
-            width: width,
-            height: height,
+            //width: width,
+            //height: height,
             ctype: ctype,
             unit: unit,
             data: data,
