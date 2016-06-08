@@ -22,14 +22,6 @@ var ctr_switch = {
                         '<input class="w150p widgetAttrChange" id = "widget_title" type="text" placeholder="标题名称">' +
                       '</div><br>' +
                       '<div class="input-prepend mr10p">' +
-                        '<span class="add-on">控件宽度</span>' +
-                        '<input class="w50p widgetAttrChange" id="widget_width" type="text">' +
-                      '</div>' +
-                      '<div class="input-prepend mr10p">' +
-                        '<span class="add-on">控件高度</span>' +
-                        '<input class="w50p widgetAttrChange" id="widget_height" type="text">' +
-                      '</div>' +
-                      '<div class="input-prepend mr10p">' +
                         '<span class="add-on">主题风格</span>' +
                         '<select class="w100p widgetAttrChange" id="theme_type">' +
                             '<option value="green" selected="selected">green</option>' +
@@ -44,8 +36,8 @@ var ctr_switch = {
     var properties = {
         tid: "ctr_switch",
         title:"开关名称",
-        width: 300,
-        height: 300,
+        //width: 300,
+        //height: 300,
         theme_type: 'green',//'line', 'column', 'spline', 'area', 'areaspline'
         dataType:'realTime'
     };
@@ -68,22 +60,22 @@ var ctr_switch = {
 
   showAttr: function(properties){
       $("#widget_title").val(properties.title);
-      $("#widget_width").val(properties.width);
-      $("#widget_height").val(properties.height);
+      //$("#widget_width").val(properties.width);
+      //$("#widget_height").val(properties.height);
       $("#theme_type").val(properties.theme_type);  
   },
 
   updateAttr: function(divid){
       var title = $("#widget_title").val();
-      var width = parseInt($("#widget_width").val());
-      var height = parseInt($("#widget_height").val());
+      //var width = parseInt($("#widget_width").val());
+      //var height = parseInt($("#widget_height").val());
       var theme_type = $("#theme_type").val();
 
       var properties = {
           tid: divid,
           title: title,
-          width: width,
-          height: height,
+          //width: width,
+          //height: height,
           theme_type: theme_type,
           dataType:'realTime'
       };

@@ -24,10 +24,10 @@ var fs_temperature = {
                     '<span class="add-on">控件宽度</span>' +
                     '<input class="w50p widgetAttrChange" id ="widget_width" type="text">' +
                   '</div>' +
-                  '<div class="input-prepend mr10p">' +
+                  /*'<div class="input-prepend mr10p">' +
                     '<span class="add-on">控件高度</span>' +
                     '<input class="w50p widgetAttrChange" id ="widget_height" type="text">' +
-                  '</div>' +   
+                  '</div>' + */  
                   '<div class="input-prepend mr10p">' +
                     '<span class="add-on">最小值</span>' +
                     '<input class="w50p widgetAttrChange" id ="min_value" type="text">' +
@@ -84,7 +84,7 @@ var fs_temperature = {
   showAttr: function(properties){
       $("#widget_title").val(properties.title);
       $("#widget_width").val(properties.width);
-      $("#widget_height").val(properties.height);
+      //$("#widget_height").val(properties.height);
       $("#min_value").val(properties.min);
       $("#max_value").val(properties.max);
       $("#value_unit").val(properties.unit);
@@ -96,7 +96,7 @@ var fs_temperature = {
   updateAttr: function(divid){
       var title = $("#widget_title").val();
       var width = parseInt($("#widget_width").val());
-      var height = parseInt($("#widget_height").val());
+      //var height = parseInt($("#widget_height").val());
       var max = parseInt($("#max_value").val());
       var min = parseInt($("#min_value").val());
       var unit = $("#value_unit").val();
@@ -110,7 +110,7 @@ var fs_temperature = {
           tid: divid,
           title: title,
           width: width,
-          height: height,
+          //height: height,
           max: max,
           min: min,
           unit: unit,
