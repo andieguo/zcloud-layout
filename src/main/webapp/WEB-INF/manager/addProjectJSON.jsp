@@ -134,8 +134,8 @@ function templateTypeChange(){
 				dataType : 'json',
 				beforeSend:function(){
 					//这里是开始执行方法，显示效果，效果自己写
-					$("body").prepend('<div id="progress-bar"></div>');
-					$("#progress-bar").animate({width:'20%'},"slow");
+					parent.$("body").prepend('<div id="progress-bar"></div>');
+					parent.$("#progress-bar").animate({width:'30%'},"slow");
 				},
 				//complete:function(){
 					//方法执行完毕，效果自己可以关闭，或者隐藏效果
@@ -152,7 +152,7 @@ function templateTypeChange(){
 							$('#templateList').append("<option value='"+tid+"'>"+name+"</option>");
 						};
 						
-						$("#progress-bar").animate({
+						parent.$("#progress-bar").animate({
 							"width": "100%"
 						}, function () {
 							$(this).remove()
@@ -183,8 +183,8 @@ function templateIdChange(){
 				dataType : 'json',
 				beforeSend:function(){
 					//这里是开始执行方法，显示效果，效果自己写
-					$("body").prepend('<div id="progress-bar"></div>');
-					$("#progress-bar").animate({width:"20%"},"slow");
+					parent.$("body").prepend('<div id="progress-bar"></div>');
+					parent.$("#progress-bar").animate({width:"30%"},"slow");
 				},
 				//complete:function(){
 					//方法执行完毕，效果自己可以关闭，或者隐藏效果
@@ -195,7 +195,7 @@ function templateIdChange(){
 						var dataJson = JSON.parse(data.data);
 						buildJSONTextArea(dataJson);
 						
-						$("#progress-bar").animate({
+						parent.$("#progress-bar").animate({
 							"width": "100%"
 						}, function () {
 							$(this).remove()
