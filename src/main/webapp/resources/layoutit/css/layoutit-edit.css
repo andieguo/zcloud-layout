@@ -488,6 +488,15 @@ footer p{margin: 0;}
 	background-color:#24ACA6;
 	*background-color:#24ACA6;
 }
+.btn-group input[type="file"] {
+    padding: 4px 5px;
+    width: 180px;
+    height: 20px;
+    line-height: 20px;
+    vertical-align: middle;
+    border: 1px solid #20A7A1;
+    border-radius: 4px;
+}
 /* attr base */
 .mr10p {
 	margin-right: 10px;
