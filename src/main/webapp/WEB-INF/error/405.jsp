@@ -6,8 +6,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
-<div id="altContent">
-	<h1>405：资源被禁止</h1>
+	<!-- 页头 -->
+    <header class="header">
+        <div class="logo">
+            <h1 class="name">智云组态仿真软件</h1>
+        </div>
+        <div class="user">
+            <span class="name">${admin.nickname }</span>
+            <a class="out" href="${basePath }/admin/outlogin">退出</a>
+        </div>
+    </header>
+    <!-- /页头 -->
+<div class="error-content" id="altContent">
+	<h1 class="error-title">4<img src="${basePath }/resources/images/error-bg.png">5</h1>
+	<h2 class="error-text">资源被禁止</h2>
 </div>
+	<!-- 页尾 -->
+    <footer class="footer">中智讯（武汉）科技有限公司版权所有&nbsp;&nbsp;&nbsp;&nbsp;鄂ICP备13015866号-2</footer>
+    <!-- /页尾 -->
 </body>
 </html>

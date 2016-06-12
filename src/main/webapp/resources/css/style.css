@@ -574,6 +574,34 @@ button.close {
   border: 0;
   -webkit-appearance: none; }
 
+.error-content {
+  box-sizing: border-box;
+  background-color: #fff;
+  position: absolute;
+  padding-top: 50px;
+  width: 100%;
+  height: calc(100% - 60px);
+  text-align: center; }
+
+.error-title {
+  font-size: 16em;
+  color: #6AB5E3; }
+  .error-title img {
+    margin-top: 50px;
+    height: 220px;
+    vertical-align: top; }
+
+.error-text {
+  margin-top: 1em;
+  font-size: 4em;
+  color: #121921; }
+  .error-text p {
+    margin: 30px auto 0 auto;
+    width: 500px;
+    font-size: .3em;
+    line-height: 2em;
+    text-align: left; }
+
 @media screen and (max-height: 800px) {
   .banner {
     height: 40px; }
