@@ -48,7 +48,7 @@
 					</spring:bind>
 					<div class="form-group">
 						<label>模板类型：</label>
-						<select id="templateType" onchange="templateTypeChange()">
+						<select id="templateType" onchange="templateTypeChange('${basePath}/project/templateList')">
 						  <option value="-1">请选择</option>
 	                      <option value="1">用户模板</option>
 	                      <option value="0">系统模板</option>
@@ -56,7 +56,7 @@
 					</div>
 					<div class="form-group">
 						<label for="templateList">模板列表：</label>
-	              	 	<select id="templateList" onchange="templateIdChange()"></select>
+	              	 	<select id="templateList" onchange="templateIdChange('${basePath}/project/template/id')"></select>
 					</div>
 					<spring:bind path="zcloudID">
 						<div class="form-group">
@@ -155,128 +155,6 @@ function macListBuild(dataJson){
 	console.log(sensorAarry);
 	return sensorAarry;
 }
-
-//构造UI编辑视图
-function contentBuild(dataJson){
-	//加载title
-	var content = "<div class='head'>";
-	$.each(dataJson,function(name,value) {
-		if(typeof(value.dataType) != 'undefined'){
-			content = content + "<a>"+ value.title+"</a>";
-		}
-	});
-	content = content + "</div>";
-	//加载content	
-	$.each(dataJson,function(name,value) {
-		if(typeof(value.dataType) != 'undefined'){
-			if(value.dataType == 'video'){
-				content = content + "<div class='video body hide' id="+value.tid+">"
-				 + "<label>摄像头地址：</label><input type='text' value='Camera:192.168.1.91:81' class='address'><hr>"
-				 + "<label>用户名：</label><input type='text' value='admin' class='user'><hr>"
-				 + "<label>密码：</label><input type='text' value='admin' class='pwd'><hr>"
-				 + "<label>摄像头类型：</label><input type='text' value='H3-Series' class='camtype'>"
-				 + "</div>";
-			}else{
-				content = content + "<div class='sensor body hide' id="+value.tid+">"
-				 + "<label>地址：</label><input type='text' value='' class='address'><hr>"
-				 + "<label>通道：</label><input type='text' value='' class='channel'><hr>"
-				 + "<label>命令：</label><input type='text' value='{}' class='command'>"
-				 + "</div>";		
-			}
-		}
-	});
-	$("#config").html(content);
-}
-
-function templateTypeChange(){
-	var type = $("#templateType").val();
-	var url = "${basePath}/project/templateList";
-	if(type != -1){
-		 $.ajax({//提交给后台
-				url : url,
-				type : 'post',
-				data : {'type':type},
-				dataType : 'json',
-				beforeSend:function(){
-					//这里是开始执行方法，显示效果，效果自己写
-					parent.$("body").prepend('<div id="progress-bar"></div>');
-					parent.$("#progress-bar").animate({width:'20%'},"slow");
-				},
-				//complete:function(){
-					//方法执行完毕，效果自己可以关闭，或者隐藏效果
-				//},
-				success : function(data) {//返回的data本身即是一个JSON对象
-					if(data.status == 1){//push成功
-						var array = data.data[0];
-						$('#templateList').empty();
-						$('#templateList').append("<option value='-1'>请选择</option>");
-						for(var i=0;i<array.length;i++){
-							var tid = array[i].tid;
-							var name = array[i].name;
-// 							console.log("tid:"+tid);
-							$('#templateList').append("<option value='"+tid+"'>"+name+"</option>");
-						}
-						
-						parent.$("#progress-bar").animate({
-							"width": "100%"
-						}, function () {
-							$(this).remove()
-						});
-						
-					}else if(data.status==0){//push失败，恢复UI部分
-						console.log("failed");
-					}
-				},
-				error : function() {
-					alert("您请求的页面有异常 ");
-				}
-		});
-	}else{
-		$('#templateList').empty();
-	}
-}
-
-function templateIdChange(){
-	var tid = $("#templateList").val();
-	var url = "${basePath}/project/template/id";
-	if(tid != -1){
-		$.ajax({//提交给后台
-				url : url,
-				type : 'post',
-				data : {'id':tid},
-				dataType : 'json',
-				beforeSend:function(){
-					//这里是开始执行方法，显示效果，效果自己写
-					parent.$("body").prepend('<div id="progress-bar"></div>');
-					parent.$("#progress-bar").animate({width:"20%"},"slow");
-				},
-				//complete:function(){
-					//方法执行完毕，效果自己可以关闭，或者隐藏效果
-				//},
-				success : function(data) {//返回的data本身即是一个JSON对象
-					if(data.status == 1){
-						console.log("data:"+data.data);
-						dataJson = JSON.parse(data.data);
-						contentBuild(dataJson);
-						configNavActive();
-						
-						parent.$("#progress-bar").animate({
-							"width": "100%"
-						}, function () {
-							$(this).remove()
-						});
-						
-					}else if(data.status==0){
-						console.log("failed");
-					}
-				},
-				error : function() {
-					alert("您请求的页面有异常 ");
-				}
-		});
-	}
-}
-
 </script>
 </body>
 </html>
