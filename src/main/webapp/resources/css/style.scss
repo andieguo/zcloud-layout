@@ -5,6 +5,14 @@ $color03: #b30011;  //红色
 body {
 	background-color: #EEE;
 }
+#progress-bar {
+	position: absolute;
+	top: 0;
+	width: 0;
+	height: 2px;
+	box-shadow: 0 0 10px $color01;
+	background-color: lighten($color02,10%);
+}
 .font-green {
 	color: lighten($color02,10%);
 }
@@ -28,8 +36,6 @@ body {
 	width: 20px;
 	height: 20px;
 	background-position: -60px -40px;
-}
-.flo {
 }
 .hide {
 	display: none;
@@ -269,6 +275,9 @@ iframe {
 			border: 1px solid $color02;
 			border-radius: 5px;
 		}
+		a {
+			margin-right: 10px;
+		}
 		input[type="file"] {
 			padding: 4px 5px;
 			width: 160px;
@@ -434,6 +443,7 @@ iframe {
 		vertical-align:middle;
 	}
 	.error {
+	    margin-left: 10px;
 		width: 30%;
 		min-width: 150px;
 		color: red;
@@ -608,6 +618,7 @@ button.close{padding:0;cursor:pointer;background:transparent;border:0;-webkit-ap
 		line-height: 40px;
 	}
 }
+
 // @media screen and (max-width:900px) {
 // 	.main {
 // 		aside.text{

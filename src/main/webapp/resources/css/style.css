@@ -2,6 +2,14 @@
 body {
   background-color: #EEE; }
 
+#progress-bar {
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 2px;
+  box-shadow: 0 0 10px #121921;
+  background-color: #24bab3; }
+
 .font-green {
   color: #24bab3; }
 
@@ -228,6 +236,8 @@ iframe {
       vertical-align: middle;
       border: 1px solid #1C8F8A;
       border-radius: 5px; }
+    .table-header .header-left a {
+      margin-right: 10px; }
     .table-header .header-left input[type="file"] {
       padding: 4px 5px;
       width: 160px; }
@@ -365,6 +375,7 @@ iframe {
   .form-group .btn {
     vertical-align: middle; }
   .form-group .error {
+    margin-left: 10px;
     width: 30%;
     min-width: 150px;
     color: red;

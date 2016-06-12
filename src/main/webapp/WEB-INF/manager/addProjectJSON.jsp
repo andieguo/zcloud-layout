@@ -11,25 +11,9 @@
     <title>智云组态仿真软件</title>
     <link rel="stylesheet" href="${basePath }/resources/css/style.css">
     <script src="${basePath }/resources/js/jquery2.2.1.min.js"></script>
-    <script src="${basePath }/resources/js/form.js"></script>
-    <style>
-    	body {
-    		margin: 0;
-    		padding: 0;
-    		min-height: 500px;
-    		width: 100%;
-    	}
-		#progress-bar {
-			position: absolute;
-			width: 0;
-			height: 2px;
-			box-shadow: 0 0 10px #000;
-			background-color: blue;
-		}
-    </style>
+    <script src="${basePath }/resources/js/form.js"></script> 
 </head>
 <body>
-<div id="progress-bar"></div>
 <section class="main">
    	<%@ include file="/WEB-INF/share/notice.jsp" %>
     <div class="content sw">
@@ -150,11 +134,12 @@ function templateTypeChange(){
 				dataType : 'json',
 				beforeSend:function(){
 					//这里是开始执行方法，显示效果，效果自己写
+					$("body").prepend('<div id="progress-bar"></div>');
 					$("#progress-bar").animate({width:'20%'},"slow");
 				},
-				complete:function(){
+				//complete:function(){
 					//方法执行完毕，效果自己可以关闭，或者隐藏效果
-				},
+				//},
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){//push成功
 						var array = data.data[0];
@@ -165,8 +150,14 @@ function templateTypeChange(){
 							var name = array[i].name;
 // 							console.log("tid:"+tid);
 							$('#templateList').append("<option value='"+tid+"'>"+name+"</option>");
-						}
-						$("#progress-bar").animate({width:'100%'},"slow");
+						};
+						
+						$("#progress-bar").animate({
+							"width": "100%"
+						}, function () {
+							$(this).remove()
+						});
+						
 					}else if(data.status==0){//push失败，恢复UI部分
 						console.log("failed");
 					}
@@ -192,17 +183,24 @@ function templateIdChange(){
 				dataType : 'json',
 				beforeSend:function(){
 					//这里是开始执行方法，显示效果，效果自己写
-					$("#progress-bar").animate({width:'20%'},"slow");
+					$("body").prepend('<div id="progress-bar"></div>');
+					$("#progress-bar").animate({width:"20%"},"slow");
 				},
-				complete:function(){
+				//complete:function(){
 					//方法执行完毕，效果自己可以关闭，或者隐藏效果
-				},
+				//},
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){
 						//console.log("data:"+data.data);
 						var dataJson = JSON.parse(data.data);
 						buildJSONTextArea(dataJson);
-						$("#progress-bar").animate({width:'100%'},"slow");
+						
+						$("#progress-bar").animate({
+							"width": "100%"
+						}, function () {
+							$(this).remove()
+						});
+						
 					}else if(data.status==0){
 						console.log("failed");
 					}

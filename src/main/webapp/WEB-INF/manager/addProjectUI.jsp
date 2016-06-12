@@ -197,6 +197,14 @@ function templateTypeChange(){
 				type : 'post',
 				data : {'type':type},
 				dataType : 'json',
+				beforeSend:function(){
+					//这里是开始执行方法，显示效果，效果自己写
+					$("body").prepend('<div id="progress-bar"></div>');
+					$("#progress-bar").animate({width:'20%'},"slow");
+				},
+				//complete:function(){
+					//方法执行完毕，效果自己可以关闭，或者隐藏效果
+				//},
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){//push成功
 						var array = data.data[0];
@@ -208,6 +216,13 @@ function templateTypeChange(){
 // 							console.log("tid:"+tid);
 							$('#templateList').append("<option value='"+tid+"'>"+name+"</option>");
 						}
+						
+						$("#progress-bar").animate({
+							"width": "100%"
+						}, function () {
+							$(this).remove()
+						});
+						
 					}else if(data.status==0){//push失败，恢复UI部分
 						console.log("failed");
 					}
@@ -230,12 +245,27 @@ function templateIdChange(){
 				type : 'post',
 				data : {'id':tid},
 				dataType : 'json',
+				beforeSend:function(){
+					//这里是开始执行方法，显示效果，效果自己写
+					$("body").prepend('<div id="progress-bar"></div>');
+					$("#progress-bar").animate({width:"20%"},"slow");
+				},
+				//complete:function(){
+					//方法执行完毕，效果自己可以关闭，或者隐藏效果
+				//},
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){
 						console.log("data:"+data.data);
 						dataJson = JSON.parse(data.data);
 						contentBuild(dataJson);
 						configNavActive();
+						
+						$("#progress-bar").animate({
+							"width": "100%"
+						}, function () {
+							$(this).remove()
+						});
+						
 					}else if(data.status==0){
 						console.log("failed");
 					}
