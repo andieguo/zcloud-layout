@@ -1,9 +1,16 @@
-<%@ page language="java" pageEncoding="utf-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
+<%@ page language="java" pageEncoding="utf-8" import="com.zonesion.layout.model.AdminEntity,com.zonesion.layout.util.Constants" isELIgnored="false"%>
+<%@ include file="/WEB-INF/share/taglib.jsp" %>
+<!doctype html>
+<html lang="zh-CN">
 <head>
 <title>智云组态软件</title>
+<%
+	HttpSession sessions = request.getSession();
+	AdminEntity admin = (AdminEntity)sessions.getAttribute("admin");
+%>
+<c:set var="basePath" value="<%=basePath %>" scope="application"/> 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="${basePath }/resources/css/style.css">
 </head>
 <body>
 	<!-- 页头 -->

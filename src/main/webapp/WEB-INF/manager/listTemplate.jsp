@@ -12,6 +12,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="stylesheet" href="${basePath }/resources/css/style.css">
 	<%@ include file="/resources/share/script.jsp"%>
+	<script src="${basePath }/resources/js/form.js"></script>
 	<script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>

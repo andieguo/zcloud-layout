@@ -49,6 +49,11 @@ function enableAction(url){
 				type : 'post',
 				data : {'id':id,'deleted':status},
 				dataType : 'json',
+				beforeSend:function(){
+					//这里是开始执行方法，显示效果，效果自己写
+					var a = new ProgressBar();
+					a.start();
+				},
 				success : function(data) {//返回的data本身即是一个JSON对象
 					if(data.status == 1){//push成功
 						if(status == 1){
@@ -60,6 +65,8 @@ function enableAction(url){
 						}
 						stateColor();
 						stateImage();
+						var a = new ProgressBar();
+						a.end();
 					}else if(data.status==0){//push失败，恢复UI部分
 						console.log("failed");
 					}

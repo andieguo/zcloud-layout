@@ -1,9 +1,11 @@
-<%@ page language="java" pageEncoding="utf-8"%>
+<%@ page language="java" pageEncoding="utf-8"  isELIgnored="false"%>
+<%@ include file="/WEB-INF/share/taglib.jsp" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <title>智云组态软件</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="${basePath }/resources/css/style.css">
 </head>
 <body>
 	<!-- 页头 -->
