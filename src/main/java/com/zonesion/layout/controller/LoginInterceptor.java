@@ -62,7 +62,11 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
         	AdminEntity admin =  (AdminEntity)request.getSession().getAttribute("admin");   
         	if(admin == null ){
         		logger.info("Interceptor：跳转到login页面！");
-        		request.getSession().setAttribute("from", url+"?"+params);
+        		if(params != null && params.equals("")){
+        			request.getSession().setAttribute("from", url+"?"+params);
+        		}else{
+        			request.getSession().setAttribute("from", url);
+        		}
         		response.sendRedirect(contextPath+"/admin/loginUI");
         		return false;  //不放行
         	}else  

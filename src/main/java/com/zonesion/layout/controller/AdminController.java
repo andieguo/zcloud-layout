@@ -187,6 +187,7 @@ public class AdminController {
 	 */
 	@RequestMapping(value="/admin/outlogin",method=RequestMethod.GET)
 	public String outlogin(){
+		httpSession.removeAttribute("from");
 		httpSession.removeAttribute("admin");
 		return "redirect:/admin/loginUI";
 	}

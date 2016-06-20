@@ -11,6 +11,7 @@
 <title>智云组态仿真软件</title>
 <link rel="stylesheet" href="${basePath }/resources/css/style.css">
 <%@ include file="/resources/share/script.jsp"%>
+<script src="${basePath }/resources/js/form.js"></script>
 <script src="${basePath }/resources/js/list.js"></script>
 </head>
 <body>
